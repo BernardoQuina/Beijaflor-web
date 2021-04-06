@@ -542,14 +542,6 @@
   dependencies:
     purgecss "^3.1.3"
 
-"@graphql-codegen/add@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/add/-/add-2.0.2.tgz#4acbb95be9ebb859a3cebfe7132fdf49ffe06dd8"
-  integrity sha512-0X1ofeSvAjCNcLar2ZR1EOmm5dvyKJMFbgM+ySf1PaHyoi3yf/xRI2Du81ONzQ733Lhmn3KTX1VKybm/OB1Qtg==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^1.18.2"
-    tslib "~2.0.1"
-
 "@graphql-codegen/cli@^1.21.3":
   version "1.21.3"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-1.21.3.tgz#3506c5d019c6995be1927bd4d9c67a739fafe5e6"
@@ -606,16 +598,6 @@
     "@graphql-tools/utils" "^6"
     tslib "~2.0.1"
 
-"@graphql-codegen/import-types-preset@^1.18.1":
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/import-types-preset/-/import-types-preset-1.18.1.tgz#86d7c41243e1a5fca9ecfff5c0fa5e3f9d0ab3aa"
-  integrity sha512-kEu47bv/q/hn8JdaLu8dj34CM7zwCePq7OcnsIGtMtIA0SMZ5TvpO3VkDuYUQd0lh/dckVwIfasZv/3U8Tw2pQ==
-  dependencies:
-    "@graphql-codegen/add" "^2.0.2"
-    "@graphql-codegen/plugin-helpers" "^1.18.2"
-    "@graphql-codegen/visitor-plugin-common" "^1.17.20"
-    tslib "~2.0.1"
-
 "@graphql-codegen/plugin-helpers@^1.18.2", "@graphql-codegen/plugin-helpers@^1.18.3", "@graphql-codegen/plugin-helpers@^1.18.4":
   version "1.18.4"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-1.18.4.tgz#0adc4c0f88386a50b7a69d358080b6ee54fc3b16"
@@ -659,7 +641,7 @@
     auto-bind "~4.0.0"
     tslib "~2.1.0"
 
-"@graphql-codegen/visitor-plugin-common@^1.17.20", "@graphql-codegen/visitor-plugin-common@^1.18.0", "@graphql-codegen/visitor-plugin-common@^1.19.0", "@graphql-codegen/visitor-plugin-common@^1.19.1":
+"@graphql-codegen/visitor-plugin-common@^1.19.0", "@graphql-codegen/visitor-plugin-common@^1.19.1":
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-1.19.1.tgz#2584588351a343a2ad8cd76dde62eb2ec25abe18"
   integrity sha512-MJZXe5vXxV6PLOgHhQoz93gnjzJtbnVQXQKqVEcbyB9W8ImoKuTHsEf/eJ6yCL79f7X/2dnOOM84d5Osh1eaKg==
@@ -1055,11 +1037,6 @@
   integrity sha512-rNAPdomlIUX0i0cg2+I+Q1wOUr531zHBQ+cV/28PJ39bSPKjahatZZ2LMuhiguETkCgLVzfruw/ZvNMNkKoSzw==
   dependencies:
     "@types/node" "*"
-
-"@types/lodash@^4.14.168":
-  version "4.14.168"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
-  integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
 
 "@types/luxon@^1.26.3":
   version "1.26.3"
@@ -2134,11 +2111,6 @@ deepmerge@^2.1.1:
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
   integrity sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==
 
-deepmerge@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
-  integrity sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
-
 defer-to-connect@^1.0.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/defer-to-connect/-/defer-to-connect-1.1.3.tgz#331ae050c08dcf789f8c83a7b81f0ed94f4ac591"
@@ -2725,15 +2697,6 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
-
-graphql-codegen-apollo-next-ssr@^1.5.6:
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/graphql-codegen-apollo-next-ssr/-/graphql-codegen-apollo-next-ssr-1.5.6.tgz#f9509cfe9d18b5a120c6006d1638c14de6ba88cc"
-  integrity sha512-oqE7iUnkTfNgACa7EkbUX5xcAp/uv55bITofvg8gliD65tlcQBdw76LMu06b3X4uUMGLkRPJQV6tupWkpCfqzw==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^1.18.2"
-    "@graphql-codegen/visitor-plugin-common" "^1.18.0"
-    auto-bind "~4.0.0"
 
 graphql-config@^3.2.0:
   version "3.2.0"

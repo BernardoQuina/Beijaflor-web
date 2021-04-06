@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Crafter';
+  src: url('./Crafter-Regular.otf') format('opentype'),
+    url('./Crafter-Rough.otf') format('opentype');
+}
