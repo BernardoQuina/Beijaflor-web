@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import {
   ApolloClient,
   createHttpLink,
@@ -5,13 +6,15 @@ import {
   NormalizedCacheObject,
   split,
 } from '@apollo/client'
+import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { setContext } from '@apollo/client/link/context'
-import { NextPageContext } from 'next'
-import { createWithApollo } from './createWithApollo'
-import { getMainDefinition } from '@apollo/client/utilities'
 
-const createClient = (_ctx: NextPageContext) => {
+export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
+
+let apolloClient: ApolloClient<NormalizedCacheObject>
+
+function createApolloClient() {
   const httpLink = createHttpLink({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
     credentials: 'include',
@@ -49,15 +52,27 @@ const createClient = (_ctx: NextPageContext) => {
       )
     : authLink.concat(httpLink)
 
-  const client = new ApolloClient({
+  return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: splitLink,
     cache: new InMemoryCache({}),
   })
-
-  return client
 }
 
-export const withApollo = createWithApollo(
-  (createClient as unknown) as ApolloClient<NormalizedCacheObject>
-)
+export function initializeApollo(initialState: NormalizedCacheObject = null) {
+  const _apolloClient = apolloClient ?? createApolloClient()
+
+  if (initialState) {
+    _apolloClient.cache.restore(initialState)
+  }
+
+  if (typeof window === 'undefined') return _apolloClient
+  apolloClient = apolloClient ?? _apolloClient
+
+  return apolloClient
+}
+
+export function useApollo(initialState: NormalizedCacheObject) {
+  const store = useMemo(() => initializeApollo(initialState), [initialState])
+  return store
+}

@@ -1,0 +1,11 @@
+fragment BasicUserInfo on User {
+  id
+  googleId
+  facebookId
+  email
+  name
+  photo
+  cloudinaryPhoto
+  createdAt
+  updatedAt
+}
