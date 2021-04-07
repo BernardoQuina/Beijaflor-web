@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Crafter';
-  src: url('./Crafter-Regular.otf') format('opentype'),
-    url('./Crafter-Rough.otf') format('opentype');
+  font-family: 'Coves';
+  src: url('./Coves-Light.otf') format('opentype'),
+    url('./Coves-Bold.otf') format('opentype');
 }

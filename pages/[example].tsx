@@ -18,9 +18,8 @@ const User: NextPage<UserProps> = ({ serverError }) => {
     variables: { userId },
   })
 
-
   return (
-    <div className='min-h-screen font-bold text-4xl bg-blue-500 text-blue-50 items-center justify-center'>
+    <div className='min-h-screen font-bold text-4xl bg-pink-light text-green-light items-center justify-center'>
       <Link href='/'>
         <a>Go Home</a>
       </Link>
@@ -42,8 +41,6 @@ const User: NextPage<UserProps> = ({ serverError }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const apolloClient = initializeApollo()
-
-  console.log('context: ', context.req)
 
   const response = await apolloClient.query({
     query: UserDocument,

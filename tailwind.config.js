@@ -3,16 +3,21 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'sans': ['Crafter', 'Arial', 'sans-serif']
+      'sans': ['Coves', 'Arial', 'sans-serif']
     },
     extend: {
+      screens: {
+        '3xl': '1600px',
+        '4xl': '2000px'
+      },
       colors: {
         pink: {
           light: '#FFE8D6',
-          medium: '#CB997E',
+          medium: '#DDBEA9',
           dark: '#CB997E',
         },
         green: {
+          extraLight: '#D6E4D8',
           light: '#B7B7A4',
           medium: '#A5A58D',
           dark: '#6B705C',
@@ -21,7 +26,10 @@ module.exports = {
     },
   },
   variants: {
+    scrollbar: ['rounded'],
     extend: {},
   },
-  plugins: [], // <-- is array
+  plugins: [
+    require('tailwind-scrollbar'),
+  ], // <-- is array
 }
