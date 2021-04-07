@@ -11,7 +11,71 @@ const Home: NextPage<HomeProps> = () => {
 
   return (
     <Layout>
-      
+      <div className='flex mt-20'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
+      <div className='flex mt-10'>
+        <h1 className='text-5xl'>hello</h1>
+        <h1 className='text-5xl mx-auto'>hello</h1>
+        <h1 className='text-5xl'>hello</h1>
+      </div>
     </Layout>
   )
 }

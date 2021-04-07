@@ -17,12 +17,15 @@ module.exports = {
           dark: '#CB997E',
         },
         green: {
-          extraLight: '#D6E4D8',
+          extraLight: '#EEEEE5',
           light: '#B7B7A4',
           medium: '#A5A58D',
           dark: '#6B705C',
         },
       },
+      boxShadow: {
+        'inner-2': 'inset 0 24px 24px 24px rgba(0, 0, 0, 0.04)'
+      }
     },
   },
   variants: {
