@@ -11,6 +11,13 @@ interface NavbarProps {}
 export const Navbar: React.FC<NavbarProps> = ({}) => {
   const [open, setOpen] = useState(false)
   const [searchActive, setSearchActive] = useState(false)
+  const [underline, setUnderline] = useState(0)
+
+  const underlineRef = useRef<number>()
+  underlineRef.current = underline
+
+  const openRef = useRef<boolean>()
+  openRef.current = open
 
   const navNode = useRef<HTMLButtonElement | null>(null)
   const searchNode = useRef<HTMLInputElement | null>(null)
@@ -21,6 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
     }
 
     setOpen(false)
+    setUnderline(0)
   }
 
   const offSearchClick = (e: any) => {
@@ -34,13 +42,22 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   useEffect(() => {
     document.addEventListener('mousedown', offNavClick)
     document.addEventListener('mousedown', offSearchClick)
-  }, [searchActive, open])
+    return () => {
+      document.removeEventListener('mousedown', offNavClick)
+      document.removeEventListener('mousedown', offSearchClick)
+    }
+  }, [searchActive, open, underline])
 
   return (
     <AnimateSharedLayout>
       <div className='fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-5 mx-auto left-0 right-0'>
         <motion.nav
           layoutId='expandable-nav'
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            damping: 21,
+          }}
           className={`flex w-full ${
             !open ? ' h-[4.5rem]' : ' h-[30rem]'
           }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight`}
@@ -49,18 +66,57 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           <motion.div layoutId='top-nav' className='flex w-full h-[4.5rem]'>
             <div className='h-[3rem] w-[3rem] ml-4 rounded-full self-center bg-green-medium'></div>
             <div className='hidden md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
-              <button className='text-2xl self-center font-bold ml-4 focus:outline-none'>
+              <motion.button
+                className={`text-2xl self-center font-bold ml-4 focus:outline-none`}
+                onMouseEnter={() => setUnderline(1)}
+                onMouseLeave={() =>
+                  setTimeout(() => {
+                    if (underlineRef.current === 1) setUnderline(0)
+                  }, 500)
+                }
+              >
                 NOVIDADES
-              </button>
-              <button className='text-2xl self-center font-bold mx-auto focus:outline-none'>
+                {underline === 1 && (
+                  <motion.div
+                    layoutId='underline'
+                    className='h-[0.15rem] w-full rounded-full bg-green-medium'
+                  ></motion.div>
+                )}
+              </motion.button>
+              <motion.button
+                className={`text-2xl self-center font-bold mx-auto focus:outline-none`}
+                onMouseEnter={() => setUnderline(2)}
+                onMouseLeave={() =>
+                  setTimeout(() => {
+                    if (openRef.current) setUnderline(3)
+                    if (underlineRef.current === 2) setUnderline(0)
+                  }, 500)
+                }
+              >
                 POPULAR
-              </button>
-              <button
-                className='text-2xl self-center font-bold mr-4 focus:outline-none'
-                onClick={() => setOpen(!open)}
+                {underline === 2 && (
+                  <motion.div
+                    layoutId='underline'
+                    className='h-[0.15rem] w-full rounded-full bg-green-medium'
+                  ></motion.div>
+                )}
+              </motion.button>
+              <motion.button
+                className={`text-2xl self-center font-bold mr-4 focus:outline-none`}
+                onMouseEnter={() => {
+                  setUnderline(3)
+                  setOpen(true)
+                }}
               >
                 CATEGORIAS
-              </button>
+                {underline === 3 ||
+                (open && underline !== 1 && underline !== 2) ? (
+                  <motion.div
+                    layoutId='underline'
+                    className='h-[0.16rem] w-full rounded-full bg-green-medium'
+                  ></motion.div>
+                ) : null}
+              </motion.button>
             </div>
             <motion.div
               layoutId='search-expand'
@@ -71,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               } md:w-4/12 mx-auto self-center items-center rounded-xl shadow-sm bg-white text-3xl`}
               onClick={() => setSearchActive(true)}
             >
-              <motion.div layoutId='search-logo' >
+              <motion.div layoutId='search-logo'>
                 <Search
                   fontSize='inherit'
                   className='absolute transform left-[95%] translate-x-[-95%] -mt-3 text-gray-300'
@@ -90,10 +146,17 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           </motion.div>
         </motion.nav>
         <motion.button
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            damping: 21,
+          }}
           type='button'
           layoutId='expandable-nav-button'
           className='absolute -bottom-7 mx-auto left-0 right-0 focus:outline-none'
-          onClick={() => setOpen(!open)}
+          onClick={() => {
+            setOpen(!open)
+          }}
         >
           <ExpandMoreRounded
             fontSize='large'
