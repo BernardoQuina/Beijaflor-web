@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimateSharedLayout, motion } from 'framer-motion'
+import {Image} from 'cloudinary-react'
 import ExpandMoreRounded from '@material-ui/icons/ExpandMoreRounded'
 import Search from '@material-ui/icons/Search'
 import Person from '@material-ui/icons/Person'
@@ -50,7 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <AnimateSharedLayout>
-      <div className='fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-5 mx-auto left-0 right-0'>
+      <div className='z-[1] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-5 mx-auto left-0 right-0'>
         <motion.nav
           layoutId='expandable-nav'
           transition={{
@@ -62,15 +63,24 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             !open ? ' h-[4.5rem]' : ' h-[30rem]'
           }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight`}
           ref={navNode}
+          // onMouseLeave={() => setTimeout(() => setOpen(false), 2000)}
         >
           <motion.div layoutId='top-nav' className='flex w-full h-[4.5rem]'>
-            <div className='h-[3rem] w-[3rem] ml-4 rounded-full self-center bg-green-medium'></div>
-            <div className='hidden md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
+            <div className=' ml-2 rounded-full self-center'>
+            <Image
+          className='h-[3rem] w-[3rem]'
+          src='/logo.png'
+          crop='fill'
+        />
+            </div>
+            <div className='hidden ml-2 md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
               <motion.button
                 className={`text-2xl self-center font-bold ml-4 focus:outline-none`}
                 onMouseEnter={() => setUnderline(1)}
                 onMouseLeave={() =>
                   setTimeout(() => {
+                    if (openRef.current && underlineRef.current !== 2)
+                      setUnderline(3)
                     if (underlineRef.current === 1) setUnderline(0)
                   }, 500)
                 }
@@ -88,7 +98,8 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 onMouseEnter={() => setUnderline(2)}
                 onMouseLeave={() =>
                   setTimeout(() => {
-                    if (openRef.current) setUnderline(3)
+                    if (openRef.current && underlineRef.current !== 1)
+                      setUnderline(3)
                     if (underlineRef.current === 2) setUnderline(0)
                   }, 500)
                 }
@@ -135,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               </motion.div>
               <input
                 ref={searchNode}
-                className='w-10/12 ml-2 pl-2 pr-5 focus:outline-none'
+                className='w-10/12 ml-2 pl-2 pr-5 text-2xl focus:outline-none'
               />
             </motion.div>
             <div className='flex mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>

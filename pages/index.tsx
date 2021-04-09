@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import { Image } from 'cloudinary-react'
 import { Layout } from '../components/Layout'
 // import Link from 'next/link'
 // import { useMeQuery } from '../lib/generated/graphql'
@@ -11,51 +12,21 @@ const Home: NextPage<HomeProps> = () => {
 
   return (
     <Layout>
-      <div className='flex mt-20'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
-      <div className='flex mt-10'>
-        <h1 className='text-5xl'>hello</h1>
-        <h1 className='text-5xl mx-auto'>hello</h1>
-        <h1 className='text-5xl'>hello</h1>
-      </div>
+      <section>
+        <h1 className=' w-[70%] ml-2 md:ml-10 text-5xl md:text-7xl font-bold'>
+          Traga vida ao seu espaço
+        </h1>
+        <button className='ml-12 mt-44 p-1 px-2 rounded-md shadow-md text-pink-dark bg-pink-light tracking-widest text-xl font-bold'>
+          EXPLORAR
+        </button>
+        <Image
+          className='absolute top-[12%] left-[20%] z-[-1] transform'
+          src='/homepage-plant1.png'
+          height={1000}
+          width={1000}
+          crop='fill'
+        />
+      </section>
     </Layout>
   )
 }
