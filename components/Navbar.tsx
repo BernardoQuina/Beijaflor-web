@@ -66,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           // onMouseLeave={() => setTimeout(() => setOpen(false), 2000)}
         >
           <motion.div layoutId='top-nav' className='flex w-full h-[4.5rem]'>
-            <div className=' ml-2 rounded-full self-center'>
+            <div className=' ml-4 rounded-full self-center'>
             <Image
           className='h-[3rem] w-[3rem]'
           src='/logo.png'
