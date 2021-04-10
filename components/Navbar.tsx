@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <AnimateSharedLayout>
-      <div className='z-[1] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-5 mx-auto left-0 right-0'>
+      <div className='z-[1] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-4 mx-auto left-0 right-0'>
         <motion.nav
           layoutId='expandable-nav'
           transition={{
@@ -152,10 +152,10 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 className='w-10/12 ml-2 pl-2 pr-5 text-2xl focus:outline-none'
               />
             </motion.div>
-            <div className='flex mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
+            <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
               <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={2.1} />
               <Heart fontSize='large' className='text-green-dark mx-auto' />
-              <Person fontSize='large' className='mr-4 text-green-dark' />
+              <Person fontSize='large' className='mr-2 text-green-dark' />
             </div>
           </motion.div>
         </motion.nav>
