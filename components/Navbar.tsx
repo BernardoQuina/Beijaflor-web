@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 />
               </a>
             </Link>
-            <div className='hidden ml-2 md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
+            <div className='hidden md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
               <motion.button
                 className={`lg:text-xl 2xl:text-2xl self-center font-bold ml-4 focus:outline-none`}
                 onMouseEnter={() => setUnderline(1)}
@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               layoutId='search-expand'
               className={`flex h-[3rem] ${
                 searchActive
-                  ? 'absolute md:relative w-11/12 mx-auto left-0 right-0'
+                  ? 'absolute z-[1] md:relative w-11/12 mx-auto left-0 right-0'
                   : 'w-5/12 relative'
               } md:w-4/12 mx-auto self-center items-center rounded-xl shadow-sm bg-white text-3xl`}
               onClick={() => setSearchActive(true)}
