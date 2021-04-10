@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { AnimateSharedLayout, motion } from 'framer-motion'
-import {Image} from 'cloudinary-react'
+import { Image } from 'cloudinary-react'
 import ExpandMoreRounded from '@material-ui/icons/ExpandMoreRounded'
 import Search from '@material-ui/icons/Search'
 import Person from '@material-ui/icons/Person'
@@ -66,16 +67,18 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           // onMouseLeave={() => setTimeout(() => setOpen(false), 2000)}
         >
           <motion.div layoutId='top-nav' className='flex w-full h-[4.5rem]'>
-            <div className=' ml-4 rounded-full self-center'>
-            <Image
-          className='h-[3rem] w-[3rem]'
-          src='/logo.png'
-          crop='fill'
-        />
-            </div>
+            <Link href='/'>
+              <a className=' ml-4 rounded-full self-center'>
+                <Image
+                  className='h-[3rem] w-[3rem]'
+                  src='/logo.png'
+                  crop='fill'
+                />
+              </a>
+            </Link>
             <div className='hidden ml-2 md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
               <motion.button
-                className={`text-2xl self-center font-bold ml-4 focus:outline-none`}
+                className={`lg:text-xl 2xl:text-2xl self-center font-bold ml-4 focus:outline-none`}
                 onMouseEnter={() => setUnderline(1)}
                 onMouseLeave={() =>
                   setTimeout(() => {
@@ -94,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 )}
               </motion.button>
               <motion.button
-                className={`text-2xl self-center font-bold mx-auto focus:outline-none`}
+                className={`lg:text-xl 2xl:text-2xl self-center font-bold mx-auto focus:outline-none`}
                 onMouseEnter={() => setUnderline(2)}
                 onMouseLeave={() =>
                   setTimeout(() => {
@@ -113,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 )}
               </motion.button>
               <motion.button
-                className={`text-2xl self-center font-bold mr-4 focus:outline-none`}
+                className={`lg:text-xl 2xl:text-2xl self-center font-bold mr-4 focus:outline-none`}
                 onMouseEnter={() => {
                   setUnderline(3)
                   setOpen(true)
