@@ -96,7 +96,7 @@ const Home: NextPage<HomeProps> = () => {
           <h4 className='mt-16 md:mx-4 text-center text-2xl md:text-4xl tracking-wider'>
             Flores dizem-no melhor. Arranjos vibrantes e frescos.
           </h4>
-          <Carousel show={3}>
+          <Carousel show={3} infiniteLoop={true}>
             <div>
               <div style={{ padding: 8 }}>
                 <img

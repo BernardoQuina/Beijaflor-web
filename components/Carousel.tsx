@@ -2,23 +2,34 @@ import { useEffect, useState, Children } from 'react'
 
 interface CarouselProps {
   show: number
+  infiniteLoop: boolean
 }
 
-export const Carousel: React.FC<CarouselProps> = ({ children, show }) => {
+export const Carousel: React.FC<CarouselProps> = ({
+  children,
+  show,
+  infiniteLoop,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [length, setLength] = useState<number>(
     Children.toArray(children).length
   )
+
+  const [isRepeating, setIsRepeating] = useState(
+    infiniteLoop && Children.toArray(children).length > show
+  )
+  const [transitionEnabled, setTransitionEnabled] = useState(true)
+
   const [touchPosition, setTouchPosition] = useState(null)
 
   const next = () => {
-    if (currentIndex < length - show) {
+    if (isRepeating || currentIndex < length - show) {
       setCurrentIndex((prevState) => prevState + 1)
     }
   }
 
   const prev = () => {
-    if (currentIndex > 0) {
+    if (isRepeating || currentIndex > 0) {
       setCurrentIndex((prevState) => prevState - 1)
     }
   }
@@ -26,7 +37,6 @@ export const Carousel: React.FC<CarouselProps> = ({ children, show }) => {
   const handleTouchStart = (e: any) => {
     const touchDown = e.touches[0].clientX
     setTouchPosition(touchDown)
-    return
   }
 
   const handleTouchMove = (e: any) => {
@@ -51,18 +61,54 @@ export const Carousel: React.FC<CarouselProps> = ({ children, show }) => {
     setTouchPosition(null)
   }
 
+  const handleTransitionEnd = () => {
+    if (isRepeating) {
+      if (currentIndex === 0) {
+        setTransitionEnabled(false)
+        setCurrentIndex(length)
+      } else if (currentIndex === length + show) {
+        setTransitionEnabled(false)
+        setCurrentIndex(show)
+      }
+    }
+  }
+
+  const renderExtraPrev = () => {
+    let output = []
+    for (let index = 0; index < show; index++) {
+      output.push((children as any)[length - 1 - index])
+    }
+    output.reverse()
+    return output
+  }
+
+  const renderExtraNext = () => {
+    let output = []
+    for (let index = 0; index < show; index++) {
+      output.push((children as any)[index])
+    }
+    return output
+  }
+
   useEffect(() => {
     setLength(Children.toArray(children).length)
-  }, [children])
+    setIsRepeating(
+      infiniteLoop && infiniteLoop && Children.toArray(children).length > show
+    )
+  }, [children, infiniteLoop, show])
+
+  useEffect(() => {
+    if (isRepeating) {
+      if (currentIndex === show || currentIndex === length) {
+        setTransitionEnabled(true)
+      }
+    }
+  }, [currentIndex, isRepeating, show, length])
 
   return (
     <div className='w-full flex flex-col'>
-      {' '}
-      {/*container*/}
       <div className='flex w-full relative'>
-        {' '}
-        {/*wrapper*/}
-        {currentIndex > 0 && (
+        {(isRepeating || currentIndex > 0) && (
           <button
             className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] border rounded-full bg-white left-[12px] leading-[1.6rem] text-3xl font-bold'
             onClick={prev}
@@ -75,20 +121,21 @@ export const Carousel: React.FC<CarouselProps> = ({ children, show }) => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
         >
-          {' '}
-          {/*content-wrapper*/}
           <div
-            className={`carousel-content md show-${show}`}
+            className={`carousel-content show-${show}`}
             style={{
               transform: `translateX(-${currentIndex * (100 / show)}%)`,
+              transition: !transitionEnabled ? 'none' : undefined,
             }}
+            onTransitionEnd={() => handleTransitionEnd()}
           >
-            {' '}
-            {/*content*/}
+            {length > show && isRepeating && renderExtraPrev()}
             {children}
+            {length > show && isRepeating && renderExtraNext()}
           </div>
         </div>
-        {currentIndex < (length - show) && (
+
+        {(isRepeating || currentIndex < length - show) && (
           <button
             className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] border rounded-full bg-white right-[12px] leading-[1.6rem] text-3xl font-bold'
             onClick={next}
