@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                   }, 500)
                 }
               >
-                ESPECIAL
+                OCASIÃO
                 {underline === 2 && (
                   <motion.div
                     layoutId='underline'

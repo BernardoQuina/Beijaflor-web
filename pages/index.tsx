@@ -6,6 +6,7 @@ import { Plant } from '../components/svg/Plant'
 import { Shipping } from '../components/svg/Shipping'
 import { Support } from '../components/svg/Support'
 import { Secure } from '../components/svg/Secure'
+import { Carousel } from '../components/Carousel'
 // import Link from 'next/link'
 // import { useMeQuery } from '../lib/generated/graphql'
 interface HomeProps {
@@ -37,7 +38,7 @@ const Home: NextPage<HomeProps> = () => {
           crop='fill'
         />
       </section>
-      <section className='max-w-full 4xl:max-w-[120rem] mx-auto md:flex mt-40'>
+      <section className='max-w-full 4xl:max-w-[120rem] mx-auto md:flex mt-44 md:mt-40'>
         <div className='lg:flex mx-auto md:w-[50%]'>
           <div className='mx-auto mt-20 text-center'>
             <Plant
@@ -87,17 +88,56 @@ const Home: NextPage<HomeProps> = () => {
           </div>
         </div>
       </section>
-      <section className='relative flex mt-56 mx-auto max-w-4xl'>
+      <section className='relative xl:left-[10%] flex mt-48 mx-auto max-w-4xl'>
         <div className='mx-auto'>
-          <h1 className='ml-24 text-6xl tracking-widest font-bold text-green-dark'>
+          <h1 className='text-center text-5xl md:text-6xl tracking-widest font-bold text-green-dark'>
             Dia da mãe
           </h1>
-          <h4 className='mt-20 text-4xl tracking-wide'>
+          <h4 className='mt-16 md:mx-4 text-center text-2xl md:text-4xl tracking-wider'>
             Flores dizem-no melhor. Arranjos vibrantes e frescos.
           </h4>
+          <Carousel show={3}>
+            <div>
+              <div style={{ padding: 8 }}>
+                <img
+                  src='https://via.placeholder.com/300x300'
+                  alt='placeholder'
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div style={{ padding: 8 }}>
+                <img
+                  src='https://via.placeholder.com/300x300'
+                  alt='placeholder'
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div style={{ padding: 8 }}>
+                <img
+                  src='https://via.placeholder.com/300x300'
+                  alt='placeholder'
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div style={{ padding: 8 }}>
+                <img
+                  src='https://via.placeholder.com/300x300'
+                  alt='placeholder'
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+          </Carousel>
         </div>
+
         <Image
-          className='absolute top-[-130%] right-[70%] z-[-1] transform'
+          className='absolute top-[-30%] md:top-[-90%] lg:top-[0%] right-[55%] lg:right-[80%] z-[-1] transform'
           src='/dia-da-mãe.png'
           quality={30}
           height={1500}
