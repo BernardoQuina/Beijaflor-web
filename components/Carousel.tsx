@@ -1,15 +1,16 @@
 import { useEffect, useState, Children } from 'react'
 
 interface CarouselProps {
-  show: number
   infiniteLoop: boolean
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
   children,
-  show,
   infiniteLoop,
 }) => {
+
+  const [show, setShow] = useState(1)
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [length, setLength] = useState<number>(
     Children.toArray(children).length
@@ -98,6 +99,10 @@ export const Carousel: React.FC<CarouselProps> = ({
   }, [children, infiniteLoop, show])
 
   useEffect(() => {
+    if (window && window.innerWidth > 768) {
+      setShow(3)
+    }
+
     if (isRepeating) {
       if (currentIndex === show || currentIndex === length) {
         setTransitionEnabled(true)
