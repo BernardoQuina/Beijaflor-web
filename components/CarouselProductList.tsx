@@ -1,5 +1,5 @@
 import { Carousel } from './Carousel'
-import { CarouselProductItem } from './CarouselProductItem'
+import { ProductItem } from './ProductItem'
 
 interface CarouselProductListProps {}
 
@@ -43,7 +43,7 @@ export const CarouselProductList: React.FC<CarouselProductListProps> = ({}) => {
     <Carousel infiniteLoop={true}>
       {testArray.map((product) => (
         <div className='px-4 my-8' key={product.id}>
-          <CarouselProductItem product={product} />
+          <ProductItem product={product} />
         </div>
       ))}
     </Carousel>

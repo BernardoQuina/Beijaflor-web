@@ -5,7 +5,7 @@ import { Image } from 'cloudinary-react'
 import ExpandMoreRounded from '@material-ui/icons/ExpandMoreRounded'
 import Search from '@material-ui/icons/Search'
 import Person from '@material-ui/icons/Person'
-import Heart from '@material-ui/icons/FavoriteBorder'
+import { Heart } from './svg/Heart'
 import { ShoppingBag } from './svg/ShoppingBag'
 
 interface NavbarProps {}
@@ -154,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             </motion.div>
             <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
               <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={2.1} />
-              <Heart fontSize='large' className='text-green-dark mx-auto' />
+              <Heart tailwind='h-8 text-green-dark mx-auto' strokeWidth={2.1} />
               <Person fontSize='large' className='mr-2 text-green-dark' />
             </div>
           </motion.div>
