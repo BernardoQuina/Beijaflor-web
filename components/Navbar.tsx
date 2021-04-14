@@ -75,14 +75,17 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 />
               </a>
             </Link>
-            <div className={`absolute ${open ? 'flex' : 'hidden md:flex'} w-full top-[4.2rem] md:top-0 md:relative md:w-5/12 2xl:w-4/12 mx-auto text-green-medium`}>
+            <div
+              className={`absolute ${
+                open ? 'flex' : 'hidden md:flex'
+              } w-full top-[4.2rem] md:top-0 md:relative md:w-5/12 2xl:w-4/12 mx-auto text-green-medium`}
+            >
               <motion.button
                 className={`lg:text-xl 2xl:text-2xl self-center font-bold ml-4 focus:outline-none`}
                 onMouseEnter={() => {
                   setUnderline(1)
                   setOpen(true)
                 }}
-                
               >
                 NOVIDADES
                 {underline === 1 && (
@@ -98,7 +101,6 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                   setUnderline(2)
                   setOpen(true)
                 }}
-                
               >
                 OCASIÃO
                 {underline === 2 && (
@@ -147,22 +149,55 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             </motion.div>
             <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
               <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={2.1} />
-              <Heart tailwind='h-8 text-green-dark mx-2 md:mx-auto' strokeWidth={2.1} />
+              <Heart
+                tailwind='h-8 text-green-dark mx-2 md:mx-auto'
+                strokeWidth={2.1}
+              />
               <Person fontSize='large' className='md:mr-2 text-green-dark' />
             </div>
           </motion.div>
           <div>
             {open && underline === 1 ? (
-              <motion.div layoutId='expand-nav-categories'>
-                NOVIDADES
-              </motion.div>
+              <motion.div layoutId='expand-nav'>NOVIDADES</motion.div>
             ) : open && underline === 2 ? (
-              <motion.div layoutId='expand-nav-categories'>
-                OCASIÃO
-              </motion.div>
+              <motion.div layoutId='expand-nav'>OCASIÃO</motion.div>
             ) : open && underline === 3 ? (
-              <motion.div layoutId='expand-nav-categories'>
-                CATEGORIAS
+              <motion.div
+                layoutId='expand-nav'
+                className='flex mt-10 lg:mt-4 mx-6'
+              >
+                <div className='w-5/12'>
+                  <h4 className='ml-left font-bold text-2xl text-green-medium'>
+                    Flores
+                  </h4>
+                  <div className='flex'>
+                    <h6 className='font-bold text-xl text-green-dark'>tipos</h6>
+                    <h6 className='mx-auto font-bold text-xl text-green-dark'>cores</h6>
+                    <h6 className='mr-auto font-bold text-xl text-green-dark'>
+                      estação
+                    </h6>
+                  </div>
+                </div>
+                <div className='w-5/12 mx-auto'>
+                  <h4 className='font-bold text-2xl text-green-medium'>
+                    Plantas
+                  </h4>
+                  <div className='flex'>
+                    <h6 className='ml-left font-bold text-xl text-green-dark'>tipos</h6>
+                    <h6 className='mx-auto font-bold text-xl text-green-dark'>local</h6>
+                    <h6 className='mr-auto font-bold text-xl text-green-dark'>
+                      tamanho
+                    </h6>
+                    <h6 className='mr-auto font-bold text-xl text-green-dark'>
+                      características
+                    </h6>
+                  </div>
+                </div>
+                <div className='w-2/12'>
+                  <h4 className='font-bold text-2xl text-green-medium'>
+                    Acessórios
+                  </h4>
+                </div>
               </motion.div>
             ) : null}
           </div>
