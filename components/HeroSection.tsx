@@ -8,7 +8,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({  }) => {
   return (
     <section className='max-w-6xl 3xl:max-w-7xl mt-36 lg:mt-52 mx-auto'>
         <div className='w-[100%] md:w-[60%] flex flex-col'>
-          <h1 className='text-center tracking-wider text-5xl lg:text-6xl 2xl:text-7xl font-bold text-green-dark'>
+          <h1 className='text-center tracking-wider text-5xl lg:text-6xl 2xl:text-7xl font-bold text-pink-dark'>
           Traga cor à sua vida
         </h1>
         <h4 className='mt-24 2xl:mt-44 mx-auto w-[80%] md:w-[100%] text-2xl tracking-wider leading-relaxed md:text-3xl text-center'>
