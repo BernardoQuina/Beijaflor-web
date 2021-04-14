@@ -36,7 +36,14 @@ export const CarouselProductList: React.FC<CarouselProductListProps> = ({}) => {
       thumbnail: '/card-image-3.jpg',
       price: 9.99,
       MainCategory: 'flor',
-    },
+    }, {
+      id: '43jh6h547g3hj67g',
+      name: 'Buquê de flores',
+      description: 'buque de flores coloridas variadas',
+      thumbnail: '/card-image-5.jpg',
+      price: 14.99,
+      MainCategory: 'flor',
+    }
   ]
 
   return (

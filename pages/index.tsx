@@ -4,6 +4,7 @@ import { Layout } from '../components/Layout'
 import { HeroSection } from '../components/HeroSection'
 import { AdvantagesSection } from '../components/AdvantagesSection'
 import { SpecialOccasionSection } from '../components/SpecialOccasionSection'
+import { CategoriesSection } from '../components/CategoriesSection'
 // import Link from 'next/link'
 // import { useMeQuery } from '../lib/generated/graphql'
 interface HomeProps {
@@ -18,6 +19,7 @@ const Home: NextPage<HomeProps> = () => {
       <HeroSection />
       <AdvantagesSection />
       <SpecialOccasionSection />
+      <CategoriesSection />
     </Layout>
   )
 }
