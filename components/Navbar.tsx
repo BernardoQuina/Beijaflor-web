@@ -60,11 +60,10 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             stiffness: 200,
             damping: 21,
           }}
-          className={`flex w-full ${
+          className={`flex flex-col w-full ${
             !open ? ' h-[4rem]' : ' h-[30rem]'
           }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight`}
           ref={navNode}
-          // onMouseLeave={() => setTimeout(() => setOpen(false), 2000)}
         >
           <motion.div layoutId='top-nav' className='flex w-full h-[4rem]'>
             <Link href='/'>
@@ -76,17 +75,14 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 />
               </a>
             </Link>
-            <div className='hidden md:flex w-5/12 2xl:w-4/12 mx-auto text-green-medium'>
+            <div className={`absolute ${open ? 'flex' : 'hidden md:flex'} w-full top-[4.2rem] md:top-0 md:relative md:w-5/12 2xl:w-4/12 mx-auto text-green-medium`}>
               <motion.button
                 className={`lg:text-xl 2xl:text-2xl self-center font-bold ml-4 focus:outline-none`}
-                onMouseEnter={() => setUnderline(1)}
-                onMouseLeave={() =>
-                  setTimeout(() => {
-                    if (openRef.current && underlineRef.current !== 2)
-                      setUnderline(3)
-                    if (underlineRef.current === 1) setUnderline(0)
-                  }, 500)
-                }
+                onMouseEnter={() => {
+                  setUnderline(1)
+                  setOpen(true)
+                }}
+                
               >
                 NOVIDADES
                 {underline === 1 && (
@@ -98,14 +94,11 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               </motion.button>
               <motion.button
                 className={`lg:text-xl 2xl:text-2xl self-center font-bold mx-auto focus:outline-none`}
-                onMouseEnter={() => setUnderline(2)}
-                onMouseLeave={() =>
-                  setTimeout(() => {
-                    if (openRef.current && underlineRef.current !== 1)
-                      setUnderline(3)
-                    if (underlineRef.current === 2) setUnderline(0)
-                  }, 500)
-                }
+                onMouseEnter={() => {
+                  setUnderline(2)
+                  setOpen(true)
+                }}
+                
               >
                 OCASIÃO
                 {underline === 2 && (
@@ -158,6 +151,21 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               <Person fontSize='large' className='md:mr-2 text-green-dark' />
             </div>
           </motion.div>
+          <div>
+            {open && underline === 1 ? (
+              <motion.div layoutId='expand-nav-categories'>
+                NOVIDADES
+              </motion.div>
+            ) : open && underline === 2 ? (
+              <motion.div layoutId='expand-nav-categories'>
+                OCASIÃO
+              </motion.div>
+            ) : open && underline === 3 ? (
+              <motion.div layoutId='expand-nav-categories'>
+                CATEGORIAS
+              </motion.div>
+            ) : null}
+          </div>
         </motion.nav>
         <motion.button
           transition={{
@@ -170,6 +178,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           className='absolute -bottom-7 mx-auto left-0 right-0 focus:outline-none'
           onClick={() => {
             setOpen(!open)
+            setUnderline(3)
           }}
         >
           <ExpandMoreRounded
