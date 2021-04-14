@@ -1,4 +1,5 @@
 import { useEffect, useState, Children } from 'react'
+import useWindowSize from '../utils/useWindowSize'
 
 interface CarouselProps {
   infiniteLoop: boolean
@@ -98,9 +99,17 @@ export const Carousel: React.FC<CarouselProps> = ({
     )
   }, [children, infiniteLoop, show])
 
+  const windowChange = useWindowSize()
+
   useEffect(() => {
-    if (window && window.innerWidth > 768) {
-      setShow(3)
+    if (window && windowChange.width > 768) {
+      if (windowChange.width > 1536) {
+        return setShow(5)
+      }
+      if (windowChange.width > 1024) {
+        return setShow(4)
+      }
+      setShow(2)
     }
 
     if (isRepeating) {
@@ -115,7 +124,7 @@ export const Carousel: React.FC<CarouselProps> = ({
       <div className='flex w-full relative'>
         {(isRepeating || currentIndex > 0) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark left-[-10px] lg:left-[10px] text-5xl font-bold'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark left-[-1px] lg:left-[10px] text-5xl font-bold'
             onClick={prev}
           >
             &lt;
@@ -142,7 +151,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
         {(isRepeating || currentIndex < length - show) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark right-[-10px] lg:right-[10px] text-5xl font-bold'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark right-[-1px] lg:right-[10px] text-5xl font-bold'
             onClick={next}
           >
             &gt;

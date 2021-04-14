@@ -42,7 +42,7 @@ export const CarouselProductList: React.FC<CarouselProductListProps> = ({}) => {
   return (
     <Carousel infiniteLoop={true}>
       {testArray.map((product) => (
-        <div className='px-4 my-8' key={product.id}>
+        <div className='px-4 mt-4 mb-10' key={product.id}>
           <ProductItem product={product} />
         </div>
       ))}

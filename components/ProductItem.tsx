@@ -18,7 +18,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   product,
 }) => {
   return (
-    <div className='relative h-[32rem] w-[20rem] mx-auto rounded-xl shadow-xl bg-white overflow-hidden'>
+    <div className='relative h-[26rem] w-[16rem] mx-auto rounded-xl shadow-xl bg-white overflow-hidden'>
       <div className='w-full h-[75%] overflow-hidden'>
         <button className='absolute top-4 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'>
           <Heart tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
@@ -33,16 +33,16 @@ export const ProductItem: React.FC<ProductItemProps> = ({
         />
       </div>
       <div className='relative h-[25%] pt-2'>
-        <h6 className='ml-4  font-bold tracking-[1rem] text-pink-medium'>
+        <h6 className='ml-4 font-bold tracking-[0.8rem] text-pink-medium'>
           {product.MainCategory.toUpperCase()}
         </h6>
-        <button className='absolute top-1 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'>
+        <button className='absolute top-0 right-1 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'>
         <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
       </button>
-        <h4 className='ml-4 mt-2 text-3xl font-bold text-green-dark'>
+        <h4 className='ml-4 mt-2 text-2xl font-bold text-green-dark'>
           {product.name}
         </h4>
-        <h3 className='absolute right-4 bottom-3 text-2xl text-green-dark tracking-widest font-bold'>
+        <h3 className='absolute right-2 bottom-1 text-xl text-green-dark tracking-widest font-bold'>
           € {product.price}
         </h3>
       </div>

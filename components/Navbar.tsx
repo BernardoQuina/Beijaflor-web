@@ -61,12 +61,12 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             damping: 21,
           }}
           className={`flex w-full ${
-            !open ? ' h-[4.5rem]' : ' h-[30rem]'
+            !open ? ' h-[4rem]' : ' h-[30rem]'
           }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight`}
           ref={navNode}
           // onMouseLeave={() => setTimeout(() => setOpen(false), 2000)}
         >
-          <motion.div layoutId='top-nav' className='flex w-full h-[4.5rem]'>
+          <motion.div layoutId='top-nav' className='flex w-full h-[4rem]'>
             <Link href='/'>
               <a className=' ml-4 rounded-full self-center'>
                 <Image
@@ -154,8 +154,8 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             </motion.div>
             <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
               <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={2.1} />
-              <Heart tailwind='h-8 text-green-dark mx-auto' strokeWidth={2.1} />
-              <Person fontSize='large' className='mr-2 text-green-dark' />
+              <Heart tailwind='h-8 text-green-dark mx-2 md:mx-auto' strokeWidth={2.1} />
+              <Person fontSize='large' className='md:mr-2 text-green-dark' />
             </div>
           </motion.div>
         </motion.nav>

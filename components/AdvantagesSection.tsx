@@ -7,7 +7,7 @@ interface AdvantagesSectionProps {}
 
 export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
   return (
-    <section className='max-w-full 4xl:max-w-[120rem] mx-auto md:flex mt-44 md:mt-40'>
+    <section className='max-w-full 4xl:max-w-[120rem] mx-auto md:flex mt-44 xl:mt-20 2xl:mt-40'>
       <div className='lg:flex mx-auto md:w-[50%]'>
         <div className='mx-auto mt-20 text-center'>
           <Plant
