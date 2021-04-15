@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Image } from 'cloudinary-react'
 
+import { categories } from '../../lib/testData'
+
 interface FlowersCategoryProps {}
 
 export const FlowersCategory: React.FC<FlowersCategoryProps> = ({}) => {
@@ -43,172 +45,88 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({}) => {
         <div className='w-full h-[85%] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
           {selected === 'tipos' ? (
             <div className='my-4 ml-2 mr-4 grid grid-cols-2 2xl:grid-cols-3 gap-5'>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/category-3.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  rosas
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/card-image-3.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  papoilas
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/category-4.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  orquídeas
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/cravo.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  cravos
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/lírio.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  lírios
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/margarida.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  margaridas
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/gerbera.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  gerberas
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/túlipa.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  túlipas
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/lisianto.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  lisiantos
-                </h6>
-              </div>
-              <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
-                <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                  <Image
-                    className='my-auto'
-                    src='/antúrio.jpg'
-                    quality={70}
-                    height={500}
-                    width={500}
-                    gravity='auto'
-                    crop='scale'
-                  />
-                </div>
-                <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
-                  antúrios
-                </h6>
-              </div>
-              
+              {categories.map((category) => {
+                if (
+                  category.main === 'flores' &&
+                  category.subDomain === 'tipos'
+                ) {
+                  return (
+                    <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
+                      <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
+                        <Image
+                          className='my-auto'
+                          src={category.thumb}
+                          quality={70}
+                          height={500}
+                          width={500}
+                          gravity='auto'
+                          crop='scale'
+                        />
+                      </div>
+                      <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
+                        {category.name}
+                      </h6>
+                    </div>
+                  )
+                }
+              })}
             </div>
           ) : selected === 'cores' ? (
-            <div></div>
+            <div className='my-4 ml-2 mr-4 grid grid-cols-2 2xl:grid-cols-3 gap-5'>
+              {categories.map((category) => {
+                if (
+                  category.main === 'flores' &&
+                  category.subDomain === 'cores'
+                ) {
+                  return (
+                    <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
+                      <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
+                        <Image
+                          className='my-auto'
+                          src={category.thumb}
+                          quality={70}
+                          height={500}
+                          width={500}
+                          gravity='auto'
+                          crop='scale'
+                        />
+                      </div>
+                      <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
+                        {category.name}
+                      </h6>
+                    </div>
+                  )
+                }
+              })}
+            </div>
           ) : selected === 'estação' ? (
-            <div></div>
+            <div className='my-4 ml-2 mr-4 grid grid-cols-2 2xl:grid-cols-3 gap-5'>
+              {categories.map((category) => {
+                if (
+                  category.main === 'flores' &&
+                  category.subDomain === 'estação'
+                ) {
+                  return (
+                    <div className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
+                      <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
+                        <Image
+                          className='my-auto'
+                          src={category.thumb}
+                          quality={70}
+                          height={500}
+                          width={500}
+                          gravity='auto'
+                          crop='scale'
+                        />
+                      </div>
+                      <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
+                        {category.name}
+                      </h6>
+                    </div>
+                  )
+                }
+              })}
+            </div>
           ) : null}
         </div>
       </div>
