@@ -1,4 +1,4 @@
-import { Navbar } from './Navbar'
+import { Navbar } from './navbar/Navbar'
 
 interface LayoutProps {}
 
