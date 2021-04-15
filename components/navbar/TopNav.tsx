@@ -97,7 +97,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         <motion.div layoutId='search-logo'>
           <Search
             tailwind='h-6 absolute transform left-[95%] translate-x-[-95%] -mt-3 text-gray-300'
-            strokeWidth={1.8}
+            strokeWidth={2}
           />
         </motion.div>
         <input

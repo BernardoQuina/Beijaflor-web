@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimateSharedLayout, motion } from 'framer-motion'
-import ExpandMoreRounded from '@material-ui/icons/ExpandMoreRounded'
 
 import { TopNav } from './TopNav'
+import { ArrowDown } from '../svg/ArrowDown'
+import { ExpandedNav } from './ExpandedNav'
 
 interface NavbarProps {}
 
@@ -70,65 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             searchActive={searchActive}
             searchNode={searchNode}
           />
-          <div>
-            {open && underline === 1 ? (
-              <motion.div layoutId='expand-nav'>NOVIDADES</motion.div>
-            ) : open && underline === 2 ? (
-              <motion.div layoutId='expand-nav'>OCASIÃO</motion.div>
-            ) : open && underline === 3 ? (
-              <motion.div
-                layoutId='expand-nav'
-                className='flex mt-10 lg:mt-4 mx-6'
-              >
-                <div className='w-5/12'>
-                  <h4 className='ml-4 font-bold text-2xl text-green-medium'>
-                    Flores
-                  </h4>
-                  <div className='w-[90%] flex p-4 bg-white rounded-lg shadow-md'>
-                    <h6 className='font-bold text-xl text-green-dark'>tipos</h6>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      cores
-                    </h6>
-                    <h6 className='mr-auto font-bold text-xl text-green-dark'>
-                      estação
-                    </h6>
-                  </div>
-                </div>
-                <div className='w-5/12 mx-auto'>
-                  <h4 className='ml-4 font-bold text-2xl text-green-medium'>
-                    Plantas
-                  </h4>
-                  <div className='w-[90%] flex p-4 bg-white rounded-lg shadow-md'>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      tipos
-                    </h6>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      local
-                    </h6>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      tamanho
-                    </h6>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      características
-                    </h6>
-                  </div>
-                </div>
-                <div className='w-2/12'>
-                  <h4 className='ml-4 font-bold text-2xl text-green-medium'>
-                    Acessórios
-                  </h4>
-                  <div className='w-[90%] flex p-4 bg-white rounded-lg shadow-md'>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      vasos
-                    </h6>
-                    <h6 className='mx-auto font-bold text-xl text-green-dark'>
-                      outros
-                    </h6>
-                  </div>
-                </div>
-              </motion.div>
-            ) : null}
-          </div>
+          <ExpandedNav open={open} underline={underline} />
         </motion.nav>
         <motion.button
           transition={{
@@ -144,9 +87,9 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             setUnderline(3)
           }}
         >
-          <ExpandMoreRounded
-            fontSize='large'
-            className={`text-green-dark transform ${open && 'rotate-180'}`}
+          <ArrowDown
+            tailwind={`h-6 text-green-dark transform ${open && 'rotate-180'}`}
+            strokeWidth={2.5}
           />
         </motion.button>
       </div>
