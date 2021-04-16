@@ -7,7 +7,7 @@ import {
   split,
 } from '@apollo/client'
 import { getMainDefinition } from '@apollo/client/utilities'
-import { WebSocketLink } from '@apollo/client/link/ws'
+// import { WebSocketLink } from '@apollo/client/link/ws'
 import { setContext } from '@apollo/client/link/context'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
@@ -20,14 +20,14 @@ function createApolloClient() {
     credentials: 'include',
   })
 
-  const wsLink = process.browser
-    ? new WebSocketLink({
-        uri: `${process.env.NEXT_PUBLIC_API_URL_WS}/graphql`,
-        options: {
-          reconnect: true,
-        },
-      })
-    : null
+  // const wsLink = process.browser
+  //   ? new WebSocketLink({
+  //       uri: `${process.env.NEXT_PUBLIC_API_URL_WS}/graphql`,
+  //       options: {
+  //         reconnect: true,
+  //       },
+  //     })
+  //   : null
 
   const authLink = setContext((_, { headers }) => {
     // return the headers to the context so httpLink can read them
@@ -47,7 +47,7 @@ function createApolloClient() {
             definition.operation === 'subscription'
           )
         },
-        wsLink as WebSocketLink,
+        // wsLink as WebSocketLink,
         authLink.concat(httpLink)
       )
     : authLink.concat(httpLink)

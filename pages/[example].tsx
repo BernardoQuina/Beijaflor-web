@@ -1,29 +1,30 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next' // GetServerSideProps,
 import Link from 'next/link'
-import { useRouter } from 'next/dist/client/router'
-import { initializeApollo } from '../lib/apolloClient'
-import { UserDocument, useUserQuery } from '../lib/generated/graphql'
+// import { useRouter } from 'next/dist/client/router'
+// import { initializeApollo } from '../lib/apolloClient'
+// import { UserDocument, useUserQuery } from '../lib/generated/graphql'
 
 interface UserProps {
   serverError?: { message: string }
 }
 
-const User: NextPage<UserProps> = ({ serverError }) => {
-  const router = useRouter()
+const User: NextPage<UserProps> = ({}) => {
+  //serverError
+  // const router = useRouter()
 
-  const userId = router.query.example as string
+  // const userId = router.query.example as string
 
-  const { data, loading, error } = useUserQuery({
-    errorPolicy: 'all',
-    variables: { userId },
-  })
+  // const { data, loading, error } = useUserQuery({
+  //   errorPolicy: 'all',
+  //   variables: { userId },
+  // })
 
   return (
     <div className='min-h-screen font-bold text-4xl bg-pink-light text-green-light items-center justify-center'>
       <Link href='/'>
         <a>Go Home</a>
       </Link>
-      {loading ? (
+      {/* {loading ? (
         <div>loading</div>
       ) : error || serverError ? (
         <>
@@ -34,26 +35,26 @@ const User: NextPage<UserProps> = ({ serverError }) => {
         <div>
           <div>{data.user.name}</div>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const apolloClient = initializeApollo()
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const apolloClient = initializeApollo()
 
-  const response = await apolloClient.query({
-    query: UserDocument,
-    variables: { userId: context.query.example },
-    errorPolicy: 'all',
-  })
+//   const response = await apolloClient.query({
+//     query: UserDocument,
+//     variables: { userId: context.query.example },
+//     errorPolicy: 'all',
+//   })
 
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-      serverError: response.errors ? response.errors[0] : null,
-    },
-  }
-}
+//   return {
+//     props: {
+//       initialApolloState: apolloClient.cache.extract(),
+//       serverError: response.errors ? response.errors[0] : null,
+//     },
+//   }
+// }
 
 export default User
