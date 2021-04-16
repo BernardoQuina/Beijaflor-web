@@ -12,12 +12,10 @@ export const Carousel: React.FC<CarouselProps> = ({
   const [show, setShow] = useState(1)
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [length, setLength] = useState<number>(
-    Children.toArray(children).length
-  )
+  const [length, setLength] = useState<number>(Children.count(children))
 
   const [isRepeating, setIsRepeating] = useState(
-    infiniteLoop && Children.toArray(children).length > show
+    infiniteLoop && Children.count(children) > show
   )
   const [transitionEnabled, setTransitionEnabled] = useState(true)
 
@@ -51,11 +49,11 @@ export const Carousel: React.FC<CarouselProps> = ({
 
     const diff = touchDown - currentTouch
 
-    if (diff > 5) {
+    if (diff > 7) {
       next()
     }
 
-    if (diff < 5) {
+    if (diff < -7) {
       prev()
     }
 
@@ -92,26 +90,27 @@ export const Carousel: React.FC<CarouselProps> = ({
   }
 
   useEffect(() => {
-    setLength(Children.toArray(children).length)
-    setIsRepeating(
-      infiniteLoop && infiniteLoop && Children.toArray(children).length > show
-    )
+    setLength(Children.count(children))
+    setIsRepeating(infiniteLoop && Children.count(children) > show)
   }, [children, infiniteLoop, show])
 
   const windowChange = useWindowSize()
 
   useEffect(() => {
     if (window && windowChange.width > 768) {
-      if (windowChange.width > 1536) {
-        return setShow(5)
-      }
+      setShow(2)
       if (window.innerWidth > 1024) {
-        return setShow(4)
+        setShow(4)
+        if (windowChange.width > 1536) {
+          setShow(5)
+        }
       }
-      return setShow(2)
     } else {
       setShow(1)
     }
+
+    console.log('isRepeating: ', isRepeating)
+    console.log('currentIndex: ', currentIndex)
 
     if (isRepeating) {
       if (currentIndex === show || currentIndex === length) {
@@ -125,10 +124,10 @@ export const Carousel: React.FC<CarouselProps> = ({
       <div className='flex w-full relative'>
         {(isRepeating || currentIndex > 0) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark left-[5px] lg:left-[0px] text-5xl font-bold'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark left-[5px] lg:left-[0px] text-5xl font-bold'
             onClick={prev}
           >
-            <p>&lt;</p>
+            <p className='self-start'>&lt;</p>
           </button>
         )}
         <div
@@ -152,7 +151,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
         {(isRepeating || currentIndex < length - show) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark right-[5px] lg:right-[0px] text-5xl font-bold self-center'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark right-[5px] lg:right-[0px] text-5xl font-bold self-center'
             onClick={next}
           >
             <p>&gt;</p>
