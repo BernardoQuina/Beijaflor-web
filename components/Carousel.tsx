@@ -65,7 +65,7 @@ export const Carousel: React.FC<CarouselProps> = ({
       if (currentIndex === 0) {
         setTransitionEnabled(false)
         setCurrentIndex(length)
-      } else if (currentIndex === length + show) {
+      } else if (currentIndex >= length + show) {
         setTransitionEnabled(false)
         setCurrentIndex(show)
       }
@@ -100,17 +100,18 @@ export const Carousel: React.FC<CarouselProps> = ({
     if (window && windowChange.width > 768) {
       setShow(2)
       if (window.innerWidth > 1024) {
-        setShow(4)
-        if (windowChange.width > 1536) {
-          setShow(5)
+        setShow(3)
+        if (windowChange.width > 1280) {
+          setShow(4)
+          if (windowChange.width > 1536) {
+            setShow(5)
+          }
         }
       }
     } else {
       setShow(1)
     }
 
-    console.log('isRepeating: ', isRepeating)
-    console.log('currentIndex: ', currentIndex)
 
     if (isRepeating) {
       if (currentIndex === show || currentIndex === length) {
