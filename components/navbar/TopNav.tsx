@@ -89,7 +89,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         layoutId='search-expand'
         className={`flex h-[3rem] ${
           searchActive
-            ? 'absolute z-[1] md:relative w-11/12 mx-auto left-0 right-0'
+            ? 'absolute z-[1] md:relative w-[95%] mx-auto left-0 right-0'
             : 'w-5/12 relative'
         } md:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border-2`}
         onClick={() => setSearchActive(true)}
