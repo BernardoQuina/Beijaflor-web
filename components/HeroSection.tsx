@@ -12,7 +12,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
         <h4 className='mt-24 2xl:mt-44 mx-auto w-[80%] md:w-[100%] text-2xl tracking-wider leading-relaxed md:text-3xl text-center text-green-dark'>
           Descubra a nossa seleção de plantas e flores
         </h4>
-        <button className='mx-auto mt-8 md:mt-20 p-2 px-2 rounded-sm shadow-md text-pink-dark opacity-95 bg-opacity-60 hover:opacity-100 hover:bg-opacity-100 bg-pink-light tracking-widest text-xl md:text-2xl font-bold'>
+        <button className='mx-auto mt-8 md:mt-20 p-2 px-2 rounded-md shadow-md text-pink-dark opacity-95 bg-opacity-60 hover:opacity-100 hover:bg-opacity-100 bg-pink-light tracking-widest text-xl md:text-2xl font-bold'>
           EXPLORAR
         </button>
       </div>

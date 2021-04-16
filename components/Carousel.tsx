@@ -9,7 +9,6 @@ export const Carousel: React.FC<CarouselProps> = ({
   children,
   infiniteLoop,
 }) => {
-
   const [show, setShow] = useState(1)
 
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -129,7 +128,7 @@ export const Carousel: React.FC<CarouselProps> = ({
             className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark left-[5px] lg:left-[0px] text-5xl font-bold'
             onClick={prev}
           >
-            &lt;
+            <p>&lt;</p>
           </button>
         )}
         <div
@@ -153,10 +152,10 @@ export const Carousel: React.FC<CarouselProps> = ({
 
         {(isRepeating || currentIndex < length - show) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark right-[5px] lg:right-[0px] text-5xl font-bold'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] h-[24px] text-green-dark right-[5px] lg:right-[0px] text-5xl font-bold self-center'
             onClick={next}
           >
-            &gt;
+            <p>&gt;</p>
           </button>
         )}
       </div>
