@@ -1,7 +1,7 @@
 type Categories =
   | {
       main: 'flores'
-      subDomain: 'tipos' | 'cores' | 'estação'
+      subDomain: 'tipos' | 'arranjos' | 'cores' | 'estação'
       name: string
       thumb: string
     }
@@ -79,6 +79,30 @@ export const categories: Categories[] = [
     subDomain: 'tipos',
     name: 'antúrios',
     thumb: '/antúrio.jpg',
+  },
+  {
+    main: 'flores',
+    subDomain: 'arranjos',
+    name: 'bouquet',
+    thumb: '/card-image-5.jpg',
+  },
+  {
+    main: 'flores',
+    subDomain: 'arranjos',
+    name: 'ramos',
+    thumb: '/ramos.jpg',
+  },
+  {
+    main: 'flores',
+    subDomain: 'arranjos',
+    name: 'centros',
+    thumb: '/centros.jpg',
+  },
+  {
+    main: 'flores',
+    subDomain: 'arranjos',
+    name: 'cestos',
+    thumb: '/cestos.jpg',
   },
   {
     main: 'flores',
@@ -303,5 +327,29 @@ export const categories: Categories[] = [
     subDomain: 'vasos',
     name: 'pedra',
     thumb: '/pedra.jpg',
+  },
+  {
+    main: 'acessórios',
+    subDomain: 'outros',
+    name: 'ferramentas',
+    thumb: '/ferramentas.jpg',
+  },
+  {
+    main: 'acessórios',
+    subDomain: 'outros',
+    name: 'regadores',
+    thumb: '/regadores.jpg',
+  },
+  {
+    main: 'acessórios',
+    subDomain: 'outros',
+    name: 'compostos',
+    thumb: '/compostos.jpg',
+  },
+  {
+    main: 'acessórios',
+    subDomain: 'outros',
+    name: 'todos',
+    thumb: '/todas.jpg',
   },
 ]

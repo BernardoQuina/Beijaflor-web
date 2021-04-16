@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           className='absolute -bottom-7 mx-auto left-0 right-0 focus:outline-none'
           onClick={() => {
             setOpen(!open)
-            setUnderline(3)
+            setUnderline(1)
           }}
         >
           <ArrowDown
