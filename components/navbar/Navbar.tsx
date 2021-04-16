@@ -73,14 +73,8 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           />
           <ExpandedNav open={open} underline={underline} />
         </motion.nav>
-        <motion.button
-          transition={{
-            type: 'spring',
-            stiffness: 200,
-            damping: 21,
-          }}
+        <button
           type='button'
-          layoutId='expandable-nav-button'
           className='absolute -bottom-7 mx-auto left-0 right-0 focus:outline-none'
           onClick={() => {
             setOpen(!open)
@@ -91,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             tailwind={`h-6 text-green-dark transform ${open && 'rotate-180'}`}
             strokeWidth={2.5}
           />
-        </motion.button>
+        </button>
       </div>
     </AnimateSharedLayout>
   )

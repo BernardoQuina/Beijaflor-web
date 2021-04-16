@@ -16,9 +16,9 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   return (
     <div>
       {open && underline === 1 ? (
-        <div>NOVIDADES</div>
+        <div className='mt-10 ml-4'>!!! A fazer !!!</div>
       ) : open && underline === 2 ? (
-        <div>OCASIÃO</div>
+        <div className='mt-10 ml-4'>!!! A fazer !!!</div>
       ) : open && underline === 3 ? ( // categorias
         <div className='lg:flex mt-10 lg:mt-4'>
           <div className='lg:hidden flex mt-12 mb-2'>
