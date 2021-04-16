@@ -41,6 +41,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
         <div className='w-full px-2 h-[15%] border-b flex pt-2'>
           {subDomains.map((subDomain) => (
             <button
+              key={subDomain}
               className={`mx-auto px-3 h-8 cursor-pointer tracking-wider text-lg md:text-xl text-green-dark ${
                 selected === subDomain &&
                 'bg-green-extraLight rounded-lg shadow-md font-bold'
@@ -55,14 +56,20 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
           {subDomains.map((subdomain) => {
             if (selected === subdomain) {
               return (
-                <div className='my-4 ml-4 mr-6 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5'>
+                <div
+                  key={subdomain}
+                  className='my-4 ml-4 mr-6 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5'
+                >
                   {categories.map((category) => {
                     if (
                       category.main === 'flores' &&
                       category.subDomain === subdomain
                     ) {
                       return (
-                        <button className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
+                        <button
+                          key={category.name}
+                          className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'
+                        >
                           <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
                             <Image
                               className='my-auto'
