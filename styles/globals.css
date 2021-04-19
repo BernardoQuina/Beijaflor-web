@@ -2,15 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Coves';
-  src: url('./Coves-Light.otf') format('opentype'),
-    url('./Coves-Bold.otf') format('opentype'),
-    url('./Coves-Light.woff') format('woff'),
-    url('./Coves-Bold.woff') format('woff'),
-    url('./Coves-Light.ttf') format('truetype'),
-    url('./Coves-Bold.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
 
 input,
 textarea,

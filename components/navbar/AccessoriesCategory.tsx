@@ -80,7 +80,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
                               crop='scale'
                             />
                           </div>
-                          <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
+                          <h6 className='w-[55%] mx-auto self-center text-xl text-center text-green-dark tracking-widest'>
                             {category.name}
                           </h6>
                         </button>

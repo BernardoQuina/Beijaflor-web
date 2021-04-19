@@ -3,7 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'sans': ['Coves', 'Arial', 'sans-serif']
+      'sans': ['Nunito', 'Arial', 'sans-serif'],
     },
     extend: {
       screens: {

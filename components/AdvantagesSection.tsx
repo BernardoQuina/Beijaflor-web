@@ -14,11 +14,11 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             tailwind='h-12 md:h-16 mx-auto fill-current text-green-light'
             strokeWidth={0.2}
           />
-          <h6 className='tracking-widest text-green-dark md:text-xl font-bold'>
+          <h6 className='tracking-widest text-green-dark md:text-xl md:font-bold'>
             Frescura garantida
           </h6>
-          <p className='hidden md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
-            As nossas flores apresentam uma grande frescura e duração
+          <p className='hidden font-thin md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
+            flores frescas que duram
           </p>
         </div>
         <div className='mx-auto mt-8 lg:mt-20 text-center'>
@@ -26,9 +26,9 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             tailwind='h-12 md:h-16 mx-auto fill-current text-green-light'
             strokeWidth={0.1}
           />
-          <h6 className='tracking-widest text-green-dark md:text-xl font-bold'>Envio grátis</h6>
-          <p className='hidden md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
-            Entrega gratuita em compras acima de 35€
+          <h6 className='tracking-widest text-green-dark md:text-xl md:font-bold'>Envio grátis</h6>
+          <p className='hidden font-thin md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
+            Entrega gratuita acima de 35€
           </p>
         </div>
       </div>
@@ -38,11 +38,11 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             tailwind='h-12 md:h-16 fill-current mx-auto text-green-light'
             strokeWidth={0.2}
           />
-          <h6 className='tracking-widest text-green-dark md:text-xl font-bold'>
+          <h6 className='tracking-widest text-green-dark md:text-xl md:font-bold'>
             Suporte ao cliente
           </h6>
-          <p className='hidden md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
-            Sempre disponíveis para oferecer ajuda e resolver problemas
+          <p className='hidden font-thin md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
+            Sempre disponíveis para oferecer ajuda
           </p>
         </div>
         <div className='mx-auto mt-8 lg:mt-20 text-center'>
@@ -50,8 +50,8 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             tailwind='h-12 md:h-16 fill-current mx-auto text-green-light'
             strokeWidth={0.2}
           />
-          <h6 className='tracking-widest text-green-dark md:text-xl font-bold'>Compra Segura</h6>
-          <p className='hidden md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
+          <h6 className='tracking-widest text-green-dark md:text-xl md:font-bold'>Compra Segura</h6>
+          <p className='hidden font-thin md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
             Métodos de pagamentos de confiança
           </p>
         </div>

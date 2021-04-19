@@ -40,7 +40,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         } w-full max-w-md lg:max-w-full  mx-auto top-[4.2rem] lg:top-0 lg:relative lg:w-5/12 2xl:w-4/12 transform left-[50%] translate-x-[-50%] lg:left-0 lg:translate-x-0 text-green-medium`}
       >
         <motion.button
-          className={`lg:text-xl self-center font-bold ml-4 focus:outline-none`}
+          className={`lg:text-xl self-center ml-4 focus:outline-none`}
           onMouseEnter={() => {
             setUnderline(1)
             setOpen(true)
@@ -55,7 +55,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </motion.button>
         <motion.button
-          className={`lg:text-xl self-center font-bold mx-auto focus:outline-none`}
+          className={`lg:text-xl self-center mx-auto focus:outline-none`}
           onMouseEnter={() => {
             setUnderline(2)
             setOpen(true)
@@ -70,7 +70,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </motion.button>
         <motion.button
-          className={`lg:text-xl self-center font-bold mr-4 focus:outline-none`}
+          className={`lg:text-xl self-center mr-4 focus:outline-none`}
           onMouseEnter={() => {
             setUnderline(3)
             setOpen(true)

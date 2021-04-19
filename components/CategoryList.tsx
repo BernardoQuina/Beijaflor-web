@@ -61,7 +61,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({}) => {
             />
           </div>
           <div className='w-full flex h-[15%] mt-auto bg-white'>
-            <h4 className='w-full self-center px-3 rounded-lg text-center font-bold text-lg text-pink-medium tracking-[1rem] '>
+            <h4 className='w-full self-center px-3 rounded-lg text-center text-lg text-pink-medium tracking-[1rem] '>
               {category.name.toUpperCase()}
             </h4>
           </div>

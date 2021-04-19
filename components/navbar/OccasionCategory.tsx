@@ -25,7 +25,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
   return (
     <div className={`w-[92%] xl:w-[96%] mx-auto`}>
       <div className='w-full h-[23rem] bg-white rounded-lg shadow-lg'>
-        <div className='w-full h-[20%] border-b flex px-2 pt-2 overflow-auto'>
+        <div className='w-full h-[20%] md:h-[15%] border-b flex px-2 pt-2 overflow-auto'>
           {domains.map((domain) => (
             <button
               key={domain}
@@ -39,7 +39,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
             </button>
           ))}
         </div>
-        <div className='w-full h-[80%] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
+        <div className='w-full h-[80%] md:h-[85%] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
           {domains.map((domain) => {
             if (selected === domain) {
               return (

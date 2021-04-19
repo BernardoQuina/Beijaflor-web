@@ -125,7 +125,7 @@ export const Carousel: React.FC<CarouselProps> = ({
       <div className='flex w-full relative'>
         {(isRepeating || currentIndex > 0) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark left-[5px] lg:left-[0px] text-5xl font-bold'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark left-[5px] lg:left-[0px] text-2xl font-bold'
             onClick={prev}
           >
             <p className='self-start'>&lt;</p>
@@ -152,7 +152,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
         {(isRepeating || currentIndex < length - show) && (
           <button
-            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark right-[5px] lg:right-[0px] text-5xl font-bold self-center'
+            className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark right-[5px] lg:right-[0px] text-2xl font-bold self-center'
             onClick={next}
           >
             <p>&gt;</p>
