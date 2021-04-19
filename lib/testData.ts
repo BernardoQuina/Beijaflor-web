@@ -18,6 +18,12 @@ type Categories =
       thumb: string
     }
 
+type Occasions = {
+  main: 'calendário' | 'cerimónias' | 'momentos especiais'
+  name: string
+  thumb: string
+}
+
 export const categories: Categories[] = [
   // categorias em flores
   {
@@ -181,121 +187,121 @@ export const categories: Categories[] = [
     main: 'plantas',
     subDomain: 'tipos',
     name: 'suculentas e catos',
-    thumb: '/suculentas.jpg'
+    thumb: '/suculentas.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'tipos',
     name: 'fetos',
-    thumb: '/fetos.jpg'
+    thumb: '/fetos.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'tipos',
     name: 'trepadeiras',
-    thumb: '/trepadeiras.jpg'
+    thumb: '/trepadeiras.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'tipos',
     name: 'folha larga',
-    thumb: '/card-image-4.jpg'
+    thumb: '/card-image-4.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'tipos',
     name: 'suspensas',
-    thumb: '/suspensas.jpg'
+    thumb: '/suspensas.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'tipos',
     name: 'palmeiras',
-    thumb: '/palmeiras.jpg'
+    thumb: '/palmeiras.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'tipos',
     name: 'todas',
-    thumb: '/todas.jpg'
+    thumb: '/todas.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'local',
     name: 'exterior',
-    thumb: '/category-9.jpg'
+    thumb: '/category-9.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'local',
     name: 'interior',
-    thumb: '/category-8.jpg'
+    thumb: '/category-8.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'local',
     name: 'sala',
-    thumb: '/card-image-4.jpg'
+    thumb: '/card-image-4.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'local',
     name: 'quarto',
-    thumb: '/quarto.jpg'
+    thumb: '/quarto.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'local',
     name: 'cozinha',
-    thumb: '/cozinha.jpg'
+    thumb: '/cozinha.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'local',
     name: 'casa de banho',
-    thumb: '/casa-de-banho.jpg'
+    thumb: '/casa-de-banho.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'pequenas',
-    thumb: '/category-8.jpg'
+    thumb: '/category-8.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'médias',
-    thumb: '/média.jpg'
+    thumb: '/média.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'grandes',
-    thumb: '/card-image-4.jpg'
+    thumb: '/card-image-4.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'fácil de cuidar',
-    thumb: '/fácil-de-cuidar.jpg'
+    thumb: '/fácil-de-cuidar.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'pet friendly',
-    thumb: '/pet-friendly.jpg'
+    thumb: '/pet-friendly.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'purificação do ar',
-    thumb: '/purificadoras.jpg'
+    thumb: '/purificadoras.jpg',
   },
   {
     main: 'plantas',
     subDomain: 'características',
     name: 'repelentes (cheirosas)',
-    thumb: '/repelentes.jpg'
+    thumb: '/repelentes.jpg',
   },
   // categorias em acessórios
   {
@@ -351,5 +357,63 @@ export const categories: Categories[] = [
     subDomain: 'outros',
     name: 'todos',
     thumb: '/todas.jpg',
+  },
+]
+
+export const occasions: Occasions[] = [
+  {
+    main: 'calendário',
+    name: 'dia da mãe',
+    thumb: '/sdfls.jpg',
+  },
+  {
+    main: 'calendário',
+    name: 'dia dos namorados',
+    thumb: '/sdfls.jpg',
+  },
+  {
+    main: 'calendário',
+    name: 'pascoa',
+    thumb: '/sdfls.jpg',
+  },
+  {
+    main: 'momentos especiais',
+    name: 'aniversário',
+    thumb: '/lkjlj.jpg',
+  },
+  {
+    main: 'momentos especiais',
+    name: 'nascimento',
+    thumb: '/lkjlj.jpg',
+  },
+  {
+    main: 'momentos especiais',
+    name: 'amor',
+    thumb: '/lkjlj.jpg',
+  },
+  {
+    main: 'momentos especiais',
+    name: 'amizade',
+    thumb: '/lkjlj.jpg',
+  },
+  {
+    main: 'cerimónias',
+    name: 'casamento',
+    thumb: '/çlkjls.jpg',
+  },
+  {
+    main: 'cerimónias',
+    name: 'pêsames',
+    thumb: '/çlkjls.jpg',
+  },
+  {
+    main: 'cerimónias',
+    name: 'batizado',
+    thumb: '/çlkjls.jpg',
+  },
+  {
+    main: 'cerimónias',
+    name: 'festa de aniversário',
+    thumb: '/çlkjls.jpg',
   },
 ]

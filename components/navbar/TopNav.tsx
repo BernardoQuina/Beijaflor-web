@@ -36,8 +36,8 @@ export const TopNav: React.FC<TopNavProps> = ({
       </Link>
       <div
         className={`absolute ${
-          open ? 'flex' : 'hidden md:flex'
-        } w-full top-[4.2rem] md:top-0 md:relative md:w-5/12 2xl:w-4/12 mx-auto text-green-medium`}
+          open ? 'flex' : 'hidden lg:flex'
+        } w-full max-w-md lg:max-w-full  mx-auto top-[4.2rem] lg:top-0 lg:relative lg:w-5/12 2xl:w-4/12 transform left-[50%] translate-x-[-50%] lg:left-0 lg:translate-x-0 text-green-medium`}
       >
         <motion.button
           className={`lg:text-xl 2xl:text-2xl self-center font-bold ml-4 focus:outline-none`}
@@ -90,8 +90,8 @@ export const TopNav: React.FC<TopNavProps> = ({
         className={`flex h-[3rem] ${
           searchActive
             ? 'absolute z-[1] md:relative w-[95%] mx-auto left-0 right-0'
-            : 'w-5/12 relative'
-        } md:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border-2`}
+            : 'w-6/12 relative'
+        } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border-2`}
         onClick={() => setSearchActive(true)}
       >
         <motion.div layoutId='search-logo'>

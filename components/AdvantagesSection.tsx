@@ -42,7 +42,7 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             Suporte ao cliente
           </h6>
           <p className='hidden md:inline-block w-56 mx-auto tracking-wider text-green-dark'>
-            Sempre disponíveis para oferecer ajuda e a resolver problemas
+            Sempre disponíveis para oferecer ajuda e resolver problemas
           </p>
         </div>
         <div className='mx-auto mt-8 lg:mt-20 text-center'>

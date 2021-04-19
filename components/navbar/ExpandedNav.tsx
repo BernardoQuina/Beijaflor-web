@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AccessoriesCategory } from './AccessoriesCategory'
 import { FlowersCategory } from './FlowersCategory'
 import { PlantsCategory } from './PlantsCategory'
+import { OccasionCategory } from './OccasionCategory'
 
 interface ExpandedNavProps {
   open: boolean
@@ -15,13 +16,15 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   const [currentCategory, setCurrentCategory] = useState('flores')
   return (
     <div>
-      {open && underline === 1 ? (
+      {open && underline === 1 ? ( // novidades
         <div className='mt-10 ml-4'>!!! A fazer !!!</div>
-      ) : open && underline === 2 ? (
-        <div className='mt-10 ml-4'>!!! A fazer !!!</div>
+      ) : open && underline === 2 ? ( // ocasião
+        <div className='xl:flex mt-16 lg:mt-6'>
+          <OccasionCategory />
+        </div>
       ) : open && underline === 3 ? ( // categorias
-        <div className='xl:flex xl:mt-6'>
-          <div className='xl:hidden flex mt-12 md:mt-4 mb-2'>
+        <div className='xl:flex mt-12 lg:mt-0'>
+          <div className='max-w-2xl mx-auto xl:hidden flex mt-12 md:mt-4 mb-2'>
             <button
               className={`mx-auto ${
                 currentCategory === 'flores' ? 'font-bold text-2xl' : 'text-xl'
