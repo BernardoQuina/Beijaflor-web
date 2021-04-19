@@ -30,11 +30,11 @@ export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
 
   return (
     <div
-      className={`w-[92%] lg:w-[36%] mx-auto lg:inline-block ${
+      className={`w-[92%] xl:w-[36%] mx-auto xl:inline-block ${
         currentCategory !== 'plantas' && 'hidden'
       }`}
     >
-      <h4 className='ml-4 font-bold text-2xl tracking-widest text-green-medium hidden lg:inline-block'>
+      <h4 className='ml-4 font-bold text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
         Plantas
       </h4>
       <div className='w-full h-[21.4rem] bg-white rounded-lg shadow-lg'>
@@ -58,7 +58,7 @@ export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
               return (
                 <div
                   key={subdomain}
-                  className='my-4 ml-4 mr-6 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5'
+                  className='my-4 ml-4 mr-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-5'
                 >
                   {categories.map((category) => {
                     if (

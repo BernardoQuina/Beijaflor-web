@@ -20,13 +20,13 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
       ) : open && underline === 2 ? (
         <div className='mt-10 ml-4'>!!! A fazer !!!</div>
       ) : open && underline === 3 ? ( // categorias
-        <div className='lg:flex mt-10 lg:mt-4'>
-          <div className='lg:hidden flex mt-12 mb-2'>
+        <div className='xl:flex xl:mt-6'>
+          <div className='xl:hidden flex mt-12 md:mt-4 mb-2'>
             <button
               className={`mx-auto ${
                 currentCategory === 'flores' ? 'font-bold text-2xl' : 'text-xl'
-              }  tracking-widest text-green-medium lg:hidden`}
-              onClick={() => {
+              }  tracking-widest text-green-medium xl:hidden`}
+              onMouseEnter={() => {
                 setCurrentCategory('flores')
               }}
             >
@@ -35,8 +35,8 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
             <button
               className={`mx-auto ${
                 currentCategory === 'plantas' ? 'font-bold text-2xl' : 'text-xl'
-              }  tracking-widest text-green-medium lg:hidden`}
-              onClick={() => {
+              }  tracking-widest text-green-medium xl:hidden`}
+              onMouseEnter={() => {
                 setCurrentCategory('plantas')
               }}
             >
@@ -47,8 +47,8 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
                 currentCategory === 'acessórios'
                   ? 'font-bold text-2xl'
                   : 'text-xl'
-              }  tracking-widest text-green-medium lg:hidden`}
-              onClick={() => {
+              }  tracking-widest text-green-medium xl:hidden`}
+              onMouseEnter={() => {
                 setCurrentCategory('acessórios')
               }}
             >
