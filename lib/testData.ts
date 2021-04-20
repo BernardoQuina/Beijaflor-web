@@ -364,56 +364,56 @@ export const occasions: Occasions[] = [
   {
     main: 'calendário',
     name: 'dia da mãe',
-    thumb: '/sdfls.jpg',
+    thumb: '/mãe.jpg',
   },
   {
     main: 'calendário',
     name: 'dia dos namorados',
-    thumb: '/sdfls.jpg',
+    thumb: '/card-image-2.jpg',
   },
   {
     main: 'calendário',
     name: 'pascoa',
-    thumb: '/sdfls.jpg',
+    thumb: '/category-1.jpg',
   },
   {
     main: 'momentos especiais',
     name: 'aniversário',
-    thumb: '/lkjlj.jpg',
+    thumb: '/festa.jpg',
   },
   {
     main: 'momentos especiais',
     name: 'nascimento',
-    thumb: '/lkjlj.jpg',
+    thumb: '/brancas.jpg',
   },
   {
     main: 'momentos especiais',
     name: 'amor',
-    thumb: '/lkjlj.jpg',
+    thumb: '/card-image-2.jpg',
   },
   {
     main: 'momentos especiais',
     name: 'amizade',
-    thumb: '/lkjlj.jpg',
+    thumb: '/cestos.jpg',
   },
   {
     main: 'cerimónias',
     name: 'casamento',
-    thumb: '/çlkjls.jpg',
+    thumb: '/category-6.jpg',
   },
   {
     main: 'cerimónias',
     name: 'pêsames',
-    thumb: '/çlkjls.jpg',
+    thumb: '/category-5.jpg',
   },
   {
     main: 'cerimónias',
     name: 'batizado',
-    thumb: '/çlkjls.jpg',
+    thumb: '/brancas.jpg',
   },
   {
     main: 'cerimónias',
     name: 'festa de aniversário',
-    thumb: '/çlkjls.jpg',
+    thumb: '/festa.jpg',
   },
 ]

@@ -58,9 +58,9 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
                             <Image
                               className='my-auto'
                               src={category.thumb}
-                              quality={70}
-                              height={500}
-                              width={500}
+                              quality={50}
+                              height={200}
+                              width={200}
                               gravity='auto'
                               crop='scale'
                             />
