@@ -26,7 +26,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
 
 
   return (
-    <div className={`relative ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden`}>
+    <div className={`relative z-10 ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden`}>
       <div className='w-full h-[70%] overflow-hidden'>
         <button className='absolute top-4 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'>
           <Heart tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
