@@ -3,13 +3,11 @@ import useWindowSize from '../utils/useWindowSize'
 
 interface CarouselProps {
   infiniteLoop: boolean
-  sm?: boolean
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
   children,
-  infiniteLoop,
-  sm
+  infiniteLoop
 }) => {
   const [show, setShow] = useState(1)
 

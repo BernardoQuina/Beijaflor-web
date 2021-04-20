@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Image } from 'cloudinary-react'
 
-import { occasions } from '../../lib/testData'
+import { categories } from '../../lib/testData'
 
 interface OccasionCategoryProps {}
 
@@ -9,8 +9,10 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
   const [selected, setSelected] = useState('calendário')
 
   const distinctOccasionCategories = new Set(
-    occasions.map((category) => {
-      return category.main
+    categories.map((category) => {
+      if (category.main === 'ocasião') {
+        return category.subDomain
+      }
     })
   )
 
@@ -30,8 +32,9 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
             <button
               key={domain}
               className={`mx-auto mb-2 px-2 cursor-pointer tracking-wider md:text-xl text-green-dark ${
-                selected === domain ?
-                'bg-green-extraLight rounded-lg shadow-md font-regular text-lg' : 'font-thin'
+                selected === domain
+                  ? 'bg-green-extraLight rounded-lg shadow-md font-regular text-lg'
+                  : 'font-thin'
               }`}
               onMouseEnter={() => setSelected(domain)}
             >
@@ -47,8 +50,8 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
                   key={domain}
                   className='my-4 ml-4 mr-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'
                 >
-                  {occasions.map((category) => {
-                    if (category.main === domain) {
+                  {categories.map((category) => {
+                    if (category.subDomain === domain) {
                       return (
                         <button
                           key={category.name}

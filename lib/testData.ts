@@ -17,12 +17,12 @@ type Categories =
       name: string
       thumb: string
     }
-
-type Occasions = {
-  main: 'calendário' | 'cerimónias' | 'momentos especiais'
-  name: string
-  thumb: string
-}
+  | {
+      main: 'ocasião'
+      subDomain: 'calendário' | 'cerimónias' | 'momentos especiais'
+      name: string
+      thumb: string
+    }
 
 export const categories: Categories[] = [
   // categorias em flores
@@ -358,61 +358,69 @@ export const categories: Categories[] = [
     name: 'todos',
     thumb: '/todas.jpg',
   },
-]
-
-export const occasions: Occasions[] = [
   {
-    main: 'calendário',
+    main: 'ocasião',
+    subDomain: 'calendário',
     name: 'dia da mãe',
     thumb: '/mãe.jpg',
   },
   {
-    main: 'calendário',
+    main: 'ocasião',
+    subDomain: 'calendário',
     name: 'dia dos namorados',
     thumb: '/card-image-2.jpg',
   },
   {
-    main: 'calendário',
+    main: 'ocasião',
+    subDomain: 'calendário',
     name: 'pascoa',
     thumb: '/category-1.jpg',
   },
   {
-    main: 'momentos especiais',
+    main: 'ocasião',
+    subDomain: 'momentos especiais',
     name: 'aniversário',
     thumb: '/festa.jpg',
   },
   {
-    main: 'momentos especiais',
+    main: 'ocasião',
+    subDomain: 'momentos especiais',
     name: 'nascimento',
     thumb: '/brancas.jpg',
   },
   {
-    main: 'momentos especiais',
+    main: 'ocasião',
+    subDomain: 'momentos especiais',
     name: 'amor',
     thumb: '/card-image-2.jpg',
   },
   {
-    main: 'momentos especiais',
+    main: 'ocasião',
+    subDomain: 'momentos especiais',
     name: 'amizade',
     thumb: '/cestos.jpg',
   },
   {
-    main: 'cerimónias',
+    main: 'ocasião',
+    subDomain: 'cerimónias',
     name: 'casamento',
     thumb: '/category-6.jpg',
   },
   {
-    main: 'cerimónias',
+    main: 'ocasião',
+    subDomain: 'cerimónias',
     name: 'pêsames',
     thumb: '/category-5.jpg',
   },
   {
-    main: 'cerimónias',
+    main: 'ocasião',
+    subDomain: 'cerimónias',
     name: 'batizado',
     thumb: '/brancas.jpg',
   },
   {
-    main: 'cerimónias',
+    main: 'ocasião',
+    subDomain: 'cerimónias',
     name: 'festa de aniversário',
     thumb: '/festa.jpg',
   },
