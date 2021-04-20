@@ -34,7 +34,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
         currentCategory !== 'flores' && 'hidden'
       }`}
     >
-      <h4 className='ml-4 font-bold text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
+      <h4 className='ml-4 mt-4 text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
         Flores
       </h4>
       <div className='w-full h-[21.4rem] bg-white rounded-lg shadow-lg'>

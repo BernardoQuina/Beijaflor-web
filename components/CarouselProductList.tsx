@@ -1,9 +1,17 @@
 import { Carousel } from './Carousel'
 import { ProductItem } from './ProductItem'
 
-interface CarouselProductListProps {}
+interface CarouselProductListProps {
+  height: string
+  width: string
+  sm?: boolean
+}
 
-export const CarouselProductList: React.FC<CarouselProductListProps> = ({}) => {
+export const CarouselProductList: React.FC<CarouselProductListProps> = ({
+  height,
+  width,
+  sm
+}) => {
   const testArray = [
     {
       id: '26hkj45h64j3',
@@ -36,21 +44,22 @@ export const CarouselProductList: React.FC<CarouselProductListProps> = ({}) => {
       thumbnail: '/card-image-3.jpg',
       price: 9.99,
       MainCategory: 'flor',
-    }, {
+    },
+    {
       id: '43jh6h547g3hj67g',
       name: 'Buquê de flores',
       description: 'buque de flores coloridas variadas',
       thumbnail: '/card-image-5.jpg',
       price: 14.99,
       MainCategory: 'flor',
-    }
+    },
   ]
 
   return (
-    <Carousel infiniteLoop={true}>
+    <Carousel infiniteLoop={true} sm={sm}>
       {testArray.map((product) => (
         <div className='px-4 mt-4 mb-10' key={product.id}>
-          <ProductItem product={product} />
+          <ProductItem product={product} height={height} width={width} sm={sm} />
         </div>
       ))}
     </Carousel>

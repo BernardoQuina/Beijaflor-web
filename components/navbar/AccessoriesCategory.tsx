@@ -33,7 +33,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
         currentCategory !== 'acessórios' && 'hidden'
       }`}
     >
-      <h4 className='ml-4 font-bold text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
+      <h4 className='ml-4 mt-4 text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
         Acessórios
       </h4>
       <div className='w-full h-[21.4rem] bg-white rounded-lg shadow-lg'>

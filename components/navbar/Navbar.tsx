@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <AnimateSharedLayout>
-      <div className='z-[1] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-4 mx-auto left-0 right-0'>
+      <div className='z-[2] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-4 mx-auto left-0 right-0'>
         <motion.nav
           layoutId='expandable-nav'
           transition={{

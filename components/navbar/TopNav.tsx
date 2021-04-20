@@ -90,7 +90,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         className={`flex h-[3rem] ${
           searchActive
             ? 'absolute z-[1] md:relative w-[95%] mx-auto left-0 right-0'
-            : 'w-6/12 relative'
+            : 'w-5/12 relative'
         } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border-2`}
         onClick={() => setSearchActive(true)}
       >
@@ -106,12 +106,12 @@ export const TopNav: React.FC<TopNavProps> = ({
         />
       </motion.div>
       <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
-        <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={2.1} />
+        <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={1.5} />
         <Heart
           tailwind='h-8 text-green-dark mx-2 md:mx-auto'
-          strokeWidth={2.1}
+          strokeWidth={1.5}
         />
-        <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={2.1} />
+        <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
       </div>
     </motion.div>
   )

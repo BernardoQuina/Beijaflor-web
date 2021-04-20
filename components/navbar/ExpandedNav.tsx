@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {CarouselProductList} from '../CarouselProductList'
 import { AccessoriesCategory } from './AccessoriesCategory'
 import { FlowersCategory } from './FlowersCategory'
 import { PlantsCategory } from './PlantsCategory'
@@ -17,7 +18,9 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   return (
     <div>
       {open && underline === 1 ? ( // novidades
-        <div className='mt-10 ml-4'>!!! A fazer !!!</div>
+        <div className='mx-auto w-[92%] lg:w-[80%] mt-8 lg:mt-0'>
+        <CarouselProductList height='h-[24rem]' width='w-[14rem]' sm={true} />
+      </div>
       ) : open && underline === 2 ? ( // ocasião
         <div className='xl:flex mt-16 lg:mt-6'>
           <OccasionCategory />

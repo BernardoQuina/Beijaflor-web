@@ -46,10 +46,10 @@ export const CategoryList: React.FC<CategoryListProps> = ({}) => {
     <>
       {testArray.map((category) => (
         <div
-          className='relative flex h-[24em] w-[20em] mx-auto rounded-xl shadow-xl overflow-hidden'
+          className='relative flex h-[24em] w-[20em] mx-auto mb-20 rounded-xl shadow-xl overflow-hidden'
           key={category.name}
         >
-          <div className='absolute z-[-1] w-full h-full flex'>
+          <div className='absolute z-[-1] w-full h-full flex border overflow-hidden rounded-xl'>
             <Image
               className='transform my-auto'
               src={category.thumbnail}
