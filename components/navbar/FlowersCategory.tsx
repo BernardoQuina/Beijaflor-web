@@ -42,9 +42,9 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
           {subDomains.map((subDomain) => (
             <button
               key={subDomain}
-              className={`mx-auto px-3 h-8 cursor-pointer tracking-wider text-lg md:text-xl text-green-dark ${
-                selected === subDomain &&
-                'bg-green-extraLight rounded-lg shadow-md font-bold'
+              className={`mx-auto px-3 h-8 cursor-pointer tracking-wider md:text-xl text-green-dark ${
+                selected === subDomain ?
+                'bg-green-extraLight rounded-lg shadow-md font-regular text-lg' : 'font-thin'
               }`}
               onMouseEnter={() => setSelected(subDomain)}
             >

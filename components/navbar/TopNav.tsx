@@ -102,7 +102,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         </motion.div>
         <input
           ref={searchNode}
-          className='w-10/12 ml-2 pl-2 pr-5 text-2xl focus:outline-none'
+          className='w-10/12 ml-2 pl-2 pr-5 text-xl font-thin tracking-widest focus:outline-none'
         />
       </motion.div>
       <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>

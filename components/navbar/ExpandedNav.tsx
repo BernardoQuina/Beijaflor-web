@@ -27,7 +27,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
           <div className='max-w-2xl mx-auto xl:hidden flex mt-12 md:mt-4 mb-2'>
             <button
               className={`mx-auto ${
-                currentCategory === 'flores' ? 'font-bold text-2xl' : 'text-xl'
+                currentCategory === 'flores' ? 'font-regular text-xl' : 'font-thin'
               }  tracking-widest text-green-medium xl:hidden`}
               onMouseEnter={() => {
                 setCurrentCategory('flores')
@@ -37,7 +37,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
             </button>
             <button
               className={`mx-auto ${
-                currentCategory === 'plantas' ? 'font-bold text-2xl' : 'text-xl'
+                currentCategory === 'plantas' ? 'font-regular text-xl' : 'font-thin'
               }  tracking-widest text-green-medium xl:hidden`}
               onMouseEnter={() => {
                 setCurrentCategory('plantas')
@@ -48,8 +48,8 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
             <button
               className={`mx-auto ${
                 currentCategory === 'acessórios'
-                  ? 'font-bold text-2xl'
-                  : 'text-xl'
+                  ? 'font-regular text-xl'
+                  : 'font-thin'
               }  tracking-widest text-green-medium xl:hidden`}
               onMouseEnter={() => {
                 setCurrentCategory('acessórios')

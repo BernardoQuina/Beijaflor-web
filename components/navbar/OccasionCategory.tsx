@@ -29,9 +29,9 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
           {domains.map((domain) => (
             <button
               key={domain}
-              className={`mx-auto mb-2 px-3 cursor-pointer tracking-wider text-lg md:text-xl text-green-dark ${
-                selected === domain &&
-                'bg-green-extraLight rounded-lg shadow-md font-bold'
+              className={`mx-auto mb-2 px-2 cursor-pointer tracking-wider md:text-xl text-green-dark ${
+                selected === domain ?
+                'bg-green-extraLight rounded-lg shadow-md font-regular text-lg' : 'font-thin'
               }`}
               onMouseEnter={() => setSelected(domain)}
             >
@@ -65,7 +65,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
                               crop='scale'
                             />
                           </div>
-                          <h6 className='w-[55%] mx-auto self-center text-xl font-bold text-center text-green-dark tracking-widest'>
+                          <h6 className='w-[55%] mx-auto self-center text-xl text-center text-green-dark tracking-widest'>
                             {category.name}
                           </h6>
                         </button>
