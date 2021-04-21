@@ -9,10 +9,10 @@ interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = ({}) => {
   return (
-    <footer className='w-full h-[26rem] bg-pink-light pt-10 mt-10'>
-      <div className='flex max-w-[100rem] mx-auto text-green-dark tracking-widest'>
-        <div className='flex flex-col ml-auto w-[10%]'>
-          <div className='w-[120px] h-[120px] mx-auto  -mt-8'>
+    <footer className='w-full bg-pink-light pt-10 mt-10'>
+      <div className='flex flex-col lg:flex-row max-w-[100rem] mx-auto text-green-dark text-center lg:text-left tracking-widest'>
+        <div className='flex flex-col lg:ml-auto lg:w-[10%]'>
+          <div className='w-[120px] h-[120px] mx-auto -mt-8'>
             <Image
               src='/logo-with-letters.png'
               height={120}
@@ -20,20 +20,22 @@ export const Footer: React.FC<FooterProps> = ({}) => {
               crop='fill'
             />
           </div>
-          <a href=''>
-            <Facebook tailwind='h-6 text-green-dark mx-auto mt-16' />
-          </a>
-          <a href=''>
-            <Instagram tailwind='h-6 text-green-dark mx-auto my-6' />
-          </a>
-          <a href=''>
-            <Pinterest tailwind='h-6 text-green-dark mx-auto' />
-          </a>
+          <div className='flex lg:flex-col w-[50%] lg:w-full mx-auto mt-6 lg:mt-16'>
+            <a href='' className='mx-auto'>
+              <Facebook tailwind='h-6 text-green-dark mx-auto' />
+            </a>
+            <a href='' className='mx-auto'>
+              <Instagram tailwind='h-6 text-green-dark mx-auto lg:my-6' />
+            </a>
+            <a href='' className='mx-auto'>
+              <Pinterest tailwind='h-6 text-green-dark mx-auto' />
+            </a>
+          </div>
         </div>
-        <div className='w-[85%] mr-auto'>
-          <div className='h-[0.15rem] rounded-full w-[95%] mx-auto bg-green-dark mt-2 mb-10'></div>
-          <div className='flex w-[90%] mx-auto'>
-            <div className='mr-auto'>
+        <div className='w-full mx-auto lg:w-[85%] mb-20 lg:mb-10 lg:mr-auto'>
+          <div className='h-[0.15rem] mt-12 rounded-full w-[80%] lg:w-[95%] mx-auto bg-green-dark lg:mt-2 mb-10'></div>
+          <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
+            <div className='mx-auto lg:mr-auto'>
               <h6 className='font-bold font-serif mb-6'>Navegação</h6>
               <Link href='/'>
                 <a>
@@ -121,20 +123,18 @@ export const Footer: React.FC<FooterProps> = ({}) => {
               <h6 className='font-bold font-serif mb-6'>
                 Fique a par das novidades
               </h6>
-              <div
-        className='flex h-[3rem] w-[20rem] mx-auto self-center items-center rounded-l-md bg-white'
-      >
-        <input
-          className='w-10/12 ml-2 pl-2 pr-2 text-lg font-thin tracking-widest focus:outline-none'
-          placeholder='email para newsletter'
-        />
-        <button className='h-full w-12 rounded-r-md bg-green-dark'>
-          <Send
-            tailwind='h-6 mx-auto text-white transform rotate-45'
-            strokeWidth={1.5}
-          />
-        </button>
-      </div>
+              <div className='flex h-[3rem] w-[20rem] mx-auto self-center items-center rounded-l-md bg-white'>
+                <input
+                  className='w-10/12 ml-2 pl-2 pr-2 text-lg font-thin tracking-widest focus:outline-none'
+                  placeholder='email para newsletter'
+                />
+                <button className='h-full w-12 rounded-r-md bg-green-dark'>
+                  <Send
+                    tailwind='h-6 mx-auto text-white transform rotate-45'
+                    strokeWidth={1.5}
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
