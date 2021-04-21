@@ -106,16 +106,16 @@ export const TopNav: React.FC<TopNavProps> = ({
         />
       </motion.div>
       <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
-        <button>
+        <button className='md:mx-auto'>
           <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={1.5} />
         </button>
-        <button>
+        <button className='md:mx-auto'>
           <Heart
-            tailwind='h-8 text-green-dark mx-2 md:mx-auto'
+            tailwind='h-8 text-green-dark mx-2'
             strokeWidth={1.5}
           />
         </button>
-        <button>
+        <button className='md:mx-auto'>
           <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
         </button>
       </div>

@@ -4,15 +4,19 @@ import { Facebook } from './svg/Facebook'
 import { Instagram } from './svg/Instagram'
 import { Pinterest } from './svg/Pinterest'
 import { Send } from './svg/Send'
+import { ArrowDown } from './svg/ArrowDown'
+import { useState } from 'react'
 
 interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = ({}) => {
+  const [open, setOpen] = useState('')
+
   return (
     <footer className='w-full bg-pink-light pt-10 mt-10'>
       <div className='flex flex-col lg:flex-row max-w-[100rem] mx-auto text-green-dark text-center lg:text-left tracking-widest'>
         <div className='flex flex-col lg:ml-auto lg:w-[10%]'>
-          <div className='w-[120px] h-[120px] mx-auto -mt-8'>
+          <div className='w-[120px] h-[120px] mx-auto lg:-mt-8'>
             <Image
               src='/logo-with-letters.png'
               height={120}
@@ -35,92 +39,163 @@ export const Footer: React.FC<FooterProps> = ({}) => {
         <div className='w-full mx-auto lg:w-[85%] mb-20 lg:mb-10 lg:mr-auto'>
           <div className='h-[0.15rem] mt-12 rounded-full w-[80%] lg:w-[95%] mx-auto bg-green-dark lg:mt-2 mb-10'></div>
           <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
-            <div className='mx-auto lg:mr-auto'>
-              <h6 className='font-bold font-serif mb-6'>Navegação</h6>
-              <Link href='/'>
-                <a>
-                  <p className='my-4'>Início</p>
-                </a>
-              </Link>
-              <Link href='/explorar'>
-                <a>
-                  <p className='my-4'>Explorar</p>
-                </a>
-              </Link>
-              <Link href='/explorar/flores'>
-                <a>
-                  <p className='my-4'>Flores</p>
-                </a>
-              </Link>
-              <Link href='/explorar/plantas'>
-                <a>
-                  <p className='my-4'>Plantas</p>
-                </a>
-              </Link>
-              <Link href='/explorar/acessórios'>
-                <a>
-                  <p className='my-4'>acessórios</p>
-                </a>
-              </Link>
-              <Link href='/explorar/ocasião'>
-                <a>
-                  <p className='my-4'>ocasião</p>
-                </a>
-              </Link>
+            <div className='flex flex-col mx-auto lg:mr-auto mb-6 lg:mb-0'>
+              <div className='flex mx-auto'>
+                <h6 className='font-bold font-serif self-center'>Navegação</h6>
+                <button
+                  className='ml-1 lg:hidden'
+                  onClick={() => {
+                    if (open !== 'navegação') {
+                      setOpen('navegação')
+                    } else {
+                      setOpen('')
+                    }
+                  }}
+                >
+                  <ArrowDown
+                    tailwind={`h-4 transform ${
+                      open === 'navegação' && 'rotate-180'
+                    }`}
+                    strokeWidth={3}
+                  />
+                </button>
+              </div>
+              <div
+                className={`${
+                  open !== 'navegação' && 'hidden lg:inline-block'
+                }`}
+              >
+                <Link href='/'>
+                  <a>
+                    <p className='my-4'>Início</p>
+                  </a>
+                </Link>
+                <Link href='/explorar'>
+                  <a>
+                    <p className='my-4'>Explorar</p>
+                  </a>
+                </Link>
+                <Link href='/explorar/flores'>
+                  <a>
+                    <p className='my-4'>Flores</p>
+                  </a>
+                </Link>
+                <Link href='/explorar/plantas'>
+                  <a>
+                    <p className='my-4'>Plantas</p>
+                  </a>
+                </Link>
+                <Link href='/explorar/acessórios'>
+                  <a>
+                    <p className='my-4'>acessórios</p>
+                  </a>
+                </Link>
+                <Link href='/explorar/ocasião'>
+                  <a>
+                    <p className='my-4'>ocasião</p>
+                  </a>
+                </Link>
+              </div>
             </div>
-            <div className='mx-auto'>
-              <h6 className='font-bold font-serif mb-6'>Conta</h6>
-              <Link href='/conta'>
-                <a>
-                  <p className='my-4'>A minha conta</p>
-                </a>
-              </Link>
-              <Link href='/carrinho'>
-                <a>
-                  <p className='my-4'>Carrinho</p>
-                </a>
-              </Link>
-              <Link href='/favoritos'>
-                <a>
-                  <p className='my-4'>Favoritos</p>
-                </a>
-              </Link>
-              <Link href='/checkout'>
-                <a>
-                  <p className='my-4'>Checkout</p>
-                </a>
-              </Link>
+            <div className='flex flex-col mx-auto mb-6 lg:mb-0'>
+              <div className='flex mx-auto lg:mx-0'>
+                <h6 className='font-bold font-serif self-center'>Conta</h6>
+                <button
+                  className='ml-1 lg:hidden'
+                  onClick={() => {
+                    if (open !== 'conta') {
+                      setOpen('conta')
+                    } else {
+                      setOpen('')
+                    }
+                  }}
+                >
+                  <ArrowDown
+                    tailwind={`h-4 transform ${
+                      open === 'conta' && 'rotate-180'
+                    }`}
+                    strokeWidth={3}
+                  />
+                </button>
+              </div>
+              <div
+                className={`${open !== 'conta' && 'hidden lg:inline-block'}`}
+              >
+                <Link href='/conta'>
+                  <a>
+                    <p className='my-4'>A minha conta</p>
+                  </a>
+                </Link>
+                <Link href='/carrinho'>
+                  <a>
+                    <p className='my-4'>Carrinho</p>
+                  </a>
+                </Link>
+                <Link href='/favoritos'>
+                  <a>
+                    <p className='my-4'>Favoritos</p>
+                  </a>
+                </Link>
+                <Link href='/checkout'>
+                  <a>
+                    <p className='my-4'>Checkout</p>
+                  </a>
+                </Link>
+              </div>
             </div>
-            <div className='mx-auto'>
-              <h6 className='font-bold font-serif mb-6'>Beijaflor</h6>
-              <Link href='/sobre'>
-                <a>
-                  <p className='my-4'>Sobre nós</p>
-                </a>
-              </Link>
-              <Link href='/condições'>
-                <a>
-                  <p className='my-4'>Condições gerais</p>
-                </a>
-              </Link>
-              <Link href='/cookies'>
-                <a>
-                  <p className='my-4'>Perguntas frequentes</p>
-                </a>
-              </Link>
-              <Link href='/privacidade'>
-                <a>
-                  <p className='my-4'>Política de privacidade</p>
-                </a>
-              </Link>
-              <Link href='/cookies'>
-                <a>
-                  <p className='my-4'>Política de cookies</p>
-                </a>
-              </Link>
+            <div className='flex flex-col mx-auto mb-10 lg:mb-0'>
+              <div className='flex mx-auto lg:mx-0'>
+                <h6 className='font-bold font-serif self-center'>Beijaflor</h6>
+                <button
+                  className='ml-1 lg:hidden'
+                  onClick={() => {
+                    if (open !== 'beijaflor') {
+                      setOpen('beijaflor')
+                    } else {
+                      setOpen('')
+                    }
+                  }}
+                >
+                  <ArrowDown
+                    tailwind={`h-4 transform ${
+                      open === 'beijaflor' && 'rotate-180'
+                    }`}
+                    strokeWidth={3}
+                  />
+                </button>
+              </div>
+              <div
+                className={`${open !== 'beijaflor' && 'hidden lg:inline-block'}`}
+              >
+                <Link href='/sobre'>
+                  <a>
+                    <p className='my-4'>Sobre nós</p>
+                  </a>
+                </Link>
+                <Link href='/condições'>
+                  <a>
+                    <p className='my-4'>Condições gerais</p>
+                  </a>
+                </Link>
+                <Link href='/cookies'>
+                  <a>
+                    <p className='my-4'>Perguntas frequentes</p>
+                  </a>
+                </Link>
+                <Link href='/privacidade'>
+                  <a>
+                    <p className='my-4'>Política de privacidade</p>
+                  </a>
+                </Link>
+                <Link href='/cookies'>
+                  <a>
+                    <p className='my-4'>Política de cookies</p>
+                  </a>
+                </Link>
+              </div>
             </div>
-            <div className='ml-auto'>
-              <h6 className='font-bold font-serif mb-6'>
+            <div className='mx-auto lg:ml-auto'>
+              <h6 className='font-bold font-serif self-center mb-6'>
                 Fique a par das novidades
               </h6>
               <div className='flex h-[3rem] w-[20rem] mx-auto self-center items-center rounded-md bg-white'>
