@@ -123,7 +123,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
               <h6 className='font-bold font-serif mb-6'>
                 Fique a par das novidades
               </h6>
-              <div className='flex h-[3rem] w-[20rem] mx-auto self-center items-center rounded-l-md bg-white'>
+              <div className='flex h-[3rem] w-[20rem] mx-auto self-center items-center rounded-md bg-white'>
                 <input
                   className='w-10/12 ml-2 pl-2 pr-2 text-lg font-thin tracking-widest focus:outline-none'
                   placeholder='email para newsletter'
