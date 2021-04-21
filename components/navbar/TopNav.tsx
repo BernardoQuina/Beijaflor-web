@@ -40,7 +40,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         } w-full max-w-md lg:max-w-full  mx-auto top-[4.2rem] lg:top-0 lg:relative lg:w-5/12 2xl:w-4/12 transform left-[50%] translate-x-[-50%] lg:left-0 lg:translate-x-0 text-green-medium`}
       >
         <motion.button
-          className={`lg:text-xl self-center ml-4 focus:outline-none`}
+          className={`text-sm xs:text-base lg:text-lg self-center ml-4 focus:outline-none`}
           onMouseEnter={() => {
             setUnderline(1)
             setOpen(true)
@@ -55,7 +55,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </motion.button>
         <motion.button
-          className={`lg:text-xl self-center mx-auto focus:outline-none`}
+          className={`text-sm xs:text-base lg:text-lg self-center mx-auto focus:outline-none`}
           onMouseEnter={() => {
             setUnderline(2)
             setOpen(true)
@@ -70,7 +70,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </motion.button>
         <motion.button
-          className={`lg:text-xl self-center mr-4 focus:outline-none`}
+          className={`text-sm xs:text-base lg:text-lg self-center mr-4 focus:outline-none`}
           onMouseEnter={() => {
             setUnderline(3)
             setOpen(true)
@@ -91,7 +91,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           searchActive
             ? 'absolute z-[1] md:relative w-[95%] mx-auto left-0 right-0'
             : 'w-5/12 relative'
-        } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border-2`}
+        } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border`}
         onClick={() => setSearchActive(true)}
       >
         <motion.div layoutId='search-logo'>

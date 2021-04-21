@@ -38,7 +38,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
         Flores
       </h4>
       <div className='w-full h-[21.4rem] bg-white rounded-lg shadow-lg'>
-        <div className='w-full px-2 h-[15%] border-b flex pt-2'>
+        <div className='w-full px-2 h-[15%] border-b flex pt-2 overflow-auto'>
           {subDomains.map((subDomain) => (
             <button
               key={subDomain}

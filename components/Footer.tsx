@@ -36,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             </a>
           </div>
         </div>
-        <div className='w-full mx-auto lg:w-[85%] mb-20 lg:mb-10 lg:mr-auto'>
+        <div className='w-full mx-auto lg:w-[85%] mb-10 lg:mr-auto'>
           <div className='h-[0.15rem] mt-12 rounded-full w-[80%] lg:w-[95%] mx-auto bg-green-dark lg:mt-2 mb-10'></div>
           <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
             <div className='flex flex-col mx-auto lg:mr-auto mb-6 lg:mb-0'>
@@ -165,7 +165,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                 </button>
               </div>
               <div
-                className={`${open !== 'beijaflor' && 'hidden lg:inline-block'}`}
+                className={`${
+                  open !== 'beijaflor' && 'hidden lg:inline-block'
+                }`}
               >
                 <Link href='/sobre'>
                   <a>
@@ -194,21 +196,25 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                 </Link>
               </div>
             </div>
-            <div className='mx-auto lg:ml-auto'>
+            <div className='relative min-h-[12rem] mx-auto mt-10 lg:mt-0 lg:ml-auto'>
               <h6 className='font-bold font-serif self-center mb-6'>
                 Fique a par das novidades
               </h6>
-              <div className='flex h-[3rem] w-[20rem] mx-auto self-center items-center rounded-md bg-white'>
+              <div className='flex h-[3rem] w-[18rem] xs:w-[20rem] md:w-[22rem] mx-auto self-center items-center rounded-md bg-white'>
                 <input
                   className='w-10/12 ml-2 pl-2 pr-2 text-lg font-thin tracking-widest focus:outline-none'
                   placeholder='email para newsletter'
                 />
-                <button className='h-full w-12 rounded-r-md bg-green-dark'>
+                <button className='h-full w-12 md:w-14 rounded-r-md bg-green-dark'>
                   <Send
                     tailwind='h-6 mx-auto text-white transform rotate-45'
                     strokeWidth={1.5}
                   />
                 </button>
+              </div>
+              <div className='absolute w-full text-right bottom-0 text-xs'>
+                <p>Copyright © 2021 Florista Beijaflor</p>
+                <p>Todos os direitos reservados</p>
               </div>
             </div>
           </div>
