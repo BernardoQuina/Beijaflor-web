@@ -4,6 +4,21 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Nunito:wght@200;400;700&display=swap');
 
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection,
+p::selection,
+button::selection,
+a::selection,
+img::selection,
+input::selection {
+  background: #f5fae8;
+  color: #ddbea9;
+}
+
 input,
 textarea,
 button,

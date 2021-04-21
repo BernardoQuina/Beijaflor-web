@@ -40,26 +40,25 @@ export const Footer: React.FC<FooterProps> = ({}) => {
           <div className='h-[0.15rem] mt-12 rounded-full w-[80%] lg:w-[95%] mx-auto bg-green-dark lg:mt-2 mb-10'></div>
           <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
             <div className='flex flex-col mx-auto lg:mr-auto mb-6 lg:mb-0'>
-              <div className='flex mx-auto'>
-                <h6 className='font-bold font-serif self-center'>Navegação</h6>
-                <button
-                  className='ml-1 lg:hidden'
-                  onClick={() => {
-                    if (open !== 'navegação') {
-                      setOpen('navegação')
-                    } else {
-                      setOpen('')
-                    }
-                  }}
-                >
-                  <ArrowDown
-                    tailwind={`h-4 transform ${
-                      open === 'navegação' && 'rotate-180'
-                    }`}
-                    strokeWidth={3}
-                  />
-                </button>
-              </div>
+              <button
+                className='flex mx-auto'
+                onClick={() => {
+                  if (open !== 'navegação') {
+                    setOpen('navegação')
+                  } else {
+                    setOpen('')
+                  }
+                }}
+              >
+                <h6 className='font-bold font-serif tracking-widest self-center'>Navegação</h6>
+
+                <ArrowDown
+                  tailwind={`h-4 transform ml-1 self-center lg:hidden ${
+                    open === 'navegação' && 'rotate-180'
+                  }`}
+                  strokeWidth={3}
+                />
+              </button>
               <div
                 className={`${
                   open !== 'navegação' && 'hidden lg:inline-block'
@@ -98,26 +97,25 @@ export const Footer: React.FC<FooterProps> = ({}) => {
               </div>
             </div>
             <div className='flex flex-col mx-auto mb-6 lg:mb-0'>
-              <div className='flex mx-auto lg:mx-0'>
-                <h6 className='font-bold font-serif self-center'>Conta</h6>
-                <button
-                  className='ml-1 lg:hidden'
-                  onClick={() => {
-                    if (open !== 'conta') {
-                      setOpen('conta')
-                    } else {
-                      setOpen('')
-                    }
-                  }}
-                >
-                  <ArrowDown
-                    tailwind={`h-4 transform ${
-                      open === 'conta' && 'rotate-180'
-                    }`}
-                    strokeWidth={3}
-                  />
-                </button>
-              </div>
+              <button
+                className='flex mx-auto lg:mx-0'
+                onClick={() => {
+                  if (open !== 'conta') {
+                    setOpen('conta')
+                  } else {
+                    setOpen('')
+                  }
+                }}
+              >
+                <h6 className='font-bold font-serif tracking-widest self-center'>Conta</h6>
+
+                <ArrowDown
+                  tailwind={`h-4 transform ml-1 self-center lg:hidden ${
+                    open === 'conta' && 'rotate-180'
+                  }`}
+                  strokeWidth={3}
+                />
+              </button>
               <div
                 className={`${open !== 'conta' && 'hidden lg:inline-block'}`}
               >
@@ -144,26 +142,24 @@ export const Footer: React.FC<FooterProps> = ({}) => {
               </div>
             </div>
             <div className='flex flex-col mx-auto mb-10 lg:mb-0'>
-              <div className='flex mx-auto lg:mx-0'>
-                <h6 className='font-bold font-serif self-center'>Beijaflor</h6>
-                <button
-                  className='ml-1 lg:hidden'
-                  onClick={() => {
-                    if (open !== 'beijaflor') {
-                      setOpen('beijaflor')
-                    } else {
-                      setOpen('')
-                    }
-                  }}
-                >
-                  <ArrowDown
-                    tailwind={`h-4 transform ${
-                      open === 'beijaflor' && 'rotate-180'
-                    }`}
-                    strokeWidth={3}
-                  />
-                </button>
-              </div>
+              <button
+                className='flex mx-auto lg:mx-0'
+                onClick={() => {
+                  if (open !== 'beijaflor') {
+                    setOpen('beijaflor')
+                  } else {
+                    setOpen('')
+                  }
+                }}
+              >
+                <h6 className='font-bold font-serif tracking-widest self-center'>Beijaflor</h6>
+                <ArrowDown
+                  tailwind={`h-4 transform ml-1 self-center lg:hidden ${
+                    open === 'beijaflor' && 'rotate-180'
+                  }`}
+                  strokeWidth={3}
+                />
+              </button>
               <div
                 className={`${
                   open !== 'beijaflor' && 'hidden lg:inline-block'
