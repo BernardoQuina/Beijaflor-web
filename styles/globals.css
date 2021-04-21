@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Nunito:wght@200;400;700&display=swap');
 
 input,
 textarea,
@@ -34,6 +34,10 @@ a:active,
 button:active {
   --tw-scale-x: 0.95;
   --tw-scale-y: 0.95;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 .carousel-content {

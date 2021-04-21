@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': ['Nunito', 'Arial', 'sans-serif'],
+      'serif': ['Merriweather', 'serif']
     },
     extend: {
       screens: {

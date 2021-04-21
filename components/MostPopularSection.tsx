@@ -6,7 +6,7 @@ export const MostPopularSection: React.FC<MostPopularSectionProps> = ({}) => {
   return (
     <section className='relative flex mt-40 mx-auto max-w-[100rem]'>
       <div className='mx-auto w-full'>
-        <h1 className='md:ml-4 mb-8 text-left text-4xl md:text-5xl tracking-widest text-pink-dark'>
+        <h1 className='md:ml-4 mb-8 font-serif text-left text-4xl md:text-5xl tracking-widest text-pink-dark'>
           Mais vendidos
         </h1>
         <div className='flex flex-col'>

@@ -6,7 +6,7 @@ export const SpecialOccasionSection: React.FC<SpecialOccasionSectionProps> = ({}
   return (
     <section className='relative flex mt-40 mx-auto max-w-[100rem]'>
       <div className='mx-auto w-full'>
-        <h1 className='md:ml-4 text-left text-5xl md:text-6xl tracking-widest text-pink-dark'>
+        <h1 className='md:ml-4 font-serif text-left text-5xl md:text-6xl tracking-widest text-pink-dark'>
           Dia da mãe
         </h1>
         <div className='flex flex-col'>

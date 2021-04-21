@@ -1,4 +1,5 @@
 import { Navbar } from './navbar/Navbar'
+import { Footer } from './Footer'
 
 interface LayoutProps {}
 
@@ -13,9 +14,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <main className='w-full 3xl:w-[90%] 4xl:w-[70%] mt-32 md:mt-40 mx-auto px-3'>
         {children}
       </main>
-      <footer className='w-full h-[20rem] rounded-t-3xl bg-pink-light bg-opacity-50 shadow-inner-2'>
-        
-      </footer>
+      <Footer />
     </div>
   )
 }

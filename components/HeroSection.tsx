@@ -6,7 +6,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
   return (
     <section className='max-w-6xl 3xl:max-w-7xl mt-36 lg:mt-52 mx-auto'>
       <div className='w-[100%] md:w-[60%] flex flex-col'>
-        <h1 className='text-center font-thin tracking-widest text-5xl lg:text-6xl 2xl:text-7xl text-pink-dark'>
+        <h1 className='text-center font-thin tracking-widest text-5xl lg:text-6xl 2xl:text-7xl text-pink-dark font-serif'>
           Traga cor à sua vida
         </h1>
         <h4 className='mt-20 2xl:mt-44 mx-auto w-[80%] md:w-[100%] text-xl tracking-wider leading-relaxed md:text-2xl font-thin text-center text-green-dark'>
