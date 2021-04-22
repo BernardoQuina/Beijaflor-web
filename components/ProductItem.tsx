@@ -47,7 +47,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
             <h6 className='ml-4 tracking-widest text-pink-medium'>
               {product.MainCategory.toUpperCase()}
             </h6>
-            <button className='absolute bottom-1 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100 hover:scale-110'>
+            <button className='absolute bottom-1 right-1 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100 hover:scale-110'>
               <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
             </button>
             <h4
