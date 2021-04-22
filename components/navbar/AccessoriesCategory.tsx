@@ -13,7 +13,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
 
   const distinctFlowerCategories = new Set(
     categories.map((category) => {
-      if (category.main === 'acessórios' && category.subDomain) {
+      if (category.main === 'Acessórios' && category.subDomain) {
         return category.subDomain
       }
     })
@@ -30,7 +30,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
   return (
     <div
       className={`w-[92%] xl:w-[20%] mx-auto xl:inline-block ${
-        currentCategory !== 'acessórios' && 'hidden'
+        currentCategory !== 'Acessórios' && 'hidden'
       }`}
     >
       <h4 className='ml-4 mt-4 text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
@@ -61,7 +61,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
                 >
                   {categories.map((category) => {
                     if (
-                      category.main === 'acessórios' &&
+                      category.main === 'Acessórios' &&
                       category.subDomain === subdomain
                     ) {
                       return (

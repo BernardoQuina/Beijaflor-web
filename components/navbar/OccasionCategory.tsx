@@ -10,7 +10,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
 
   const distinctOccasionCategories = new Set(
     categories.map((category) => {
-      if (category.main === 'ocasião') {
+      if (category.main === 'Ocasião') {
         return category.subDomain
       }
     })

@@ -14,7 +14,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   open,
   underline,
 }) => {
-  const [currentCategory, setCurrentCategory] = useState('flores')
+  const [currentCategory, setCurrentCategory] = useState('Flores')
   return (
     <div>
       {open && underline === 1 ? ( // novidades
@@ -30,32 +30,32 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
           <div className='max-w-2xl mx-auto xl:hidden flex mt-12 md:mt-4 mb-2'>
             <button
               className={`mx-auto ${
-                currentCategory === 'flores' ? 'font-regular text-xl' : 'font-thin'
+                currentCategory === 'Flores' ? 'font-regular text-xl' : 'font-thin'
               }  tracking-widest text-green-medium xl:hidden`}
               onMouseEnter={() => {
-                setCurrentCategory('flores')
+                setCurrentCategory('Flores')
               }}
             >
               Flores
             </button>
             <button
               className={`mx-auto ${
-                currentCategory === 'plantas' ? 'font-regular text-xl' : 'font-thin'
+                currentCategory === 'Plantas' ? 'font-regular text-xl' : 'font-thin'
               }  tracking-widest text-green-medium xl:hidden`}
               onMouseEnter={() => {
-                setCurrentCategory('plantas')
+                setCurrentCategory('Plantas')
               }}
             >
               Plantas
             </button>
             <button
               className={`mx-auto ${
-                currentCategory === 'acessórios'
+                currentCategory === 'Acessórios'
                   ? 'font-regular text-xl'
                   : 'font-thin'
               }  tracking-widest text-green-medium xl:hidden`}
               onMouseEnter={() => {
-                setCurrentCategory('acessórios')
+                setCurrentCategory('Acessórios')
               }}
             >
               Acessórios

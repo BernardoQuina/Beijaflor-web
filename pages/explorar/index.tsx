@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { isEqual, uniq, uniqBy, uniqWith } from 'lodash'
+import { isEqual, uniqBy, uniqWith } from 'lodash'
 
 import { categories } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
@@ -11,8 +11,8 @@ import { useState } from 'react'
 interface explorarProps {}
 
 const explorar: NextPage<explorarProps> = ({}) => {
-  const [mainOpen, setMainOpen] = useState('')
-  const [subOpen, setSubOpen] = useState('')
+  const [mainOpen, setMainOpen] = useState<string[]>([])
+  const [subOpen, setSubOpen] = useState<string[]>([])
 
   const mainCat = uniqBy(categories, (category) => {
     return category.main
@@ -31,76 +31,94 @@ const explorar: NextPage<explorarProps> = ({}) => {
 
   return (
     <Layout>
-      <div className='mt-20 mb-20 max-w-[100rem] lg:w-[95%] h-[60rem] mx-auto grid grid-cols-12 grid-row-6'>
+      <div className='mt-20 mb-20 max-w-[100rem] lg:w-[97%]  mx-auto grid grid-cols-12 grid-row-6'>
         <div className=' hidden lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full'>
-          <div className='w-[85%] mx-auto mt-8 border-b border-green-light'>
-            <h4 className='text-green-dark tracking-widest text-2xl'>
+          <div className='w-[88%] flex flex-col mx-auto mt-8 border-b border-green-light'>
+            <h4 className=' relative ml-4 mr-auto text-pink-dark ont-serif tracking-widest text-2xl'>
               Categorias
+              <div className='absolute z-[-1] ml-2 mt-[-0.8rem] rounded-sm bg-pink-light w-full h-[0.5rem]'></div>
             </h4>
             {mainCat.map((cat) => (
               <div
-                className='text-green-medium mx-auto ml-4 my-8'
+                className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
                 key={cat.main}
               >
                 <button
-                  className='flex'
+                  className='flex w-full'
                   onClick={() => {
-                    if (mainOpen !== cat.main) {
-                      setMainOpen(cat.main)
+                    if (!mainOpen.includes(cat.main)) {
+                      setMainOpen((prev) => [...prev, cat.main])
                     } else {
-                      setMainOpen('')
+                      setMainOpen((prev) => [
+                        ...prev.filter((e) => e !== cat.main),
+                      ])
                     }
                   }}
                 >
-                  <h6 className='text-xl tracking-widest self-center'>
+                  <h6 className='text-xl tracking-widest font-thin'>
                     {cat.main}
                   </h6>
                   <ArrowDown
-                    tailwind={`h-4 transform ml-1 self-center ${
-                      mainOpen === cat.main && 'rotate-180'
+                    tailwind={`h-5 transform ml-auto self-center ${
+                      mainOpen.includes(cat.main) && 'rotate-180'
                     }`}
                     strokeWidth={3}
                   />
                 </button>
-                <div className={`${mainOpen !== cat.main && 'hidden'}`}>
+                <div
+                  className={`${!mainOpen.includes(cat.main) && 'hidden'} mt-6`}
+                >
                   {realUnique.map((unique) => {
                     if (unique.main === cat.main) {
                       return (
                         <div
-                          className='text-green-medium mx-auto ml-4 my-4'
+                          className='text-green-medium mx-auto pl-6 my-4'
                           key={unique.subDomain}
                         >
                           <button
-                            className='flex'
+                            className='flex w-full'
                             onClick={() => {
-                              if (subOpen !== unique.subDomain) {
-                                setSubOpen(unique.subDomain)
+                              if (!subOpen.includes(unique.subDomain)) {
+                                setSubOpen((prev) => [
+                                  ...prev,
+                                  unique.subDomain,
+                                ])
                               } else {
-                                setSubOpen('')
+                                setSubOpen((prev) => [
+                                  ...prev.filter((e) => e !== unique.subDomain),
+                                ])
                               }
                             }}
                           >
-                            <h6 className='text-lg text-left font-thin tracking-widest self-center'>
+                            <h6 className='text-lg max-w-[90%] font-thin text-left tracking-widest self-center'>
                               {unique.subDomain}
                             </h6>
                             <ArrowDown
-                              tailwind={`h-4 transform ml-1 self-center ${
-                                subOpen === unique.subDomain && 'rotate-180'
+                              tailwind={`h-4 transform ml-auto self-center ${
+                                subOpen.includes(unique.subDomain) &&
+                                'rotate-180'
                               }`}
                               strokeWidth={3}
                             />
                           </button>
                           <div
                             className={`${
-                              subOpen !== unique.subDomain && 'hidden'
-                            }`}
+                              !subOpen.includes(unique.subDomain) && 'hidden'
+                            } mt-4 mb-8 ml-2 border-l`}
                           >
                             {categories.map((category) => {
                               if (
                                 category.main === cat.main &&
                                 category.subDomain === unique.subDomain
                               ) {
-                                return <p>{category.name}</p>
+                                return (
+                                  <p
+                                    key={category.name}
+                                    className='ml-4 my-4 tracking-wider'
+                                  >
+                                    {category.name}
+                                  </p>
+                                )
                               }
                             })}
                           </div>
@@ -111,6 +129,11 @@ const explorar: NextPage<explorarProps> = ({}) => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className='w-[88%] mx-auto mt-8 border-b border-green-light'>
+            <h4 className='text-green-dark ml-4 tracking-widest text-2xl'>
+              Preço
+            </h4>
           </div>
         </div>
         <div className='bg-pink-light col-span-full row-span-full lg:col-span-9 2xl:col-span-10 lg:row-span-full'>

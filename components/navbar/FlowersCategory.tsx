@@ -14,7 +14,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
 
   const distinctFlowerCategories = new Set(
     categories.map((category) => {
-      if (category.main === 'flores' && category.subDomain) {
+      if (category.main === 'Flores' && category.subDomain) {
         return category.subDomain
       }
     })
@@ -31,7 +31,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
   return (
     <div
       className={`w-[92%] xl:w-[36%] mx-auto xl:inline-block ${
-        currentCategory !== 'flores' && 'hidden'
+        currentCategory !== 'Flores' && 'hidden'
       }`}
     >
       <h4 className='ml-4 mt-4 text-2xl tracking-widest text-green-medium hidden xl:inline-block'>
@@ -62,7 +62,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
                 >
                   {categories.map((category) => {
                     if (
-                      category.main === 'flores' &&
+                      category.main === 'Flores' &&
                       category.subDomain === subdomain
                     ) {
                       return (
