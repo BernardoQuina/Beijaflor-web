@@ -27,7 +27,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({}) => {
                   crop='scale'
                 />
               </div>
-              <div className='w-full flex h-[20%] mt-auto bg-white'>
+              <div className='w-full flex h-[20%] mt-auto border border-white bg-white'>
                 <h4 className='w-full self-center px-3 rounded-lg text-center text-lg text-pink-medium tracking-[1rem] '>
                   {category.name.toUpperCase()}
                 </h4>
