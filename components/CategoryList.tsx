@@ -16,7 +16,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({}) => {
               className='relative flex h-[22em] w-[18em] mx-auto mb-20 rounded-xl shadow-xl overflow-hidden'
               key={category.name}
             >
-              <div className='absolute z-[-1] w-full h-full flex border overflow-hidden rounded-xl'>
+              <div className='absolute z-[-1] w-full h-full flex  overflow-hidden rounded-xl'>
                 <Image
                   className='transform my-auto'
                   src={category.thumb}

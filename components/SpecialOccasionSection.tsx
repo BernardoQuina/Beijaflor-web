@@ -8,7 +8,7 @@ export const SpecialOccasionSection: React.FC<SpecialOccasionSectionProps> = ({}
       <div className='mx-auto w-full flex flex-col'>
           <h1 className='relative mr-auto md:ml-4 font-serif text-left text-4xl md:text-6xl tracking-widest text-pink-dark'>
             Dia da mãe
-            <div className='absolute z-[-1] ml-4 lg:ml-6 -mt-4 lg:-mt-5 rounded-sm bg-pink-light w-[95%] h-[0.8rem] lg:h-[1rem]'></div>
+            <div className='absolute z-[-1] ml-2 -mt-4 lg:-mt-5 rounded-sm bg-pink-light w-full h-[0.8rem] lg:h-[1rem]'></div>
           </h1>
           
         <div className='flex flex-col'>
