@@ -8,6 +8,7 @@ import { ProductItem } from '../../components/ProductItem'
 import { Filter } from '../../components/svg/Filter'
 import { Sort } from '../../components/svg/Sort'
 import { ArrowDown } from '../../components/svg/ArrowDown'
+import { X } from '../../components/svg/X'
 
 interface explorarProps {}
 
@@ -51,7 +52,7 @@ const explorar: NextPage<explorarProps> = ({}) => {
               type='button'
               onClick={() => setFiltersOpen(false)}
             >
-              x
+              <X tailwind='h-5 text-green-dark' />
             </button>
             {mainCat.map((cat) => (
               <div
@@ -158,21 +159,25 @@ const explorar: NextPage<explorarProps> = ({}) => {
         </div>
         <div
           className={`${
-            !filtersOpen
-              ? 'col-span-full row-span-full'
-              : 'hidden lg:inline-block'
+            !filtersOpen ? 'col-span-full row-span-full' : 'col-span-full'
           }  lg:col-span-9 2xl:col-span-10 lg:row-span-full`}
         >
           <div className='flex w-[80%] lg:w-[90%] mt-4 mx-auto'>
             <button
-              className='lg:hidden flex m-auto rounded-md shadow-md p-2 bg-white'
+              className={`${
+                filtersOpen && 'hidden'
+              } lg:hidden flex m-auto rounded-md shadow-md p-2 bg-white`}
               type='button'
               onClick={() => setFiltersOpen(true)}
             >
               <h6 className='tracking-widest text-green-dark'>Filtros</h6>
               <Filter tailwind='ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
-            <button className='flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-white'>
+            <button
+              className={`${
+                filtersOpen && 'hidden lg:inline-block'
+              } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-white`}
+            >
               <h6 className='tracking-widest text-green-dark'>Ordenar</h6>
               <Sort tailwind='ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
