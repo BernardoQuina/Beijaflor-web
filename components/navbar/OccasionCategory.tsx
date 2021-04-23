@@ -68,7 +68,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
                               crop='scale'
                             />
                           </div>
-                          <h6 className='w-[55%] mx-auto self-center text-xl text-center text-green-dark tracking-widest'>
+                          <h6 className='w-[55%] mx-auto self-center text-lg text-center text-green-dark tracking-widest'>
                             {category.name}
                           </h6>
                         </button>

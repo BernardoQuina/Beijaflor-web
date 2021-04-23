@@ -24,6 +24,15 @@ type Categories =
       thumb: string
     }
 
+type Products = {
+  id: string
+  name: string
+  description: string
+  thumbnail: string
+  price: number
+  MainCategory: string
+}
+
 export const categories: Categories[] = [
   // categorias em Flores
   {
@@ -424,4 +433,55 @@ export const categories: Categories[] = [
     name: 'festa de aniversário',
     thumb: '/festa.jpg',
   },
+]
+
+export const products: Products[] = [
+  {
+    id: '26hkj45h64j3',
+    name: 'Ramo de rosas',
+    description: 'ramo de uma dúzia de rosas pequenas, rosa claro',
+    thumbnail: '/card-image-1.jpg',
+    price: 4.99,
+    MainCategory: 'rosas',
+  },
+  {
+    id: '45k6h4435h4jh5i6u',
+    name: 'Ficus-lira',
+    description: 'Ficus-lira em vaso, 50cm',
+    thumbnail: '/card-image-4.jpg',
+    price: 29.99,
+    MainCategory: 'folha larga',
+  },
+  {
+    id: '26hg5jre45thb5f54674',
+    name: 'Rosa única',
+    description: 'um ramo de rosa',
+    thumbnail: '/card-image-2.jpg',
+    price: 1.99,
+    MainCategory: 'rosas',
+  },
+  {
+    id: '45k6h4lkj4h5i6u',
+    name: 'Papoilas vermelhas',
+    description: 'Ramo de papoilas vermelho em jarro',
+    thumbnail: '/card-image-3.jpg',
+    price: 9.99,
+    MainCategory: 'papoilas',
+  },
+  {
+    id: '43jh6h547g3hj67g',
+    name: 'Buquê de flores',
+    description: 'buque de flores coloridas variadas',
+    thumbnail: '/card-image-5.jpg',
+    price: 14.99,
+    MainCategory: 'múltiplas',
+  },
+  {
+    id: 'kjh65khg874lh4',
+    name: 'Aloe aristata',
+    description: 'pequena aloe aristata',
+    thumbnail: '/suculentas.jpg',
+    price: 4.99,
+    MainCategory: 'suculentas e catos'
+  }
 ]

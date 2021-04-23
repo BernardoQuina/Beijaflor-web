@@ -7,11 +7,11 @@ module.exports = {
       serif: ['Merriweather', 'serif'],
     },
     screens: {
-      'xs': '350px',
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
+      xs: '350px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
       '2xl': '1536px',
       '3xl': '1600px',
       '4xl': '2000px',
@@ -40,5 +40,8 @@ module.exports = {
     scrollbar: ['rounded'],
     extend: {},
   },
-  plugins: [require('tailwind-scrollbar')], // <-- is array
+  plugins: [
+    require('tailwind-scrollbar'),
+    require('@tailwindcss/custom-forms'),
+  ],
 }
