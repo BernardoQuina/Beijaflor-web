@@ -38,9 +38,8 @@ const explorar: NextPage<explorarProps> = ({}) => {
       <div className='mt-20 mb-20 max-w-[110rem] lg:w-[97%]  mx-auto grid grid-cols-12 grid-row-6'>
         <div
           className={`${
-            filtersOpen &&
-            'row-span-full col-span-full pt-6 z-[1] bg-white shadow-lg rounded-lg'
-          } lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full`}
+            filtersOpen ? 'row-span-full col-span-full pt-6 z-[1]' : 'hidden'
+          } lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full  bg-white lg:bg-transparent shadow-lg lg:shadow-none rounded-lg`}
         >
           <div className='w-[88%] sticky top-28 flex flex-col mx-auto'>
             <h4 className=' relative ml-4 mr-auto text-pink-dark ont-serif tracking-widest text-2xl'>
@@ -162,24 +161,24 @@ const explorar: NextPage<explorarProps> = ({}) => {
             !filtersOpen ? 'col-span-full row-span-full' : 'col-span-full'
           }  lg:col-span-9 2xl:col-span-10 lg:row-span-full`}
         >
-          <div className='flex w-[80%] lg:w-[90%] mt-4 mx-auto'>
+          <div className='flex w-[40%] lg:w-[90%] mt-4 mb-4 mx-auto'>
             <button
               className={`${
                 filtersOpen && 'hidden'
-              } lg:hidden flex m-auto rounded-md shadow-md p-2 bg-white`}
+              } lg:hidden flex m-auto rounded-md shadow-md p-2 bg-green-extraLight`}
               type='button'
               onClick={() => setFiltersOpen(true)}
             >
-              <h6 className='tracking-widest text-green-dark'>Filtros</h6>
-              <Filter tailwind='ml-2 h-6 text-green-dark' strokeWidth={2} />
+              
+              <Filter tailwind='h-6 text-green-dark' strokeWidth={2} />
             </button>
             <button
               className={`${
                 filtersOpen && 'hidden lg:inline-block'
-              } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-white`}
+              } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-green-extraLight lg:bg-white`}
             >
-              <h6 className='tracking-widest text-green-dark'>Ordenar</h6>
-              <Sort tailwind='ml-2 h-6 text-green-dark' strokeWidth={2} />
+              <h6 className='tracking-widest text-green-dark ml-2 mr-4 hidden lg:inline-block'>Ordenar</h6>
+              <Sort tailwind='lg:ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
           </div>
           <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4'>
