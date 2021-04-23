@@ -13,10 +13,10 @@ export const Footer: React.FC<FooterProps> = ({}) => {
   const [open, setOpen] = useState('')
 
   return (
-    <footer className='w-full bg-pink-light pt-10 mt-10'>
+    <footer className='w-full bg-pink-light shadow-inner pt-10 mt-10'>
       <div className='flex flex-col lg:flex-row max-w-[100rem] mx-auto text-green-dark text-center lg:text-left tracking-widest'>
         <div className='flex flex-col lg:ml-auto lg:w-[10%]'>
-          <div className='w-[120px] h-[120px] mx-auto lg:-mt-8'>
+          <div className='w-[120px] h-[120px] mx-auto lg:-mt-4'>
             <Image
               src='/logo-with-letters.png'
               height={120}

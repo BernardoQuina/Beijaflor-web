@@ -15,6 +15,8 @@ const explorar: NextPage<explorarProps> = ({}) => {
   const [mainOpen, setMainOpen] = useState<string[]>([])
   const [subOpen, setSubOpen] = useState<string[]>([])
 
+  const [filtersOpen, setFiltersOpen] = useState(false)
+
   const mainCat = uniqBy(categories, (category) => {
     return category.main
   })
@@ -33,12 +35,24 @@ const explorar: NextPage<explorarProps> = ({}) => {
   return (
     <Layout>
       <div className='mt-20 mb-20 max-w-[110rem] lg:w-[97%]  mx-auto grid grid-cols-12 grid-row-6'>
-        <div className='hidden lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full'>
-          <div className='w-[88%] sticky top-28 flex flex-col mx-auto mt-8'>
+        <div
+          className={`${
+            filtersOpen &&
+            'row-span-full col-span-full pt-6 z-[1] bg-white shadow-lg rounded-lg'
+          } lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full`}
+        >
+          <div className='w-[88%] sticky top-28 flex flex-col mx-auto'>
             <h4 className=' relative ml-4 mr-auto text-pink-dark ont-serif tracking-widest text-2xl'>
               Categorias
               <div className='absolute z-[-1] ml-1 mt-[-0.8rem] rounded-sm bg-pink-light w-full h-[0.4rem]'></div>
             </h4>
+            <button
+              className='ml-auto -mt-10 lg:hidden'
+              type='button'
+              onClick={() => setFiltersOpen(false)}
+            >
+              x
+            </button>
             {mainCat.map((cat) => (
               <div
                 className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
@@ -142,18 +156,24 @@ const explorar: NextPage<explorarProps> = ({}) => {
             ))}
           </div>
         </div>
-        <div className='col-span-full row-span-full lg:col-span-9 2xl:col-span-10 lg:row-span-full'>
-          <div className='lg:hidden flex w-[80%] mt-4 mx-auto'>
-            <button className='flex m-auto rounded-md shadow-md p-2'>
-              <h6 className='tracking-widest font-bold text-green-dark'>
-                Filtros
-              </h6>
+        <div
+          className={`${
+            !filtersOpen
+              ? 'col-span-full row-span-full'
+              : 'hidden lg:inline-block'
+          }  lg:col-span-9 2xl:col-span-10 lg:row-span-full`}
+        >
+          <div className='flex w-[80%] lg:w-[90%] mt-4 mx-auto'>
+            <button
+              className='lg:hidden flex m-auto rounded-md shadow-md p-2 bg-white'
+              type='button'
+              onClick={() => setFiltersOpen(true)}
+            >
+              <h6 className='tracking-widest text-green-dark'>Filtros</h6>
               <Filter tailwind='ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
-            <button className='flex m-auto rounded-md shadow-md p-2'>
-              <h6 className='tracking-widest font-bold text-green-dark'>
-                Ordenar
-              </h6>
+            <button className='flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-white'>
+              <h6 className='tracking-widest text-green-dark'>Ordenar</h6>
               <Sort tailwind='ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
           </div>
