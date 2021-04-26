@@ -9,14 +9,18 @@ import { Filter } from '../../components/svg/Filter'
 import { Sort } from '../../components/svg/Sort'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { X } from '../../components/svg/X'
+import { useRouter } from 'next/dist/client/router'
 
-interface explorarProps {}
+interface explorarCategoriesProps {}
 
-const explorar: NextPage<explorarProps> = ({}) => {
+const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
   const [mainOpen, setMainOpen] = useState<string[]>([])
   const [subOpen, setSubOpen] = useState<string[]>([])
-
   const [filtersOpen, setFiltersOpen] = useState(false)
+
+  const router = useRouter()
+
+  console.log('query: ', router.query)
 
   const mainCat = uniqBy(categories, (category) => {
     return category.main
@@ -169,7 +173,6 @@ const explorar: NextPage<explorarProps> = ({}) => {
               type='button'
               onClick={() => setFiltersOpen(true)}
             >
-              
               <Filter tailwind='h-6 text-green-dark' strokeWidth={2} />
             </button>
             <button
@@ -177,7 +180,9 @@ const explorar: NextPage<explorarProps> = ({}) => {
                 filtersOpen && 'hidden lg:inline-block'
               } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-green-extraLight lg:bg-white`}
             >
-              <h6 className='tracking-widest text-green-dark ml-2 mr-4 hidden lg:inline-block'>Ordenar</h6>
+              <h6 className='tracking-widest text-green-dark ml-2 mr-4 hidden lg:inline-block'>
+                Ordenar
+              </h6>
               <Sort tailwind='lg:ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
           </div>
@@ -199,4 +204,4 @@ const explorar: NextPage<explorarProps> = ({}) => {
   )
 }
 
-export default explorar
+export default explorarCategories
