@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <AnimateSharedLayout>
-      <div className='z-[2] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-4 mx-auto left-0 right-0'>
+      <div className='z-[2] fixed w-[95%] 3xl:w-[85%] 4xl:w-[70%] mt-2 mx-auto left-0 right-0'>
         <motion.nav
           layoutId='expandable-nav'
           transition={{
@@ -75,7 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         </motion.nav>
         <button
           type='button'
-          className='absolute -bottom-7 left-[50%] translate-x-[-50%] focus:outline-none'
+          className='absolute -bottom-6 left-[50%] translate-x-[-50%] focus:outline-none'
           onClick={() => {
             setOpen(!open)
             setUnderline(1)

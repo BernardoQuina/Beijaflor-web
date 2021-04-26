@@ -479,7 +479,7 @@ export const products: Product[] = [
   {
     id: 'kjh65khg874lh4',
     name: 'Aloe aristata',
-    description: 'pequena aloe aristata',
+    description: 'Pequena aloe aristata em vaso branco de barro. Fácil de cuidar.',
     images: ['/suculentas.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 4.99,
     MainCategory: 'suculentas e catos',

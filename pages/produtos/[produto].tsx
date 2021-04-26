@@ -4,6 +4,7 @@ import { Image } from 'cloudinary-react'
 import { Product, products } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
 import { useState } from 'react'
+import { ArrowDown } from '../../components/svg/ArrowDown'
 
 interface produtoProps {
   product: Product
@@ -15,8 +16,12 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   return (
     <Layout>
-      <div className='grid max-w-[100rem] mx-auto w-full h-[45rem] md:h-[60rem] lg:h-[45rem] grid-cols-12 grid-rows-6 -mt-6 lg:-mt-10'>
-        <div className='flex col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-3 lg:row-span-4'>
+      <div className='grid max-w-[100rem] mx-auto w-full h-[50rem] md:h-[60rem] lg:h-[45rem] grid-cols-12 grid-rows-12 -mt-6 lg:-mt-16'>
+        <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-2 row-span-6 lg:row-span-8'>
+          <button className='flex mb-2 lg:mb-0 lg:-mt-10 lg:ml-10  p-1'>
+            <ArrowDown tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90' strokeWidth={3} />
+            <h6 className='mx-1 lg:mx-2 text-lg text-green-dark tracking-widest'>voltar</h6>
+          </button>
           <div className='h-[85%] xs:h-[95%] m-auto self-center rounded-xl overflow-hidden'>
             <Image
               className='mx-auto rounded-xl'
@@ -29,7 +34,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             />
           </div>
         </div>
-        <div className='col-span-4 md:col-span-5 lg:col-span-6 lg:col-start-1 lg:row-start-5 row-span-3 lg:row-span-2 lg:flex overflow-y-auto shadow-inner-y lg:shadow-none'>
+        <div className='col-span-4 md:col-span-5 lg:col-span-6 lg:col-start-1 lg:row-start-10 row-span-6 lg:row-span-4 lg:flex overflow-y-auto'>
           {product.images.map((image) => (
             <button
               className={`relative flex lg:h-[75%] lg:w-[8rem] h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] my-3 mx-auto self-center rounded-xl overflow-hidden box-border ${
@@ -50,13 +55,29 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </button>
           ))}
         </div>
-        <div className='col-span-full lg:col-span-6  lg:row-start-1 row-span-1 lg:row-span-2'>
-          <h2>{product.name}</h2>
+        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-3 lg:row-span-4 max-w-xl mx-2'>
+          <div className='flex'>
+            <h2 className='mt-4 lg:mt-10 text-2xl lg:text-4xl tracking-[0.3rem] font-bold text-green-medium font-serif'>
+              {product.name}
+            </h2>
+            <h5 className='tracking-widest text-green-dark font-bold ml-auto mr-1 self-end'>
+              €
+            </h5>
+            <h5 className='lg:mr-10 text-xl lg:text-2xl tracking-widest font-bold text-green-dark self-end'>
+              {product.price}
+            </h5>
+          </div>
+          <h6 className='mt-1 text-pink-medium tracking-[0.2rem]'>
+            {product.MainCategory.toUpperCase()}
+          </h6>
+          <p className='mt-6 lg:mt-8 lg:text-lg text-green-dark tracking-wide'>
+            {product.description}
+          </p>
         </div>
-        <div className='col-span-full lg:col-span-6 lg:row-start-3 row-span-1 lg:row-span-2 bg-purple-300'>
+        <div className='col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-4 bg-purple-300'>
           características
         </div>
-        <div className='col-span-full lg:col-span-6 lg:row-start-5 row-span-1 lg:row-span-2 bg-purple-600'>
+        <div className='col-span-full lg:col-span-6 lg:row-start-10 row-span-1 lg:row-span-4 bg-purple-600'>
           preço + quantidade + adicionar ao carrinho
         </div>
       </div>
