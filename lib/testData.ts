@@ -1,4 +1,4 @@
-type Categories =
+export type Category =
   | {
       main: 'Flores'
       subDomain: 'tipos' | 'arranjos' | 'cores' | 'estação'
@@ -24,16 +24,16 @@ type Categories =
       thumb: string
     }
 
-type Products = {
+export type Product = {
   id: string
   name: string
   description: string
-  thumbnail: string
+  images: string[]
   price: number
   MainCategory: string
 }
 
-export const categories: Categories[] = [
+export const categories: Category[] = [
   // categorias em Flores
   {
     main: 'Flores',
@@ -435,12 +435,12 @@ export const categories: Categories[] = [
   },
 ]
 
-export const products: Products[] = [
+export const products: Product[] = [
   {
     id: '26hkj45h64j3',
     name: 'Ramo de rosas',
     description: 'ramo de uma dúzia de rosas pequenas, rosa claro',
-    thumbnail: '/card-image-1.jpg',
+    images: ['/card-image-1.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 4.99,
     MainCategory: 'rosas',
   },
@@ -448,7 +448,7 @@ export const products: Products[] = [
     id: '45k6h4435h4jh5i6u',
     name: 'Ficus-lira',
     description: 'Ficus-lira em vaso, 50cm',
-    thumbnail: '/card-image-4.jpg',
+    images: ['/card-image-4.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 29.99,
     MainCategory: 'folha larga',
   },
@@ -456,7 +456,7 @@ export const products: Products[] = [
     id: '26hg5jre45thb5f54674',
     name: 'Rosa única',
     description: 'um ramo de rosa',
-    thumbnail: '/card-image-2.jpg',
+    images: ['/card-image-2.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 1.99,
     MainCategory: 'rosas',
   },
@@ -464,7 +464,7 @@ export const products: Products[] = [
     id: '45k6h4lkj4h5i6u',
     name: 'Papoilas vermelhas',
     description: 'Ramo de papoilas vermelho em jarro',
-    thumbnail: '/card-image-3.jpg',
+    images: ['/card-image-3.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 9.99,
     MainCategory: 'papoilas',
   },
@@ -472,7 +472,7 @@ export const products: Products[] = [
     id: '43jh6h547g3hj67g',
     name: 'Buquê de flores',
     description: 'buque de flores coloridas variadas',
-    thumbnail: '/card-image-5.jpg',
+    images: ['/card-image-5.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 14.99,
     MainCategory: 'múltiplas',
   },
@@ -480,8 +480,8 @@ export const products: Products[] = [
     id: 'kjh65khg874lh4',
     name: 'Aloe aristata',
     description: 'pequena aloe aristata',
-    thumbnail: '/suculentas.jpg',
+    images: ['/suculentas.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 4.99,
-    MainCategory: 'suculentas e catos'
-  }
+    MainCategory: 'suculentas e catos',
+  },
 ]

@@ -3,16 +3,10 @@ import { Image } from 'cloudinary-react'
 
 import { Heart } from './svg/Heart'
 import { ShoppingBag } from './svg/ShoppingBag'
+import { Product } from '../lib/testData'
 
 interface ProductItemProps {
-  product: {
-    id: string
-    name: string
-    description: string
-    thumbnail: string
-    price: number
-    MainCategory: string
-  }
+  product: Product
   height: string
   width: string
   sm?: boolean
@@ -24,18 +18,20 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   width,
   sm,
 }) => {
+  const routeName = encodeURIComponent(product.name).replace(/%20/g, '-')
+
   return (
     <div
       className={`relative z-10 ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden`}
     >
-      <Link href={`/test`}>
+      <Link href={`/produtos/${routeName}`}>
         <a>
           <div className='w-full h-[70%] overflow-hidden'>
             <button className='absolute top-4 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'>
               <Heart tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
             </button>
             <Image
-              src={product.thumbnail}
+              src={product.images[0]}
               quality={70}
               height={900}
               width={600}
