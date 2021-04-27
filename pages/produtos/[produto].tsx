@@ -140,7 +140,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const product =
     products[
       products.findIndex(
-        (product) => product.name === productName.split('-').join(' ')
+        (product) =>
+          product.name === productName.split('-').join(' ') ||
+          product.name === productName
       )
     ]
 
