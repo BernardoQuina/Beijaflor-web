@@ -34,9 +34,11 @@ module.exports = {
         'inner-2': 'inset 0 0 4px 4px rgba(0, 0, 0, 0.06)',
         'inner-3': 'inset 0 24px 24px 24px rgba(0, 0, 0, 0.04)',
         'inner-y': 'inset -15px -24px 10px -20px rgba(0,0,0, 0.1)',
+        'around': '0px 0px 17px 2px rgba(0,0,0,0.1)'
       },
       gridTemplateRows: {
         '12': 'repeat(12, minmax(0, 1fr))',
+        '14': 'repeat(14, minmax(0, 1fr))',
       },
       gridRow: {
         'span-7': 'span 7 / span 7',
@@ -45,13 +47,17 @@ module.exports = {
         'span-10': 'span 10 / span 10',
         'span-11': 'span 11 / span 11',
         'span-12': 'span 12 / span 12',
+        'span-13': 'span 13 / span 13',
+        'span-14': 'span 14 / span 14',
       },
       gridRowStart: {
         '8': '8',
         '9': '9',
         '10': '10',
         '11': '11',
-        '12': '12'
+        '12': '12',
+        '13': '13',
+        '14': '14',
       },
     },
   },

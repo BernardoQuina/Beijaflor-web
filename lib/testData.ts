@@ -31,6 +31,10 @@ export type Product = {
   images: string[]
   price: number
   MainCategory: string
+  Characteristics: {
+    subject: 'comprimento' | 'água' | 'exposição' | 'temperatura' | 'duração'
+    text: string
+  }[]
 }
 
 export const categories: Category[] = [
@@ -443,14 +447,26 @@ export const products: Product[] = [
     images: ['/card-image-1.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 4.99,
     MainCategory: 'rosas',
+    Characteristics: [
+      { subject: 'comprimento', text: '30 cm' },
+      { subject: 'água', text: 'Manter em água' },
+      { subject: 'exposição', text: 'Sol ou sombra' },
+      { subject: 'duração', text: '3 semanas' },
+    ],
   },
   {
     id: '45k6h4435h4jh5i6u',
     name: 'Ficus-lira',
-    description: 'Ficus-lira em vaso, 50cm',
+    description: 'Ficus-lira em cesto de fio de malha.',
     images: ['/card-image-4.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 29.99,
     MainCategory: 'folha larga',
+    Characteristics: [
+      { subject: 'comprimento', text: '1 m' },
+      { subject: 'água', text: '0,5L por dia' },
+      { subject: 'exposição', text: 'Luz indireta' },
+      { subject: 'duração', text: 'Até 20 anos' },
+    ],
   },
   {
     id: '26hg5jre45thb5f54674',
@@ -459,14 +475,26 @@ export const products: Product[] = [
     images: ['/card-image-2.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 1.99,
     MainCategory: 'rosas',
+    Characteristics: [
+      { subject: 'comprimento', text: '20 cm' },
+      { subject: 'água', text: 'Manter em água' },
+      { subject: 'exposição', text: 'Sol ou sombra' },
+      { subject: 'duração', text: '2 semanas' },
+    ],
   },
   {
     id: '45k6h4lkj4h5i6u',
     name: 'Papoilas vermelhas',
-    description: 'Ramo de papoilas vermelho em jarro',
+    description: 'Ramo de papoilas vermelho em jarro.Ramo de papoilas vermelho em jarroRamo de papoilas vermelho em jarro',
     images: ['/card-image-3.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 9.99,
     MainCategory: 'papoilas',
+    Characteristics: [
+      { subject: 'comprimento', text: '40 cm' },
+      { subject: 'água', text: 'Manter em água' },
+      { subject: 'exposição', text: 'Sol ou sombra' },
+      { subject: 'duração', text: '10 dias' },
+    ],
   },
   {
     id: '43jh6h547g3hj67g',
@@ -475,13 +503,26 @@ export const products: Product[] = [
     images: ['/card-image-5.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 14.99,
     MainCategory: 'múltiplas',
+    Characteristics: [
+      { subject: 'comprimento', text: '40 cm' },
+      { subject: 'água', text: 'Manter em água' },
+      { subject: 'exposição', text: 'Sol ou sombra' },
+      { subject: 'duração', text: '2 semanas' },
+    ],
   },
   {
     id: 'kjh65khg874lh4',
     name: 'Aloe aristata',
-    description: 'Pequena aloe aristata em vaso branco de barro. Fácil de cuidar.',
+    description:
+      'Pequena aloe aristata em vaso branco de barro. Fácil de cuidar.',
     images: ['/suculentas.jpg', '/1.jpg', '/2.jpg', '/3.jpg'],
     price: 4.99,
     MainCategory: 'suculentas e catos',
+    Characteristics: [
+      { subject: 'comprimento', text: '15 cm' },
+      { subject: 'água', text: '0,2L por dia' },
+      { subject: 'exposição', text: 'Luz direta' },
+      { subject: 'duração', text: '50 anos +' },
+    ],
   },
 ]
