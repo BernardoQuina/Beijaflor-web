@@ -58,8 +58,8 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             damping: 21,
           }}
           className={`flex flex-col w-full ${
-            !open ? ' h-[4rem]' : 'h-[32rem] lg:h-[30rem]'
-          }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight`}
+            !open ? ' h-[3rem]' : 'h-[32rem] lg:h-[30rem]'
+          }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight bg-opacity-95`}
           ref={navNode}
         >
           <TopNav

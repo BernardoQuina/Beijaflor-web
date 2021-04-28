@@ -28,10 +28,10 @@ export const TopNav: React.FC<TopNavProps> = ({
   searchNode,
 }) => {
   return (
-    <motion.div layoutId='top-nav' className='flex w-full h-[4rem]'>
+    <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
       <Link href='/'>
         <a className=' ml-4 rounded-full self-center'>
-          <Image className='h-[3rem] w-[3rem]' src='/logo.png' crop='fill' />
+          <Image className='h-[2.2rem] w-[2.2rem]' src='/logo.png' crop='fill' />
         </a>
       </Link>
       <div
@@ -87,22 +87,22 @@ export const TopNav: React.FC<TopNavProps> = ({
       </div>
       <motion.div
         layoutId='search-expand'
-        className={`flex h-[3rem] ${
+        className={`flex h-[2.2rem] ${
           searchActive
             ? 'absolute z-[1] md:relative w-[95%] mx-auto left-0 right-0'
             : 'w-5/12 relative'
-        } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-xl shadow-inner bg-white text-3xl border`}
+        } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-lg shadow-inner bg-white text-3xl border`}
         onClick={() => setSearchActive(true)}
       >
-        <motion.div layoutId='search-logo'>
+        <motion.div layoutId='search-logo' className='flex'>
           <Search
-            tailwind='h-6 absolute transform left-[95%] translate-x-[-95%] -mt-3 text-gray-300'
+            tailwind='h-5 absolute transform left-[92%] translate-x-[-92%] self-center text-gray-300'
             strokeWidth={2}
           />
         </motion.div>
         <input
           ref={searchNode}
-          className='w-10/12 ml-2 pl-2 pr-5 text-xl font-thin tracking-widest focus:outline-none'
+          className='w-10/12 ml-2 pl-2 pr-5 text-lg font-thin tracking-widest focus:outline-none'
         />
       </motion.div>
       <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>

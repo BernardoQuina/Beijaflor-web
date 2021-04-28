@@ -34,7 +34,7 @@ module.exports = {
         'inner-2': 'inset 0 0 4px 4px rgba(0, 0, 0, 0.06)',
         'inner-3': 'inset 0 24px 24px 24px rgba(0, 0, 0, 0.04)',
         'inner-y': 'inset -15px -24px 10px -20px rgba(0,0,0, 0.1)',
-        'around': '0px 0px 17px 2px rgba(0,0,0,0.1)'
+        'around': '0px 0px 10px 2px rgba(0,0,0,0.1)'
       },
       gridTemplateRows: {
         '12': 'repeat(12, minmax(0, 1fr))',

@@ -12,6 +12,9 @@ import { Water } from '../../components/svg/Water'
 import { Sun } from '../../components/svg/Sun'
 import { Temperature } from '../../components/svg/Temperature'
 import { Time } from '../../components/svg/Time'
+import { ShoppingBag } from '../../components/svg/ShoppingBag'
+import { Minus } from '../../components/svg/Minus'
+import { Plus } from '../../components/svg/Plus'
 
 interface produtoProps {
   product: Product
@@ -19,6 +22,7 @@ interface produtoProps {
 
 const produto: NextPage<produtoProps> = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(product.images[0])
+  const [quantity, setQuantity] = useState(1)
 
   const router = useRouter()
 
@@ -28,7 +32,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   return (
     <Layout>
-      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-6 lg:-mt-20'>
+      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-6 lg:-mt-14'>
         <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-6 lg:row-span-9'>
           <div className='flex'>
             <button
@@ -83,15 +87,15 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </button>
           ))}
         </div>
-        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-4 lg:row-span-4 md:max-w-2xl lg:max-w-xl md:mx-auto mx-2'>
+        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-4 lg:row-span-4 md:max-w-2xl lg:max-w-xl mx-2 md:mx-auto lg:mx-2'>
           <div className='flex md:mt-6 lg:mt-0'>
             <h2 className='mt-4 lg:mt-6 text-2xl lg:text-4xl tracking-[0.3rem] font-bold text-green-medium font-serif'>
               {product.name}
             </h2>
-            <h5 className='tracking-widest text-green-dark font-bold ml-auto mr-1 self-center'>
+            <h5 className='mt-4 tracking-widest text-green-dark font-bold ml-auto mr-1 self-start'>
               €
             </h5>
-            <h5 className='lg:mr-10 text-xl lg:text-2xl tracking-widest font-bold text-green-dark self-center'>
+            <h5 className='mr-2 mt-3 lg:mr-10 text-xl lg:text-2xl tracking-widest font-bold text-green-dark self-start'>
               {product.price}
             </h5>
           </div>
@@ -125,8 +129,42 @@ const produto: NextPage<produtoProps> = ({ product }) => {
           ))}
         </div>
         <div className='sticky bottom-2 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 '>
-          <div className='mx-auto w-[96%] h-[90%] rounded-xl bg-green-extraLight shadow-around'>
-
+          <div className='flex flex-col mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
+            <div className='flex mb-6 mx-auto'>
+              <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>Quantidade:</p>
+              <button
+                className='p-1 rounded-lg shadow-md bg-green-extraLight'
+                onClick={() => setQuantity((prev) => prev - 1)}
+                disabled={quantity <= 1}
+              >
+                <Minus tailwind='h-6 text-green-dark' strokeWidth={2} />
+              </button>
+              <p className='self-center mx-4 font-bold text-lg text-green-dark'>{quantity}</p>
+              <button
+                className='p-1 rounded-lg shadow-md bg-green-extraLight'
+                onClick={() => setQuantity((prev) => prev + 1)}
+                disabled={quantity >= 100}
+              >
+                <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
+              </button>
+            </div>
+            <button className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight'>
+              <div className='flex mx-auto'>
+                <ShoppingBag
+                  tailwind='h-5 xs:h-7 text-green-dark self-center'
+                  strokeWidth={1.8}
+                />
+                <h5 className='ml-2 mr-2 xs:mr-3 self-center text-green-dark tracking-wider font-bold'>
+                  Adicionar ao cesto
+                </h5>
+                <h5 className='pl-2 xs:pl-3 mr-2 border-l-2 border-green-medium self-end font-bold text-green-dark'>
+                  €
+                </h5>
+                <h5 className=' self-center font-bold text-green-dark tracking-widest xs:text-lg'>
+                  {(product.price * quantity).toFixed(2)}
+                </h5>
+              </div>
+            </button>
           </div>
         </div>
       </div>
