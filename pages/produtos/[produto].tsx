@@ -78,7 +78,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             >
               <div className='h-[7rem] w-[7rem] md:h-[16rem] md:w-[13rem] lg:h-[10rem] lg:w-[8rem] overflow-hidden'>
                 <Image
-                  className='mx-auto'
+                  className='mx-auto overflow-hidden z-[-1]'
                   src={image}
                   quality={70}
                   height={300}
@@ -109,7 +109,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             {product.description}
           </p>
         </div>
-        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6'>
+        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-xl'>
           {product.Characteristics.map((characteristic) => (
             <div className='mx-auto flex flex-col' key={characteristic.subject}>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
@@ -132,9 +132,9 @@ const produto: NextPage<produtoProps> = ({ product }) => {
           ))}
         </div>
         <div
-          className={`sticky ${
-            isMobileSafari ? 'bottom-48' : 'bottom-20'
-          } lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 `}
+          className={` ${
+            !isMobileSafari && 'sticky bottom-20'
+          } lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 lg:max-w-xl`}
         >
           <div className='flex flex-col mt-6 lg:mt-0 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
             <div className='flex mb-6 mx-auto'>
