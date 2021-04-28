@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { Image } from 'cloudinary-react'
+import {isMobileSafari} from 'react-device-detect'
 
 import { Product, products } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
@@ -32,7 +33,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   return (
     <Layout>
-      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-6 lg:-mt-14'>
+      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-6 md:-mt-16 lg:-mt-14'>
         <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-6 lg:row-span-9'>
           <div className='flex'>
             <button
@@ -47,7 +48,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 voltar
               </h6>
             </button>
-            <button className='flex mb-2 lg:-mb-6 ml-auto mr-2 lg:mr-16'>
+            <button className='flex mb-2 lg:-mb-6 ml-auto mr-2 lg:mr-10'>
               <Heart
                 tailwind='h-8 lg:h-10 text-pink-dark self-center'
                 strokeWidth={1.8}
@@ -75,6 +76,8 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               key={image}
               onClick={() => setSelectedImage(image)}
             >
+              <div className='h-[105%] w-[105%]'>
+
               <Image
                 className='mx-auto'
                 src={image}
@@ -83,7 +86,8 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 width={200}
                 gravity='auto'
                 crop='scale'
-              />
+                />
+                </div>
             </button>
           ))}
         </div>
@@ -128,7 +132,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           ))}
         </div>
-        <div className='sticky bottom-20 lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 '>
+        <div className={`${!isMobileSafari && 'sticky bottom-20'} lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 `}>
           <div className='flex flex-col mt-6 lg:mt-0 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
             <div className='flex mb-6 mx-auto'>
               <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>Quantidade:</p>
