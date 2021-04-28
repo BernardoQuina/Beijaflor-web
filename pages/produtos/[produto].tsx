@@ -87,7 +87,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </button>
           ))}
         </div>
-        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-4 lg:row-span-4 md:max-w-2xl lg:max-w-xl mx-2 md:mx-auto lg:mx-2'>
+        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-3 lg:row-span-4 md:max-w-2xl lg:max-w-xl mx-2 md:mx-auto lg:mx-2'>
           <div className='flex md:mt-6 lg:mt-0'>
             <h2 className='mt-4 lg:mt-6 text-2xl lg:text-4xl tracking-[0.3rem] font-bold text-green-medium font-serif'>
               {product.name}
@@ -102,11 +102,11 @@ const produto: NextPage<produtoProps> = ({ product }) => {
           <h6 className='mt-1 text-pink-medium tracking-[0.2rem]'>
             {product.MainCategory.toUpperCase()}
           </h6>
-          <p className='mt-4 lg:mt-6 lg:text-lg leading-8 text-green-dark tracking-wide'>
+          <p className='mt-4 lg:mt-6 lg:text-lg lg:leading-8 text-green-dark tracking-wide'>
             {product.description}
           </p>
         </div>
-        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2'>
+        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6'>
           {product.Characteristics.map((characteristic) => (
             <div className='mx-auto flex flex-col' key={characteristic.subject}>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
@@ -128,8 +128,8 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           ))}
         </div>
-        <div className='sticky bottom-2 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 '>
-          <div className='flex flex-col mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
+        <div className='sticky bottom-20 lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 '>
+          <div className='flex flex-col mt-6 lg:mt-0 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
             <div className='flex mb-6 mx-auto'>
               <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>Quantidade:</p>
               <button
