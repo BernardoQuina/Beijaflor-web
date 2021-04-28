@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { Image } from 'cloudinary-react'
-import {isMobileSafari} from 'react-device-detect'
+import { isMobileSafari } from 'react-device-detect'
 
 import { Product, products } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
@@ -33,7 +33,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   return (
     <Layout>
-      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-6 md:-mt-16 lg:-mt-14'>
+      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-10 md:-mt-16 lg:-mt-14'>
         <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-6 lg:row-span-9'>
           <div className='flex'>
             <button
@@ -76,18 +76,17 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               key={image}
               onClick={() => setSelectedImage(image)}
             >
-              <div className='h-[105%] w-[105%]'>
-
-              <Image
-                className='mx-auto'
-                src={image}
-                quality={70}
-                height={300}
-                width={200}
-                gravity='auto'
-                crop='scale'
+              <div className='h-[7rem] w-[7rem] md:h-[16rem] md:w-[13rem] lg:h-[10rem] lg:w-[8rem] overflow-hidden'>
+                <Image
+                  className='mx-auto'
+                  src={image}
+                  quality={70}
+                  height={300}
+                  width={200}
+                  gravity='auto'
+                  crop='scale'
                 />
-                </div>
+              </div>
             </button>
           ))}
         </div>
@@ -132,10 +131,16 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           ))}
         </div>
-        <div className={`${!isMobileSafari && 'sticky bottom-20'} lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 `}>
+        <div
+          className={`sticky ${
+            isMobileSafari ? 'bottom-32' : 'bottom-20'
+          } lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 `}
+        >
           <div className='flex flex-col mt-6 lg:mt-0 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
             <div className='flex mb-6 mx-auto'>
-              <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>Quantidade:</p>
+              <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>
+                Quantidade:
+              </p>
               <button
                 className='p-1 rounded-lg shadow-md bg-green-extraLight'
                 onClick={() => setQuantity((prev) => prev - 1)}
@@ -143,7 +148,9 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               >
                 <Minus tailwind='h-6 text-green-dark' strokeWidth={2} />
               </button>
-              <p className='self-center mx-4 font-bold text-lg text-green-dark'>{quantity}</p>
+              <p className='self-center mx-4 font-bold text-lg text-green-dark'>
+                {quantity}
+              </p>
               <button
                 className='p-1 rounded-lg shadow-md bg-green-extraLight'
                 onClick={() => setQuantity((prev) => prev + 1)}
