@@ -33,7 +33,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   return (
     <Layout>
-      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-10 md:-mt-16 lg:-mt-14'>
+      <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-12 md:-mt-16 lg:-mt-14'>
         <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-6 lg:row-span-9'>
           <div className='flex'>
             <button
@@ -133,7 +133,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
         </div>
         <div
           className={`sticky ${
-            isMobileSafari ? 'bottom-32' : 'bottom-20'
+            isMobileSafari ? 'bottom-48' : 'bottom-20'
           } lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 `}
         >
           <div className='flex flex-col mt-6 lg:mt-0 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
