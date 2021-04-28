@@ -18,7 +18,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   return (
     <div className={`${open && 'h-[29rem] lg:h-[27rem]'}`}>
       {open && underline === 1 ? ( // novidades
-        <div className='mx-auto h-full w-[92%] lg:w-[80%] mt-8 lg:mt-0'>
+        <div className='mx-auto h-full w-[92%] lg:w-[80%] mt-12 lg:mt-0'>
         <CarouselProductList height='h-[24rem]' width='w-[14rem]' sm={true} />
       </div>
       ) : open && underline === 2 ? ( // ocasião
