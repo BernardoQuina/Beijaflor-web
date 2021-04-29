@@ -19,6 +19,38 @@ input::selection {
   color: #ddbea9;
 }
 
+body {
+  --scrollbar-track: initial;
+  --scrollbar-thumb: initial;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  overflow: overlay;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+}
+
+body {
+  scrollbar-width: thin;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body {
+  --scrollbar-thumb: #cb997e;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+}
+
 input,
 textarea,
 button,
@@ -50,7 +82,6 @@ button:active {
   --tw-scale-x: 0.95;
   --tw-scale-y: 0.95;
 }
-
 
 footer a:hover {
   text-decoration: underline;

@@ -5,8 +5,8 @@ interface HeroSectionProps {}
 
 export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
   return (
-    <section className='max-w-6xl 3xl:max-w-7xl mt-36 lg:mt-52 mx-auto'>
-      <div className='w-[100%] md:w-[60%] flex flex-col'>
+    <section className='relative overflow-y-visible flex max-w-6xl 3xl:max-w-7xl mt-36 lg:mt-52 mx-auto'>
+      <div className='w-[100%] lg:w-[60%] flex flex-col'>
         <h1 className='text-center font-thin tracking-widest text-5xl lg:text-6xl 2xl:text-7xl text-pink-dark font-serif'>
           Traga cor à sua vida
         </h1>
@@ -22,15 +22,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
           </a>
         </Link>
       </div>
-
       <Image
-        className='absolute top-[5%] md:top-[-10%] lg:top-[-20%] xl:top-[-20%] 2xl:top-[-10%] left-[60%] md:left-[40%] 3xl:left-[45%] z-[-1] transform'
-        src='/homepage-plant1.png'
-        quality={30}
-        height={1000}
-        width={1000}
-        crop='fill'
-      />
+          className='hidden lg:inline-block absolute right-[5%] top-[-30%]'
+          src='/homepage-plant1.png'
+          quality={30}
+          height={500}
+          width={500}
+          crop='fill'
+        />
     </section>
   )
 }
