@@ -31,12 +31,6 @@ const produto: NextPage<produtoProps> = ({ product }) => {
     setSelectedImage(product.images[0])
   }, [product])
 
-  let stickyBottom = 'bottom-10'
-
-  if (isMobileSafari) stickyBottom = 'bottom-32'
-
-  console.log('isMobileSafari: ', isMobileSafari)
-
   return (
     <Layout>
       <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-12 md:-mt-16 lg:-mt-14'>
@@ -76,15 +70,15 @@ const produto: NextPage<produtoProps> = ({ product }) => {
         <div className='col-span-4 md:col-span-5 lg:col-span-6 lg:col-start-1 lg:row-start-10 row-span-6 lg:row-span-4 lg:flex overflow-y-auto'>
           {product.images.map((image) => (
             <button
-              className={`relative flex h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] lg:h-[10rem] lg:w-[7rem] my-3 mx-auto self-center rounded-xl overflow-hidden box-border ${
+              className={`flex h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] lg:h-[10rem] lg:w-[7rem] my-3 mx-auto self-center rounded-xl overflow-hidden ${
                 image === selectedImage && 'border-2 border-pink-dark'
               }`}
               key={image}
               onClick={() => setSelectedImage(image)}
             >
-              <div className='h-[7rem] w-[7rem] md:h-[16rem] md:w-[13rem] lg:h-[10rem] lg:w-[8rem] overflow-hidden'>
+              <div className='h-[7rem] w-[7rem] md:h-[16rem] md:w-[13rem] lg:h-[10rem] lg:w-[8rem] overflow-hidden rounded-xl'>
                 <Image
-                  className='mx-auto overflow-hidden z-[-1]'
+                  className='absolute mx-auto'
                   src={image}
                   quality={70}
                   height={300}
@@ -137,10 +131,8 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           ))}
         </div>
-        <div
-          className={`sticky ${stickyBottom} lg:bottom-0 col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 lg:max-w-xl`}
-        >
-          <div className='flex flex-col mt-6 lg:mt-0 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
+        <div className='sticky bottom-10 lg:relative col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 lg:max-w-xl'>
+          <div className='flex flex-col mt-6 lg:mt-10 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
             <div className='flex mb-6 mx-auto'>
               <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>
                 Quantidade:
