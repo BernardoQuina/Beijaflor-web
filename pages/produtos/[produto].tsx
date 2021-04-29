@@ -79,6 +79,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 }`}
               >
                 <Image
+                  className='transform scale-105'
                   src={image}
                   quality={70}
                   height={300}
