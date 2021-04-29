@@ -69,13 +69,15 @@ const produto: NextPage<produtoProps> = ({ product }) => {
         <div className='col-span-4 md:col-span-5 lg:col-span-6 lg:col-start-1 lg:row-start-10 row-span-6 lg:row-span-4 lg:flex overflow-y-auto'>
           {product.images.map((image) => (
             <button
-              className={`flex h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] lg:h-[10rem] lg:w-[7rem] my-3 mx-auto self-center rounded-xl overflow-hidden ${
-                image === selectedImage && 'border-2 border-pink-dark'
-              }`}
+              className={`flex h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] lg:h-[10rem] lg:w-[7rem] my-3 mx-auto self-center rounded-xl overflow-hidden`}
               key={image}
               onClick={() => setSelectedImage(image)}
             >
-              <div className='w-full h-full overflow-hidden'>
+              <div
+                className={`flex w-full h-full rounded-xl overflow-hidden  ${
+                  image === selectedImage && 'border-2 border-pink-dark'
+                }`}
+              >
                 <Image
                   src={image}
                   quality={70}
