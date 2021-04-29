@@ -1,6 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { Image } from 'cloudinary-react'
-import { isMobileSafari } from 'react-device-detect'
 
 import { Product, products } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
