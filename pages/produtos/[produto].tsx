@@ -74,7 +74,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               onClick={() => setSelectedImage(image)}
             >
               <div
-                className={`flex w-full h-full rounded-xl overflow-hidden  ${
+                className={`w-full h-full rounded-xl overflow-hidden  ${
                   image === selectedImage && 'border-2 border-pink-dark'
                 }`}
               >
