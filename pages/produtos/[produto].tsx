@@ -75,15 +75,14 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               key={image}
               onClick={() => setSelectedImage(image)}
             >
-              <div className='h-[7rem] w-[7rem] md:h-[16rem] md:w-[13rem] lg:h-[10rem] lg:w-[8rem] overflow-hidden rounded-xl'>
+              <div className='w-full h-full overflow-hidden'>
                 <Image
-                  className='absolute mx-auto'
                   src={image}
                   quality={70}
                   height={300}
                   width={200}
                   gravity='auto'
-                  crop='scale'
+                  crop='fill'
                 />
               </div>
             </button>
@@ -130,7 +129,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           ))}
         </div>
-        <div className='sticky bottom-10 lg:relative col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 lg:max-w-xl'>
+        <div className='sticky bottom-6 lg:relative col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 lg:max-w-xl'>
           <div className='flex flex-col mt-6 lg:mt-10 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
             <div className='flex mb-6 mx-auto'>
               <p className='mr-6 self-center text-lg tracking-widest text-green-dark font-thin'>
