@@ -1,12 +1,12 @@
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import Link from 'next/link'
-import { Image } from 'cloudinary-react'
 import { motion } from 'framer-motion'
 
 import { Search } from '../svg/Search'
 import { ShoppingBag } from '../svg/ShoppingBag'
 import { Heart } from '../svg/Heart'
 import { Person } from '../svg/Person'
+import { Logo } from '../svg/Logo'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -31,7 +31,7 @@ export const TopNav: React.FC<TopNavProps> = ({
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
       <Link href='/'>
         <a className=' ml-4 rounded-full self-center'>
-          <Image className='h-[2.2rem] w-[2.2rem]' src='/logo.png' crop='fill' />
+          <Logo tailwind='text-green-dark h-10' strokeWidth={3.5} />
         </a>
       </Link>
       <div

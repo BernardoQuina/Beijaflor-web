@@ -74,12 +74,12 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               onClick={() => setSelectedImage(image)}
             >
               <div
-                className={`w-full h-full rounded-xl overflow-hidden  ${
+                className={`relative w-full h-full rounded-xl overflow-hidden  ${
                   image === selectedImage && 'border-2 border-pink-dark'
                 }`}
               >
                 <Image
-                  className='transform scale-110 -mt-1 -mr-1'
+                  className='absolute'
                   src={image}
                   quality={70}
                   height={300}

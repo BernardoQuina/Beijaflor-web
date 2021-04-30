@@ -124,9 +124,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                     <p className='my-4'>A minha conta</p>
                   </a>
                 </Link>
-                <Link href='/carrinho'>
+                <Link href='/cesto'>
                   <a>
-                    <p className='my-4'>Carrinho</p>
+                    <p className='my-4'>Cesto</p>
                   </a>
                 </Link>
                 <Link href='/favoritos'>
