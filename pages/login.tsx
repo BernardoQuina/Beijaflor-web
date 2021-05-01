@@ -1,13 +1,17 @@
+import { useState } from 'react'
 import { NextPage } from 'next'
 import Link from 'next/link'
 
 import { Layout } from '../components/Layout'
 import { Logo } from '../components/svg/Logo'
 import { Blob } from '../components/svg/Blob'
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
 
 interface loginProps {}
 
 const login: NextPage<loginProps> = ({}) => {
+  const [loginOrRegister, setLoginOrRegister] = useState('login')
+
   return (
     <Layout>
       <div className='-mt-4 mb-48 min-h-[40rem] w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
@@ -43,8 +47,56 @@ const login: NextPage<loginProps> = ({}) => {
             </a>
           </Link>
         </div>
-        <div className='col-span-1 row-start-1 lg:col-start-2 bg-white rounded-xl shadow-around w-[95%] h-[26rem] lg:w-[26rem] lg:h-[36rem] mx-auto'>
-
+        <div className='col-span-1 row-start-1 lg:col-start-2 bg-white rounded-xl shadow-around w-[95%] h-[26rem] lg:w-[26rem] lg:h-[36rem] mx-auto overflow-hidden'>
+          <AnimateSharedLayout>
+            <div className='p-4 flex h-[4rem]'>
+              <button
+                className='mx-auto'
+                onClick={() => setLoginOrRegister('login')}
+              >
+                <h3 className='mx-auto'>Entrar</h3>
+                {loginOrRegister === 'login' && (
+                  <motion.div
+                    layoutId='underline2'
+                    className='h-[0.18rem] w-full rounded-full bg-green-medium'
+                  ></motion.div>
+                )}
+              </button>
+              <button
+                className='mx-auto'
+                onClick={() => setLoginOrRegister('register')}
+              >
+                <h3 className='mx-auto'>Criar conta</h3>
+                {loginOrRegister === 'register' && (
+                  <motion.div
+                    layoutId='underline2'
+                    className='h-[0.18rem] w-full rounded-full bg-green-medium'
+                  ></motion.div>
+                )}
+              </button>
+            </div>
+          </AnimateSharedLayout>
+          <AnimatePresence exitBeforeEnter>
+            {loginOrRegister === 'login' ? (
+              <motion.div
+                key='1'
+                className='w-full h-[22rem] lg:h-[32rem] bg-gray-400'
+                initial={{ opacity: 0, x: '-400px' }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: '-400px' }}
+                transition={{ duration: 0.3 }}
+              ></motion.div>
+            ) : loginOrRegister === 'register' ? (
+              <motion.div
+                key='2'
+                className='w-full h-[22rem] lg:h-[32rem] bg-gray-300'
+                initial={{ opacity: 0, x: '400px' }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: '400px' }}
+                transition={{ duration: 0.3 }}
+              ></motion.div>
+            ) : null}
+          </AnimatePresence>
         </div>
       </div>
     </Layout>
