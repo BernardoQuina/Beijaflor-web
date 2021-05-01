@@ -20,6 +20,60 @@ export type BoolNullableFilter = {
   not?: Maybe<NestedBoolNullableFilter>;
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['String'];
+  mainCategory: MainCategory;
+  subCategory: SubCategory;
+  name: Scalars['String'];
+  image: Scalars['String'];
+  products: Array<Product>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type CategoryProductsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<ProductWhereUniqueInput>;
+};
+
+export type CategoryListRelationFilter = {
+  every?: Maybe<CategoryWhereInput>;
+  some?: Maybe<CategoryWhereInput>;
+  none?: Maybe<CategoryWhereInput>;
+};
+
+export type CategoryOrderByInput = {
+  id?: Maybe<SortOrder>;
+  mainCategory?: Maybe<SortOrder>;
+  subCategory?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type CategoryWhereInput = {
+  AND?: Maybe<Array<CategoryWhereInput>>;
+  OR?: Maybe<Array<CategoryWhereInput>>;
+  NOT?: Maybe<Array<CategoryWhereInput>>;
+  id?: Maybe<StringFilter>;
+  mainCategory?: Maybe<EnumMainCategoryFilter>;
+  subCategory?: Maybe<EnumSubCategoryFilter>;
+  name?: Maybe<StringFilter>;
+  image?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  products?: Maybe<ProductListRelationFilter>;
+};
+
+export type CategoryWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 
 export type DateTimeFilter = {
   equals?: Maybe<Scalars['DateTime']>;
@@ -32,6 +86,45 @@ export type DateTimeFilter = {
   not?: Maybe<NestedDateTimeFilter>;
 };
 
+export type EnumMainCategoryFilter = {
+  equals?: Maybe<MainCategory>;
+  in?: Maybe<Array<MainCategory>>;
+  notIn?: Maybe<Array<MainCategory>>;
+  not?: Maybe<NestedEnumMainCategoryFilter>;
+};
+
+export type EnumRoleFilter = {
+  equals?: Maybe<Role>;
+  in?: Maybe<Array<Role>>;
+  notIn?: Maybe<Array<Role>>;
+  not?: Maybe<NestedEnumRoleFilter>;
+};
+
+export type EnumSubCategoryFilter = {
+  equals?: Maybe<SubCategory>;
+  in?: Maybe<Array<SubCategory>>;
+  notIn?: Maybe<Array<SubCategory>>;
+  not?: Maybe<NestedEnumSubCategoryFilter>;
+};
+
+export type FloatFilter = {
+  equals?: Maybe<Scalars['Float']>;
+  in?: Maybe<Array<Scalars['Float']>>;
+  notIn?: Maybe<Array<Scalars['Float']>>;
+  lt?: Maybe<Scalars['Float']>;
+  lte?: Maybe<Scalars['Float']>;
+  gt?: Maybe<Scalars['Float']>;
+  gte?: Maybe<Scalars['Float']>;
+  not?: Maybe<NestedFloatFilter>;
+};
+
+export enum MainCategory {
+  Flores = 'Flores',
+  Plantas = 'Plantas',
+  Acessorios = 'Acessorios',
+  Ocasiao = 'Ocasiao'
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   register?: Maybe<User>;
@@ -39,6 +132,8 @@ export type Mutation = {
   logout?: Maybe<Scalars['Boolean']>;
   editUser?: Maybe<User>;
   deleteUser?: Maybe<User>;
+  createProduct?: Maybe<Product>;
+  createCategory?: Maybe<Category>;
 };
 
 
@@ -70,6 +165,23 @@ export type MutationDeleteUserArgs = {
   password?: Maybe<Scalars['String']>;
 };
 
+
+export type MutationCreateProductArgs = {
+  name: Scalars['String'];
+  description: Scalars['String'];
+  images: Array<Scalars['String']>;
+  price: Scalars['Float'];
+  categories: Array<Scalars['String']>;
+};
+
+
+export type MutationCreateCategoryArgs = {
+  mainCategory: MainCategory;
+  name: Scalars['String'];
+  subCategory: SubCategory;
+  image: Scalars['String'];
+};
+
 export type NestedBoolNullableFilter = {
   equals?: Maybe<Scalars['Boolean']>;
   not?: Maybe<NestedBoolNullableFilter>;
@@ -84,6 +196,38 @@ export type NestedDateTimeFilter = {
   gt?: Maybe<Scalars['DateTime']>;
   gte?: Maybe<Scalars['DateTime']>;
   not?: Maybe<NestedDateTimeFilter>;
+};
+
+export type NestedEnumMainCategoryFilter = {
+  equals?: Maybe<MainCategory>;
+  in?: Maybe<Array<MainCategory>>;
+  notIn?: Maybe<Array<MainCategory>>;
+  not?: Maybe<NestedEnumMainCategoryFilter>;
+};
+
+export type NestedEnumRoleFilter = {
+  equals?: Maybe<Role>;
+  in?: Maybe<Array<Role>>;
+  notIn?: Maybe<Array<Role>>;
+  not?: Maybe<NestedEnumRoleFilter>;
+};
+
+export type NestedEnumSubCategoryFilter = {
+  equals?: Maybe<SubCategory>;
+  in?: Maybe<Array<SubCategory>>;
+  notIn?: Maybe<Array<SubCategory>>;
+  not?: Maybe<NestedEnumSubCategoryFilter>;
+};
+
+export type NestedFloatFilter = {
+  equals?: Maybe<Scalars['Float']>;
+  in?: Maybe<Array<Scalars['Float']>>;
+  notIn?: Maybe<Array<Scalars['Float']>>;
+  lt?: Maybe<Scalars['Float']>;
+  lte?: Maybe<Scalars['Float']>;
+  gt?: Maybe<Scalars['Float']>;
+  gte?: Maybe<Scalars['Float']>;
+  not?: Maybe<NestedFloatFilter>;
 };
 
 export type NestedStringFilter = {
@@ -114,12 +258,72 @@ export type NestedStringNullableFilter = {
   not?: Maybe<NestedStringNullableFilter>;
 };
 
+export type Product = {
+  __typename?: 'Product';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  images: Array<Scalars['String']>;
+  price: Scalars['Float'];
+  categories: Array<Category>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type ProductCategoriesArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<CategoryWhereUniqueInput>;
+};
+
+export type ProductListRelationFilter = {
+  every?: Maybe<ProductWhereInput>;
+  some?: Maybe<ProductWhereInput>;
+  none?: Maybe<ProductWhereInput>;
+};
+
+export type ProductOrderByInput = {
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  description?: Maybe<SortOrder>;
+  images?: Maybe<SortOrder>;
+  price?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type ProductWhereInput = {
+  AND?: Maybe<Array<ProductWhereInput>>;
+  OR?: Maybe<Array<ProductWhereInput>>;
+  NOT?: Maybe<Array<ProductWhereInput>>;
+  id?: Maybe<StringFilter>;
+  name?: Maybe<StringFilter>;
+  description?: Maybe<StringFilter>;
+  images?: Maybe<StringNullableListFilter>;
+  price?: Maybe<FloatFilter>;
+  categories?: Maybe<CategoryListRelationFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type ProductWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   user?: Maybe<User>;
   users: Array<User>;
   userCount?: Maybe<Scalars['Int']>;
   me?: Maybe<User>;
+  product?: Maybe<Product>;
+  products: Array<Product>;
+  productCount?: Maybe<Scalars['Int']>;
+  category?: Maybe<Category>;
+  categories: Array<Category>;
+  categoryCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -136,9 +340,42 @@ export type QueryUsersArgs = {
   cursor?: Maybe<UserWhereUniqueInput>;
 };
 
+
+export type QueryProductArgs = {
+  where: ProductWhereUniqueInput;
+};
+
+
+export type QueryProductsArgs = {
+  where?: Maybe<ProductWhereInput>;
+  orderBy?: Maybe<Array<ProductOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<ProductWhereUniqueInput>;
+};
+
+
+export type QueryCategoryArgs = {
+  where: CategoryWhereUniqueInput;
+};
+
+
+export type QueryCategoriesArgs = {
+  where?: Maybe<CategoryWhereInput>;
+  orderBy?: Maybe<Array<CategoryOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<CategoryWhereUniqueInput>;
+};
+
 export enum QueryMode {
   Default = 'default',
   Insensitive = 'insensitive'
+}
+
+export enum Role {
+  User = 'USER',
+  Admin = 'ADMIN'
 }
 
 export enum SortOrder {
@@ -176,12 +413,35 @@ export type StringNullableFilter = {
   not?: Maybe<NestedStringNullableFilter>;
 };
 
+export type StringNullableListFilter = {
+  equals?: Maybe<Array<Scalars['String']>>;
+  has?: Maybe<Scalars['String']>;
+  hasEvery?: Maybe<Array<Scalars['String']>>;
+  hasSome?: Maybe<Array<Scalars['String']>>;
+  isEmpty?: Maybe<Scalars['Boolean']>;
+};
+
+export enum SubCategory {
+  Tipos = 'tipos',
+  Arranjos = 'arranjos',
+  Cores = 'cores',
+  Estacao = 'estacao',
+  Local = 'local',
+  Caracteristicas = 'caracteristicas',
+  Vasos = 'vasos',
+  Outros = 'outros',
+  Calendario = 'calendario',
+  Cerimonias = 'cerimonias',
+  MomentosEspeciais = 'momentosEspeciais'
+}
+
 export type User = {
   __typename?: 'User';
   id: Scalars['String'];
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  role: Role;
   passwordHash?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
@@ -195,6 +455,7 @@ export type UserOrderByInput = {
   googleId?: Maybe<SortOrder>;
   facebookId?: Maybe<SortOrder>;
   email?: Maybe<SortOrder>;
+  role?: Maybe<SortOrder>;
   passwordHash?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   photo?: Maybe<SortOrder>;
@@ -211,6 +472,7 @@ export type UserWhereInput = {
   googleId?: Maybe<StringNullableFilter>;
   facebookId?: Maybe<StringNullableFilter>;
   email?: Maybe<StringFilter>;
+  role?: Maybe<EnumRoleFilter>;
   passwordHash?: Maybe<StringNullableFilter>;
   name?: Maybe<StringFilter>;
   photo?: Maybe<StringNullableFilter>;
@@ -229,6 +491,20 @@ export type UserWhereUniqueInput = {
 export type BasicUserInfoFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'photo' | 'cloudinaryPhoto' | 'createdAt' | 'updatedAt'>
+);
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & { login?: Maybe<(
+    { __typename?: 'User' }
+    & BasicUserInfoFragment
+  )> }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -268,6 +544,40 @@ export const BasicUserInfoFragmentDoc = gql`
   updatedAt
 }
     `;
+export const LoginDocument = gql`
+    mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    ...BasicUserInfo
+  }
+}
+    ${BasicUserInfoFragmentDoc}`;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const MeDocument = gql`
     query Me {
   me {
