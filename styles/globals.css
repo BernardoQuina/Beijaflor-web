@@ -14,7 +14,8 @@ p::selection,
 button::selection,
 a::selection,
 img::selection,
-input::selection {
+input::selection,
+strong::selection {
   background: #f5fae8;
   color: #ddbea9;
 }
@@ -57,6 +58,10 @@ button,
 select,
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+input:focus {
+  outline: none;
 }
 
 a,

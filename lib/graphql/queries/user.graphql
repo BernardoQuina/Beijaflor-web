@@ -1,8 +1,5 @@
 query User($userId: String!) {
   user(where: { id: $userId }) {
-    id
-    name
-    email
-    passwordHash
+    ...BasicUserInfo
   }
 }

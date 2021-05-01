@@ -527,7 +527,7 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email' | 'passwordHash'>
+    & BasicUserInfoFragment
   )> }
 );
 
@@ -615,13 +615,10 @@ export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const UserDocument = gql`
     query User($userId: String!) {
   user(where: {id: $userId}) {
-    id
-    name
-    email
-    passwordHash
+    ...BasicUserInfo
   }
 }
-    `;
+    ${BasicUserInfoFragmentDoc}`;
 
 /**
  * __useUserQuery__
