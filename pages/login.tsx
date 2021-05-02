@@ -49,7 +49,7 @@ const login: NextPage<loginProps> = ({}) => {
           </h4>
           <Link href='/explorar'>
             <a className='m-auto mt-5 xs:mt-14 lg:mt-20'>
-              <button className='p-2 px-2 rounded-md shadow-md text-white opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-pink-dark font-thin tracking-widest text-sm xs:text-base md:text-2xl '>
+              <button className='p-2 px-2 rounded-md shadow-md text-white opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-green-medium font-thin tracking-widest text-sm xs:text-base md:text-2xl '>
                 EXPLORAR
               </button>
             </a>
@@ -60,6 +60,7 @@ const login: NextPage<loginProps> = ({}) => {
             <div className='p-4 flex h-[4rem]'>
               <button
                 className='mx-auto'
+                type='button'
                 onClick={() => setLoginOrRegister('login')}
               >
                 <h3 className=' text-xl tracking-wide text-green-medium'>
@@ -74,6 +75,7 @@ const login: NextPage<loginProps> = ({}) => {
               </button>
               <button
                 className='mx-auto'
+                type='button'
                 onClick={() => setLoginOrRegister('register')}
               >
                 <h3 className='text-xl tracking-wide text-green-medium'>
@@ -111,7 +113,7 @@ const login: NextPage<loginProps> = ({}) => {
                           query: MeDocument,
                           data: {
                             __typename: 'Query',
-                            me: data.login,
+                            me: data?.login,
                           },
                         })
                       },
@@ -126,7 +128,7 @@ const login: NextPage<loginProps> = ({}) => {
                   }}
                 >
                   {() => (
-                    <Form className='mx-auto mt-6 max-w-[18rem] lg:max-w-xs'>
+                    <Form className='mx-auto mt-12 max-w-[18rem] lg:max-w-xs'>
                       <div className='flex flex-col'>
                         <InputField
                           name='email'
@@ -135,19 +137,32 @@ const login: NextPage<loginProps> = ({}) => {
                           type='email'
                           labelStyling='ml-3 text-green-medium tracking-wider'
                           inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
-                          errorStyling='text-center bg-red-200'
+                          errorStyling='text-center mt-[-2.75rem] mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                         />
                       </div>
                       <div className='flex flex-col mt-6'>
                         <InputField
                           name='password'
-                          label='Password'
+                          label='Palavra-passe'
                           type='password'
                           labelStyling='ml-3 text-green-medium tracking-wider'
                           inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin'
                           errorStyling='text-center bg-red-200'
                         />
+                        <Link href='/forgot-password'>
+                          <p className='mt-1 text-right text-sm text-green-dark hover:underline cursor-pointer'>
+                            Esqueceu-se da palavra-passe?
+                          </p>
+                        </Link>
                       </div>
+                      <button
+                        className='flex mt-6 p-2 px-2 mx-auto w-[80%] rounded-md shadow-md opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-green-medium'
+                        type='submit'
+                      >
+                        <p className='w-full text-center text-white tracking-widest font-thin'>
+                          Entrar
+                        </p>
+                      </button>
                     </Form>
                   )}
                 </Formik>

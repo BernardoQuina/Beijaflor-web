@@ -4,9 +4,9 @@ import {
   createHttpLink,
   InMemoryCache,
   NormalizedCacheObject,
-  split,
+  // split,
 } from '@apollo/client'
-import { getMainDefinition } from '@apollo/client/utilities'
+// import { getMainDefinition } from '@apollo/client/utilities'
 // import { WebSocketLink } from '@apollo/client/link/ws'
 import { setContext } from '@apollo/client/link/context'
 
@@ -38,23 +38,23 @@ function createApolloClient() {
     }
   })
 
-  const splitLink = process.browser
-    ? split(
-        ({ query }) => {
-          const definition = getMainDefinition(query)
-          return (
-            definition.kind === 'OperationDefinition' &&
-            definition.operation === 'subscription'
-          )
-        },
-        // wsLink as WebSocketLink,
-        authLink.concat(httpLink)
-      )
-    : authLink.concat(httpLink)
+  // const splitLink = process.browser
+  //   ? split(
+  //       ({ query }) => {
+  //         const definition = getMainDefinition(query)
+  //         return (
+  //           definition.kind === 'OperationDefinition' &&
+  //           definition.operation === 'subscription'
+  //         )
+  //       },
+  //       wsLink as WebSocketLink,
+  //       authLink.concat(httpLink)
+  //     )
+  //   : authLink.concat(httpLink)
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: splitLink,
+    link: authLink.concat(httpLink), // splitLink
     cache: new InMemoryCache({}),
   })
 }
