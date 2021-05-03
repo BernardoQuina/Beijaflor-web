@@ -1,7 +1,9 @@
-import { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import { Dispatch, MutableRefObject, SetStateAction, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+import { useMeQuery } from '../../lib/generated/graphql'
+import { isServer } from '../../utils/isServer'
 import { Search } from '../svg/Search'
 import { ShoppingBag } from '../svg/ShoppingBag'
 import { Heart } from '../svg/Heart'
@@ -27,6 +29,12 @@ export const TopNav: React.FC<TopNavProps> = ({
   searchActive,
   searchNode,
 }) => {
+  const [profileModal, setProfileModal] = useState(false)
+
+  const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
+
+  console.log('me: ', data?.me)
+
   return (
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
       <Link href='/'>
@@ -105,19 +113,25 @@ export const TopNav: React.FC<TopNavProps> = ({
           className='w-10/12 ml-2 pl-2 pr-5 text-lg font-thin tracking-widest focus:outline-none'
         />
       </motion.div>
-      <div className='flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
+      <div className='relative z-[1] flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
         <button className='md:mx-auto'>
           <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={1.5} />
         </button>
         <button className='md:mx-auto'>
-          <Heart
-            tailwind='h-8 text-green-dark mx-2'
-            strokeWidth={1.5}
-          />
+          <Heart tailwind='h-8 text-green-dark mx-2' strokeWidth={1.5} />
         </button>
-        <button className='md:mx-auto'>
+        <button
+          className='md:mx-auto'
+          type='button'
+          onClick={() => {
+            setProfileModal(!profileModal)
+          }}
+        >
           <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
         </button>
+        {profileModal && (
+          <div className='absolute z-[20] h-10 w-[20rem] bottom-[-3.2rem] -right-4 rounded-md shadow-around bg-white'></div>
+        )}
       </div>
     </motion.div>
   )

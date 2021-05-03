@@ -63,7 +63,9 @@ module.exports = {
   },
   variants: {
     scrollbar: ['rounded'],
-    extend: {},
+    extend: {
+      animation: ['active']
+    },
   },
   plugins: [
     require('tailwind-scrollbar'),

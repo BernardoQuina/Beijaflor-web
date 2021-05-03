@@ -22,7 +22,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
 
   return (
     <div
-      className={`relative z-10 ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden`}
+      className={`relative z-10 ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden active:animate-pulse`}
     >
       <Link href={`/produtos/${routeName}`}>
         <a>
@@ -47,8 +47,8 @@ export const ProductItem: React.FC<ProductItemProps> = ({
               <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
             </button>
             <h4
-              className={`ml-4 text-green-dark ${
-                sm ? 'text-xl mt-2' : 'text-2xl mt-4'
+              className={`mx-4 mt-2 font-serif tracking-wide text-green-medium ${
+                sm ? 'text-lg' : 'text-xl'
               }`}
             >
               {product.name}

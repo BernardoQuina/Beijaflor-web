@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           }}
           className={`flex flex-col w-full ${
             !open ? ' h-[3rem]' : 'h-[32rem] lg:h-[30rem]'
-          }  rounded-xl overflow-y-hidden shadow-lg bg-green-extraLight bg-opacity-95`}
+          }  rounded-lg shadow-lg bg-green-extraLight bg-opacity-95`}
           ref={navNode}
         >
           <TopNav

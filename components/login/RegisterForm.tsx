@@ -93,10 +93,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({}) => {
             />
           </div>
           <button
-            className='flex mt-6 p-2 px-2 mx-auto w-[80%] rounded-md shadow-md opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-green-medium'
+            className='flex mt-6 p-2 px-2 mx-auto w-[80%] rounded-md shadow-md opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-green-extraLight'
             type='submit'
           >
-            <p className='w-full text-center text-white tracking-widest font-thin'>
+            <p className='w-full text-center text-green-dark tracking-widest'>
               Criar conta
             </p>
           </button>

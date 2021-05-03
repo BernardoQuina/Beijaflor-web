@@ -33,7 +33,7 @@ export const PresentationSection: React.FC<PresentationSectionProps> = ({}) => {
       </h4>
       <Link href='/explorar'>
         <a className='m-auto mt-5 xs:mt-14 lg:mt-20'>
-          <button className='p-1 lg:p-2 px-2 rounded-md shadow-md text-white opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-green-medium font-thin tracking-widest text-sm xs:text-base md:text-xl '>
+          <button className='p-1 lg:p-2 px-2 rounded-md shadow-md text-green-dark opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-green-extraLight font-thin tracking-widest text-sm xs:text-base md:text-xl '>
             EXPLORAR
           </button>
         </a>

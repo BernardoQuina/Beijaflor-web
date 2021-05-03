@@ -93,7 +93,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
         </div>
         <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-3 lg:row-span-4 md:max-w-2xl lg:max-w-xl mx-2 md:mx-auto lg:mx-2'>
           <div className='flex md:mt-6 lg:mt-0'>
-            <h2 className='mt-4 lg:mt-6 text-2xl lg:text-4xl tracking-[0.3rem] font-bold text-green-medium font-serif'>
+            <h2 className='mt-4 lg:mt-6 text-2xl lg:text-4xl tracking-widest font-bold text-green-medium font-serif'>
               {product.name}
             </h2>
             <h5 className='mt-4 tracking-widest text-green-dark font-bold ml-auto mr-1 self-start'>
