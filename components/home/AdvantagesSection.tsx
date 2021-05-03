@@ -1,7 +1,7 @@
-import { Plant } from './svg/Plant'
-import { Shipping } from './svg/Shipping'
-import { Support } from './svg/Support'
-import { Secure } from './svg/Secure'
+import { Plant } from '../svg/Plant'
+import { Shipping } from '../svg/Shipping'
+import { Support } from '../svg/Support'
+import { Secure } from '../svg/Secure'
 
 interface AdvantagesSectionProps {}
 

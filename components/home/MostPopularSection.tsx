@@ -1,4 +1,4 @@
-import { CarouselProductList } from './CarouselProductList'
+import { CarouselProductList } from '../CarouselProductList'
 
 interface MostPopularSectionProps {}
 

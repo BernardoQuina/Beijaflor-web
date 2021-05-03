@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
 
 import { Layout } from '../components/Layout'
-import { HeroSection } from '../components/HeroSection'
-import { AdvantagesSection } from '../components/AdvantagesSection'
-import { SpecialOccasionSection } from '../components/SpecialOccasionSection'
-import { CategoriesSection } from '../components/CategoriesSection'
-import { MostPopularSection } from '../components/MostPopularSection'
+import { HeroSection } from '../components/home/HeroSection'
+import { AdvantagesSection } from '../components/home/AdvantagesSection'
+import { SpecialOccasionSection } from '../components/home/SpecialOccasionSection'
+import { CategoriesSection } from '../components/home/CategoriesSection'
+import { MostPopularSection } from '../components/home/MostPopularSection'
 // import Link from 'next/link'
 // import { useMeQuery } from '../lib/generated/graphql'
 interface HomeProps {

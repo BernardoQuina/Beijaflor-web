@@ -1,4 +1,4 @@
-import { CategoryList } from './CategoryList'
+import { CategoryList } from '../CategoryList'
 
 
 interface CategoriesSectionProps {
