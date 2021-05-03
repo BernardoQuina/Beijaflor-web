@@ -3,6 +3,7 @@ import { NextPage } from 'next'
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
 
 import { useIsAuth } from '../utils/useIsAuth'
+import { slideLeft, slideRight } from '../utils/animations'
 import { Layout } from '../components/Layout'
 import { PresentationSection } from '../components/login/PresentationSection'
 import { LoginForm } from '../components/login/LoginForm'
@@ -20,9 +21,12 @@ const login: NextPage<loginProps> = ({}) => {
       <div className='-mt-4 mb-48 w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
         <PresentationSection />
         <section className='col-span-1 row-start-1 lg:col-start-2 w-[95%] lg:w-[26rem] mx-auto'>
-          <div className='pb-6 bg-white rounded-xl shadow-around  overflow-hidden'>
-            <AnimateSharedLayout>
-              <div className='p-4 flex h-[4rem]'>
+          <AnimateSharedLayout>
+            <motion.div
+              layoutId='forms'
+              className='bg-white rounded-xl shadow-around pb-6 overflow-hidden'
+            >
+              <motion.div layoutId='top' className='p-4 flex h-[4rem]'>
                 <button
                   className='mx-auto'
                   type='button'
@@ -53,16 +57,34 @@ const login: NextPage<loginProps> = ({}) => {
                     ></motion.div>
                   )}
                 </button>
-              </div>
-            </AnimateSharedLayout>
-            <AnimatePresence exitBeforeEnter>
-              {loginOrRegister === 'login' ? (
-                <LoginForm />
-              ) : loginOrRegister === 'register' ? (
-                <RegisterForm />
-              ) : null}
-            </AnimatePresence>
-          </div>
+              </motion.div>
+              <AnimatePresence exitBeforeEnter>
+                {loginOrRegister === 'login' ? (
+                  <motion.div
+                    key='login'
+                    className='w-full'
+                    initial='initial'
+                    animate='animate'
+                    exit='exit'
+                    variants={slideLeft}
+                  >
+                    <LoginForm />
+                  </motion.div>
+                ) : loginOrRegister === 'register' ? (
+                  <motion.div
+                    key='register'
+                    className='w-full'
+                    initial='initial'
+                    animate='animate'
+                    exit='exit'
+                    variants={slideRight}
+                  >
+                    <RegisterForm />
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </motion.div>
+          </AnimateSharedLayout>
         </section>
       </div>
     </Layout>

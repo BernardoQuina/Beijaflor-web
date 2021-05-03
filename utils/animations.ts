@@ -13,7 +13,7 @@ export const slideLeft: Variants = {
   exit: {
     opacity: 0,
     x: '-400px',
-    transition: { duration: 0.1 },
+    transition: { duration: 0.3 },
   },
 }
 
@@ -30,6 +30,6 @@ export const slideRight: Variants = {
   exit: {
     opacity: 0,
     x: '400px',
-    transition: { duration: 0.1 },
+    transition: { duration: 0.3 },
   },
 }
