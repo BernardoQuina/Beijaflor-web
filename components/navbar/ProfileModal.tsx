@@ -17,7 +17,10 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
   const [logout] = useLogoutMutation({ errorPolicy: 'all' })
 
   return (
-    <div ref={modalRef} className='absolute z-[20] py-2 px-2 w-[15rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white'>
+    <div
+      ref={modalRef}
+      className='absolute z-[20] py-2 px-2 w-[15rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white'
+    >
       {me.me ? (
         <>
           <Link href='/conta'>
@@ -48,7 +51,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
             </h6>
           </button>
         </>
-      ) : (
+      ) : me === 'undefined' || me === null ? (
         <Link href='/login'>
           <a>
             <h6 className='py-2 text-green-dark tracking-wide text-center rounded-md hover:bg-green-extraLight'>
@@ -56,7 +59,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
             </h6>
           </a>
         </Link>
-      )}
+      ) : null}
     </div>
   )
 }
