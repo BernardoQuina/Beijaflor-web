@@ -1,4 +1,11 @@
-import { Dispatch, MutableRefObject, SetStateAction, useState } from 'react'
+import {
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
@@ -9,6 +16,7 @@ import { ShoppingBag } from '../svg/ShoppingBag'
 import { Heart } from '../svg/Heart'
 import { Person } from '../svg/Person'
 import { Logo } from '../svg/Logo'
+import { ProfileModal } from './ProfileModal'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -33,7 +41,34 @@ export const TopNav: React.FC<TopNavProps> = ({
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
-  console.log('me: ', data?.me)
+  const profileButtonNode = useRef<HTMLButtonElement | null>(null)
+  const profileModalNode = useRef<HTMLDivElement | null>(null)
+
+  const profileButtonClick = (e: any) => {
+    if (
+      profileButtonNode.current &&
+      profileButtonNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    if (
+      profileModalNode.current &&
+      profileModalNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    setProfileModal(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', profileButtonClick)
+
+    return () => {
+      document.removeEventListener('mousedown', profileButtonClick)
+    }
+  })
 
   return (
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
@@ -123,15 +158,14 @@ export const TopNav: React.FC<TopNavProps> = ({
         <button
           className='md:mx-auto'
           type='button'
+          ref={profileButtonNode}
           onClick={() => {
             setProfileModal(!profileModal)
           }}
         >
           <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
         </button>
-        {profileModal && (
-          <div className='absolute z-[20] h-10 w-[20rem] bottom-[-3.2rem] -right-4 rounded-md shadow-around bg-white'></div>
-        )}
+        {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
       </div>
     </motion.div>
   )
