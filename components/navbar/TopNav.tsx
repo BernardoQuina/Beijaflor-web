@@ -74,7 +74,7 @@ export const TopNav: React.FC<TopNavProps> = ({
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
       <Link href='/'>
         <a className=' ml-4 rounded-full self-center'>
-          <Logo tailwind='text-green-dark h-10' strokeWidth={3.5} />
+          <Logo tailwind='text-green-dark h-8' strokeWidth={3.6} />
         </a>
       </Link>
       <div
@@ -132,7 +132,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         layoutId='search-expand'
         className={`flex h-[2.2rem] ${
           searchActive
-            ? 'absolute z-[1] md:relative w-[95%] mx-auto left-0 right-0'
+            ? 'absolute z-[2] md:relative w-[95%] mx-auto left-0 right-0'
             : 'w-5/12 relative'
         } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-lg shadow-inner bg-white text-3xl border`}
         onClick={() => setSearchActive(true)}

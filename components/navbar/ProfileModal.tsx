@@ -51,7 +51,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
             </h6>
           </button>
         </>
-      ) : me === 'undefined' || me === null ? (
+      ) : (
         <Link href='/login'>
           <a>
             <h6 className='py-2 text-green-dark tracking-wide text-center rounded-md hover:bg-green-extraLight'>
@@ -59,7 +59,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
             </h6>
           </a>
         </Link>
-      ) : null}
+      )}
     </div>
   )
 }
