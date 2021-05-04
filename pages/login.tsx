@@ -8,6 +8,7 @@ import { Layout } from '../components/Layout'
 import { PresentationSection } from '../components/login/PresentationSection'
 import { LoginForm } from '../components/login/LoginForm'
 import { RegisterForm } from '../components/login/RegisterForm'
+import { OauthSignIn } from '../components/login/OauthSignIn'
 
 interface loginProps {}
 
@@ -83,6 +84,7 @@ const login: NextPage<loginProps> = ({}) => {
                   </motion.div>
                 ) : null}
               </AnimatePresence>
+              <OauthSignIn />
             </motion.div>
           </AnimateSharedLayout>
         </section>
