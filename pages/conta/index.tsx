@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 
 import { Layout } from '../../components/Layout'
+import { Admin } from '../../components/svg/Admin'
 import { Box } from '../../components/svg/Box'
 import { Location } from '../../components/svg/Location'
 import { Payment } from '../../components/svg/Payment'
@@ -32,7 +33,29 @@ const index: NextPage<indexProps> = ({}) => {
           </div>
         )}
       </div>
-      <div className='mx-auto max-w-[68rem] mt-10 grid gap-12 grid-cols-1  lg:grid-cols-2'>
+      <div className='mx-auto max-w-[68rem] mt-10 mb-28 grid gap-12 grid-cols-1  lg:grid-cols-2'>
+        {data?.me && data.me.role === 'ADMIN' && (
+          <Link href='/conta/administração-geral-da-loja'>
+            <a>
+              <div className='group flex mx-auto w-full lg:w-[30rem] bg-white rounded-md shadow-around'>
+                <div className='flex w-[35%] xs:w-[30%] h-[8rem] lg:h-[10rem]'>
+                  <div className='group flex m-4 h-16 lg:h-24 w-16 lg:w-24 self-center bg-pink-light group-hover:bg-green-extraLight rounded-full'>
+                    <Admin tailwind='group mx-auto self-center h-14 lg:h-20 w-14 lg:w-20 text-pink-medium group-hover:text-green-medium' />
+                  </div>
+                </div>
+                <div className='flex flex-col pt-2 pr-2 lg:pb-4 w-full'>
+                  <h3 className='group xs:text-lg lg:mt-2 text-center tracking-wide xs:tracking-wider text-green-dark group-hover:font-bold'>
+                    Administração
+                  </h3>
+                  <p className='my-auto text-center text-sm xs:text-base text-green-dark font-thin'>
+                    Gerir produtos e categorias bem como consultar encomendas de
+                    clientes
+                  </p>
+                </div>
+              </div>
+            </a>
+          </Link>
+        )}
         <Link href='/conta/encomendas'>
           <a>
             <div className='group flex mx-auto w-full lg:w-[30rem] bg-white rounded-md shadow-around'>
