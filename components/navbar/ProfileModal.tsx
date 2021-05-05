@@ -30,7 +30,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
               </h6>
             </a>
           </Link>
-          <Link href='/encomendas'>
+          <Link href='/conta/encomendas'>
             <a>
               <h6 className='py-2 text-green-dark tracking-wide text-center rounded-md hover:bg-green-extraLight'>
                 Encomendas

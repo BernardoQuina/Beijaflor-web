@@ -4,6 +4,7 @@ fragment BasicUserInfo on User {
   facebookId
   email
   name
+  role
   photo
   createdAt
   updatedAt

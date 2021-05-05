@@ -19,7 +19,7 @@ const login: NextPage<loginProps> = ({}) => {
 
   return (
     <Layout>
-      <div className='-mt-4 mb-64 w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
+      <div className='-mt-4 3xl:mt-72 mb-64 w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
         <PresentationSection />
         <section className='col-span-1 row-start-1 lg:col-start-2 w-[95%] lg:w-[26rem] mx-auto'>
           <AnimateSharedLayout>

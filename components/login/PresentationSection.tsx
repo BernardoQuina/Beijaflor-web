@@ -7,7 +7,7 @@ interface PresentationSectionProps {}
 
 export const PresentationSection: React.FC<PresentationSectionProps> = ({}) => {
   return (
-    <section className='mt-16 lg:mt-0 relative z-[0] mx-auto w-[90%] lg:w-[40rem] flex flex-col col-span-1'>
+    <section className='mt-32 lg:mt-0 relative z-[0] mx-auto w-[90%] lg:w-[40rem] flex flex-col col-span-1'>
       <Logo
         tailwind='mt-6 lg:mt-0 text-pink-dark h-[2.8rem] xs:h-[4rem] lg:h-[5rem] mx-auto'
         strokeWidth={2.5}

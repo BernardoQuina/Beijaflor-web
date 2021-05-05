@@ -149,7 +149,6 @@ export type MutationLoginArgs = {
 export type MutationEditUserArgs = {
   password?: Maybe<Scalars['String']>;
   updateName?: Maybe<Scalars['String']>;
-  updatePhoto?: Maybe<Scalars['String']>;
   updateEmail?: Maybe<Scalars['String']>;
   updatePassword?: Maybe<Scalars['String']>;
   confirmNewPassword?: Maybe<Scalars['String']>;
@@ -477,7 +476,7 @@ export type UserWhereUniqueInput = {
 
 export type BasicUserInfoFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'photo' | 'createdAt' | 'updatedAt'>
+  & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'role' | 'photo' | 'createdAt' | 'updatedAt'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -549,6 +548,7 @@ export const BasicUserInfoFragmentDoc = gql`
   facebookId
   email
   name
+  role
   photo
   createdAt
   updatedAt

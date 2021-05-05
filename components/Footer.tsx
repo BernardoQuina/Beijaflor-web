@@ -124,19 +124,24 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                     <p className='my-4'>A minha conta</p>
                   </a>
                 </Link>
-                <Link href='/cesto'>
-                  <a>
-                    <p className='my-4'>Cesto</p>
-                  </a>
-                </Link>
                 <Link href='/favoritos'>
                   <a>
                     <p className='my-4'>Favoritos</p>
                   </a>
                 </Link>
+                <Link href='/cesto'>
+                  <a>
+                    <p className='my-4'>Cesto</p>
+                  </a>
+                </Link>
                 <Link href='/checkout'>
                   <a>
                     <p className='my-4'>Checkout</p>
+                  </a>
+                </Link>
+                <Link href='/conta/encomendas'>
+                  <a>
+                    <p className='my-4'>Encomendas</p>
                   </a>
                 </Link>
               </div>
