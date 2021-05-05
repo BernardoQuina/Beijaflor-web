@@ -19,13 +19,13 @@ const login: NextPage<loginProps> = ({}) => {
 
   return (
     <Layout>
-      <div className='-mt-4 mb-48 w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
+      <div className='-mt-4 mb-64 w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
         <PresentationSection />
         <section className='col-span-1 row-start-1 lg:col-start-2 w-[95%] lg:w-[26rem] mx-auto'>
           <AnimateSharedLayout>
             <motion.div
               layoutId='forms'
-              className='bg-white rounded-xl shadow-around pb-6 overflow-hidden'
+              className='bg-white rounded-xl shadow-around pb-12 overflow-hidden'
             >
               <motion.div layoutId='top' className='p-4 flex h-[4rem]'>
                 <button
