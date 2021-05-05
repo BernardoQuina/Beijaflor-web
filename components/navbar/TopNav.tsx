@@ -17,6 +17,7 @@ import { Heart } from '../svg/Heart'
 import { Person } from '../svg/Person'
 import { Logo } from '../svg/Logo'
 import { ProfileModal } from './ProfileModal'
+import { Image } from 'cloudinary-react'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -165,7 +166,18 @@ export const TopNav: React.FC<TopNavProps> = ({
             setProfileModal(!profileModal)
           }}
         >
-          <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
+          {data?.me && data.me.photo ? (
+            <div className='md:mr-2'>
+              <Image
+                className='rounded-full'
+                src={data.me.photo}
+                height={30}
+                width={30}
+              />
+            </div>
+          ) : (
+            <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
+          )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
       </div>

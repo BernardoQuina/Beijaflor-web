@@ -1,6 +1,6 @@
 import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 interface OauthSignInProps {}
 

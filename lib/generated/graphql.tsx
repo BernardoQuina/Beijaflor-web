@@ -15,11 +15,6 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type BoolNullableFilter = {
-  equals?: Maybe<Scalars['Boolean']>;
-  not?: Maybe<NestedBoolNullableFilter>;
-};
-
 export type Category = {
   __typename?: 'Category';
   id: Scalars['String'];
@@ -64,9 +59,9 @@ export type CategoryWhereInput = {
   subCategory?: Maybe<EnumSubCategoryFilter>;
   name?: Maybe<StringFilter>;
   image?: Maybe<StringFilter>;
+  products?: Maybe<ProductListRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
-  products?: Maybe<ProductListRelationFilter>;
 };
 
 export type CategoryWhereUniqueInput = {
@@ -180,11 +175,6 @@ export type MutationCreateCategoryArgs = {
   name: Scalars['String'];
   subCategory: SubCategory;
   image: Scalars['String'];
-};
-
-export type NestedBoolNullableFilter = {
-  equals?: Maybe<Scalars['Boolean']>;
-  not?: Maybe<NestedBoolNullableFilter>;
 };
 
 export type NestedDateTimeFilter = {
@@ -445,7 +435,6 @@ export type User = {
   passwordHash?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
-  cloudinaryPhoto?: Maybe<Scalars['Boolean']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -459,7 +448,6 @@ export type UserOrderByInput = {
   passwordHash?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   photo?: Maybe<SortOrder>;
-  cloudinaryPhoto?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -476,7 +464,6 @@ export type UserWhereInput = {
   passwordHash?: Maybe<StringNullableFilter>;
   name?: Maybe<StringFilter>;
   photo?: Maybe<StringNullableFilter>;
-  cloudinaryPhoto?: Maybe<BoolNullableFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -490,7 +477,7 @@ export type UserWhereUniqueInput = {
 
 export type BasicUserInfoFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'photo' | 'cloudinaryPhoto' | 'createdAt' | 'updatedAt'>
+  & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'photo' | 'createdAt' | 'updatedAt'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -563,7 +550,6 @@ export const BasicUserInfoFragmentDoc = gql`
   email
   name
   photo
-  cloudinaryPhoto
   createdAt
   updatedAt
 }

@@ -77,6 +77,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({}) => {
               name='password'
               label='Palavra-passe'
               type='password'
+              autoComplete='new-password'
               labelStyling='ml-3 text-green-medium tracking-wider'
               inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin'
               errorStyling='text-center bg-red-200'

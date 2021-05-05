@@ -5,7 +5,6 @@ fragment BasicUserInfo on User {
   email
   name
   photo
-  cloudinaryPhoto
   createdAt
   updatedAt
 }
