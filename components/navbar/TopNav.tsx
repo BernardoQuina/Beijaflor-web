@@ -41,6 +41,8 @@ export const TopNav: React.FC<TopNavProps> = ({
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
+  console.log('me: ', data)
+
   const profileButtonNode = useRef<HTMLButtonElement | null>(null)
   const profileModalNode = useRef<HTMLDivElement | null>(null)
 
