@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
+import { ProductsSection } from '../../components/admin/ProductsSection'
 import { Layout } from '../../components/Layout'
 import { Box } from '../../components/svg/Box'
 import { Categories } from '../../components/svg/Categories'
@@ -17,7 +18,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
   return (
     <Layout>
       <div className='-mt-6 lg:-mt-10 mx-auto max-w-6xl 3xl:max-w-[90rem] w-full  grid grid-cols-12'>
-        <div className='sticky top-20 flex mb-4 lg:mx-4 col-span-full lg:col-span-3 '>
+        <div className='sticky top-20 z-[1] flex mb-4 lg:mx-4 col-span-full lg:col-span-3 '>
           <div className='sticky top-20 flex lg:flex-col lg:mb-auto w-full py-2 lg:p-4 bg-white rounded-md shadow-around'>
             <button
               onClick={() => setActive('produtos')}
@@ -76,7 +77,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
         </div>
         <div className='h-[60rem] col-span-full lg:col-span-9'>
           {active === 'produtos' ? (
-            <div className='w-full h-full bg-white rounded-md shadow-around'></div>
+            <ProductsSection />
           ) : active === 'categorias' ? (
             <div></div>
           ) : active === 'encomendas' ? (
