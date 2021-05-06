@@ -15,6 +15,11 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type BoolFilter = {
+  equals?: Maybe<Scalars['Boolean']>;
+  not?: Maybe<NestedBoolFilter>;
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['String'];
@@ -113,6 +118,17 @@ export type FloatFilter = {
   not?: Maybe<NestedFloatFilter>;
 };
 
+export type IntFilter = {
+  equals?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  not?: Maybe<NestedIntFilter>;
+};
+
 export enum MainCategory {
   Flores = 'Flores',
   Plantas = 'Plantas',
@@ -176,6 +192,11 @@ export type MutationCreateCategoryArgs = {
   image: Scalars['String'];
 };
 
+export type NestedBoolFilter = {
+  equals?: Maybe<Scalars['Boolean']>;
+  not?: Maybe<NestedBoolFilter>;
+};
+
 export type NestedDateTimeFilter = {
   equals?: Maybe<Scalars['DateTime']>;
   in?: Maybe<Array<Scalars['DateTime']>>;
@@ -219,6 +240,17 @@ export type NestedFloatFilter = {
   not?: Maybe<NestedFloatFilter>;
 };
 
+export type NestedIntFilter = {
+  equals?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  not?: Maybe<NestedIntFilter>;
+};
+
 export type NestedStringFilter = {
   equals?: Maybe<Scalars['String']>;
   in?: Maybe<Array<Scalars['String']>>;
@@ -254,6 +286,8 @@ export type Product = {
   description: Scalars['String'];
   images: Array<Scalars['String']>;
   price: Scalars['Float'];
+  stock: Scalars['Int'];
+  active: Scalars['Boolean'];
   categories: Array<Category>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -278,6 +312,8 @@ export type ProductOrderByInput = {
   description?: Maybe<SortOrder>;
   images?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
+  stock?: Maybe<SortOrder>;
+  active?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -291,6 +327,8 @@ export type ProductWhereInput = {
   description?: Maybe<StringFilter>;
   images?: Maybe<StringNullableListFilter>;
   price?: Maybe<FloatFilter>;
+  stock?: Maybe<IntFilter>;
+  active?: Maybe<BoolFilter>;
   categories?: Maybe<CategoryListRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -310,6 +348,8 @@ export type Query = {
   product?: Maybe<Product>;
   products: Array<Product>;
   productCount?: Maybe<Scalars['Int']>;
+  inactiveCount?: Maybe<Scalars['Int']>;
+  outOfStockCount?: Maybe<Scalars['Int']>;
   category?: Maybe<Category>;
   categories: Array<Category>;
   categoryCount?: Maybe<Scalars['Int']>;
@@ -528,6 +568,14 @@ export type MeQuery = (
   )> }
 );
 
+export type ProductCountsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductCountsQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'productCount' | 'outOfStockCount' | 'inactiveCount'>
+);
+
 export type UserQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
@@ -693,6 +741,40 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const ProductCountsDocument = gql`
+    query ProductCounts {
+  productCount
+  outOfStockCount
+  inactiveCount
+}
+    `;
+
+/**
+ * __useProductCountsQuery__
+ *
+ * To run a query within a React component, call `useProductCountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductCountsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProductCountsQuery(baseOptions?: Apollo.QueryHookOptions<ProductCountsQuery, ProductCountsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductCountsQuery, ProductCountsQueryVariables>(ProductCountsDocument, options);
+      }
+export function useProductCountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductCountsQuery, ProductCountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductCountsQuery, ProductCountsQueryVariables>(ProductCountsDocument, options);
+        }
+export type ProductCountsQueryHookResult = ReturnType<typeof useProductCountsQuery>;
+export type ProductCountsLazyQueryHookResult = ReturnType<typeof useProductCountsLazyQuery>;
+export type ProductCountsQueryResult = Apollo.QueryResult<ProductCountsQuery, ProductCountsQueryVariables>;
 export const UserDocument = gql`
     query User($userId: String!) {
   user(where: {id: $userId}) {

@@ -1,6 +1,12 @@
+import { useProductCountsQuery } from '../../lib/generated/graphql'
+
 interface ProductsSectionProps {}
 
 export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
+  const { data } = useProductCountsQuery({ errorPolicy: 'all' })
+
+  console.log('data: ', data)
+
   return (
     <section className='flex flex-col w-full h-full p-4 bg-white rounded-md shadow-around'>
       <h1 className='relative z-[0] mt-1 lg:mt-4 ml-2 mr-auto font-serif text-2xl md:text-4xl tracking-widest text-pink-dark'>
@@ -10,18 +16,18 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
       <div className='flex flex-col lg:flex-row mt-6 max-w-lg'>
         <div className='flex mb-3 lg:mx-auto py-2 px-4 rounded-md shadow-md bg-green-extraLight'>
           <h4 className='mx-auto text-green-dark tracking-widest'>
-            <strong>26</strong> produtos
+            <strong>{data?.productCount}</strong> produtos
           </h4>
         </div>
         <div className='flex mx-auto w-full lg:w-[66%]'>
           <div className='flex mb-2 mx-auto py-2 px-4 rounded-md shadow-md bg-pink-light'>
             <h4 className='mx-auto text-pink-dark tracking-widest'>
-              <strong>4</strong> inativos
+              <strong>{data?.inactiveCount}</strong> inativos
             </h4>
           </div>
           <div className='flex mb-2 mx-auto py-2 px-4 rounded-md shadow-md bg-red-100'>
             <h4 className='mx-auto text-red-700 tracking-widest'>
-              <strong>5</strong> sem stock
+              <strong>{data?.outOfStockCount}</strong> sem stock
             </h4>
           </div>
         </div>
