@@ -7,7 +7,7 @@ import { InputField } from '../InputField'
 import { X } from '../svg/X'
 import { useNewProductMutation } from '../../lib/generated/graphql'
 import { backdrop, scaleUp } from '../../utils/animations'
-import { TextAreaField } from '../TextareaField'
+import { TextAreaField } from '../TextAreaField'
 
 interface NewProductModalProps {
   showProductModal: boolean
@@ -161,7 +161,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                     />
                   </div>
-                  
+
                 </div>
               </Form>
             </motion.div>
