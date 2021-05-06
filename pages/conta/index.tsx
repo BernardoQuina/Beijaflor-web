@@ -35,7 +35,7 @@ const index: NextPage<indexProps> = ({}) => {
       </div>
       <div className='mx-auto max-w-[68rem] mt-10 mb-28 grid gap-12 grid-cols-1  lg:grid-cols-2'>
         {data?.me && data.me.role === 'ADMIN' && (
-          <Link href='/conta/administração-geral-da-loja'>
+          <Link href='/conta/admin-dash'>
             <a>
               <div className='group flex mx-auto w-full lg:w-[30rem] bg-white rounded-md shadow-around'>
                 <div className='flex w-[35%] xs:w-[30%] h-[8rem] lg:h-[10rem]'>

@@ -17,7 +17,8 @@ export const useIsAuth = (push?: boolean) => {
       data?.me &&
       (router.pathname === '/login' ||
         router.pathname === '/register' ||
-        router.pathname.includes('change-password'))
+        router.pathname.includes('change-password') ||
+        (router.pathname === '/conta/admin-dash' && data.me.role !== 'ADMIN'))
     ) {
       router.push('/')
     }
