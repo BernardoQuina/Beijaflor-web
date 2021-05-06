@@ -3,9 +3,11 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { backdrop, scaleUp } from '../../utils/animations'
-import { useNewProductMutation } from '../../lib/generated/graphql'
+import { InputField } from '../InputField'
 import { X } from '../svg/X'
+import { useNewProductMutation } from '../../lib/generated/graphql'
+import { backdrop, scaleUp } from '../../utils/animations'
+import { TextAreaField } from '../TextareaField'
 
 interface NewProductModalProps {
   showProductModal: boolean
@@ -96,17 +98,71 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
             <motion.div variants={scaleUp} className='flex h-[90vh]'>
               <Form
                 ref={productModalNode}
-                className='flex flex-col max-w-4xl h-48 w-[95%] m-auto pb-6 rounded-md shadow-md bg-white'
+                className='flex flex-col max-w-4xl  w-[95%] m-auto pb-6 rounded-md shadow-md bg-white'
               >
-                <button
-                  className='ml-auto mr-2'
-                  type='button'
-                  onClick={() => {
-                    setShowProductModal(false)
-                  }}
-                >
-                  <X tailwind='h-6 mt-2 text-green-dark' />
-                </button>
+                <div className='flex my-2 pb-2 px-2 border-b'>
+                  <h4 className='ml-2 font-thin tracking-widest text-green-dark text-xl'>
+                    Criar novo produto
+                  </h4>
+                  <button
+                    className='ml-auto'
+                    type='button'
+                    onClick={() => {
+                      setShowProductModal(false)
+                    }}
+                  >
+                    <X tailwind='h-6 text-green-dark' />
+                  </button>
+                </div>
+                <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
+                  <div className='w-full mt-4 lg:mr-10'>
+                    <InputField
+                      name='name'
+                      placeholder='ex: Ramo de rosas'
+                      label='Nome'
+                      type='text'
+                      labelStyling='ml-3 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                    />
+                    <TextAreaField
+                      name='description'
+                      placeholder='ex: Ramo de 20 rosas vermelhas em um arranjo ideal para despertar emoção.'
+                      label='Descrição'
+                      type='text'
+                      labelStyling='mt-4 ml-3 text-green-medium tracking-wider'
+                      textareaStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                    />
+                  </div>
+                  <div className='flex lg:flex-col w-full lg:w-[50%] mt-4'>
+                    <InputField
+                      name='price'
+                      placeholder='ex: 9.99'
+                      label='Preço (€)'
+                      type='number'
+                      step='0.01'
+                      min='0'
+                      pattern='^\d*(\.\d{0,2})?$'
+                      labelStyling='ml-3 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                    />
+                    <InputField
+                      name='stock'
+                      placeholder='ex: 15'
+                      label='Stock'
+                      type='number'
+                      step='1'
+                      min='0'
+                      pattern='^\d*(\.\d{0,2})?$'
+                      labelStyling='lg:mt-4 ml-3 text-green-medium tracking-wider'
+                      inputStyling='mt-1 ml-2 lg:ml-0 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                    />
+                  </div>
+                  
+                </div>
               </Form>
             </motion.div>
           </Formik>
