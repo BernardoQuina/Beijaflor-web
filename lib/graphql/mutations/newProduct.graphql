@@ -1,0 +1,19 @@
+mutation NewProduct(
+  $name: String!
+  $description: String!
+  $price: Float!
+  $stock: Int!
+  $images: [String!]!
+  $categories: [String!]!
+) {
+  createProduct(
+    name: $name
+    description: $description
+    price: $price
+    stock: $stock
+    images: $images
+    categories: $categories
+  ) {
+    ...BasicProductInfo
+  }
+}

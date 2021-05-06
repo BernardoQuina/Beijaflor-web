@@ -181,6 +181,7 @@ export type MutationCreateProductArgs = {
   description: Scalars['String'];
   images: Array<Scalars['String']>;
   price: Scalars['Float'];
+  stock: Scalars['Int'];
   categories: Array<Scalars['String']>;
 };
 
@@ -514,6 +515,20 @@ export type UserWhereUniqueInput = {
   email?: Maybe<Scalars['String']>;
 };
 
+export type BasicCategoryInfoFragment = (
+  { __typename?: 'Category' }
+  & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'createdAt' | 'updatedAt'>
+);
+
+export type BasicProductInfoFragment = (
+  { __typename?: 'Product' }
+  & Pick<Product, 'id' | 'name' | 'description' | 'price' | 'stock' | 'images' | 'createdAt' | 'updatedAt'>
+  & { categories: Array<(
+    { __typename?: 'Category' }
+    & BasicCategoryInfoFragment
+  )> }
+);
+
 export type BasicUserInfoFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'role' | 'photo' | 'createdAt' | 'updatedAt'>
@@ -539,6 +554,24 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logout'>
+);
+
+export type NewProductMutationVariables = Exact<{
+  name: Scalars['String'];
+  description: Scalars['String'];
+  price: Scalars['Float'];
+  stock: Scalars['Int'];
+  images: Array<Scalars['String']> | Scalars['String'];
+  categories: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type NewProductMutation = (
+  { __typename?: 'Mutation' }
+  & { createProduct?: Maybe<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
 );
 
 export type RegisterMutationVariables = Exact<{
@@ -589,6 +622,32 @@ export type UserQuery = (
   )> }
 );
 
+export const BasicCategoryInfoFragmentDoc = gql`
+    fragment BasicCategoryInfo on Category {
+  id
+  name
+  mainCategory
+  subCategory
+  image
+  createdAt
+  updatedAt
+}
+    `;
+export const BasicProductInfoFragmentDoc = gql`
+    fragment BasicProductInfo on Product {
+  id
+  name
+  description
+  price
+  stock
+  images
+  createdAt
+  updatedAt
+  categories {
+    ...BasicCategoryInfo
+  }
+}
+    ${BasicCategoryInfoFragmentDoc}`;
 export const BasicUserInfoFragmentDoc = gql`
     fragment BasicUserInfo on User {
   id
@@ -666,6 +725,51 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const NewProductDocument = gql`
+    mutation NewProduct($name: String!, $description: String!, $price: Float!, $stock: Int!, $images: [String!]!, $categories: [String!]!) {
+  createProduct(
+    name: $name
+    description: $description
+    price: $price
+    stock: $stock
+    images: $images
+    categories: $categories
+  ) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+export type NewProductMutationFn = Apollo.MutationFunction<NewProductMutation, NewProductMutationVariables>;
+
+/**
+ * __useNewProductMutation__
+ *
+ * To run a mutation, you first call `useNewProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewProductMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [newProductMutation, { data, loading, error }] = useNewProductMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      description: // value for 'description'
+ *      price: // value for 'price'
+ *      stock: // value for 'stock'
+ *      images: // value for 'images'
+ *      categories: // value for 'categories'
+ *   },
+ * });
+ */
+export function useNewProductMutation(baseOptions?: Apollo.MutationHookOptions<NewProductMutation, NewProductMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<NewProductMutation, NewProductMutationVariables>(NewProductDocument, options);
+      }
+export type NewProductMutationHookResult = ReturnType<typeof useNewProductMutation>;
+export type NewProductMutationResult = Apollo.MutationResult<NewProductMutation>;
+export type NewProductMutationOptions = Apollo.BaseMutationOptions<NewProductMutation, NewProductMutationVariables>;
 export const RegisterDocument = gql`
     mutation Register($name: String!, $email: String!, $password: String!, $confirmPassword: String!) {
   register(

@@ -1,0 +1,9 @@
+fragment BasicCategoryInfo on Category {
+  id
+  name
+  mainCategory
+  subCategory
+  image
+  createdAt
+  updatedAt
+}

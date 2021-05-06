@@ -1,0 +1,13 @@
+fragment BasicProductInfo on Product {
+  id
+  name
+  description
+  price
+  stock
+  images
+  createdAt
+  updatedAt
+  categories {
+    ...BasicCategoryInfo
+  }
+}
