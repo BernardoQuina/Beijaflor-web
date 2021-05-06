@@ -97,13 +97,13 @@ export const Carousel: React.FC<CarouselProps> = ({
   const windowChange = useWindowSize()
 
   useEffect(() => {
-    if (window && windowChange.width > 768) {
+    if (window && windowChange.width >= 768) {
       setShow(2)
-      if (window.innerWidth > 1024) {
+      if (window.innerWidth >= 1024) {
         setShow(3)
-        if (windowChange.width > 1280) {
+        if (windowChange.width >= 1280) {
           setShow(4)
-          if (windowChange.width > 1536) {
+          if (windowChange.width >= 1536) {
             setShow(5)
           }
         }
