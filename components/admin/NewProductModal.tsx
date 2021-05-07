@@ -318,6 +318,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                   <ImageUpload setUploadedImages={setUploadedImages} />
                 </div>
                 <ul className='flex flex-wrap mx-auto w-[90%] mt-3 mb-6 border rounded-md shadow-sm '>
+                  <div className='h-[13rem]'></div>
                   {uploadedImages.map((image) => (
                     <li
                     className='relative rounded-md mx-auto lg:mx-2 overflow-hidden m-2 h-[12rem] w-[8rem]'
