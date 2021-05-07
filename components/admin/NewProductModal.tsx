@@ -27,7 +27,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
 
   console.log('category array: ', chosenCategories)
   console.log('category: ', newCategory)
-  // console.log(setUploadedImages)
+  console.log(setUploadedImages)
 
   const [newProduct] = useNewProductMutation({ errorPolicy: 'all' })
 
@@ -168,8 +168,8 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                     />
                   </div>
                 </div>
-                <div className='flex flex-col mx-auto w-[90%]'>
-                  <div className='flex w-full w-lg:[40%]'>
+                <div className='flex flex-col lg:flex-row mx-auto w-[90%]'>
+                  <div className='flex w-full lg:w-[35%]'>
                     <InputField
                       name='category'
                       placeholder='ex: rosas'
@@ -193,6 +193,25 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                     >
                       <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
                     </button>
+                  </div>
+                  <div className='flex flex-wrap min-h-[4rem] mt-4 w-full lg:w-[60%] ml-auto border rounded-md shadow-sm'>
+                    {chosenCategories.map((category) => (
+                      <div className='flex h-9 max-w-min py-1 m-2 px-3 bg-green-extraLight rounded-md'>
+                        <p className='text-lg text-green-dark tracking-wider'>
+                          {category}
+                        </p>
+                        <button
+                          onClick={() => {
+                            setChosenCategories((prev) => [
+                              ...prev.filter((chosen) => chosen !== category),
+                            ])
+                          }}
+                          className='flex self-center ml-2 rounded-full h-6 w-6 bg-green-medium bg-opacity-20'
+                        >
+                          <X tailwind='self-center mx-auto h-4 text-green-dark' />
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </Form>
