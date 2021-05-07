@@ -3,12 +3,14 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { Form, Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { ImageUpload } from './ImageUpload'
 import { InputField } from '../InputField'
 import { Textarea } from '../Textarea'
 import { X } from '../svg/X'
 import { useNewProductMutation } from '../../lib/generated/graphql'
 import { backdrop, scaleUp } from '../../utils/animations'
 import { Plus } from '../svg/Plus'
+import { Image, Placeholder } from 'cloudinary-react'
 
 interface NewProductModalProps {
   showProductModal: boolean
@@ -101,7 +103,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
               }
             }}
           >
-            <motion.div variants={scaleUp} className='flex h-[90vh]'>
+            <motion.div variants={scaleUp} className='flex py-4 h-[90vh]'>
               <Form
                 ref={productModalNode}
                 className='flex flex-col max-w-4xl  w-[95%] m-auto pb-6 rounded-md shadow-md bg-white'
@@ -121,7 +123,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                   </button>
                 </div>
                 <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
-                  <div className='w-full mt-4 lg:mr-10'>
+                  <div className='w-full mt-2 lg:mr-10'>
                     <InputField
                       name='name'
                       placeholder='ex: Ramo de rosas'
@@ -136,12 +138,13 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       placeholder='ex: Ramo de 20 rosas vermelhas em um arranjo ideal para despertar emoção.'
                       label='Descrição'
                       type='text'
-                      labelStyling='mt-4 ml-3 text-green-medium tracking-wider'
+                      maxLength={250}
+                      labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
                       textareaStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                     />
                   </div>
-                  <div className='flex lg:flex-col w-full lg:w-[50%] mt-4'>
+                  <div className='flex lg:flex-col w-full lg:w-[50%] mt-6 lg:mt-2'>
                     <InputField
                       name='price'
                       placeholder='ex: 9.99'
@@ -162,7 +165,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       step='1'
                       min='0'
                       pattern='^\d*(\.\d{0,2})?$'
-                      labelStyling='lg:mt-4 ml-3 text-green-medium tracking-wider'
+                      labelStyling='lg:mt-6 ml-3 text-green-medium tracking-wider'
                       inputStyling='mt-1 ml-2 lg:ml-0 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                     />
@@ -177,16 +180,21 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       type='text'
                       value={newCategory}
                       onChange={(e) => setNewCategory(e.target.value)}
-                      labelStyling='mt-4 ml-3 text-green-medium tracking-wider'
+                      labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
                       inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                     />
                     <button
-                      className='flex ml-4 mb-1 p-2 self-end bg-green-extraLight rounded-md shadow-md'
+                      className='flex ml-4 mb-1 lg:mb-0 lg:mt-[3.3rem] p-2 self-end lg:self-start bg-green-extraLight rounded-md shadow-md'
                       type='button'
                       onClick={() => {
-                        if (!chosenCategories.includes(newCategory)) {
-                          setChosenCategories((prev) => [...prev, newCategory])
+                        if (
+                          !chosenCategories.includes(newCategory.toUpperCase())
+                        ) {
+                          setChosenCategories((prev) => [
+                            ...prev,
+                            newCategory.toUpperCase(),
+                          ])
                         }
                         setNewCategory('')
                       }}
@@ -194,10 +202,10 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
                     </button>
                   </div>
-                  <div className='flex flex-wrap min-h-[4rem] mt-4 w-full lg:w-[60%] ml-auto border rounded-md shadow-sm'>
+                  <div className='flex flex-wrap min-h-[6.8rem] mt-6 w-full lg:w-[60%] ml-auto border rounded-md shadow-sm'>
                     {chosenCategories.map((category) => (
-                      <div className='flex h-9 max-w-min py-1 m-2 px-3 bg-green-extraLight rounded-md'>
-                        <p className='text-lg text-green-dark tracking-wider'>
+                      <div className='flex h-9 py-1 m-2 px-3 bg-green-extraLight rounded-md'>
+                        <p className='text-lg font-thin text-green-dark tracking-wider'>
                           {category}
                         </p>
                         <button
@@ -214,6 +222,60 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       </div>
                     ))}
                   </div>
+                </div>
+                <div className='flex mx-auto w-[90%] mt-8'>
+                  <div className='flex flex-col'>
+                    <p className=' ml-3 text-green-medium tracking-wider'>
+                      Adicionar Imagens
+                    </p>
+                    <p className='ml-3 text-sm self-center text-green-medium tracking-wide'>
+                      (Utilizar apenas imagens verticais (3:2))
+                    </p>
+                  </div>
+
+                  <ImageUpload
+                    uploadedImages={uploadedImages}
+                    setUploadedImages={setUploadedImages}
+                  />
+                </div>
+                <ul className='flex flex-wrap mx-auto w-[90%] mt-3 border rounded-md shadow-sm min-h-[12rem]'>
+                  {uploadedImages.map((image) => (
+                    <li
+                      className='relative rounded-md mx-auto lg:mx-2 overflow-hidden m-2 h-[12rem] w-[8rem]'
+                      key={image.public_id}
+                    >
+                      <button
+                        type='button'
+                        onClick={() => {
+                          setUploadedImages(
+                            uploadedImages.filter(
+                              (uploaded) =>
+                                uploaded.public_id !== image.public_id
+                            )
+                          )
+                        }}
+                        className='absolute rounded-full bg-green-medium p-1 bg-opacity-20 right-2 top-2'
+                      >
+                        <X tailwind='self-center mx-auto h-4 text-green-dark' />
+                      </button>
+                      <Image
+                        cloudName={
+                          process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+                        }
+                        publicId={image.public_id}
+                        height={300}
+                        width={200}
+                        crop='fill'
+                      >
+                        <Placeholder type='blur'></Placeholder>
+                      </Image>
+                    </li>
+                  ))}
+                </ul>
+                <div className='mt-6 flex '>
+                  <button className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight' type='submit'>
+                    <p className='mx-auto text-lg text-green-dark tracking-widest'>Criar!</p>
+                  </button>
                 </div>
               </Form>
             </motion.div>
