@@ -206,6 +206,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                               ...prev.filter((chosen) => chosen !== category),
                             ])
                           }}
+                          type='button'
                           className='flex self-center ml-2 rounded-full h-6 w-6 bg-green-medium bg-opacity-20'
                         >
                           <X tailwind='self-center mx-auto h-4 text-green-dark' />
