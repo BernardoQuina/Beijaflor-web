@@ -183,6 +183,11 @@ export type MutationCreateProductArgs = {
   price: Scalars['Float'];
   stock: Scalars['Int'];
   categories: Array<Scalars['String']>;
+  height?: Maybe<Scalars['String']>;
+  water?: Maybe<Scalars['String']>;
+  exposure?: Maybe<Scalars['String']>;
+  temperature?: Maybe<Scalars['String']>;
+  lifespan?: Maybe<Scalars['String']>;
 };
 
 
@@ -290,6 +295,11 @@ export type Product = {
   stock: Scalars['Int'];
   active: Scalars['Boolean'];
   categories: Array<Category>;
+  height?: Maybe<Scalars['String']>;
+  water?: Maybe<Scalars['String']>;
+  exposure?: Maybe<Scalars['String']>;
+  temperature?: Maybe<Scalars['String']>;
+  lifespan?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -315,6 +325,11 @@ export type ProductOrderByInput = {
   price?: Maybe<SortOrder>;
   stock?: Maybe<SortOrder>;
   active?: Maybe<SortOrder>;
+  height?: Maybe<SortOrder>;
+  water?: Maybe<SortOrder>;
+  exposure?: Maybe<SortOrder>;
+  temperature?: Maybe<SortOrder>;
+  lifespan?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -331,6 +346,11 @@ export type ProductWhereInput = {
   stock?: Maybe<IntFilter>;
   active?: Maybe<BoolFilter>;
   categories?: Maybe<CategoryListRelationFilter>;
+  height?: Maybe<StringNullableFilter>;
+  water?: Maybe<StringNullableFilter>;
+  exposure?: Maybe<StringNullableFilter>;
+  temperature?: Maybe<StringNullableFilter>;
+  lifespan?: Maybe<StringNullableFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -522,7 +542,7 @@ export type BasicCategoryInfoFragment = (
 
 export type BasicProductInfoFragment = (
   { __typename?: 'Product' }
-  & Pick<Product, 'id' | 'name' | 'description' | 'price' | 'stock' | 'images' | 'createdAt' | 'updatedAt'>
+  & Pick<Product, 'id' | 'name' | 'description' | 'price' | 'stock' | 'images' | 'createdAt' | 'updatedAt' | 'height' | 'water' | 'exposure' | 'temperature' | 'lifespan'>
   & { categories: Array<(
     { __typename?: 'Category' }
     & BasicCategoryInfoFragment
@@ -563,6 +583,11 @@ export type NewProductMutationVariables = Exact<{
   stock: Scalars['Int'];
   images: Array<Scalars['String']> | Scalars['String'];
   categories: Array<Scalars['String']> | Scalars['String'];
+  height?: Maybe<Scalars['String']>;
+  water?: Maybe<Scalars['String']>;
+  exposure?: Maybe<Scalars['String']>;
+  temperature?: Maybe<Scalars['String']>;
+  lifespan?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -646,6 +671,11 @@ export const BasicProductInfoFragmentDoc = gql`
   categories {
     ...BasicCategoryInfo
   }
+  height
+  water
+  exposure
+  temperature
+  lifespan
 }
     ${BasicCategoryInfoFragmentDoc}`;
 export const BasicUserInfoFragmentDoc = gql`
@@ -726,7 +756,7 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const NewProductDocument = gql`
-    mutation NewProduct($name: String!, $description: String!, $price: Float!, $stock: Int!, $images: [String!]!, $categories: [String!]!) {
+    mutation NewProduct($name: String!, $description: String!, $price: Float!, $stock: Int!, $images: [String!]!, $categories: [String!]!, $height: String, $water: String, $exposure: String, $temperature: String, $lifespan: String) {
   createProduct(
     name: $name
     description: $description
@@ -734,6 +764,11 @@ export const NewProductDocument = gql`
     stock: $stock
     images: $images
     categories: $categories
+    height: $height
+    water: $water
+    exposure: $exposure
+    temperature: $temperature
+    lifespan: $lifespan
   ) {
     ...BasicProductInfo
   }
@@ -760,6 +795,11 @@ export type NewProductMutationFn = Apollo.MutationFunction<NewProductMutation, N
  *      stock: // value for 'stock'
  *      images: // value for 'images'
  *      categories: // value for 'categories'
+ *      height: // value for 'height'
+ *      water: // value for 'water'
+ *      exposure: // value for 'exposure'
+ *      temperature: // value for 'temperature'
+ *      lifespan: // value for 'lifespan'
  *   },
  * });
  */

@@ -27,10 +27,6 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
     []
   )
 
-  console.log('category array: ', chosenCategories)
-  console.log('category: ', newCategory)
-  console.log(setUploadedImages)
-
   const [newProduct] = useNewProductMutation({ errorPolicy: 'all' })
 
   // const router = useRouter()
@@ -74,9 +70,26 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
               price: 0.0,
               stock: 0,
               categories: [''],
+              height: '',
+              water: '',
+              exposure: '',
+              temperature: '',
+              lifespan: '',
             }}
             onSubmit={async (
-              { name, description, images, price, stock, categories },
+              {
+                name,
+                description,
+                images,
+                price,
+                stock,
+                categories,
+                height,
+                water,
+                exposure,
+                temperature,
+                lifespan,
+              },
               { setErrors }
             ) => {
               categories = chosenCategories.map((category) => category)
@@ -90,6 +103,11 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                   price,
                   stock,
                   categories,
+                  height,
+                  water,
+                  exposure,
+                  temperature,
+                  lifespan,
                 },
                 update: (cache) => {
                   cache.evict({ fieldName: 'products' })
@@ -103,12 +121,12 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
               }
             }}
           >
-            <motion.div variants={scaleUp} className='flex py-4 h-[90vh]'>
+            <motion.div variants={scaleUp} className='flex py-4 h-[100vh]'>
               <Form
                 ref={productModalNode}
-                className='flex flex-col max-w-4xl  w-[95%] m-auto pb-6 rounded-md shadow-md bg-white'
+                className='relative flex flex-col max-w-4xl w-[95%] h-[90vh] max-h-[66.4rem] m-auto rounded-md shadow-md bg-white'
               >
-                <div className='flex my-2 pb-2 px-2 border-b'>
+                <div className='sticky top-0 flex py-2 px-2 border-b'>
                   <h4 className='ml-2 font-thin tracking-widest text-green-dark text-xl'>
                     Criar novo produto
                   </h4>
@@ -122,8 +140,10 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                     <X tailwind='h-6 text-green-dark' />
                   </button>
                 </div>
+                <div className='flex flex-col w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-green-medium'>
+
                 <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
-                  <div className='w-full mt-2 lg:mr-10'>
+                  <div className='w-full mt-4 lg:mr-10'>
                     <InputField
                       name='name'
                       placeholder='ex: Ramo de rosas'
@@ -132,7 +152,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       labelStyling='ml-3 text-green-medium tracking-wider'
                       inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                    />
+                      />
                     <Textarea
                       name='description'
                       placeholder='ex: Ramo de 20 rosas vermelhas em um arranjo ideal para despertar emoção.'
@@ -142,7 +162,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
                       textareaStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                    />
+                      />
                   </div>
                   <div className='flex lg:flex-col w-full lg:w-[50%] mt-6 lg:mt-2'>
                     <InputField
@@ -156,7 +176,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       labelStyling='ml-3 text-green-medium tracking-wider'
                       inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                    />
+                      />
                     <InputField
                       name='stock'
                       placeholder='ex: 15'
@@ -168,7 +188,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       labelStyling='lg:mt-6 ml-3 text-green-medium tracking-wider'
                       inputStyling='mt-1 ml-2 lg:ml-0 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                    />
+                      />
                   </div>
                 </div>
                 <div className='flex flex-col lg:flex-row mx-auto w-[90%]'>
@@ -183,14 +203,14 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
                       inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                    />
+                      />
                     <button
                       className='flex ml-4 mb-1 lg:mb-0 lg:mt-[3.3rem] p-2 self-end lg:self-start bg-green-extraLight rounded-md shadow-md'
                       type='button'
                       onClick={() => {
                         if (
                           !chosenCategories.includes(newCategory.toUpperCase())
-                        ) {
+                          ) {
                           setChosenCategories((prev) => [
                             ...prev,
                             newCategory.toUpperCase(),
@@ -198,7 +218,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         }
                         setNewCategory('')
                       }}
-                    >
+                      >
                       <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
                     </button>
                   </div>
@@ -216,14 +236,77 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                           }}
                           type='button'
                           className='flex self-center ml-2 rounded-full h-6 w-6 bg-green-medium bg-opacity-20'
-                        >
+                          >
                           <X tailwind='self-center mx-auto h-4 text-green-dark' />
                         </button>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className='flex mx-auto w-[90%] mt-8'>
+                <div className='flex flex-col mx-auto w-[90%] mt-10'>
+                  <div>
+                    <p className='ml-3 text-green-medium tracking-wider'>
+                      Características do produto (opcionais)
+                    </p>
+                    <p className='ml-3 text-sm text-green-medium'>
+                      (Recomendado adicionar pelo menos 3 e usar texto curto
+                      para melhor apresentação)
+                    </p>
+                  </div>
+                  <div className='flex flex-col lg:flex-row lg:flex-wrap w-full mt-4'>
+                    <InputField
+                      name='height'
+                      placeholder='ex: 40 cm'
+                      label='Comprimento'
+                      type='text'
+                      maxLength={20}
+                      labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                      />
+                    <InputField
+                      name='water'
+                      placeholder='ex: 200 ml por dia'
+                      label='Àgua'
+                      type='text'
+                      maxLength={20}
+                      labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                      />
+                    <InputField
+                      name='exposure'
+                      placeholder='ex: sombra'
+                      label='Exposição'
+                      type='text'
+                      maxLength={20}
+                      labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                      />
+                    <InputField
+                      name='temperature'
+                      placeholder='ex: 15-20 ºC'
+                      label='Temperatura'
+                      type='text'
+                      maxLength={20}
+                      labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                      />
+                    <InputField
+                      name='lifespan'
+                      placeholder='ex: 2-3 semanas'
+                      label='Duração'
+                      type='text'
+                      maxLength={20}
+                      labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                    />
+                  </div>
+                </div>
+                <div className='flex mx-auto w-[90%] mt-10'>
                   <div className='flex flex-col'>
                     <p className=' ml-3 text-green-medium tracking-wider'>
                       Adicionar Imagens
@@ -234,24 +317,24 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                   </div>
                   <ImageUpload setUploadedImages={setUploadedImages} />
                 </div>
-                <ul className='flex flex-wrap mx-auto w-[90%] mt-3 border rounded-md shadow-sm min-h-[12rem]'>
+                <ul className='flex flex-wrap mx-auto w-[90%] mt-3 mb-6 border rounded-md shadow-sm '>
                   {uploadedImages.map((image) => (
                     <li
-                      className='relative rounded-md mx-auto lg:mx-2 overflow-hidden m-2 h-[12rem] w-[8rem]'
+                    className='relative rounded-md mx-auto lg:mx-2 overflow-hidden m-2 h-[12rem] w-[8rem]'
                       key={image.public_id}
-                    >
+                      >
                       <button
                         type='button'
                         onClick={() => {
                           setUploadedImages(
                             uploadedImages.filter(
                               (uploaded) =>
-                                uploaded.public_id !== image.public_id
-                            )
-                          )
+                              uploaded.public_id !== image.public_id
+                              )
+                              )
                         }}
                         className='absolute rounded-full bg-green-medium p-1 bg-opacity-20 right-2 top-2'
-                      >
+                        >
                         <X tailwind='self-center mx-auto h-4 text-green-dark' />
                       </button>
                       <Image
@@ -268,7 +351,8 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                     </li>
                   ))}
                 </ul>
-                <div className='mt-6 flex '>
+                  </div>
+                <div className='flex py-3 border-t'>
                   <button
                     className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight'
                     type='submit'

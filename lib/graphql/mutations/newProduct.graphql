@@ -5,6 +5,11 @@ mutation NewProduct(
   $stock: Int!
   $images: [String!]!
   $categories: [String!]!
+  $height: String
+  $water: String
+  $exposure: String
+  $temperature: String
+  $lifespan: String
 ) {
   createProduct(
     name: $name
@@ -13,6 +18,11 @@ mutation NewProduct(
     stock: $stock
     images: $images
     categories: $categories
+    height: $height
+    water: $water
+    exposure: $exposure
+    temperature: $temperature
+    lifespan: $lifespan
   ) {
     ...BasicProductInfo
   }

@@ -26,7 +26,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <>
       {error && <div className={errorStyling}>{error}</div>}
-      <div>
+      <div className='mx-auto'>
         {label && showLabel && <p className={labelStyling}>{label}</p>}
         <label htmlFor={field.name}></label>
         <input
