@@ -4,10 +4,10 @@ import { Form, Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { InputField } from '../InputField'
+import { Textarea } from '../Textarea'
 import { X } from '../svg/X'
 import { useNewProductMutation } from '../../lib/generated/graphql'
 import { backdrop, scaleUp } from '../../utils/animations'
-import { TextareaField } from '../TextareaField'
 import { Plus } from '../svg/Plus'
 
 interface NewProductModalProps {
@@ -131,7 +131,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                     />
-                    <TextareaField
+                    <Textarea
                       name='description'
                       placeholder='ex: Ramo de 20 rosas vermelhas em um arranjo ideal para despertar emoção.'
                       label='Descrição'

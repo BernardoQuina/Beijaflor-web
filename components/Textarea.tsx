@@ -1,7 +1,7 @@
 import { TextareaHTMLAttributes } from 'react'
 import { useField } from 'formik'
 
-type TextareaFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string
   label?: string
   showLabel?: boolean
@@ -12,7 +12,7 @@ type TextareaFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   maxLength?: number
 }
 
-export const TextareaField: React.FC<TextareaFieldProps> = ({
+export const Textarea: React.FC<TextareaProps> = ({
   label,
   showLabel = true,
   labelStyling,
