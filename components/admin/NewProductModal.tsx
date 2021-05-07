@@ -232,11 +232,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       (Utilizar apenas imagens verticais (3:2))
                     </p>
                   </div>
-
-                  <ImageUpload
-                    uploadedImages={uploadedImages}
-                    setUploadedImages={setUploadedImages}
-                  />
+                  <ImageUpload setUploadedImages={setUploadedImages} />
                 </div>
                 <ul className='flex flex-wrap mx-auto w-[90%] mt-3 border rounded-md shadow-sm min-h-[12rem]'>
                   {uploadedImages.map((image) => (
@@ -273,8 +269,13 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                   ))}
                 </ul>
                 <div className='mt-6 flex '>
-                  <button className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight' type='submit'>
-                    <p className='mx-auto text-lg text-green-dark tracking-widest'>Criar!</p>
+                  <button
+                    className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight'
+                    type='submit'
+                  >
+                    <p className='mx-auto text-lg text-green-dark tracking-widest'>
+                      Criar!
+                    </p>
                   </button>
                 </div>
               </Form>

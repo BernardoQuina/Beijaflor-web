@@ -4,12 +4,10 @@ import { useDropzone } from 'react-dropzone'
 import { Photo } from '../svg/Photo'
 
 interface ImageUploadProps {
-  uploadedImages: { public_id: string }[]
   setUploadedImages: Dispatch<SetStateAction<{ public_id: string }[]>>
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = ({
-  uploadedImages,
   setUploadedImages,
 }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
