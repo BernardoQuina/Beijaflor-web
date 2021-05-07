@@ -7,7 +7,8 @@ import { InputField } from '../InputField'
 import { X } from '../svg/X'
 import { useNewProductMutation } from '../../lib/generated/graphql'
 import { backdrop, scaleUp } from '../../utils/animations'
-import { TextAreaField } from '../TextAreaField'
+import { TextAreaField } from '../TextareaField'
+import { Plus } from '../svg/Plus'
 
 interface NewProductModalProps {
   showProductModal: boolean
@@ -18,11 +19,15 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
   showProductModal,
   setShowProductModal,
 }) => {
+  const [newCategory, setNewCategory] = useState<string>()
+  const [chosenCategories, setChosenCategories] = useState([])
   const [uploadedImages, setUploadedImages] = useState<{ public_id: string }[]>(
     []
   )
 
-  console.log(setUploadedImages)
+  console.log('category array: ', chosenCategories)
+  console.log('category: ', newCategory)
+  // console.log(setUploadedImages)
 
   const [newProduct] = useNewProductMutation({ errorPolicy: 'all' })
 
@@ -72,7 +77,8 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
               { name, description, images, price, stock, categories },
               { setErrors }
             ) => {
-              images = uploadedImages.map((images) => images.public_id)
+              categories = chosenCategories.map((category) => category)
+              images = uploadedImages.map((image) => image.public_id)
 
               const response = await newProduct({
                 variables: {
@@ -161,7 +167,33 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                       errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                     />
                   </div>
-
+                </div>
+                <div className='flex flex-col mx-auto w-[90%]'>
+                  <div className='flex w-full w-lg:[40%]'>
+                    <InputField
+                      name='category'
+                      placeholder='ex: rosas'
+                      label='Adicionar categoria'
+                      type='text'
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      labelStyling='mt-4 ml-3 text-green-medium tracking-wider'
+                      inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                      errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                    />
+                    <button
+                      className='flex ml-4 mb-1 p-2 self-end bg-green-extraLight rounded-md shadow-md'
+                      type='button'
+                      onClick={() => {
+                        if (!chosenCategories.includes(newCategory)) {
+                          setChosenCategories((prev) => [...prev, newCategory])
+                        }
+                        setNewCategory('')
+                      }}
+                    >
+                      <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
+                    </button>
+                  </div>
                 </div>
               </Form>
             </motion.div>
