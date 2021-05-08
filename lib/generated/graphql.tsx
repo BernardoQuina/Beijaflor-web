@@ -576,6 +576,22 @@ export type LogoutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type NewCategoryMutationVariables = Exact<{
+  mainCategory: MainCategory;
+  subCategory: SubCategory;
+  name: Scalars['String'];
+  image: Scalars['String'];
+}>;
+
+
+export type NewCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { createCategory?: Maybe<(
+    { __typename?: 'Category' }
+    & BasicCategoryInfoFragment
+  )> }
+);
+
 export type NewProductMutationVariables = Exact<{
   name: Scalars['String'];
   description: Scalars['String'];
@@ -763,6 +779,47 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const NewCategoryDocument = gql`
+    mutation NewCategory($mainCategory: MainCategory!, $subCategory: SubCategory!, $name: String!, $image: String!) {
+  createCategory(
+    mainCategory: $mainCategory
+    subCategory: $subCategory
+    name: $name
+    image: $image
+  ) {
+    ...BasicCategoryInfo
+  }
+}
+    ${BasicCategoryInfoFragmentDoc}`;
+export type NewCategoryMutationFn = Apollo.MutationFunction<NewCategoryMutation, NewCategoryMutationVariables>;
+
+/**
+ * __useNewCategoryMutation__
+ *
+ * To run a mutation, you first call `useNewCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [newCategoryMutation, { data, loading, error }] = useNewCategoryMutation({
+ *   variables: {
+ *      mainCategory: // value for 'mainCategory'
+ *      subCategory: // value for 'subCategory'
+ *      name: // value for 'name'
+ *      image: // value for 'image'
+ *   },
+ * });
+ */
+export function useNewCategoryMutation(baseOptions?: Apollo.MutationHookOptions<NewCategoryMutation, NewCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<NewCategoryMutation, NewCategoryMutationVariables>(NewCategoryDocument, options);
+      }
+export type NewCategoryMutationHookResult = ReturnType<typeof useNewCategoryMutation>;
+export type NewCategoryMutationResult = Apollo.MutationResult<NewCategoryMutation>;
+export type NewCategoryMutationOptions = Apollo.BaseMutationOptions<NewCategoryMutation, NewCategoryMutationVariables>;
 export const NewProductDocument = gql`
     mutation NewProduct($name: String!, $description: String!, $price: Float!, $stock: Int!, $images: [String!]!, $categories: [String!]!, $height: String, $water: String, $exposure: String, $temperature: String, $lifespan: String) {
   createProduct(

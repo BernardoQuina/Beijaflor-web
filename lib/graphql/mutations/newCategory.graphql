@@ -1,0 +1,15 @@
+mutation NewCategory(
+  $mainCategory: MainCategory!
+  $subCategory: SubCategory!
+  $name: String!
+  $image: String!
+) {
+  createCategory(
+    mainCategory: $mainCategory
+    subCategory: $subCategory
+    name: $name
+    image: $image
+  ) {
+    ...BasicCategoryInfo
+  }
+}

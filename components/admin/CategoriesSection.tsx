@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useCategoryCountQuery } from '../../lib/generated/graphql'
 import { Plus } from '../svg/Plus'
-import { NewProductModal } from './NewProductModal'
+import { NewCategoryModal } from './NewCategoryModal'
 
 interface CategoriesSectionProps {}
 
@@ -13,9 +13,9 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
 
   return (
     <section className='flex flex-col w-full h-full p-4 bg-white rounded-md shadow-around'>
-      <NewProductModal
-        showProductModal={showNewCategoryModal}
-        setShowProductModal={setShowNewCategoryModal}
+      <NewCategoryModal
+        showCategoryModal={showNewCategoryModal}
+        setShowCategoryModal={setShowNewCategoryModal}
       />
       <div className='flex'>
         <h1 className='relative z-[0] mt-1 lg:mt-4 ml-2 mr-auto font-serif text-2xl md:text-4xl tracking-widest text-pink-dark'>
