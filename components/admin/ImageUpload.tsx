@@ -41,11 +41,11 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   })
 
   return (
-    <div className='flex'>
+    <div className='flex flex-col self-center'>
       {/* Drop Zone div */}
       {fileRejections[0] && (
-        <div className='p-4 m-6 mt-10 flex self-center rounded-md bg-red-200 shadow-xl'>
-          Image size must not surpass 5 MB
+        <div className='p-2 mx-auto mb-2 text-sm flex self-center rounded-md bg-red-200 shadow-md'>
+          Máximo 5 MB
         </div>
       )}
       <button
