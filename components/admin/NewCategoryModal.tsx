@@ -21,7 +21,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
   showProductModal,
   setShowProductModal,
 }) => {
-  const [newCategory, setNewCategory] = useState<string>('')
+  const [newCategory, setNewCategory] = useState<string>()
   const [chosenCategories, setChosenCategories] = useState([])
   const [uploadedImages, setUploadedImages] = useState<{ public_id: string }[]>(
     []
@@ -69,14 +69,14 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
               name: '',
               description: '',
               images: [''],
-              price: 0,
-              stock: 0,
+              price: undefined,
+              stock: undefined,
               categories: [''],
-              height: '',
-              water: '',
-              exposure: '',
-              temperature: '',
-              lifespan: '',
+              height: undefined,
+              water: undefined,
+              exposure: undefined,
+              temperature: undefined,
+              lifespan: undefined,
             }}
             onSubmit={async (
               {
@@ -102,14 +102,14 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                   name,
                   description,
                   images,
-                  price,
-                  stock,
+                  price: price ? price : 0,
+                  stock: stock ? stock : 0,
                   categories,
-                  height: height.length > 0 ? height : null,
-                  water: water.length > 0 ? water : null,
-                  exposure: exposure.length > 0 ? exposure : null,
-                  temperature: temperature.length > 0 ? temperature : null,
-                  lifespan: lifespan.length > 0 ? lifespan : null,
+                  height: height && height,
+                  water: water && water,
+                  exposure: exposure && exposure,
+                  temperature: temperature && temperature,
+                  lifespan: lifespan && lifespan,
                 },
                 update: (cache) => {
                   cache.evict({ fieldName: 'products' })

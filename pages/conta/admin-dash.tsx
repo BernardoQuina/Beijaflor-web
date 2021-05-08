@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
+import { CategoriesSection } from '../../components/admin/CategoriesSection'
 import { ProductsSection } from '../../components/admin/ProductsSection'
 import { Layout } from '../../components/Layout'
 import { Box } from '../../components/svg/Box'
@@ -79,7 +80,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
           {active === 'produtos' ? (
             <ProductsSection />
           ) : active === 'categorias' ? (
-            <div></div>
+            <CategoriesSection />
           ) : active === 'encomendas' ? (
             <div></div>
           ) : active === 'estatísticas' ? (

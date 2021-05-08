@@ -615,6 +615,14 @@ export type RegisterMutation = (
   )> }
 );
 
+export type CategoryCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoryCountQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'categoryCount'>
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -851,6 +859,38 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const CategoryCountDocument = gql`
+    query CategoryCount {
+  categoryCount
+}
+    `;
+
+/**
+ * __useCategoryCountQuery__
+ *
+ * To run a query within a React component, call `useCategoryCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoryCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoryCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCategoryCountQuery(baseOptions?: Apollo.QueryHookOptions<CategoryCountQuery, CategoryCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoryCountQuery, CategoryCountQueryVariables>(CategoryCountDocument, options);
+      }
+export function useCategoryCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoryCountQuery, CategoryCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoryCountQuery, CategoryCountQueryVariables>(CategoryCountDocument, options);
+        }
+export type CategoryCountQueryHookResult = ReturnType<typeof useCategoryCountQuery>;
+export type CategoryCountLazyQueryHookResult = ReturnType<typeof useCategoryCountLazyQuery>;
+export type CategoryCountQueryResult = Apollo.QueryResult<CategoryCountQuery, CategoryCountQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

@@ -8,9 +8,8 @@ interface ProductsSectionProps {}
 
 export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   const [showNewProductModal, setShowNewProductModal] = useState(false)
-  const { data } = useProductCountsQuery({ errorPolicy: 'all' })
 
-  console.log('data: ', data)
+  const { data } = useProductCountsQuery({ errorPolicy: 'all' })
 
   return (
     <section className='flex flex-col w-full h-full p-4 bg-white rounded-md shadow-around'>
