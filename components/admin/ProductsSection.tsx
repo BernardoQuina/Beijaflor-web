@@ -12,7 +12,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   const { data } = useProductCountsQuery({ errorPolicy: 'all' })
 
   return (
-    <section className='flex flex-col w-full h-full p-4 bg-white rounded-md shadow-around'>
+    <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
       <NewProductModal
         showProductModal={showNewProductModal}
         setShowProductModal={setShowNewProductModal}
@@ -49,6 +49,55 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
               <strong>{data?.outOfStockCount}</strong> sem stock
             </h4>
           </div>
+        </div>
+      </div>
+      <div className='w-full mt-4 mx-auto lg:p-2 min-h-[46rem]'>
+        <div className='sticky flex top-40 lg:top-20 mb-4 w-full h-10 pl-2 py-2 rounded-md shadow-md bg-green-extraLight'>
+          <div className='flex w-[34%]'>
+            <button className='flex mx-auto'>
+              <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                IMAGEM
+              </h5>
+            </button>
+          </div>
+          <div className='flex w-[34%]'>
+            <button className='flex mx-auto'>
+              <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                NOME
+              </h5>
+            </button>
+          </div>
+          <div className='hidden lg:flex w-[34%]'>
+            <button className='flex mx-auto'>
+              <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                PREÇO
+              </h5>
+            </button>
+          </div>
+          <div className='hidden lg:flex w-[34%]'>
+            <button className='flex mx-auto'>
+              <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                STOCK
+              </h5>
+            </button>
+          </div>
+          <div className='hidden lg:flex w-[34%]'>
+            <button className='flex mx-auto'>
+              <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                ESTADO
+              </h5>
+            </button>
+          </div>
+          <div className='flex w-[34%]'>
+            <button className='flex mx-auto'>
+              <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                AÇÃO
+              </h5>
+            </button>
+          </div>
+        </div>
+        <div className='flex w-full h-10 pl-2 py-2 rounded-md shadow-md bg-green-extraLight'>
+          
         </div>
       </div>
     </section>

@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-// import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -28,10 +27,6 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
   )
 
   const [newProduct] = useNewProductMutation({ errorPolicy: 'all' })
-
-  // const router = useRouter()
-
-  console.log(uploadedImages)
 
   const productModalNode = useRef<HTMLFormElement | null>(null)
 
@@ -128,7 +123,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
             <motion.div variants={scaleUp} className='flex py-4 h-[100vh]'>
               <Form
                 ref={productModalNode}
-                className='relative flex flex-col max-w-4xl w-[95%] h-[90vh] max-h-[66.4rem] m-auto rounded-md shadow-md bg-white'
+                className='relative flex flex-col max-w-4xl w-[95%] max-h-[90vh] m-auto rounded-md shadow-md bg-white'
               >
                 <div className='sticky top-0 flex py-2 px-2 border-b'>
                   <h4 className='ml-2 font-thin tracking-widest text-green-dark text-xl'>

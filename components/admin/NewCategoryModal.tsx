@@ -193,7 +193,7 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
                     <div className='w-full lg:w-[80%] mx-auto mt-10 lg:mr-10'>
                       <InputField
                         name='name'
-                        placeholder='ex: Ramo de rosas'
+                        placeholder='ex: rosas'
                         label='Nome'
                         type='text'
                         labelStyling='ml-3 text-green-medium tracking-wider'
