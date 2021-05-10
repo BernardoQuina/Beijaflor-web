@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Image } from 'cloudinary-react'
 
+import { EditProductModal } from './EditProductModal'
 import { Settings } from '../svg/Settings'
 import { ArrowDown } from '../svg/ArrowDown'
 import { Size } from '../svg/Size'
@@ -20,6 +21,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
   index,
 }) => {
   const [open, setOpen] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
 
   return (
     <div
@@ -27,6 +29,11 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
         index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
       } overflow-hidden`}
     >
+      <EditProductModal
+        product={product}
+        showProductModal={showEditModal}
+        setShowProductModal={setShowEditModal}
+      />
       <div className='flex w-full h-20 p-2'>
         <div className='flex w-[20%]'>
           <div className='h-full w-12 mx-auto rounded-md overflow-hidden'>
@@ -69,6 +76,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
         <div className='flex w-[28%]'>
           <button
             type='button'
+            onClick={() => setShowEditModal(true)}
             className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
           >
             <Settings tailwind='h-5 text-green-dark' />
@@ -214,9 +222,14 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
               <h5 className='ml-2 self-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 CATEGORIAS
               </h5>
-              <div className='flex lg:flex-wrap mt-3 pb-2 overflow-x-auto'>
+              <div className='flex flex-wrap mt-3 pb-2'>
                 {product.categories.map((category) => (
-                  <p key={category.id}>{category.name}</p>
+                  <p
+                    key={category.id}
+                    className='px-2 mx-2 mb-2 bg-green-extraLight rounded-md text-green-dark'
+                  >
+                    {category.name}
+                  </p>
                 ))}
               </div>
             </div>

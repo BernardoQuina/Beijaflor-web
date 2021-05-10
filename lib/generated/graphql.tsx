@@ -144,7 +144,9 @@ export type Mutation = {
   editUser?: Maybe<User>;
   deleteUser?: Maybe<User>;
   createProduct?: Maybe<Product>;
+  editProduct?: Maybe<Product>;
   createCategory?: Maybe<Category>;
+  editCategory?: Maybe<Category>;
 };
 
 
@@ -191,11 +193,36 @@ export type MutationCreateProductArgs = {
 };
 
 
+export type MutationEditProductArgs = {
+  whereId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Scalars['String']>>;
+  price?: Maybe<Scalars['Float']>;
+  stock?: Maybe<Scalars['Int']>;
+  categories?: Maybe<Array<Scalars['String']>>;
+  height?: Maybe<Scalars['String']>;
+  water?: Maybe<Scalars['String']>;
+  exposure?: Maybe<Scalars['String']>;
+  temperature?: Maybe<Scalars['String']>;
+  lifespan?: Maybe<Scalars['String']>;
+};
+
+
 export type MutationCreateCategoryArgs = {
   mainCategory: MainCategory;
-  name: Scalars['String'];
   subCategory: SubCategory;
+  name: Scalars['String'];
   image: Scalars['String'];
+};
+
+
+export type MutationEditCategoryArgs = {
+  whereId: Scalars['String'];
+  mainCategory?: Maybe<MainCategory>;
+  subCategory?: Maybe<SubCategory>;
+  name?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
 };
 
 export type NestedBoolFilter = {
@@ -554,6 +581,30 @@ export type BasicUserInfoFragment = (
   & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'role' | 'photo' | 'createdAt' | 'updatedAt'>
 );
 
+export type EditProductMutationVariables = Exact<{
+  whereId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  stock?: Maybe<Scalars['Int']>;
+  categories?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  height?: Maybe<Scalars['String']>;
+  water?: Maybe<Scalars['String']>;
+  exposure?: Maybe<Scalars['String']>;
+  temperature?: Maybe<Scalars['String']>;
+  lifespan?: Maybe<Scalars['String']>;
+}>;
+
+
+export type EditProductMutation = (
+  { __typename?: 'Mutation' }
+  & { editProduct?: Maybe<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
+);
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -727,6 +778,63 @@ export const BasicUserInfoFragmentDoc = gql`
   updatedAt
 }
     `;
+export const EditProductDocument = gql`
+    mutation EditProduct($whereId: String!, $name: String, $description: String, $images: [String!], $price: Float, $stock: Int, $categories: [String!], $height: String, $water: String, $exposure: String, $temperature: String, $lifespan: String) {
+  editProduct(
+    whereId: $whereId
+    name: $name
+    description: $description
+    images: $images
+    price: $price
+    stock: $stock
+    categories: $categories
+    height: $height
+    water: $water
+    exposure: $exposure
+    temperature: $temperature
+    lifespan: $lifespan
+  ) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+export type EditProductMutationFn = Apollo.MutationFunction<EditProductMutation, EditProductMutationVariables>;
+
+/**
+ * __useEditProductMutation__
+ *
+ * To run a mutation, you first call `useEditProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditProductMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editProductMutation, { data, loading, error }] = useEditProductMutation({
+ *   variables: {
+ *      whereId: // value for 'whereId'
+ *      name: // value for 'name'
+ *      description: // value for 'description'
+ *      images: // value for 'images'
+ *      price: // value for 'price'
+ *      stock: // value for 'stock'
+ *      categories: // value for 'categories'
+ *      height: // value for 'height'
+ *      water: // value for 'water'
+ *      exposure: // value for 'exposure'
+ *      temperature: // value for 'temperature'
+ *      lifespan: // value for 'lifespan'
+ *   },
+ * });
+ */
+export function useEditProductMutation(baseOptions?: Apollo.MutationHookOptions<EditProductMutation, EditProductMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditProductMutation, EditProductMutationVariables>(EditProductDocument, options);
+      }
+export type EditProductMutationHookResult = ReturnType<typeof useEditProductMutation>;
+export type EditProductMutationResult = Apollo.MutationResult<EditProductMutation>;
+export type EditProductMutationOptions = Apollo.BaseMutationOptions<EditProductMutation, EditProductMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {

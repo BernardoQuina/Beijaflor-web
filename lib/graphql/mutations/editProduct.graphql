@@ -1,0 +1,31 @@
+mutation EditProduct(
+  $whereId: String!
+  $name: String
+  $description: String
+  $images: [String!]
+  $price: Float
+  $stock: Int
+  $categories: [String!]
+  $height: String
+  $water: String
+  $exposure: String
+  $temperature: String
+  $lifespan: String
+) {
+  editProduct(
+    whereId: $whereId
+    name: $name
+    description: $description
+    images: $images
+    price: $price
+    stock: $stock
+    categories: $categories
+    height: $height
+    water: $water
+    exposure: $exposure
+    temperature: $temperature
+    lifespan: $lifespan
+  ) {
+    ...BasicProductInfo
+  }
+}
