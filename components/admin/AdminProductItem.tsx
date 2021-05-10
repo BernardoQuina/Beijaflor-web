@@ -93,7 +93,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
           </button>
         </div>
       </div>
-      <div className='flex flex-col w-full py-2 lg:px-4'>
+      <div className='flex flex-col w-full py-2 lg:px-2'>
         <div className='w-full lg:hidden'>
           <div className='flex w-full mt-2 h-8 py-2'>
             <div className='flex w-[34%]'>
@@ -145,17 +145,17 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
         <div className='w-full'>
           <div className='flex flex-col lg:flex-row w-full mt-4 p-2'>
             <div className='flex flex-col w-full lg:w-[27.5%]'>
-              <h5 className='ml-2 self-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+              <h5 className='ml-2 self-center text-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 DESCRIÇÃO
               </h5>
               <div>
-                <p className='ml-2 mt-2 text-green-dark'>
+                <p className='mx-auto text-center mt-2 text-green-dark'>
                   {product.description}
                 </p>
               </div>
             </div>
             <div className='flex flex-col w-full lg:w-[45%] mt-6 lg:mt-0'>
-              <h5 className='ml-2 self-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+              <h5 className='ml-2 self-center text-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 CARACTERÍSTICAS
               </h5>
               <div className='flex lg:flex-wrap mt-3 pb-2 overflow-x-auto'>
@@ -214,12 +214,12 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                   !product.exposure &&
                   !product.temperature &&
                   !product.lifespan && (
-                    <p className='ml-2 text-green-dark'>Nenhuma</p>
+                    <p className='mx-auto text-green-dark'>Nenhuma</p>
                   )}
               </div>
             </div>
             <div className='flex flex-col w-full lg:w-[27.5%] mt-6 lg:mt-0'>
-              <h5 className='ml-2 self-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+              <h5 className='ml-2 self-center text-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 CATEGORIAS
               </h5>
               <div className='flex flex-wrap mt-3 pb-2'>
