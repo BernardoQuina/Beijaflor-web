@@ -1,7 +1,14 @@
+import { Image } from 'cloudinary-react'
 import { useState } from 'react'
 
-import { useProductCountsQuery } from '../../lib/generated/graphql'
+import {
+  useProductCountsQuery,
+  useProductsQuery,
+} from '../../lib/generated/graphql'
+import { products } from '../../lib/testData'
+import { ArrowDown } from '../svg/ArrowDown'
 import { Plus } from '../svg/Plus'
+import { Settings } from '../svg/Settings'
 import { NewProductModal } from './NewProductModal'
 
 interface ProductsSectionProps {}
@@ -10,6 +17,8 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   const [showNewProductModal, setShowNewProductModal] = useState(false)
 
   const { data } = useProductCountsQuery({ errorPolicy: 'all' })
+
+  const { data: productData } = useProductsQuery({ errorPolicy: 'all' })
 
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
@@ -52,15 +61,15 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
         </div>
       </div>
       <div className='w-full mt-4 mx-auto lg:p-2 min-h-[46rem]'>
-        <div className='sticky flex top-40 lg:top-20 mb-4 w-full h-10 pl-2 py-2 rounded-md shadow-md bg-green-extraLight'>
-          <div className='flex w-[34%]'>
+        <div className='sticky z-[1] flex top-40 lg:top-20 mb-4 w-full h-10 p-2 rounded-md shadow-md bg-green-extraLight'>
+          <div className='flex w-[20%]'>
             <button className='flex mx-auto'>
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 IMAGEM
               </h5>
             </button>
           </div>
-          <div className='flex w-[34%]'>
+          <div className='flex w-[54%]'>
             <button className='flex mx-auto'>
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 NOME
@@ -88,7 +97,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
               </h5>
             </button>
           </div>
-          <div className='flex w-[34%]'>
+          <div className='flex w-[28%]'>
             <button className='flex mx-auto'>
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 AÇÃO
@@ -96,9 +105,69 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
             </button>
           </div>
         </div>
-        <div className='flex w-full h-10 pl-2 py-2 rounded-md shadow-md bg-green-extraLight'>
-          
-        </div>
+        {productData?.products
+          ? productData.products.map((product, index) => (
+              <div
+                key={product.id}
+                className={`flex w-full h-20 p-2 ${
+                  index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                }`}
+              >
+                <div className='flex w-[20%]'>
+                  <div className='h-full w-12 mx-auto rounded-md overflow-hidden'>
+                    <Image
+                      cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+                      publicId={product.images[0]}
+                      height={300}
+                      width={200}
+                      quality={20}
+                      crop='fill'
+                    />
+                  </div>
+                </div>
+                <div className='flex w-[54%]'>
+                  <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+                    {product.name}
+                  </h4>
+                </div>
+                <div className='hidden lg:flex w-[34%]'>
+                  <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+                    € {product.price.toFixed(2)}
+                  </h4>
+                </div>
+                <div className='hidden lg:flex w-[34%]'>
+                  <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+                    {product.stock}
+                  </h4>
+                </div>
+                <div className='hidden lg:flex w-[34%]'>
+                  {product.active ? (
+                    <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+                      ativo
+                    </h4>
+                  ) : (
+                    <h4 className='w-full self-center text-center tracking-wider'>
+                      inativo
+                    </h4>
+                  )}
+                </div>
+                <div className='flex w-[28%]'>
+                  <button
+                    type='button'
+                    className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+                  >
+                    <Settings tailwind='h-5 text-green-dark' />
+                  </button>
+                  <button
+                    type='button'
+                    className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+                  >
+                    <ArrowDown tailwind='h-5 text-green-dark' strokeWidth={2} />
+                  </button>
+                </div>
+              </div>
+            ))
+          : null}
       </div>
     </section>
   )

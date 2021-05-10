@@ -4,6 +4,7 @@ fragment BasicProductInfo on Product {
   description
   price
   stock
+  active
   images
   createdAt
   updatedAt
