@@ -19,8 +19,8 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
   return (
     <Layout>
       <div className='-mt-6 lg:-mt-10 mx-auto max-w-6xl 3xl:max-w-[90rem] w-full  grid grid-cols-12'>
-        <div className='sticky top-20 z-[1] flex mb-4 lg:mx-4 col-span-full lg:col-span-3 '>
-          <div className='sticky top-20 flex lg:flex-col lg:mb-auto w-full py-2 lg:p-4 bg-white rounded-md shadow-around'>
+        <div className='sticky top-20 z-[2] flex mb-4 lg:mx-4 col-span-full lg:col-span-3 '>
+          <div className='sticky top-20 z-[2] flex lg:flex-col lg:mb-auto w-full py-2 lg:p-4 bg-white rounded-md shadow-around'>
             <button
               onClick={() => setActive('produtos')}
               className={`${
