@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import {
+  SortOrder,
   useCategoriesQuery,
   useCategoryCountQuery,
 } from '../../lib/generated/graphql'
 import { Plus } from '../svg/Plus'
-import {ArrowDown} from '../svg/ArrowDown'
+import { ArrowDown } from '../svg/ArrowDown'
+import { Search } from '../svg/Search'
 import { AdminCategoryItem } from './AdminCategoryItem'
 import { NewCategoryModal } from './NewCategoryModal'
 
@@ -16,14 +18,16 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
   const [orderBy, setOrderBy] = useState('')
   const [search, setSearch] = useState('')
 
-  console.log(setOrderBy, search, setSearch)
-
   const { data } = useCategoryCountQuery({ errorPolicy: 'all' })
 
-  const { data: categoryData } = useCategoriesQuery({ errorPolicy: 'all' })
+  const {
+    data: categoryData,
+    variables,
+    refetch,
+  } = useCategoriesQuery({ errorPolicy: 'all' })
 
   return (
-    <section className='flex flex-col w-full h-full p-4 bg-white rounded-md shadow-around'>
+    <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
       <NewCategoryModal
         showCategoryModal={showNewCategoryModal}
         setShowCategoryModal={setShowNewCategoryModal}
@@ -43,11 +47,32 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
           <Plus tailwind='m-auto h-6 text-green-dark' strokeWidth={2} />
         </button>
       </div>
-      <div className='flex flex-col lg:flex-row mt-6 max-w-lg'>
-        <div className='flex mb-3 lg:mx-3 py-2 px-4 rounded-md shadow-md bg-green-extraLight'>
-          <h4 className='mx-auto text-green-dark tracking-widest'>
-            <strong>{data?.categoryCount}</strong> categorias
-          </h4>
+      <div className='flex flex-col lg:flex-row w-full'>
+        <div className='flex flex-col lg:flex-row mt-6 max-w-lg'>
+          <div className='flex mb-3 lg:mx-3 py-1 px-4 rounded-md shadow-md bg-green-extraLight'>
+            <h4 className='mx-auto text-green-dark tracking-widest'>
+              <strong>{data?.categoryCount}</strong> categorias
+            </h4>
+          </div>
+        </div>
+        <div className='relative h-10 flex w-full lg:w-[45%] mt-6 mx-auto lg:ml-auto lg:mr-2'>
+          <input
+            className='mx-auto h-10 w-full pl-2 pr-10 text-lg font-thin tracking-widest border shadow-sm rounded-md focus:border-green-dark'
+            value={search}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+          />
+          <button
+            type='button'
+            onClick={async () => {
+              variables.search = search
+              await refetch()
+            }}
+            className='absolute right-4 top-[50%] transform translate-y-[-50%]'
+          >
+            <Search tailwind='h-5 text-gray-400' strokeWidth={2} />
+          </button>
         </div>
       </div>
       <div className='w-full mt-6 lg:mt-8 mx-auto lg:p-2 min-h-[46rem]'>
@@ -63,14 +88,14 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
             <button
               type='button'
               onClick={() => {
-                // if (orderBy !== 'name: desc') {
-                //   setOrderBy('name: desc')
-                //   variables.orderBy = { name: SortOrder.Desc }
-                // } else {
-                //   setOrderBy('name: asc')
-                //   variables.orderBy = { name: SortOrder.Asc }
-                // }
-                // refetch()
+                if (orderBy !== 'name: desc') {
+                  setOrderBy('name: desc')
+                  variables.orderBy = { name: SortOrder.Desc }
+                } else {
+                  setOrderBy('name: asc')
+                  variables.orderBy = { name: SortOrder.Asc }
+                }
+                refetch()
               }}
               className='flex mx-auto'
             >
@@ -94,26 +119,26 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
             <button
               type='button'
               onClick={() => {
-                // if (orderBy !== 'price: desc') {
-                //   setOrderBy('price: desc')
-                //   variables.orderBy = { price: SortOrder.Desc }
-                // } else {
-                //   setOrderBy('price: asc')
-                //   variables.orderBy = { price: SortOrder.Asc }
-                // }
-                // refetch()
+                if (orderBy !== 'mainCategory: desc') {
+                  setOrderBy('mainCategory: desc')
+                  variables.orderBy = { mainCategory: SortOrder.Desc }
+                } else {
+                  setOrderBy('mainCategory: asc')
+                  variables.orderBy = { mainCategory: SortOrder.Asc }
+                }
+                refetch()
               }}
               className='flex mx-auto'
             >
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 CATEGORIA PRINCIPAL
               </h5>
-              {orderBy === 'price: desc' ? (
+              {orderBy === 'mainCategory: desc' ? (
                 <ArrowDown
                   tailwind='ml-2 h-4 text-green-dark'
                   strokeWidth={3}
                 />
-              ) : orderBy === 'price: asc' ? (
+              ) : orderBy === 'mainCategory: asc' ? (
                 <ArrowDown
                   tailwind='ml-2 h-4 text-green-dark transform rotate-180'
                   strokeWidth={3}
@@ -121,30 +146,30 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
               ) : null}
             </button>
           </div>
-          <div className='hidden lg:flex w-[34%]'>
+          <div className='hidden lg:flex w-[42%]'>
             <button
               type='button'
               onClick={() => {
-                // if (orderBy !== 'stock: desc') {
-                //   setOrderBy('stock: desc')
-                //   variables.orderBy = { stock: SortOrder.Desc }
-                // } else {
-                //   setOrderBy('stock: asc')
-                //   variables.orderBy = { stock: SortOrder.Asc }
-                // }
-                // refetch()
+                if (orderBy !== 'subCategory: desc') {
+                  setOrderBy('subCategory: desc')
+                  variables.orderBy = { subCategory: SortOrder.Desc }
+                } else {
+                  setOrderBy('subCategory: asc')
+                  variables.orderBy = { subCategory: SortOrder.Asc }
+                }
+                refetch()
               }}
               className='flex mx-auto'
             >
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 SUBCATEGORIA
               </h5>
-              {orderBy === 'stock: desc' ? (
+              {orderBy === 'subCategory: desc' ? (
                 <ArrowDown
                   tailwind='ml-2 h-4 text-green-dark'
                   strokeWidth={3}
                 />
-              ) : orderBy === 'stock: asc' ? (
+              ) : orderBy === 'subCategory: asc' ? (
                 <ArrowDown
                   tailwind='ml-2 h-4 text-green-dark transform rotate-180'
                   strokeWidth={3}
@@ -152,7 +177,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
               ) : null}
             </button>
           </div>
-          <div className='flex w-[28%]'>
+          <div className='flex w-[28%] lg:w-[20%]'>
             <button className='flex mx-auto'>
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 AÇÃO

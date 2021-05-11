@@ -25,8 +25,8 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
   showCategoryModal,
   setShowCategoryModal,
 }) => {
-  const [selectedMain, setSelectedMain] = useState(MainCategory.Flores)
-  const [selectedSub, setSelectedSub] = useState(SubCategory.Tipos)
+  const [selectedMain, setSelectedMain] = useState(category.mainCategory)
+  const [selectedSub, setSelectedSub] = useState(category.subCategory)
 
   let categoryImageId: { public_id: string }[] = []
 
@@ -81,17 +81,14 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
               name: category.name,
               image: '',
             }}
-            onSubmit={async (
-              { mainCategory, subCategory, name, image },
-              { setErrors }
-            ) => {
+            onSubmit={async ({ name, image }, { setErrors }) => {
               image = uploadedImages[0].public_id
 
               const response = await editCategory({
                 variables: {
                   whereId: category.id,
-                  mainCategory,
-                  subCategory,
+                  mainCategory: selectedMain,
+                  subCategory: selectedSub,
                   name: name.toUpperCase(),
                   image,
                 },
@@ -104,7 +101,6 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                 setErrors({ name: response.errors[0].message })
               } else if (response.data?.editCategory) {
                 setShowCategoryModal(false)
-                setUploadedImages([])
               }
             }}
           >

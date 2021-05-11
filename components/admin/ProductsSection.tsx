@@ -28,8 +28,6 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
     errorPolicy: 'all',
   })
 
-  console.log(search)
-
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
       <NewProductModal

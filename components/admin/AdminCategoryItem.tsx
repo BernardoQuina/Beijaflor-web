@@ -52,12 +52,12 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
             {category.mainCategory}
           </h4>
         </div>
-        <div className='hidden lg:flex w-[34%]'>
+        <div className='hidden lg:flex w-[42%]'>
           <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
             {category.subCategory}
           </h4>
         </div>
-        <div className='flex w-[28%]'>
+        <div className='flex w-[28%] lg:w-[20%]'>
           <button
             type='button'
             onClick={() => setShowEditModal(true)}
@@ -68,7 +68,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
           <button
             type='button'
             onClick={() => setOpen(!open)}
-            className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+            className='lg:hidden mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
           >
             <ArrowDown
               tailwind={`h-5 text-green-dark transform ${open && 'rotate-180'}`}
@@ -79,27 +79,27 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
       </div>
       <div className='flex flex-col w-full py-2 lg:px-2'>
         <div className='w-full lg:hidden'>
-          <div className='flex w-full mt-2 h-8 py-2'>
-            <div className='flex w-[50%]'>
+          <div className='flex w-full mt-2 py-2'>
+            <div className='flex flex-col w-[50%]'>
               <button className='flex mx-auto'>
                 <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                   CATEGORIA PRINCIPAL
                 </h5>
               </button>
+              <p className='mx-auto text-center mt-2 text-green-dark'>
+                {category.mainCategory}
+              </p>
             </div>
-            <div className='flex w-[50%]'>
+            <div className='flex flex-col w-[50%]'>
               <button className='flex mx-auto'>
                 <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                   SUBCATEGORIA
                 </h5>
               </button>
+              <p className='mx-auto text-center mt-2 text-green-dark'>
+                {category.subCategory}
+              </p>
             </div>
-            
-          </div>
-        </div>
-        <div className='w-full'>
-          <div className='flex flex-col lg:flex-row w-full mt-4 p-2'>
-            HELLO
           </div>
         </div>
       </div>
