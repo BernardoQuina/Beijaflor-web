@@ -34,9 +34,8 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({
 
   product.images.map((image) => productImageIds.push({ public_id: image }))
 
-  const [uploadedImages, setUploadedImages] = useState<{ public_id: string }[]>(
-    productImageIds
-  )
+  const [uploadedImages, setUploadedImages] =
+    useState<{ public_id: string }[]>(productImageIds)
 
   const [editProduct] = useEditProductMutation({ errorPolicy: 'all' })
 
@@ -373,6 +372,12 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({
                   <button
                     className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight'
                     type='submit'
+                    disabled={uploadedImages.length === 0}
+                    title={
+                      uploadedImages.length === 0
+                        ? 'adicione pelo menos uma imagem!'
+                        : undefined
+                    }
                   >
                     <p className='mx-auto text-lg text-green-dark tracking-widest'>
                       Editar!

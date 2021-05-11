@@ -711,6 +711,7 @@ export type ProductCountsQuery = (
 
 export type ProductsQueryVariables = Exact<{
   orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
+  search?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -1139,8 +1140,11 @@ export type ProductCountsQueryHookResult = ReturnType<typeof useProductCountsQue
 export type ProductCountsLazyQueryHookResult = ReturnType<typeof useProductCountsLazyQuery>;
 export type ProductCountsQueryResult = Apollo.QueryResult<ProductCountsQuery, ProductCountsQueryVariables>;
 export const ProductsDocument = gql`
-    query Products($orderBy: [ProductOrderByInput!]) {
-  products(orderBy: $orderBy) {
+    query Products($orderBy: [ProductOrderByInput!], $search: String) {
+  products(
+    orderBy: $orderBy
+    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}]}
+  ) {
     ...BasicProductInfo
   }
 }
@@ -1159,6 +1163,7 @@ export const ProductsDocument = gql`
  * const { data, loading, error } = useProductsQuery({
  *   variables: {
  *      orderBy: // value for 'orderBy'
+ *      search: // value for 'search'
  *   },
  * });
  */

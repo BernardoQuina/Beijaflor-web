@@ -1,5 +1,18 @@
-query Products($orderBy: [ProductOrderByInput!]) {
-  products(orderBy: $orderBy) {
+query Products($orderBy: [ProductOrderByInput!], $search: String) {
+  products(
+    orderBy: $orderBy
+    where: {
+      OR: [
+        { name: { mode: insensitive, contains: $search } }
+        { description: { mode: insensitive, contains: $search } }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $search } }
+          }
+        }
+      ]
+    }
+  ) {
     ...BasicProductInfo
   }
 }

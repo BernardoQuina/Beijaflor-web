@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import {
   SortOrder,
   useProductCountsQuery,
   useProductsQuery,
 } from '../../lib/generated/graphql'
+import { ArrowDown } from '../svg/ArrowDown'
 import { Plus } from '../svg/Plus'
+import { Search } from '../svg/Search'
 import { AdminProductItem } from './AdminProductItem'
 import { NewProductModal } from './NewProductModal'
 
@@ -14,6 +16,7 @@ interface ProductsSectionProps {}
 export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   const [showNewProductModal, setShowNewProductModal] = useState(false)
   const [orderBy, setOrderBy] = useState('')
+  const [search, setSearch] = useState('')
 
   const { data } = useProductCountsQuery({ errorPolicy: 'all' })
 
@@ -24,6 +27,8 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   } = useProductsQuery({
     errorPolicy: 'all',
   })
+
+  console.log(search)
 
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
@@ -46,26 +51,47 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
           <Plus tailwind='m-auto h-6 text-green-dark' strokeWidth={2} />
         </button>
       </div>
-      <div className='flex flex-col lg:flex-row mt-6 max-w-lg'>
-        <div className='flex mb-3 mx-6 lg:mx-auto py-1 px-4 rounded-md shadow-md bg-green-extraLight'>
-          <h4 className='mx-auto text-green-dark tracking-widest'>
-            <strong>{data?.productCount}</strong> produtos
-          </h4>
+      <div className='flex flex-col lg:flex-row w-full'>
+        <div className='flex flex-col lg:flex-row mt-6 w-full lg:w-[28rem]'>
+          <div className='flex mb-3 mx-6 lg:mx-auto py-1 px-4 rounded-md shadow-md bg-green-extraLight'>
+            <h4 className='mx-auto text-green-dark tracking-widest'>
+              <strong>{data?.productCount}</strong> produtos
+            </h4>
+          </div>
+          <div className='flex mx-auto w-full lg:w-[66%]'>
+            <div className='flex mb-3 mx-auto py-1 px-4 rounded-md shadow-md bg-gray-200'>
+              <h4 className='mx-auto text-gray-500 tracking-widest'>
+                <strong>{data?.inactiveCount}</strong> inativos
+              </h4>
+            </div>
+            <div className='flex mb-3 mx-auto py-1 px-4 rounded-md shadow-md bg-red-100'>
+              <h4 className='mx-auto text-red-700 tracking-widest'>
+                <strong>{data?.outOfStockCount}</strong> sem stock
+              </h4>
+            </div>
+          </div>
         </div>
-        <div className='flex mx-auto w-full lg:w-[66%]'>
-          <div className='flex mb-3 mx-auto py-1 px-4 rounded-md shadow-md bg-gray-200'>
-            <h4 className='mx-auto text-gray-500 tracking-widest'>
-              <strong>{data?.inactiveCount}</strong> inativos
-            </h4>
-          </div>
-          <div className='flex mb-3 mx-auto py-1 px-4 rounded-md shadow-md bg-red-100'>
-            <h4 className='mx-auto text-red-700 tracking-widest'>
-              <strong>{data?.outOfStockCount}</strong> sem stock
-            </h4>
-          </div>
+        <div className='relative h-10 flex w-full lg:w-[45%] mt-6'>
+          <input
+            className='mx-auto h-10 w-full pl-2 pr-10 text-lg font-thin tracking-widest border shadow-sm rounded-md focus:border-green-dark'
+            value={search}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+          />
+          <button
+            type='button'
+            onClick={async () => {
+              variables.search = search
+              await refetch()
+            }}
+            className='absolute right-4 top-[50%] transform translate-y-[-50%]'
+          >
+            <Search tailwind='h-5 text-gray-400' strokeWidth={2} />
+          </button>
         </div>
       </div>
-      <div className='w-full mt-8 mx-auto lg:p-2 min-h-[46rem]'>
+      <div className='w-full mt-6 lg:mt-8 mx-auto lg:p-2 min-h-[46rem]'>
         <div className='sticky z-[1] flex top-40 lg:top-20 mb-4 w-full h-8 p-2 rounded-md shadow-md bg-green-extraLight'>
           <div className='flex w-[20%]'>
             <div className='flex mx-auto'>
@@ -92,6 +118,17 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 NOME
               </h5>
+              {orderBy === 'name: desc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark'
+                  strokeWidth={3}
+                />
+              ) : orderBy === 'name: asc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark transform rotate-180'
+                  strokeWidth={3}
+                />
+              ) : null}
             </button>
           </div>
           <div className='hidden lg:flex w-[34%]'>
@@ -112,6 +149,17 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 PREÇO
               </h5>
+              {orderBy === 'price: desc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark'
+                  strokeWidth={3}
+                />
+              ) : orderBy === 'price: asc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark transform rotate-180'
+                  strokeWidth={3}
+                />
+              ) : null}
             </button>
           </div>
           <div className='hidden lg:flex w-[34%]'>
@@ -132,6 +180,17 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 STOCK
               </h5>
+              {orderBy === 'stock: desc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark'
+                  strokeWidth={3}
+                />
+              ) : orderBy === 'stock: asc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark transform rotate-180'
+                  strokeWidth={3}
+                />
+              ) : null}
             </button>
           </div>
           <div className='hidden lg:flex w-[34%]'>
