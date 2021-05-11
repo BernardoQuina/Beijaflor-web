@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import {
-  ProductOrderByInput,
   SortOrder,
   useProductCountsQuery,
   useProductsQuery,
