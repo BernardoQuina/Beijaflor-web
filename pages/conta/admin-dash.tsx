@@ -76,7 +76,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
             </button>
           </div>
         </div>
-        <div className='h-[60rem] col-span-full lg:col-span-9'>
+        <div className='min-h-[60rem] col-span-full lg:col-span-9'>
           {active === 'produtos' ? (
             <ProductsSection />
           ) : active === 'categorias' ? (

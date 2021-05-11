@@ -27,7 +27,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
     <div
       className={`flex flex-col w-full ${!open && 'h-20'} ${
         index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-      } overflow-hidden`}
+      } rounded-md overflow-hidden`}
     >
       <EditProductModal
         product={product}
@@ -154,7 +154,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                 </p>
               </div>
             </div>
-            <div className='flex flex-col w-full lg:w-[45%] mt-6 lg:mt-0'>
+            <div className='flex flex-col mx-auto w-full lg:w-[30%] mt-6 lg:mt-0'>
               <h5 className='ml-2 self-center text-center w-full text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 CARACTERÍSTICAS
               </h5>
