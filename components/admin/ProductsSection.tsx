@@ -71,7 +71,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
             </div>
           </div>
         </div>
-        <div className='relative h-10 flex w-full lg:w-[45%] mt-6'>
+        <div className='relative h-10 flex w-full lg:w-[45%] mt-6 mx-auto'>
           <input
             className='mx-auto h-10 w-full pl-2 pr-10 text-lg font-thin tracking-widest border shadow-sm rounded-md focus:border-green-dark'
             value={search}

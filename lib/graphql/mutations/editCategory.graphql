@@ -1,0 +1,17 @@
+mutation EditCategory(
+  $whereId: String!
+  $name: String
+  $mainCategory: MainCategory
+  $subCategory: SubCategory
+  $image: String
+) {
+  editCategory(
+    whereId: $whereId
+    name: $name
+    mainCategory: $mainCategory
+    subCategory: $subCategory
+    image: $image
+  ) {
+    ...BasicCategoryInfo
+  }
+}
