@@ -709,7 +709,9 @@ export type ProductCountsQuery = (
   & Pick<Query, 'productCount' | 'outOfStockCount' | 'inactiveCount'>
 );
 
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductsQueryVariables = Exact<{
+  orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
+}>;
 
 
 export type ProductsQuery = (
@@ -1137,8 +1139,8 @@ export type ProductCountsQueryHookResult = ReturnType<typeof useProductCountsQue
 export type ProductCountsLazyQueryHookResult = ReturnType<typeof useProductCountsLazyQuery>;
 export type ProductCountsQueryResult = Apollo.QueryResult<ProductCountsQuery, ProductCountsQueryVariables>;
 export const ProductsDocument = gql`
-    query Products {
-  products {
+    query Products($orderBy: [ProductOrderByInput!]) {
+  products(orderBy: $orderBy) {
     ...BasicProductInfo
   }
 }
@@ -1156,6 +1158,7 @@ export const ProductsDocument = gql`
  * @example
  * const { data, loading, error } = useProductsQuery({
  *   variables: {
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */

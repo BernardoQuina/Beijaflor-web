@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
 import {
+  ProductOrderByInput,
+  SortOrder,
   useProductCountsQuery,
   useProductsQuery,
 } from '../../lib/generated/graphql'
@@ -12,10 +14,17 @@ interface ProductsSectionProps {}
 
 export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   const [showNewProductModal, setShowNewProductModal] = useState(false)
+  const [orderBy, setOrderBy] = useState('')
 
   const { data } = useProductCountsQuery({ errorPolicy: 'all' })
 
-  const { data: productData } = useProductsQuery({ errorPolicy: 'all' })
+  const {
+    data: productData,
+    refetch,
+    variables,
+  } = useProductsQuery({
+    errorPolicy: 'all',
+  })
 
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
@@ -60,28 +69,67 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
       <div className='w-full mt-8 mx-auto lg:p-2 min-h-[46rem]'>
         <div className='sticky z-[1] flex top-40 lg:top-20 mb-4 w-full h-8 p-2 rounded-md shadow-md bg-green-extraLight'>
           <div className='flex w-[20%]'>
-            <button className='flex mx-auto'>
+            <div className='flex mx-auto'>
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 IMAGEM
               </h5>
-            </button>
+            </div>
           </div>
           <div className='flex w-[54%]'>
-            <button className='flex mx-auto'>
+            <button
+              type='button'
+              onClick={() => {
+                if (orderBy !== 'name: desc') {
+                  setOrderBy('name: desc')
+                  variables.orderBy = { name: SortOrder.Desc }
+                } else {
+                  setOrderBy('name: asc')
+                  variables.orderBy = { name: SortOrder.Asc }
+                }
+                refetch()
+              }}
+              className='flex mx-auto'
+            >
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 NOME
               </h5>
             </button>
           </div>
           <div className='hidden lg:flex w-[34%]'>
-            <button className='flex mx-auto'>
+            <button
+              type='button'
+              onClick={() => {
+                if (orderBy !== 'price: desc') {
+                  setOrderBy('price: desc')
+                  variables.orderBy = { price: SortOrder.Desc }
+                } else {
+                  setOrderBy('price: asc')
+                  variables.orderBy = { price: SortOrder.Asc }
+                }
+                refetch()
+              }}
+              className='flex mx-auto'
+            >
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 PREÇO
               </h5>
             </button>
           </div>
           <div className='hidden lg:flex w-[34%]'>
-            <button className='flex mx-auto'>
+            <button
+              type='button'
+              onClick={() => {
+                if (orderBy !== 'stock: desc') {
+                  setOrderBy('stock: desc')
+                  variables.orderBy = { stock: SortOrder.Desc }
+                } else {
+                  setOrderBy('stock: asc')
+                  variables.orderBy = { stock: SortOrder.Asc }
+                }
+                refetch()
+              }}
+              className='flex mx-auto'
+            >
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 STOCK
               </h5>

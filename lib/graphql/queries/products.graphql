@@ -1,5 +1,5 @@
-query Products {
-  products {
+query Products($orderBy: [ProductOrderByInput!]) {
+  products(orderBy: $orderBy) {
     ...BasicProductInfo
   }
 }
