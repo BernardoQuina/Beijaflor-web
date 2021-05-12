@@ -3,11 +3,13 @@ import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 interface CategoryOptionsModalProps {
   modalRef: MutableRefObject<HTMLDivElement>
   setShowEditCategoryModal: Dispatch<SetStateAction<boolean>>
+  setShowDeleteCategoryModal: Dispatch<SetStateAction<boolean>>
 }
 
 export const CategoryOptionsModal: React.FC<CategoryOptionsModalProps> = ({
   modalRef,
   setShowEditCategoryModal,
+  setShowDeleteCategoryModal,
 }) => {
   return (
     <div
@@ -29,7 +31,7 @@ export const CategoryOptionsModal: React.FC<CategoryOptionsModalProps> = ({
         className='flex w-full'
         type='button'
         onClick={() => {
-          setShowEditCategoryModal(true)
+          setShowDeleteCategoryModal(true)
         }}
       >
         <h6 className='w-full py-2 text-red-500 tracking-wide text-center rounded-md hover:bg-red-100'>

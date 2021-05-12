@@ -6,6 +6,7 @@ import { ArrowDown } from '../svg/ArrowDown'
 import { BasicCategoryInfoFragment } from '../../lib/generated/graphql'
 import { EditCategoryModal } from './EditCategoryModal'
 import { CategoryOptionsModal } from './CategoryOptionsModal'
+import { DeleteCategoryModal } from './DeleteCategoryModal'
 
 interface AdminCategoryItemProps {
   category: BasicCategoryInfoFragment
@@ -20,6 +21,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
   const [showEditModal, setShowEditModal] = useState(false)
   const [showCategoryOptionsModal, setShowCategoryOptionsModal] =
     useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   const categoryOptionsButtonNode = useRef<HTMLButtonElement | null>(null)
   const categoryOptionsModalNode = useRef<HTMLDivElement | null>(null)
@@ -55,6 +57,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
         <CategoryOptionsModal
           modalRef={categoryOptionsModalNode}
           setShowEditCategoryModal={setShowEditModal}
+          setShowDeleteCategoryModal={setShowDeleteModal}
         />
       )}
       <div
@@ -66,6 +69,11 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
           category={category}
           showCategoryModal={showEditModal}
           setShowCategoryModal={setShowEditModal}
+        />
+        <DeleteCategoryModal
+          category={category}
+          setShowDeleteCategoryModal={setShowDeleteModal}
+          showDeleteCategoryModal={showDeleteModal}
         />
         <div className='flex w-full h-20 p-2'>
           <div className='flex w-[20%]'>
