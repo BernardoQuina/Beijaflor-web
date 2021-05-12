@@ -1,0 +1,3 @@
+mutation DeleteProduct($whereId: String!) {
+  deleteProduct(whereId: $whereId)
+}

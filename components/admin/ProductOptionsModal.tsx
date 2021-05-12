@@ -8,6 +8,7 @@ interface ProductOptionsModalProps {
   product: BasicProductInfoFragment
   modalRef: MutableRefObject<HTMLDivElement>
   setShowEditProductModal: Dispatch<SetStateAction<boolean>>
+  setShowDeleteProductModal: Dispatch<SetStateAction<boolean>>
   setShowProductOptionsModal: Dispatch<SetStateAction<boolean>>
 }
 
@@ -15,6 +16,7 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
   product,
   modalRef,
   setShowEditProductModal,
+  setShowDeleteProductModal,
   setShowProductOptionsModal
 }) => {
   const [productStatus] = useProductStatusMutation({
@@ -64,7 +66,7 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
         className='flex w-full'
         type='button'
         onClick={() => {
-          setShowEditProductModal(true)
+          setShowDeleteProductModal(true)
         }}
       >
         <h6 className='w-full py-2 text-red-500 tracking-wide text-center rounded-md hover:bg-red-100'>

@@ -36,7 +36,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     onDrop,
     accept: 'image/*',
-    multiple: false,
+    multiple: true,
     maxSize: 5242880,
   })
 

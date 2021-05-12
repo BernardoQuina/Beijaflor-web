@@ -11,6 +11,7 @@ import { Sun } from '../svg/Sun'
 import { Temperature } from '../svg/Temperature'
 import { Time } from '../svg/Time'
 import { ProductOptionsModal } from './ProductOptionsModal'
+import { DeleteProductModal } from './DeleteProductModal'
 
 interface AdminProductItemProps {
   product: BasicProductInfoFragment
@@ -24,6 +25,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
   const [open, setOpen] = useState(false)
   const [showProductOptionsModal, setShowProductOptionsModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   const productOptionsButtonNode = useRef<HTMLButtonElement | null>(null)
   const productOptionsModalNode = useRef<HTMLDivElement | null>(null)
@@ -60,6 +62,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
           product={product}
           modalRef={productOptionsModalNode}
           setShowEditProductModal={setShowEditModal}
+          setShowDeleteProductModal={setShowDeleteModal}
           setShowProductOptionsModal={setShowProductOptionsModal}
         />
       )}
@@ -72,6 +75,11 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
           product={product}
           showProductModal={showEditModal}
           setShowProductModal={setShowEditModal}
+        />
+        <DeleteProductModal
+          product={product}
+          setShowDeleteProductModal={setShowDeleteModal}
+          showDeleteProductModal={showDeleteModal}
         />
         <div className='flex w-full h-20 p-2'>
           <div className='flex w-[20%]'>
@@ -179,7 +187,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                     ativo
                   </h4>
                 ) : (
-                  <h4 className='w-full self-center text-center tracking-wider'>
+                  <h4 className='w-full self-center text-center text-blue-500 tracking-wider'>
                     inativo
                   </h4>
                 )}
