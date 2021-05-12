@@ -133,7 +133,8 @@ export enum MainCategory {
   Flores = 'Flores',
   Plantas = 'Plantas',
   Acessorios = 'Acessorios',
-  Ocasiao = 'Ocasiao'
+  Ocasiao = 'Ocasiao',
+  None = 'none'
 }
 
 export type Mutation = {
@@ -527,7 +528,8 @@ export enum SubCategory {
   Outros = 'outros',
   Calendario = 'calendario',
   Cerimonias = 'cerimonias',
-  MomentosEspeciais = 'momentosEspeciais'
+  MomentosEspeciais = 'momentosEspeciais',
+  None = 'none'
 }
 
 export type User = {
@@ -794,6 +796,8 @@ export type ProductCountsQuery = (
 export type ProductsQueryVariables = Exact<{
   orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
   search?: Maybe<Scalars['String']>;
+  searchMain?: Maybe<MainCategory>;
+  searchSub?: Maybe<SubCategory>;
 }>;
 
 
@@ -1399,10 +1403,10 @@ export type ProductCountsQueryHookResult = ReturnType<typeof useProductCountsQue
 export type ProductCountsLazyQueryHookResult = ReturnType<typeof useProductCountsLazyQuery>;
 export type ProductCountsQueryResult = Apollo.QueryResult<ProductCountsQuery, ProductCountsQueryVariables>;
 export const ProductsDocument = gql`
-    query Products($orderBy: [ProductOrderByInput!], $search: String) {
+    query Products($orderBy: [ProductOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   products(
     orderBy: $orderBy
-    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}]}
+    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
   ) {
     ...BasicProductInfo
   }
@@ -1423,6 +1427,8 @@ export const ProductsDocument = gql`
  *   variables: {
  *      orderBy: // value for 'orderBy'
  *      search: // value for 'search'
+ *      searchMain: // value for 'searchMain'
+ *      searchSub: // value for 'searchSub'
  *   },
  * });
  */

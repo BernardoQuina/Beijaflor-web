@@ -1,4 +1,9 @@
-query Products($orderBy: [ProductOrderByInput!], $search: String) {
+query Products(
+  $orderBy: [ProductOrderByInput!]
+  $search: String
+  $searchMain: MainCategory
+  $searchSub: SubCategory
+) {
   products(
     orderBy: $orderBy
     where: {
@@ -10,6 +15,8 @@ query Products($orderBy: [ProductOrderByInput!], $search: String) {
             some: { name: { mode: insensitive, contains: $search } }
           }
         }
+        { categories: { some: { mainCategory: { equals: $searchMain } } } }
+        { categories: { some: { subCategory: { equals: $searchSub } } } }
       ]
     }
   ) {
