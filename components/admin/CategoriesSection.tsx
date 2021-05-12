@@ -1,9 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 
 import {
-  MainCategory,
   SortOrder,
-  SubCategory,
   useCategoriesQuery,
   useCategoryCountQuery,
 } from '../../lib/generated/graphql'
@@ -12,6 +10,7 @@ import { ArrowDown } from '../svg/ArrowDown'
 import { Search } from '../svg/Search'
 import { AdminCategoryItem } from './AdminCategoryItem'
 import { NewCategoryModal } from './NewCategoryModal'
+import { categoriesVariables } from '../../utils/categoriesVariables'
 
 interface CategoriesSectionProps {}
 
@@ -69,67 +68,8 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
             type='button'
             onClick={async () => {
               variables.search = search
-              variables.searchMain = MainCategory.None
-              variables.searchSub = SubCategory.None
-              if (search.toLowerCase().includes('plantas')) {
-                variables.searchMain = MainCategory.Plantas
-              }
-
-              if (search.toLowerCase().includes('flores')) {
-                variables.searchMain = MainCategory.Flores
-              }
-
-              if (search.toLowerCase().includes('acessórios')) {
-                variables.searchMain = MainCategory.Acessorios
-              }
-
-              if (search.toLowerCase().includes('ocasião')) {
-                variables.searchMain = MainCategory.Ocasiao
-              }
-
-              if (search.toLowerCase().includes('arranjos')) {
-                variables.searchSub = SubCategory.Arranjos
-              }
-
-              if (search.toLowerCase().includes('calendário')) {
-                variables.searchSub = SubCategory.Calendario
-              }
-
-              if (search.toLowerCase().includes('caracteristicas')) {
-                variables.searchSub = SubCategory.Caracteristicas
-              }
-
-              if (search.toLowerCase().includes('cerimónias')) {
-                variables.searchSub = SubCategory.Cerimonias
-              }
-
-              if (search.toLowerCase().includes('cores')) {
-                variables.searchSub = SubCategory.Cores
-              }
-
-              if (search.toLowerCase().includes('estação')) {
-                variables.searchSub = SubCategory.Estacao
-              }
-
-              if (search.toLowerCase().includes('local')) {
-                variables.searchSub = SubCategory.Local
-              }
-
-              if (search.toLowerCase().includes('momentos especiais')) {
-                variables.searchSub = SubCategory.MomentosEspeciais
-              }
-
-              if (search.toLowerCase().includes('outros')) {
-                variables.searchSub = SubCategory.Outros
-              }
-
-              if (search.toLowerCase().includes('tipos')) {
-                variables.searchSub = SubCategory.Tipos
-              }
-
-              if (search.toLowerCase().includes('vasos')) {
-                variables.searchSub = SubCategory.Vasos
-              }
+              
+              categoriesVariables(search, variables)
 
               await refetch()
             }}
