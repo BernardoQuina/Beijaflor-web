@@ -90,7 +90,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
         </div>
       </div>
       <div className='w-full mt-6 lg:mt-8 mx-auto lg:p-2 min-h-[46rem]'>
-        <div className='sticky z-[1] flex top-40 lg:top-20 mb-4 w-full h-8 p-2 rounded-md shadow-md bg-green-extraLight'>
+        <div className='sticky z-[2] flex top-40 lg:top-20 mb-4 w-full h-8 p-2 rounded-md shadow-md bg-green-extraLight'>
           <div className='flex w-[20%]'>
             <div className='flex mx-auto'>
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
