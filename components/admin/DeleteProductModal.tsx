@@ -5,7 +5,6 @@ import { X } from '../svg/X'
 import {
   BasicProductInfoFragment,
   useDeleteProductMutation,
-  useNewProductMutation,
 } from '../../lib/generated/graphql'
 import { backdrop, scaleUp } from '../../utils/animations'
 
