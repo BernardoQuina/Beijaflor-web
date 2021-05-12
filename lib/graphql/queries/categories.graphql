@@ -1,7 +1,18 @@
-query Categories($orderBy: [CategoryOrderByInput!], $search: String) {
+query Categories(
+  $orderBy: [CategoryOrderByInput!]
+  $search: String
+  $searchMain: MainCategory
+  $searchSub: SubCategory
+) {
   categories(
     orderBy: $orderBy
-    where: { name: { mode: insensitive, contains: $search } }
+    where: {
+      OR: [
+        { name: { mode: insensitive, contains: $search } }
+        { mainCategory: { equals: $searchMain } }
+        { subCategory: { equals: $searchSub } }
+      ]
+    }
   ) {
     ...BasicCategoryInfo
   }

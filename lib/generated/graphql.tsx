@@ -755,6 +755,8 @@ export type RegisterMutation = (
 export type CategoriesQueryVariables = Exact<{
   orderBy?: Maybe<Array<CategoryOrderByInput> | CategoryOrderByInput>;
   search?: Maybe<Scalars['String']>;
+  searchMain?: Maybe<MainCategory>;
+  searchSub?: Maybe<SubCategory>;
 }>;
 
 
@@ -1264,10 +1266,10 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const CategoriesDocument = gql`
-    query Categories($orderBy: [CategoryOrderByInput!], $search: String) {
+    query Categories($orderBy: [CategoryOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   categories(
     orderBy: $orderBy
-    where: {name: {mode: insensitive, contains: $search}}
+    where: {OR: [{name: {mode: insensitive, contains: $search}}, {mainCategory: {equals: $searchMain}}, {subCategory: {equals: $searchSub}}]}
   ) {
     ...BasicCategoryInfo
   }
@@ -1288,6 +1290,8 @@ export const CategoriesDocument = gql`
  *   variables: {
  *      orderBy: // value for 'orderBy'
  *      search: // value for 'search'
+ *      searchMain: // value for 'searchMain'
+ *      searchSub: // value for 'searchSub'
  *   },
  * });
  */

@@ -140,7 +140,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
               if (search.toLowerCase().includes('tipos')) {
                 variables.searchSub = SubCategory.Tipos
               }
-              
+
               if (search.toLowerCase().includes('vasos')) {
                 variables.searchSub = SubCategory.Vasos
               }
