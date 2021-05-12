@@ -1,0 +1,5 @@
+mutation ProductStatus($whereId: String!) {
+  changeProductStatus(whereId: $whereId) {
+    ...BasicProductInfo
+  }
+}

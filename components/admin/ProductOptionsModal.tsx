@@ -1,14 +1,27 @@
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import {
+  BasicProductInfoFragment,
+  useProductStatusMutation,
+} from '../../lib/generated/graphql'
 
 interface ProductOptionsModalProps {
+  product: BasicProductInfoFragment
   modalRef: MutableRefObject<HTMLDivElement>
   setShowEditProductModal: Dispatch<SetStateAction<boolean>>
+  setShowProductOptionsModal: Dispatch<SetStateAction<boolean>>
 }
 
 export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
+  product,
   modalRef,
   setShowEditProductModal,
+  setShowProductOptionsModal
 }) => {
+  const [productStatus] = useProductStatusMutation({
+    errorPolicy: 'all',
+    variables: { whereId: product.id },
+  })
+
   return (
     <div
       ref={modalRef}
@@ -28,12 +41,23 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
       <button
         className='flex w-full'
         type='button'
-        onClick={() => {
-          setShowEditProductModal(true)
+        onClick={async () => {
+          await productStatus({
+            update: (cache) => {
+              cache.evict({ fieldName: 'products' })
+            },
+          })
+          setShowProductOptionsModal(false)
         }}
       >
-        <h6 className='w-full py-2 text-gray-600 tracking-wide text-center rounded-md hover:bg-gray-100'>
-          Desativar
+        <h6
+          className={`w-full py-2 ${
+            product.active
+              ? 'text-blue-500 hover:bg-blue-100'
+              : 'text-green-dark hover:bg-green-extraLight'
+          } tracking-wide text-center rounded-md`}
+        >
+          {product.active ? 'Desativar' : 'Ativar'}
         </h6>
       </button>
       <button

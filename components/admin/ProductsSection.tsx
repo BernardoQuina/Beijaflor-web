@@ -192,10 +192,34 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
             </button>
           </div>
           <div className='hidden lg:flex w-[34%]'>
-            <button className='flex mx-auto'>
+            <button
+              type='button'
+              onClick={() => {
+                if (orderBy !== 'active: desc') {
+                  setOrderBy('active: desc')
+                  variables.orderBy = { active: SortOrder.Desc }
+                } else {
+                  setOrderBy('active: asc')
+                  variables.orderBy = { active: SortOrder.Asc }
+                }
+                refetch()
+              }}
+              className='flex mx-auto'
+            >
               <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                 ESTADO
               </h5>
+              {orderBy === 'active: desc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark'
+                  strokeWidth={3}
+                />
+              ) : orderBy === 'active: asc' ? (
+                <ArrowDown
+                  tailwind='ml-2 h-4 text-green-dark transform rotate-180'
+                  strokeWidth={3}
+                />
+              ) : null}
             </button>
           </div>
           <div className='flex w-[28%]'>

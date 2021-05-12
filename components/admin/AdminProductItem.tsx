@@ -57,8 +57,10 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
     <div className='relative w-full '>
       {showProductOptionsModal && (
         <ProductOptionsModal
+          product={product}
           modalRef={productOptionsModalNode}
           setShowEditProductModal={setShowEditModal}
+          setShowProductOptionsModal={setShowProductOptionsModal}
         />
       )}
       <div
@@ -105,7 +107,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                 ativo
               </h4>
             ) : (
-              <h4 className='w-full self-center text-center tracking-wider'>
+              <h4 className='w-full self-center text-center text-blue-500 tracking-wider'>
                 inativo
               </h4>
             )}

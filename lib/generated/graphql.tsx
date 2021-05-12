@@ -145,6 +145,7 @@ export type Mutation = {
   deleteUser?: Maybe<User>;
   createProduct?: Maybe<Product>;
   editProduct?: Maybe<Product>;
+  changeProductStatus?: Maybe<Product>;
   createCategory?: Maybe<Category>;
   editCategory?: Maybe<Category>;
 };
@@ -206,6 +207,11 @@ export type MutationEditProductArgs = {
   exposure?: Maybe<Scalars['String']>;
   temperature?: Maybe<Scalars['String']>;
   lifespan?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationChangeProductStatusArgs = {
+  whereId: Scalars['String'];
 };
 
 
@@ -683,6 +689,19 @@ export type NewProductMutation = (
   )> }
 );
 
+export type ProductStatusMutationVariables = Exact<{
+  whereId: Scalars['String'];
+}>;
+
+
+export type ProductStatusMutation = (
+  { __typename?: 'Mutation' }
+  & { changeProductStatus?: Maybe<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
+);
+
 export type RegisterMutationVariables = Exact<{
   name: Scalars['String'];
   email: Scalars['String'];
@@ -1072,6 +1091,39 @@ export function useNewProductMutation(baseOptions?: Apollo.MutationHookOptions<N
 export type NewProductMutationHookResult = ReturnType<typeof useNewProductMutation>;
 export type NewProductMutationResult = Apollo.MutationResult<NewProductMutation>;
 export type NewProductMutationOptions = Apollo.BaseMutationOptions<NewProductMutation, NewProductMutationVariables>;
+export const ProductStatusDocument = gql`
+    mutation ProductStatus($whereId: String!) {
+  changeProductStatus(whereId: $whereId) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+export type ProductStatusMutationFn = Apollo.MutationFunction<ProductStatusMutation, ProductStatusMutationVariables>;
+
+/**
+ * __useProductStatusMutation__
+ *
+ * To run a mutation, you first call `useProductStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useProductStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [productStatusMutation, { data, loading, error }] = useProductStatusMutation({
+ *   variables: {
+ *      whereId: // value for 'whereId'
+ *   },
+ * });
+ */
+export function useProductStatusMutation(baseOptions?: Apollo.MutationHookOptions<ProductStatusMutation, ProductStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ProductStatusMutation, ProductStatusMutationVariables>(ProductStatusDocument, options);
+      }
+export type ProductStatusMutationHookResult = ReturnType<typeof useProductStatusMutation>;
+export type ProductStatusMutationResult = Apollo.MutationResult<ProductStatusMutation>;
+export type ProductStatusMutationOptions = Apollo.BaseMutationOptions<ProductStatusMutation, ProductStatusMutationVariables>;
 export const RegisterDocument = gql`
     mutation Register($name: String!, $email: String!, $password: String!, $confirmPassword: String!) {
   register(
