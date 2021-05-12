@@ -74,16 +74,13 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
               name: '',
               image: '',
             }}
-            onSubmit={async (
-              { mainCategory, subCategory, name, image },
-              { setErrors }
-            ) => {
+            onSubmit={async ({ name, image }, { setErrors }) => {
               image = uploadedImages[0].public_id
 
               const response = await newCategory({
                 variables: {
-                  mainCategory,
-                  subCategory,
+                  mainCategory: selectedMain,
+                  subCategory: selectedSub,
                   name: name.toUpperCase(),
                   image,
                 },
