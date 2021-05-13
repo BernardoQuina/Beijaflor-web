@@ -4,6 +4,7 @@ import { AccessoriesCategory } from './AccessoriesCategory'
 import { FlowersCategory } from './FlowersCategory'
 import { PlantsCategory } from './PlantsCategory'
 import { OccasionCategory } from './OccasionCategory'
+import { useProductsQuery } from '../../lib/generated/graphql'
 
 interface ExpandedNavProps {
   open: boolean
@@ -15,11 +16,18 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   underline,
 }) => {
   const [currentCategory, setCurrentCategory] = useState('Flores')
+
+
+  const { data } = useProductsQuery({
+    variables: { search: 'dia da mãe' },
+    errorPolicy: 'all',
+  })
+
   return (
     <div className={`${open && 'h-[29rem] lg:h-[27rem]'}`}>
       {open && underline === 1 ? ( // novidades
         <div className='mx-auto h-full w-[92%] lg:w-[80%] mt-12 lg:mt-0'>
-        <CarouselProductList height='h-[24rem]' width='w-[14rem]' sm={true} />
+        <CarouselProductList products={data?.products} height='h-[24rem]' width='w-[14rem]' sm={true} />
       </div>
       ) : open && underline === 2 ? ( // ocasião
         <div className='xl:flex mt-16 lg:mt-6'>

@@ -1,8 +1,15 @@
+import { useProductsQuery } from '../../lib/generated/graphql'
 import { CarouselProductList } from '../CarouselProductList'
 
 interface MostPopularSectionProps {}
 
 export const MostPopularSection: React.FC<MostPopularSectionProps> = ({}) => {
+
+  const { data } = useProductsQuery({
+    variables: { search: 'dia da mãe' },
+    errorPolicy: 'all',
+  })
+
   return (
     <section className='relative flex mt-40 mx-auto max-w-[100rem]'>
       <div className='mx-auto w-full flex flex-col'>
@@ -15,7 +22,7 @@ export const MostPopularSection: React.FC<MostPopularSectionProps> = ({}) => {
             VER MAIS
           </button>
         </div>
-        <CarouselProductList height='h-[28rem]' width='w-[16rem]' />
+        <CarouselProductList products={data?.products} height='h-[28rem]' width='w-[16rem]' />
       </div>
     </section>
   )
