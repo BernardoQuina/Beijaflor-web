@@ -77,6 +77,15 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setSearch(e.target.value)
             }
+            onKeyPress={async (e) => {
+              if (e.key === 'Enter') {
+                variables.search = search
+
+                categoriesVariables(search, variables)
+
+                await refetch()
+              }
+            }}
           />
           <button
             type='button'
