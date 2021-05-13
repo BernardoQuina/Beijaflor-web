@@ -264,7 +264,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         type='text'
                         maxLength={20}
                         labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        inputStyling='mt-1 pl-4 py-2 w-full max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
@@ -274,7 +274,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         type='text'
                         maxLength={20}
                         labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
@@ -284,7 +284,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         type='text'
                         maxLength={20}
                         labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
@@ -294,7 +294,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         type='text'
                         maxLength={20}
                         labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
@@ -304,7 +304,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         type='text'
                         maxLength={20}
                         labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                     </div>

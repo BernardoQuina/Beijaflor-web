@@ -5,6 +5,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string
   label?: string
   showLabel?: boolean
+  containerStyling?: string
   labelStyling?: string
   inputStyling: string
   errorStyling: string
@@ -15,6 +16,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
 export const InputField: React.FC<InputFieldProps> = ({
   label,
   showLabel = true,
+  containerStyling = 'mx-auto',
   labelStyling,
   inputStyling,
   errorStyling,
@@ -26,7 +28,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <>
       {error && <div className={errorStyling}>{error}</div>}
-      <div className='mx-auto'>
+      <div className={containerStyling}>
         {label && showLabel && <p className={labelStyling}>{label}</p>}
         <label htmlFor={field.name}></label>
         <input
