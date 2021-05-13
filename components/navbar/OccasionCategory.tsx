@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { Image } from 'cloudinary-react'
 
-import {
-  MainCategory,
-  SubCategory,
-  useCategoriesQuery,
-} from '../../lib/generated/graphql'
+import { SubCategory, useCategoriesQuery } from '../../lib/generated/graphql'
 
 interface OccasionCategoryProps {}
 
@@ -14,9 +10,8 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
 
   const { data } = useCategoriesQuery({
     errorPolicy: 'all',
-    variables: { searchMain: MainCategory.Ocasiao },
+    variables: { search: '' },
   })
-
 
   const subCategories = [
     SubCategory.Calendario,
@@ -38,13 +33,13 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
               }`}
               onMouseEnter={() => setSelected(subCategory)}
             >
-              {subCategory === SubCategory.Calendario ? (
-                'calendário'
-              ): subCategory === SubCategory.MomentosEspeciais ? (
-                'momentos especiais'
-              ): subCategory === SubCategory.Cerimonias ? (
-                'cerimónias'
-              ): null}
+              {subCategory === SubCategory.Calendario
+                ? 'calendário'
+                : subCategory === SubCategory.MomentosEspeciais
+                ? 'momentos especiais'
+                : subCategory === SubCategory.Cerimonias
+                ? 'cerimónias'
+                : null}
             </button>
           ))}
         </div>

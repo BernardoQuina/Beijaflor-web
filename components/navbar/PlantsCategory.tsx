@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { Image } from 'cloudinary-react'
 
-import {
-  MainCategory,
-  SubCategory,
-  useCategoriesQuery,
-} from '../../lib/generated/graphql'
+import { SubCategory, useCategoriesQuery } from '../../lib/generated/graphql'
 
 interface PlantsCategoryProps {
   currentCategory: string
@@ -18,7 +14,7 @@ export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
 
   const { data } = useCategoriesQuery({
     errorPolicy: 'all',
-    variables: { searchMain: MainCategory.Plantas },
+    variables: { search: '' },
   })
 
   const subCategories = [
