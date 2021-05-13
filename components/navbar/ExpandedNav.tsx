@@ -27,7 +27,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
         </div>
       ) : open && underline === 3 ? ( // categorias
         <div className='xl:flex mt-12 lg:mt-0'>
-          <div className='max-w-2xl mx-auto xl:hidden flex mt-12 md:mt-4 mb-2'>
+          <div className='max-w-2xl mx-auto xl:hidden flex mt-16 md:mt-4 mb-2'>
             <button
               className={`mx-auto ${
                 currentCategory === 'Flores' ? 'font-regular text-xl' : 'font-thin'

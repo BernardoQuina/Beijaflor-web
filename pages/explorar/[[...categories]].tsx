@@ -23,13 +23,13 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
   console.log('query: ', router.query)
 
   const mainCat = uniqBy(categories, (category) => {
-    return category.main
+    return category.mainCategory
   })
 
   let mainAndSubArray: { main: string; subDomain: string }[] = []
 
   categories.forEach((category) => {
-    mainAndSubArray.push({ main: category.main, subDomain: category.subDomain })
+    mainAndSubArray.push({ main: category.mainCategory, subDomain: category.subCategory })
   })
 
   const realUnique: { main: string; subDomain: string }[] = uniqWith(
@@ -60,35 +60,35 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
             {mainCat.map((cat) => (
               <div
                 className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
-                key={cat.main}
+                key={cat.mainCategory}
               >
                 <button
                   className='flex w-full'
                   onClick={() => {
-                    if (!mainOpen.includes(cat.main)) {
-                      setMainOpen((prev) => [...prev, cat.main])
+                    if (!mainOpen.includes(cat.mainCategory)) {
+                      setMainOpen((prev) => [...prev, cat.mainCategory])
                     } else {
                       setMainOpen((prev) => [
-                        ...prev.filter((e) => e !== cat.main),
+                        ...prev.filter((e) => e !== cat.mainCategory),
                       ])
                     }
                   }}
                 >
                   <h6 className='text-xl tracking-widest font-thin'>
-                    {cat.main}
+                    {cat.mainCategory}
                   </h6>
                   <ArrowDown
                     tailwind={`h-5 transform ml-auto self-center ${
-                      mainOpen.includes(cat.main) && 'rotate-180'
+                      mainOpen.includes(cat.mainCategory) && 'rotate-180'
                     }`}
                     strokeWidth={3}
                   />
                 </button>
                 <div
-                  className={`${!mainOpen.includes(cat.main) && 'hidden'} mt-6`}
+                  className={`${!mainOpen.includes(cat.mainCategory) && 'hidden'} mt-6`}
                 >
                   {realUnique.map((unique) => {
-                    if (unique.main === cat.main) {
+                    if (unique.main === cat.mainCategory) {
                       return (
                         <div
                           className='text-green-medium mx-auto pl-4 my-4'
@@ -127,8 +127,8 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
                           >
                             {categories.map((category) => {
                               if (
-                                category.main === cat.main &&
-                                category.subDomain === unique.subDomain
+                                category.mainCategory === cat.mainCategory &&
+                                category.subCategory === unique.subDomain
                               ) {
                                 return (
                                   <div
