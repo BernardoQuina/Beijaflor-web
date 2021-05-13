@@ -40,7 +40,10 @@ export const categoriesVariables = (
     variables.searchSub = SubCategory.Calendario
   }
 
-  if (search.toLowerCase().includes('caracteristicas')) {
+  if (
+    search.toLowerCase().includes('caracteristicas') ||
+    search.toLowerCase().includes('características')
+  ) {
     variables.searchSub = SubCategory.Caracteristicas
   }
 

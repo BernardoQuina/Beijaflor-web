@@ -126,9 +126,24 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
                         className='mt-1 pl-4 pt-2 pb-3 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         name='MainCategory'
                         value={selectedMain}
-                        onChange={(e) =>
+                        onChange={(e) => {
                           setSelectedMain(e.target.value as MainCategory)
-                        }
+
+                          if (
+                            e.target.value === MainCategory.Plantas ||
+                            e.target.value === MainCategory.Flores
+                          ) {
+                            setSelectedSub(SubCategory.Tipos)
+                          }
+
+                          if (e.target.value === MainCategory.Acessorios) {
+                            setSelectedSub(SubCategory.Vasos)
+                          }
+
+                          if (e.target.value === MainCategory.Ocasiao) {
+                            setSelectedSub(SubCategory.Calendario)
+                          }
+                        }}
                       >
                         <option value={MainCategory.Flores}>Flores</option>
                         <option value={MainCategory.Plantas}>Plantas</option>
@@ -235,6 +250,7 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
                             height={600}
                             width={400}
                             crop='fill'
+                            quality={50}
                           >
                             <Placeholder type='blur'></Placeholder>
                           </Image>
