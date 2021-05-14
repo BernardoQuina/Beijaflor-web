@@ -20,6 +20,7 @@ import {
   useExploreProductsQuery,
 } from '../../lib/generated/graphql'
 import { ApolloQueryResult } from '@apollo/client'
+import { SelectCategories } from '../../components/explore/SelectCategories'
 
 interface explorarCategoriesProps {
   serverCategories: BasicCategoryInfoFragment[]
@@ -66,21 +67,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
   useEffect(() => {
     console.log(selectedCategories)
-    console.log(selectedCategories.length)
-    // selectedCategories.map((category) => {
-    //   if (variables.searchCatName1 === 'none') {
-    //     variables.searchCatName1 =
-    //       selectedCategories[selectedCategories.indexOf(category)]
-    //   }
-
-    //   if (variables.searchCatName2 === 'none') {
-    //     variables.searchCatName1 =
-    //       selectedCategories[selectedCategories.indexOf(category)]
-    //   }
-
-    //   console.log(variables)
-    // })
-
     console.log(variables)
   }, [selectedCategories, variables])
 
@@ -192,79 +178,15 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
                                     key={category.name}
                                     className='ml-4 my-4 flex tracking-wider'
                                   >
-                                    <label
-                                      htmlFor={category.name}
-                                      className='flex w-full'
-                                    >
-                                      {category.name.toLowerCase()}
-                                      <input
-                                        className='form-checkbox ml-auto text-pink-medium border border-pink-dark rounded-sm focus:border-pink-dark self-center'
-                                        type='checkbox'
-                                        name={category.name}
-                                        value={category.name}
-                                        checked={selectedCategories.includes(
-                                          category.name
-                                        )}
-                                        disabled={
-                                          selectedCategories.length >= 2 &&
-                                          !selectedCategories.includes(
-                                            category.name
-                                          )
-                                        }
-                                        onChange={() => {
-                                          if (
-                                            selectedCategories.includes(
-                                              category.name
-                                            )
-                                          ) {
-                                            setSelectedCategories((prev) => [
-                                              ...prev.filter(
-                                                (name) => name !== category.name
-                                              ),
-                                            ])
-                                            if (
-                                              variables.searchCatName1 ===
-                                              category.name
-                                            ) {
-                                              variables.searchCatName1 = 'none'
-                                            } else if (
-                                              variables.searchCatName2 ===
-                                              category.name
-                                            ) {
-                                              variables.searchCatName2 = 'none'
-                                            }
-
-                                            if (selectedCategories.length < 2) {
-                                              variables.search = ''
-                                            }
-
-                                            refetch()
-                                          } else {
-                                            setSelectedCategories((prev) => [
-                                              ...prev,
-                                              category.name,
-                                            ])
-
-                                            if (
-                                              variables.searchCatName1 ===
-                                              'none'
-                                            ) {
-                                              variables.search = 'nonsense'
-                                              variables.searchCatName1 =
-                                                category.name
-                                              refetch()
-                                            } else if (
-                                              variables.searchCatName2 ===
-                                              'none'
-                                            ) {
-                                              variables.searchCatName2 =
-                                                category.name
-                                              refetch()
-                                            }
-                                          }
-                                        }}
-                                      />
-                                    </label>
+                                    <SelectCategories
+                                      category={category}
+                                      selectedCategories={selectedCategories}
+                                      setSelectedCategories={
+                                        setSelectedCategories
+                                      }
+                                      variables={variables}
+                                      refetch={refetch}
+                                    />
                                   </div>
                                 )
                               }

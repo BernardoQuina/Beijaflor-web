@@ -783,6 +783,14 @@ export type ExploreProductsQueryVariables = Exact<{
   searchSub?: Maybe<SubCategory>;
   searchCatName1?: Maybe<Scalars['String']>;
   searchCatName2?: Maybe<Scalars['String']>;
+  searchCatName3?: Maybe<Scalars['String']>;
+  searchCatName4?: Maybe<Scalars['String']>;
+  searchCatName5?: Maybe<Scalars['String']>;
+  searchCatName6?: Maybe<Scalars['String']>;
+  searchCatName7?: Maybe<Scalars['String']>;
+  searchCatName8?: Maybe<Scalars['String']>;
+  searchCatName9?: Maybe<Scalars['String']>;
+  searchCatName10?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -824,6 +832,19 @@ export type ProductsQueryVariables = Exact<{
 export type ProductsQuery = (
   { __typename?: 'Query' }
   & { products: Array<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
+);
+
+export type SingleProductQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type SingleProductQuery = (
+  { __typename?: 'Query' }
+  & { product?: Maybe<(
     { __typename?: 'Product' }
     & BasicProductInfoFragment
   )> }
@@ -1357,10 +1378,10 @@ export type CategoryCountQueryHookResult = ReturnType<typeof useCategoryCountQue
 export type CategoryCountLazyQueryHookResult = ReturnType<typeof useCategoryCountLazyQuery>;
 export type CategoryCountQueryResult = Apollo.QueryResult<CategoryCountQuery, CategoryCountQueryVariables>;
 export const ExploreProductsDocument = gql`
-    query ExploreProducts($orderBy: [ProductOrderByInput!], $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none") {
+    query ExploreProducts($orderBy: [ProductOrderByInput!], $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none", $searchCatName3: String = "none", $searchCatName4: String = "none", $searchCatName5: String = "none", $searchCatName6: String = "none", $searchCatName7: String = "none", $searchCatName8: String = "none", $searchCatName9: String = "none", $searchCatName10: String = "none") {
   products(
     orderBy: $orderBy
-    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName1}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName2}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
+    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName1}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName2}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName3}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName4}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName5}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName6}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName7}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName8}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName9}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName10}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
   ) {
     ...BasicProductInfo
   }
@@ -1385,6 +1406,14 @@ export const ExploreProductsDocument = gql`
  *      searchSub: // value for 'searchSub'
  *      searchCatName1: // value for 'searchCatName1'
  *      searchCatName2: // value for 'searchCatName2'
+ *      searchCatName3: // value for 'searchCatName3'
+ *      searchCatName4: // value for 'searchCatName4'
+ *      searchCatName5: // value for 'searchCatName5'
+ *      searchCatName6: // value for 'searchCatName6'
+ *      searchCatName7: // value for 'searchCatName7'
+ *      searchCatName8: // value for 'searchCatName8'
+ *      searchCatName9: // value for 'searchCatName9'
+ *      searchCatName10: // value for 'searchCatName10'
  *   },
  * });
  */
@@ -1508,6 +1537,41 @@ export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
 export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
 export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export const SingleProductDocument = gql`
+    query SingleProduct($name: String!) {
+  product(where: {name: $name}) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+
+/**
+ * __useSingleProductQuery__
+ *
+ * To run a query within a React component, call `useSingleProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleProductQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useSingleProductQuery(baseOptions: Apollo.QueryHookOptions<SingleProductQuery, SingleProductQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SingleProductQuery, SingleProductQueryVariables>(SingleProductDocument, options);
+      }
+export function useSingleProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SingleProductQuery, SingleProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SingleProductQuery, SingleProductQueryVariables>(SingleProductDocument, options);
+        }
+export type SingleProductQueryHookResult = ReturnType<typeof useSingleProductQuery>;
+export type SingleProductLazyQueryHookResult = ReturnType<typeof useSingleProductLazyQuery>;
+export type SingleProductQueryResult = Apollo.QueryResult<SingleProductQuery, SingleProductQueryVariables>;
 export const UserDocument = gql`
     query User($userId: String!) {
   user(where: {id: $userId}) {

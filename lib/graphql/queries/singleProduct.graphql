@@ -1,0 +1,5 @@
+query SingleProduct($name: String!) {
+  product(where: { name: $name }) {
+    ...BasicProductInfo
+  }
+}

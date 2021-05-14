@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { Image } from 'cloudinary-react'
 
-import { Product, products } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
 import { useEffect, useState } from 'react'
 import { ArrowDown } from '../../components/svg/ArrowDown'
@@ -15,9 +14,16 @@ import { Time } from '../../components/svg/Time'
 import { ShoppingBag } from '../../components/svg/ShoppingBag'
 import { Minus } from '../../components/svg/Minus'
 import { Plus } from '../../components/svg/Plus'
+import { ApolloQueryResult } from '@apollo/client'
+import { initializeApollo } from '../../lib/apolloClient'
+import {
+  SingleProductDocument,
+  SingleProductQuery,
+  BasicProductInfoFragment,
+} from '../../lib/generated/graphql'
 
 interface produtoProps {
-  product: Product
+  product: BasicProductInfoFragment
 }
 
 const produto: NextPage<produtoProps> = ({ product }) => {
@@ -57,8 +63,9 @@ const produto: NextPage<produtoProps> = ({ product }) => {
           <div className='h-[85%] xs:h-[95%] m-auto self-center rounded-xl overflow-hidden'>
             <Image
               className='mx-auto rounded-xl'
-              src={selectedImage}
-              quality={70}
+              cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+              publicId={selectedImage}
+              quality={80}
               height={480}
               width={320}
               gravity='auto'
@@ -80,10 +87,11 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               >
                 <Image
                   className='absolute'
-                  src={image}
-                  quality={70}
-                  height={300}
-                  width={200}
+                  cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+                  publicId={image}
+                  quality={80}
+                  height={480}
+                  width={320}
                   gravity='auto'
                   crop='fill'
                 />
@@ -104,33 +112,64 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </h5>
           </div>
           <h6 className='mt-1 text-pink-medium tracking-[0.2rem]'>
-            {product.MainCategory.toUpperCase()}
+            {product.categories[0].name.toUpperCase()}
           </h6>
           <p className='mt-4 lg:mt-6 lg:text-lg lg:leading-8 text-green-dark tracking-wide'>
             {product.description}
           </p>
         </div>
         <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-xl'>
-          {product.Characteristics.map((characteristic) => (
-            <div className='mx-auto flex flex-col' key={characteristic.subject}>
+          {product.height && (
+            <div className='mx-auto flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
-                {characteristic.subject === 'comprimento' ? (
-                  <Size tailwind='h-8 text-pink-dark transform rotate-90' />
-                ) : characteristic.subject === 'exposição' ? (
-                  <Sun tailwind='h-8 text-pink-dark' strokeWidth={2} />
-                ) : characteristic.subject === 'água' ? (
-                  <Water tailwind='h-8 text-pink-dark' />
-                ) : characteristic.subject === 'temperatura' ? (
-                  <Temperature tailwind='h-8 text-pink-dark' />
-                ) : characteristic.subject === 'duração' ? (
-                  <Time tailwind='h-8 text-pink-dark' strokeWidth={2} />
-                ) : null}
+                <Size tailwind='h-8 text-pink-dark transform rotate-90' />
               </div>
+
               <h6 className='mt-1 mx-auto text-sm w-[5rem] text-center font-bold text-green-dark tracking-wider'>
-                {characteristic.text}
+                {product.height}
               </h6>
             </div>
-          ))}
+          )}
+          {product.water && (
+            <div className='mx-auto flex flex-col'>
+              <div className='mx-auto p-2 rounded-full bg-pink-light'>
+                <Water tailwind='h-8 text-pink-dark' />
+              </div>
+              <h6 className='mt-1 mx-auto text-sm w-[5rem] text-center font-bold text-green-dark tracking-wider'>
+                {product.water}
+              </h6>
+            </div>
+          )}
+          {product.exposure && (
+            <div className='mx-auto flex flex-col'>
+              <div className='mx-auto p-2 rounded-full bg-pink-light'>
+                <Sun tailwind='h-8 text-pink-dark' strokeWidth={2} />
+              </div>
+              <h6 className='mt-1 mx-auto text-sm w-[5rem] text-center font-bold text-green-dark tracking-wider'>
+                {product.exposure}
+              </h6>
+            </div>
+          )}
+          {product.temperature && (
+            <div className='mx-auto flex flex-col'>
+              <div className='mx-auto p-2 rounded-full bg-pink-light'>
+                <Temperature tailwind='h-8 text-pink-dark' />
+              </div>
+              <h6 className='mt-1 mx-auto text-sm w-[5rem] text-center font-bold text-green-dark tracking-wider'>
+                {product.temperature}
+              </h6>
+            </div>
+          )}
+          {product.lifespan && (
+            <div className='mx-auto flex flex-col'>
+              <div className='mx-auto p-2 rounded-full bg-pink-light'>
+                <Time tailwind='h-8 text-pink-dark' strokeWidth={2} />
+              </div>
+              <h6 className='mt-1 mx-auto text-sm w-[5rem] text-center font-bold text-green-dark tracking-wider'>
+                {product.lifespan}
+              </h6>
+            </div>
+          )}
         </div>
         <div className='sticky bottom-6 lg:relative col-span-full lg:col-span-6 lg:row-start-9 row-span-2 lg:row-span-4 lg:max-w-xl'>
           <div className='flex flex-col mt-6 lg:mt-10 mx-auto w-full xs:w-[98%] max-w-lg h-[90%] lg:h-[60%] py-3 lg:py-4 rounded-xl bg-white shadow-around'>
@@ -183,17 +222,33 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const productName = context.query.produto as string
 
-  const product =
-    products[
-      products.findIndex(
-        (product) =>
-          product.name === productName.split('-').join(' ') ||
-          product.name === productName
-      )
-    ]
+  const apolloClient = initializeApollo()
+
+  let product: BasicProductInfoFragment
+
+  const response: ApolloQueryResult<SingleProductQuery> =
+    await apolloClient.query({
+      query: SingleProductDocument,
+      errorPolicy: 'all',
+      variables: { name: productName.split('-').join(' ') },
+    })
+
+  if (response.data.product === null) {
+    const secondResponse: ApolloQueryResult<SingleProductQuery> =
+      await apolloClient.query({
+        query: SingleProductDocument,
+        errorPolicy: 'all',
+        variables: { name: productName },
+      })
+
+    product = secondResponse.data.product
+  } else {
+    product = response.data.product
+  }
 
   return {
     props: {
+      initialApolloState: apolloClient.cache.extract(),
       product,
     },
   }

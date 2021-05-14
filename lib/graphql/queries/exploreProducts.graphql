@@ -5,6 +5,14 @@ query ExploreProducts(
   $searchSub: SubCategory = none
   $searchCatName1: String = "none"
   $searchCatName2: String = "none"
+  $searchCatName3: String = "none"
+  $searchCatName4: String = "none"
+  $searchCatName5: String = "none"
+  $searchCatName6: String = "none"
+  $searchCatName7: String = "none"
+  $searchCatName8: String = "none"
+  $searchCatName9: String = "none"
+  $searchCatName10: String = "none"
 ) {
   products(
     orderBy: $orderBy
@@ -25,6 +33,46 @@ query ExploreProducts(
         {
           categories: {
             some: { name: { mode: insensitive, contains: $searchCatName2 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName3 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName4 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName5 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName6 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName7 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName8 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName9 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName10 } }
           }
         }
         { categories: { some: { mainCategory: { equals: $searchMain } } } }
