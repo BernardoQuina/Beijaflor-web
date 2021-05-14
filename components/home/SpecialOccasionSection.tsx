@@ -26,7 +26,7 @@ export const SpecialOccasionSection: React.FC<SpecialOccasionSectionProps> =
               VER MAIS
             </button>
           </div>
-          <CarouselProductList products={data?.products} height='h-[28rem]' width='w-[16rem]' />
+          <CarouselProductList products={data.products} height='h-[28rem]' width='w-[16rem]' />
         </div>
       </section>
     )

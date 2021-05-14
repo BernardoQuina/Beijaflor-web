@@ -776,6 +776,24 @@ export type CategoryCountQuery = (
   & Pick<Query, 'categoryCount'>
 );
 
+export type ExploreProductsQueryVariables = Exact<{
+  orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
+  search?: Maybe<Scalars['String']>;
+  searchMain?: Maybe<MainCategory>;
+  searchSub?: Maybe<SubCategory>;
+  searchCatName1?: Maybe<Scalars['String']>;
+  searchCatName2?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ExploreProductsQuery = (
+  { __typename?: 'Query' }
+  & { products: Array<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1338,6 +1356,49 @@ export function useCategoryCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type CategoryCountQueryHookResult = ReturnType<typeof useCategoryCountQuery>;
 export type CategoryCountLazyQueryHookResult = ReturnType<typeof useCategoryCountLazyQuery>;
 export type CategoryCountQueryResult = Apollo.QueryResult<CategoryCountQuery, CategoryCountQueryVariables>;
+export const ExploreProductsDocument = gql`
+    query ExploreProducts($orderBy: [ProductOrderByInput!], $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none") {
+  products(
+    orderBy: $orderBy
+    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName1}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName2}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
+  ) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+
+/**
+ * __useExploreProductsQuery__
+ *
+ * To run a query within a React component, call `useExploreProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExploreProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExploreProductsQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *      search: // value for 'search'
+ *      searchMain: // value for 'searchMain'
+ *      searchSub: // value for 'searchSub'
+ *      searchCatName1: // value for 'searchCatName1'
+ *      searchCatName2: // value for 'searchCatName2'
+ *   },
+ * });
+ */
+export function useExploreProductsQuery(baseOptions?: Apollo.QueryHookOptions<ExploreProductsQuery, ExploreProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ExploreProductsQuery, ExploreProductsQueryVariables>(ExploreProductsDocument, options);
+      }
+export function useExploreProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExploreProductsQuery, ExploreProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ExploreProductsQuery, ExploreProductsQueryVariables>(ExploreProductsDocument, options);
+        }
+export type ExploreProductsQueryHookResult = ReturnType<typeof useExploreProductsQuery>;
+export type ExploreProductsLazyQueryHookResult = ReturnType<typeof useExploreProductsLazyQuery>;
+export type ExploreProductsQueryResult = Apollo.QueryResult<ExploreProductsQuery, ExploreProductsQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

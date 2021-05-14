@@ -1,8 +1,7 @@
-import { NextPage } from 'next'
-import { isEqual, uniqBy, uniqWith } from 'lodash'
-import React, { useState } from 'react'
+import { GetServerSideProps, NextPage } from 'next'
+import { isEqual, uniqWith } from 'lodash'
+import React, { useEffect, useState } from 'react'
 
-import { categories, products } from '../../lib/testData'
 import { Layout } from '../../components/Layout'
 import { ProductItem } from '../../components/ProductItem'
 import { Filter } from '../../components/svg/Filter'
@@ -10,32 +9,80 @@ import { Sort } from '../../components/svg/Sort'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { X } from '../../components/svg/X'
 import { useRouter } from 'next/dist/client/router'
+import { initializeApollo } from '../../lib/apolloClient'
+import {
+  BasicCategoryInfoFragment,
+  CategoriesDocument,
+  CategoriesQuery,
+  ExploreProductsDocument,
+  MainCategory,
+  SubCategory,
+  useExploreProductsQuery,
+} from '../../lib/generated/graphql'
+import { ApolloQueryResult } from '@apollo/client'
 
-interface explorarCategoriesProps {}
+interface explorarCategoriesProps {
+  serverCategories: BasicCategoryInfoFragment[]
+}
 
-const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
-  const [mainOpen, setMainOpen] = useState<string[]>([])
-  const [subOpen, setSubOpen] = useState<string[]>([])
+const explorarCategories: NextPage<explorarCategoriesProps> = ({
+  serverCategories,
+}) => {
+  const [mainOpen, setMainOpen] = useState<MainCategory[]>([])
+  const [subOpen, setSubOpen] = useState<SubCategory[]>([])
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 
   const router = useRouter()
 
   console.log('query: ', router.query)
 
-  const mainCat = uniqBy(categories, (category) => {
-    return category.mainCategory
+  const mainCategoriesArray = [
+    MainCategory.Flores,
+    MainCategory.Plantas,
+    MainCategory.Acessorios,
+    MainCategory.Ocasiao,
+  ]
+
+  let mainAndSubArray: { main: MainCategory; sub: SubCategory }[] = []
+
+  serverCategories.forEach((category) => {
+    mainAndSubArray.push({
+      main: category.mainCategory,
+      sub: category.subCategory,
+    })
   })
 
-  let mainAndSubArray: { main: string; subDomain: string }[] = []
+  const uniqueMainSubCombinations: { main: MainCategory; sub: SubCategory }[] =
+    uniqWith(mainAndSubArray, isEqual)
 
-  categories.forEach((category) => {
-    mainAndSubArray.push({ main: category.mainCategory, subDomain: category.subCategory })
+  const {
+    data: productsData,
+    variables,
+    refetch,
+  } = useExploreProductsQuery({
+    errorPolicy: 'all',
   })
 
-  const realUnique: { main: string; subDomain: string }[] = uniqWith(
-    mainAndSubArray,
-    isEqual
-  )
+  useEffect(() => {
+    console.log(selectedCategories)
+    console.log(selectedCategories.length)
+    // selectedCategories.map((category) => {
+    //   if (variables.searchCatName1 === 'none') {
+    //     variables.searchCatName1 =
+    //       selectedCategories[selectedCategories.indexOf(category)]
+    //   }
+
+    //   if (variables.searchCatName2 === 'none') {
+    //     variables.searchCatName1 =
+    //       selectedCategories[selectedCategories.indexOf(category)]
+    //   }
+
+    //   console.log(variables)
+    // })
+
+    console.log(variables)
+  }, [selectedCategories, variables])
 
   return (
     <Layout>
@@ -57,78 +104,88 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
             >
               <X tailwind='h-5 text-green-dark' />
             </button>
-            {mainCat.map((cat) => (
+            {mainCategoriesArray.map((mainCategory) => (
               <div
                 className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
-                key={cat.mainCategory}
+                key={mainCategory}
               >
                 <button
                   className='flex w-full'
                   onClick={() => {
-                    if (!mainOpen.includes(cat.mainCategory)) {
-                      setMainOpen((prev) => [...prev, cat.mainCategory])
+                    if (!mainOpen.includes(mainCategory)) {
+                      setMainOpen((prev) => [...prev, mainCategory])
                     } else {
                       setMainOpen((prev) => [
-                        ...prev.filter((e) => e !== cat.mainCategory),
+                        ...prev.filter((e) => e !== mainCategory),
                       ])
                     }
                   }}
                 >
                   <h6 className='text-xl tracking-widest font-thin'>
-                    {cat.mainCategory}
+                    {mainCategory === MainCategory.Acessorios
+                      ? 'Acessórios'
+                      : mainCategory === MainCategory.Ocasiao
+                      ? 'Ocasião'
+                      : mainCategory}
                   </h6>
                   <ArrowDown
                     tailwind={`h-5 transform ml-auto self-center ${
-                      mainOpen.includes(cat.mainCategory) && 'rotate-180'
+                      mainOpen.includes(mainCategory) && 'rotate-180'
                     }`}
                     strokeWidth={3}
                   />
                 </button>
                 <div
-                  className={`${!mainOpen.includes(cat.mainCategory) && 'hidden'} mt-6`}
+                  className={`${
+                    !mainOpen.includes(mainCategory) && 'hidden'
+                  } mt-6`}
                 >
-                  {realUnique.map((unique) => {
-                    if (unique.main === cat.mainCategory) {
+                  {uniqueMainSubCombinations.map((unique) => {
+                    if (unique.main === mainCategory) {
                       return (
                         <div
                           className='text-green-medium mx-auto pl-4 my-4'
-                          key={unique.subDomain}
+                          key={unique.sub}
                         >
                           <button
                             className='flex w-full'
                             onClick={() => {
-                              if (!subOpen.includes(unique.subDomain)) {
-                                setSubOpen((prev) => [
-                                  ...prev,
-                                  unique.subDomain,
-                                ])
+                              if (!subOpen.includes(unique.sub)) {
+                                setSubOpen((prev) => [...prev, unique.sub])
                               } else {
                                 setSubOpen((prev) => [
-                                  ...prev.filter((e) => e !== unique.subDomain),
+                                  ...prev.filter((e) => e !== unique.sub),
                                 ])
                               }
                             }}
                           >
                             <h6 className='text-lg max-w-[90%] font-thin text-left tracking-widest self-center'>
-                              {unique.subDomain}
+                              {unique.sub === SubCategory.MomentosEspeciais
+                                ? 'momentos especiais'
+                                : unique.sub === SubCategory.Estacao
+                                ? 'estação'
+                                : unique.sub === SubCategory.Cerimonias
+                                ? 'cerimónias'
+                                : unique.sub === SubCategory.Calendario
+                                ? 'calendário'
+                                : unique.sub}
                             </h6>
                             <ArrowDown
                               tailwind={`h-4 transform ml-auto self-center ${
-                                subOpen.includes(unique.subDomain) &&
-                                'rotate-180'
+                                subOpen.includes(unique.sub) && 'rotate-180'
                               }`}
                               strokeWidth={3}
                             />
                           </button>
                           <div
                             className={`${
-                              !subOpen.includes(unique.subDomain) && 'hidden'
+                              !subOpen.includes(unique.sub) && 'hidden'
                             } mt-4 mb-8 ml-2 border-l`}
                           >
-                            {categories.map((category) => {
+                            {serverCategories.map((category) => {
                               if (
-                                category.mainCategory === cat.mainCategory &&
-                                category.subCategory === unique.subDomain
+                                category.mainCategory === mainCategory &&
+                                category.subCategory === unique.sub
                               ) {
                                 return (
                                   <div
@@ -139,11 +196,73 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
                                       htmlFor={category.name}
                                       className='flex w-full'
                                     >
-                                      {category.name}
+                                      {category.name.toLowerCase()}
                                       <input
                                         className='form-checkbox ml-auto text-pink-medium border border-pink-dark rounded-sm focus:border-pink-dark self-center'
                                         type='checkbox'
                                         name={category.name}
+                                        value={category.name}
+                                        checked={selectedCategories.includes(
+                                          category.name
+                                        )}
+                                        disabled={
+                                          selectedCategories.length >= 2 &&
+                                          !selectedCategories.includes(
+                                            category.name
+                                          )
+                                        }
+                                        onChange={() => {
+                                          if (
+                                            selectedCategories.includes(
+                                              category.name
+                                            )
+                                          ) {
+                                            setSelectedCategories((prev) => [
+                                              ...prev.filter(
+                                                (name) => name !== category.name
+                                              ),
+                                            ])
+                                            if (
+                                              variables.searchCatName1 ===
+                                              category.name
+                                            ) {
+                                              variables.searchCatName1 = 'none'
+                                            } else if (
+                                              variables.searchCatName2 ===
+                                              category.name
+                                            ) {
+                                              variables.searchCatName2 = 'none'
+                                            }
+
+                                            if (selectedCategories.length < 2) {
+                                              variables.search = ''
+                                            }
+
+                                            refetch()
+                                          } else {
+                                            setSelectedCategories((prev) => [
+                                              ...prev,
+                                              category.name,
+                                            ])
+
+                                            if (
+                                              variables.searchCatName1 ===
+                                              'none'
+                                            ) {
+                                              variables.search = 'nonsense'
+                                              variables.searchCatName1 =
+                                                category.name
+                                              refetch()
+                                            } else if (
+                                              variables.searchCatName2 ===
+                                              'none'
+                                            ) {
+                                              variables.searchCatName2 =
+                                                category.name
+                                              refetch()
+                                            }
+                                          }
+                                        }}
                                       />
                                     </label>
                                   </div>
@@ -187,7 +306,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
             </button>
           </div>
           <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4'>
-            {products.map((product) => (
+            {productsData.products.map((product) => (
               <div className='px-4 mt-4 mb-10 z-0' key={product.id}>
                 <ProductItem
                   product={product}
@@ -202,6 +321,29 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({}) => {
       </div>
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const apolloClient = initializeApollo()
+
+  await apolloClient.query({
+    query: ExploreProductsDocument,
+    errorPolicy: 'all',
+  })
+
+  const categoriesResponse: ApolloQueryResult<CategoriesQuery> =
+    await apolloClient.query({
+      query: CategoriesDocument,
+      variables: { search: '' },
+      errorPolicy: 'all',
+    })
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+      serverCategories: categoriesResponse.data.categories,
+    },
+  }
 }
 
 export default explorarCategories

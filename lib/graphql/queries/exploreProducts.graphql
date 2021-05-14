@@ -1,0 +1,37 @@
+query ExploreProducts(
+  $orderBy: [ProductOrderByInput!]
+  $search: String = ""
+  $searchMain: MainCategory = none
+  $searchSub: SubCategory = none
+  $searchCatName1: String = "none"
+  $searchCatName2: String = "none"
+) {
+  products(
+    orderBy: $orderBy
+    where: {
+      OR: [
+        { name: { mode: insensitive, contains: $search } }
+        { description: { mode: insensitive, contains: $search } }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $search } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName1 } }
+          }
+        }
+        {
+          categories: {
+            some: { name: { mode: insensitive, contains: $searchCatName2 } }
+          }
+        }
+        { categories: { some: { mainCategory: { equals: $searchMain } } } }
+        { categories: { some: { subCategory: { equals: $searchSub } } } }
+      ]
+    }
+  ) {
+    ...BasicProductInfo
+  }
+}

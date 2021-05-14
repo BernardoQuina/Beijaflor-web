@@ -22,7 +22,7 @@ export const MostPopularSection: React.FC<MostPopularSectionProps> = ({}) => {
             VER MAIS
           </button>
         </div>
-        <CarouselProductList products={data?.products} height='h-[28rem]' width='w-[16rem]' />
+        <CarouselProductList products={data.products} height='h-[28rem]' width='w-[16rem]' />
       </div>
     </section>
   )
