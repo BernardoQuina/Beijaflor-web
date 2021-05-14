@@ -108,7 +108,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               €
             </h5>
             <h5 className='mr-2 mt-3 lg:mr-10 text-xl lg:text-2xl tracking-widest font-bold text-green-dark self-start'>
-              {product.price}
+              {product.price.toFixed(2)}
             </h5>
           </div>
           <h6 className='mt-1 text-pink-medium tracking-[0.2rem]'>

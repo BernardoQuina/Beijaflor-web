@@ -22,7 +22,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
 
   return (
     <div
-      className={`relative z-10 ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden active:animate-pulse`}
+      className={`relative z-10 ${height} ${width} mx-auto rounded-xl shadow-xl bg-white overflow-hidden transform active:scale-95`}
     >
       <Link href={`/produtos/${routeName}`}>
         <a>
