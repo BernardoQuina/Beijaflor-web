@@ -3,7 +3,10 @@ import { Image } from 'cloudinary-react'
 
 import { Settings } from '../svg/Settings'
 import { ArrowDown } from '../svg/ArrowDown'
-import { BasicCategoryInfoFragment } from '../../lib/generated/graphql'
+import {
+  BasicCategoryInfoFragment,
+  SubCategory,
+} from '../../lib/generated/graphql'
 import { EditCategoryModal } from './EditCategoryModal'
 import { CategoryOptionsModal } from './CategoryOptionsModal'
 import { DeleteCategoryModal } from './DeleteCategoryModal'
@@ -100,7 +103,21 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
           </div>
           <div className='hidden lg:flex w-[42%]'>
             <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
-              {category.subCategory}
+              {category.subCategory === SubCategory.TiposFlores
+                ? 'tipos'
+                : category.subCategory === SubCategory.TiposPlantas
+                ? 'tipos'
+                : category.subCategory === SubCategory.MomentosEspeciais
+                ? 'momentos especiais'
+                : category.subCategory === SubCategory.Estacao
+                ? 'estação'
+                : category.subCategory === SubCategory.Calendario
+                ? 'calendário'
+                : category.subCategory === SubCategory.Cerimonias
+                ? 'cerimónias'
+                : category.subCategory === SubCategory.Caracteristicas
+                ? 'características'
+                : category.subCategory}
             </h4>
           </div>
           <div className='flex w-[28%] lg:w-[20%]'>
@@ -148,7 +165,21 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
                   </h5>
                 </button>
                 <p className='mx-auto text-center mt-2 text-green-dark'>
-                  {category.subCategory}
+                  {category.subCategory === SubCategory.TiposFlores
+                    ? 'tipos'
+                    : category.subCategory === SubCategory.TiposPlantas
+                    ? 'tipos'
+                    : category.subCategory === SubCategory.MomentosEspeciais
+                    ? 'momentos especiais'
+                    : category.subCategory === SubCategory.Estacao
+                    ? 'estação'
+                    : category.subCategory === SubCategory.Calendario
+                    ? 'calendário'
+                    : category.subCategory === SubCategory.Cerimonias
+                    ? 'cerimónias'
+                    : category.subCategory === SubCategory.Caracteristicas
+                    ? 'características'
+                    : category.subCategory}
                 </p>
               </div>
             </div>

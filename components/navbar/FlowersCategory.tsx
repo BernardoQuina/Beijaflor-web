@@ -10,7 +10,7 @@ interface FlowersCategoryProps {
 export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
   currentCategory,
 }) => {
-  const [selected, setSelected] = useState(SubCategory.Tipos)
+  const [selected, setSelected] = useState(SubCategory.TiposFlores)
 
   const { data } = useCategoriesQuery({
     errorPolicy: 'all',
@@ -18,7 +18,7 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
   })
 
   const subCategories = [
-    SubCategory.Tipos,
+    SubCategory.TiposFlores,
     SubCategory.Arranjos,
     SubCategory.Cores,
     SubCategory.Estacao,
@@ -45,7 +45,11 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
               }`}
               onMouseEnter={() => setSelected(subCategory)}
             >
-              {subCategory === SubCategory.Estacao ? 'estação' : subCategory}
+              {subCategory === SubCategory.Estacao
+                ? 'estação'
+                : subCategory === SubCategory.TiposFlores
+                ? 'tipos'
+                : subCategory}
             </button>
           ))}
         </div>

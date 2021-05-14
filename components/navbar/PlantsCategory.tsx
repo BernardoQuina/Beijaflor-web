@@ -10,7 +10,7 @@ interface PlantsCategoryProps {
 export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
   currentCategory,
 }) => {
-  const [selected, setSelected] = useState(SubCategory.Tipos)
+  const [selected, setSelected] = useState(SubCategory.TiposPlantas)
 
   const { data } = useCategoriesQuery({
     errorPolicy: 'all',
@@ -18,7 +18,7 @@ export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
   })
 
   const subCategories = [
-    SubCategory.Tipos,
+    SubCategory.TiposPlantas,
     SubCategory.Local,
     SubCategory.Caracteristicas,
   ]
@@ -44,7 +44,11 @@ export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
               }`}
               onMouseEnter={() => setSelected(subCategory)}
             >
-              {subCategory}
+              {subCategory === SubCategory.TiposPlantas
+                ? 'tipos'
+                : subCategory === SubCategory.Caracteristicas
+                ? 'características'
+                : subCategory}
             </button>
           ))}
         </div>

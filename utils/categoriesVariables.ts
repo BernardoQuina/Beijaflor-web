@@ -72,7 +72,7 @@ export const categoriesVariables = (
   }
 
   if (search.toLowerCase().includes('tipos')) {
-    variables.searchSub = SubCategory.Tipos
+    variables.searchSub = SubCategory.TiposFlores
   }
 
   if (search.toLowerCase().includes('vasos')) {

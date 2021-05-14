@@ -519,6 +519,8 @@ export type StringNullableListFilter = {
 
 export enum SubCategory {
   Tipos = 'tipos',
+  TiposFlores = 'tiposFlores',
+  TiposPlantas = 'tiposPlantas',
   Arranjos = 'arranjos',
   Cores = 'cores',
   Estacao = 'estacao',

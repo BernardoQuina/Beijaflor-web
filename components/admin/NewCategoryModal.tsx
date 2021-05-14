@@ -23,7 +23,7 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
   setShowCategoryModal,
 }) => {
   const [selectedMain, setSelectedMain] = useState(MainCategory.Flores)
-  const [selectedSub, setSelectedSub] = useState(SubCategory.Tipos)
+  const [selectedSub, setSelectedSub] = useState(SubCategory.TiposFlores)
   const [uploadedImages, setUploadedImages] = useState<{ public_id: string }[]>(
     []
   )
@@ -167,7 +167,7 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
                       >
                         {selectedMain === MainCategory.Flores ? (
                           <>
-                            <option value={SubCategory.Tipos}>tipos</option>
+                            <option value={SubCategory.TiposFlores}>tipos</option>
                             <option value={SubCategory.Arranjos}>
                               arranjos
                             </option>
@@ -176,7 +176,7 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
                           </>
                         ) : selectedMain === MainCategory.Plantas ? (
                           <>
-                            <option value={SubCategory.Tipos}>tipos</option>
+                            <option value={SubCategory.TiposPlantas}>tipos</option>
                             <option value={SubCategory.Local}>local</option>
                             <option value={SubCategory.Caracteristicas}>
                               características

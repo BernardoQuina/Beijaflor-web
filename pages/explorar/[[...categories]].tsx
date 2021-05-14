@@ -154,6 +154,10 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
                                 ? 'cerimónias'
                                 : unique.sub === SubCategory.Calendario
                                 ? 'calendário'
+                                : unique.sub === SubCategory.TiposFlores
+                                ? 'tipos'
+                                : unique.sub === SubCategory.TiposPlantas
+                                ? 'tipos'
                                 : unique.sub}
                             </h6>
                             <ArrowDown

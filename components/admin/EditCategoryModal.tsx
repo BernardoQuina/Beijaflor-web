@@ -159,7 +159,7 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                       >
                         {selectedMain === MainCategory.Flores ? (
                           <>
-                            <option value={SubCategory.Tipos}>tipos</option>
+                            <option value={SubCategory.TiposFlores}>tipos</option>
                             <option value={SubCategory.Arranjos}>
                               arranjos
                             </option>
@@ -168,7 +168,7 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                           </>
                         ) : selectedMain === MainCategory.Plantas ? (
                           <>
-                            <option value={SubCategory.Tipos}>tipos</option>
+                            <option value={SubCategory.TiposPlantas}>tipos</option>
                             <option value={SubCategory.Local}>local</option>
                             <option value={SubCategory.Caracteristicas}>
                               características
