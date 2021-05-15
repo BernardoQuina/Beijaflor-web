@@ -147,7 +147,14 @@ export const TopNav: React.FC<TopNavProps> = ({
           className='flex'
           type='submit'
           onClick={() => {
-            router.push(`/explorar/pesquisa/${search}`)
+            if (
+              router.query.categories &&
+              router.query.categories.includes(search)
+            ) {
+              router.reload()
+            } else {
+              router.push(`/explorar/pesquisa/${search}`)
+            }
           }}
         >
           <Search
@@ -162,7 +169,15 @@ export const TopNav: React.FC<TopNavProps> = ({
           onChange={(e) => setSearch(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              router.push(`/explorar/pesquisa/${search}`)
+              console.log(router.query)
+              if (
+                router.query.categories &&
+                router.query.categories.includes(search)
+              ) {
+                router.reload()
+              } else {
+                router.push(`/explorar/pesquisa/${search}`)
+              }
             }
           }}
         />
