@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 import { useCategoriesQuery, SubCategory } from '../../lib/generated/graphql'
 
@@ -54,28 +55,30 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
                   {data?.categories.map((category) => {
                     if (category.subCategory === subCategory) {
                       return (
-                        <button
+                        <Link
                           key={category.name}
-                          className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'
+                          href={`/explorar/${category.name.toLowerCase()}`}
                         >
-                          <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
-                            <Image
-                              className='my-auto'
-                              cloudName={
-                                process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-                              }
-                              publicId={category.image}
-                              quality={20}
-                              height={200}
-                              width={200}
-                              gravity='auto'
-                              crop='fill'
-                            />
-                          </div>
-                          <h6 className='w-[55%] mx-auto self-center text-lg text-center text-green-dark tracking-widest'>
-                            {category.name.toLowerCase()}
-                          </h6>
-                        </button>
+                          <a className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
+                            <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
+                              <Image
+                                className='my-auto'
+                                cloudName={
+                                  process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+                                }
+                                publicId={category.image}
+                                quality={20}
+                                height={200}
+                                width={200}
+                                gravity='auto'
+                                crop='fill'
+                              />
+                            </div>
+                            <h6 className='w-[55%] mx-auto self-center text-lg text-center text-green-dark tracking-widest'>
+                              {category.name.toLowerCase()}
+                            </h6>
+                          </a>
+                        </Link>
                       )
                     }
                   })}

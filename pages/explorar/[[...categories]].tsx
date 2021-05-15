@@ -65,6 +65,9 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     refetch,
   } = useExploreProductsQuery({
     errorPolicy: 'all',
+    variables: {
+      search: router.query.categories ? router.query.categories[0] : '',
+    },
   })
 
   const orderByButtonNode = useRef<HTMLButtonElement | null>(null)
@@ -288,18 +291,26 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log(context.query.categories)
+  console.log(context.query.categories[0])
+
   const apolloClient = initializeApollo()
 
   await apolloClient.query({
     query: ExploreProductsDocument,
     errorPolicy: 'all',
+    variables: {
+      search: context.query.categories ? context.query.categories[0] : '',
+    },
   })
 
   const categoriesResponse: ApolloQueryResult<CategoriesQuery> =
     await apolloClient.query({
       query: CategoriesDocument,
-      variables: { search: '' },
+      variables: {
+        search: '',
+      },
       errorPolicy: 'all',
     })
 

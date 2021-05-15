@@ -21,6 +21,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   const { data } = useProductsQuery({
     variables: { search: 'dia da mãe' },
     errorPolicy: 'all',
+    fetchPolicy: 'network-only'
   })
 
   return (
