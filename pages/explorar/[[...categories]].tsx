@@ -38,8 +38,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
   const router = useRouter()
 
-  console.log('query: ', router.query)
-
   const mainCategoriesArray = [
     MainCategory.Flores,
     MainCategory.Plantas,
@@ -59,6 +57,20 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   const uniqueMainSubCombinations: { main: MainCategory; sub: SubCategory }[] =
     uniqWith(mainAndSubArray, isEqual)
 
+  let mainCategory = MainCategory.None
+
+  if (router.query.categories) {
+    if (router.query.categories[0].toLowerCase() === 'flores') {
+      mainCategory = MainCategory.Flores
+    } else if (router.query.categories[0].toLowerCase() === 'plantas') {
+      mainCategory = MainCategory.Plantas
+    } else if (router.query.categories[0].toLowerCase() === 'acessórios') {
+      mainCategory = MainCategory.Acessorios
+    } else if (router.query.categories[0].toLowerCase() === 'ocasião') {
+      mainCategory = MainCategory.Ocasiao
+    }
+  }
+
   const {
     data: productsData,
     variables,
@@ -67,6 +79,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     errorPolicy: 'all',
     variables: {
       search: router.query.categories ? router.query.categories[0] : '',
+      searchMain: mainCategory,
     },
   })
 
@@ -92,12 +105,13 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   }
 
   useEffect(() => {
+    console.log(productsData.products)
     document.addEventListener('mousedown', orderByButtonClick)
 
     return () => {
       document.removeEventListener('mousedown', orderByButtonClick)
     }
-  })
+  }, [])
 
   return (
     <Layout>
@@ -273,18 +287,24 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
               />
             )}
           </div>
-          <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4'>
-            {productsData.products.map((product) => (
-              <div className='px-4 mt-4 mb-10 z-0' key={product.id}>
-                <ProductItem
-                  product={product}
-                  height='h-[24rem]'
-                  width='w-[14rem]'
-                  sm={true}
-                />
-              </div>
-            ))}
-          </div>
+          {productsData.products.length > 0 ? (
+            <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4'>
+              {productsData.products.map((product) => (
+                <div className='px-4 mt-4 mb-10 z-0' key={product.id}>
+                  <ProductItem
+                    product={product}
+                    height='h-[24rem]'
+                    width='w-[14rem]'
+                    sm={true}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <h4 className='ml-4 mt-10 lg:mt-0 text-center lg:text-left text-xl text-green-dark tracking-wider'>
+              Nenhum produto corresponde à pesquisa
+            </h4>
+          )}
         </div>
       </div>
     </Layout>
@@ -292,8 +312,20 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(context.query.categories)
-  console.log(context.query.categories[0])
+
+  let mainCategory = MainCategory.None
+
+  if (context.query.categories) {
+    if (context.query.categories[0].toLowerCase() === 'flores') {
+      mainCategory = MainCategory.Flores
+    } else if (context.query.categories[0].toLowerCase() === 'plantas') {
+      mainCategory = MainCategory.Plantas
+    } else if (context.query.categories[0].toLowerCase() === 'acessórios') {
+      mainCategory = MainCategory.Acessorios
+    } else if (context.query.categories[0].toLowerCase() === 'ocasião') {
+      mainCategory = MainCategory.Ocasiao
+    }
+  }
 
   const apolloClient = initializeApollo()
 
@@ -302,6 +334,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     errorPolicy: 'all',
     variables: {
       search: context.query.categories ? context.query.categories[0] : '',
+      searchMain: mainCategory,
     },
   })
 

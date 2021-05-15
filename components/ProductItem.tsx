@@ -54,9 +54,12 @@ export const ProductItem: React.FC<ProductItemProps> = ({
             >
               {product.name}
             </h4>
-            <h3 className='absolute left-4 bottom-1 text-xl text-green-dark tracking-widest'>
-              €{product.price.toFixed(2)}
-            </h3>
+            <div className='absolute left-4 bottom-1 flex'>
+              <h3 className='mr-2 text-green-dark'>€</h3>
+              <h3 className='text-xl text-green-dark tracking-widest'>
+                {product.price.toFixed(2)}
+              </h3>
+            </div>
           </div>
         </a>
       </Link>
