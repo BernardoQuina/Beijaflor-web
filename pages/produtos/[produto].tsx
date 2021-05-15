@@ -118,9 +118,9 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             {product.description}
           </p>
         </div>
-        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-xl'>
+        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-xl overflow-x-auto overflow-y-hidden'>
           {product.height && (
-            <div className='mx-auto flex flex-col'>
+            <div className='mr-1 lg:mr-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
                 <Size tailwind='h-8 text-pink-dark transform rotate-90' />
               </div>
@@ -131,7 +131,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           )}
           {product.water && (
-            <div className='mx-auto flex flex-col'>
+            <div className='mx-1 lg:mx-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
                 <Water tailwind='h-8 text-pink-dark' />
               </div>
@@ -141,7 +141,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           )}
           {product.exposure && (
-            <div className='mx-auto flex flex-col'>
+            <div className='mx-1 lg:mx-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
                 <Sun tailwind='h-8 text-pink-dark' strokeWidth={2} />
               </div>
@@ -151,7 +151,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           )}
           {product.temperature && (
-            <div className='mx-auto flex flex-col'>
+            <div className='mx-1 lg:mx-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
                 <Temperature tailwind='h-8 text-pink-dark' />
               </div>
@@ -161,7 +161,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             </div>
           )}
           {product.lifespan && (
-            <div className='mx-auto flex flex-col'>
+            <div className='ml-1 lg:ml-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
                 <Time tailwind='h-8 text-pink-dark' strokeWidth={2} />
               </div>

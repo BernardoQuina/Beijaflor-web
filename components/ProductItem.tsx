@@ -41,14 +41,14 @@ export const ProductItem: React.FC<ProductItemProps> = ({
             />
           </div>
           <div className='relative h-[30%] pt-2'>
-            <h6 className='ml-4 tracking-widest text-pink-medium'>
+            <h6 className='ml-4 tracking-widest leading-tight text-pink-medium'>
               {product.categories[product.categories.length - 1].name}
             </h6>
             <button className='absolute bottom-0 right-1 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100 hover:scale-110'>
               <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
             </button>
             <h4
-              className={`mx-4 mt-2 font-serif tracking-wide text-green-medium ${
+              className={`mx-4 mt-2 font-serif leading-tight tracking-wide text-green-medium ${
                 sm ? 'text-lg' : 'text-xl'
               }`}
             >

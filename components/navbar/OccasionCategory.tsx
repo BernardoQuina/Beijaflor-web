@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 
 import { SubCategory, useCategoriesQuery } from '../../lib/generated/graphql'
 
-interface OccasionCategoryProps {}
+interface OccasionCategoryProps {
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
 
-export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
+export const OccasionCategory: React.FC<OccasionCategoryProps> = ({setOpen}) => {
   const [selected, setSelected] = useState(SubCategory.Calendario)
 
   const { data } = useCategoriesQuery({
@@ -58,6 +60,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({}) => {
                         <Link key={category.name} href={`/explorar/${category.name.toLowerCase()}`}>
                           <a
                             className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'
+                            onClick={() => setOpen(false)}
                           >
                             <div className='w-14 h-14 m-auto flex overflow-hidden rounded-lg'>
                               <Image

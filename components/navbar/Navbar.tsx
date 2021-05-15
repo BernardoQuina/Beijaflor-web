@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             searchActive={searchActive}
             searchNode={searchNode}
           />
-          <ExpandedNav open={open} underline={underline} />
+          <ExpandedNav setOpen={setOpen} open={open} underline={underline} />
         </motion.nav>
         <button
           type='button'

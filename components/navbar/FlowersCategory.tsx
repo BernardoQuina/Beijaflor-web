@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 
 import { useCategoriesQuery, SubCategory } from '../../lib/generated/graphql'
 
 interface FlowersCategoryProps {
+  setOpen: Dispatch<SetStateAction<boolean>>
   currentCategory: string
 }
 
 export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
+  setOpen,
   currentCategory,
 }) => {
   const [selected, setSelected] = useState(SubCategory.TiposFlores)
@@ -69,7 +71,12 @@ export const FlowersCategory: React.FC<FlowersCategoryProps> = ({
                           key={category.name}
                           href={`/explorar/${category.name.toLowerCase()}`}
                         >
-                          <a className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'>
+                          <a
+                            className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'
+                            onClick={() => {
+                              setOpen(false)
+                            }}
+                          >
                             <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
                               <Image
                                 className='my-auto'
