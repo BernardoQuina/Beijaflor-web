@@ -42,7 +42,9 @@ export const SelectCategories: React.FC<SelectCategoriesProps> = ({
 
   useEffect(() => {
     if (router.query.categories) {
-      if (router.query.categories[0].toLowerCase() === 'flores') {
+      if (router.query.categories[0].toLowerCase() === 'pesquisa') {
+        return
+      } else if (router.query.categories[0].toLowerCase() === 'flores') {
         return
       } else if (router.query.categories[0].toLowerCase() === 'plantas') {
         return

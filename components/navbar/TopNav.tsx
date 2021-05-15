@@ -18,6 +18,7 @@ import { Person } from '../svg/Person'
 import { Logo } from '../svg/Logo'
 import { ProfileModal } from './ProfileModal'
 import { Image } from 'cloudinary-react'
+import { useRouter } from 'next/router'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -39,6 +40,9 @@ export const TopNav: React.FC<TopNavProps> = ({
   searchNode,
 }) => {
   const [profileModal, setProfileModal] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const router = useRouter()
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
@@ -138,15 +142,29 @@ export const TopNav: React.FC<TopNavProps> = ({
         } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-lg shadow-inner bg-white text-3xl border`}
         onClick={() => setSearchActive(true)}
       >
-        <motion.div layoutId='search-logo' className='flex'>
+        <motion.button
+          layoutId='search-logo'
+          className='flex'
+          type='submit'
+          onClick={() => {
+            router.push(`/explorar/pesquisa/${search}`)
+          }}
+        >
           <Search
             tailwind='h-5 absolute transform left-[92%] translate-x-[-92%] self-center text-gray-300'
             strokeWidth={2}
           />
-        </motion.div>
+        </motion.button>
         <input
           ref={searchNode}
           className='w-10/12 ml-2 pl-2 pr-5 text-lg font-thin tracking-widest focus:outline-none'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              router.push(`/explorar/pesquisa/${search}`)
+            }
+          }}
         />
       </motion.div>
       <div className='relative z-[1] flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>

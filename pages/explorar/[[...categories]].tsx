@@ -60,13 +60,29 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   let mainCategory = MainCategory.None
 
   if (router.query.categories) {
-    if (router.query.categories[0].toLowerCase() === 'flores') {
+    if (
+      router.query.categories[
+        router.query.categories.length - 1
+      ].toLowerCase() === 'flores'
+    ) {
       mainCategory = MainCategory.Flores
-    } else if (router.query.categories[0].toLowerCase() === 'plantas') {
+    } else if (
+      router.query.categories[
+        router.query.categories.length - 1
+      ].toLowerCase() === 'plantas'
+    ) {
       mainCategory = MainCategory.Plantas
-    } else if (router.query.categories[0].toLowerCase() === 'acessórios') {
+    } else if (
+      router.query.categories[
+        router.query.categories.length - 1
+      ].toLowerCase() === 'acessórios'
+    ) {
       mainCategory = MainCategory.Acessorios
-    } else if (router.query.categories[0].toLowerCase() === 'ocasião') {
+    } else if (
+      router.query.categories[
+        router.query.categories.length - 1
+      ].toLowerCase() === 'ocasião'
+    ) {
       mainCategory = MainCategory.Ocasiao
     }
   }
@@ -78,7 +94,9 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   } = useExploreProductsQuery({
     errorPolicy: 'all',
     variables: {
-      search: router.query.categories ? router.query.categories[0] : '',
+      search: router.query.categories
+        ? router.query.categories[router.query.categories.length - 1]
+        : '',
       searchMain: mainCategory,
     },
   })
@@ -314,13 +332,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let mainCategory = MainCategory.None
 
   if (context.query.categories) {
-    if (context.query.categories[0].toLowerCase() === 'flores') {
+    if (
+      context.query.categories[
+        context.query.categories.length - 1
+      ].toLowerCase() === 'flores'
+    ) {
       mainCategory = MainCategory.Flores
-    } else if (context.query.categories[0].toLowerCase() === 'plantas') {
+    } else if (
+      context.query.categories[
+        context.query.categories.length - 1
+      ].toLowerCase() === 'plantas'
+    ) {
       mainCategory = MainCategory.Plantas
-    } else if (context.query.categories[0].toLowerCase() === 'acessórios') {
+    } else if (
+      context.query.categories[
+        context.query.categories.length - 1
+      ].toLowerCase() === 'acessórios'
+    ) {
       mainCategory = MainCategory.Acessorios
-    } else if (context.query.categories[0].toLowerCase() === 'ocasião') {
+    } else if (
+      context.query.categories[
+        context.query.categories.length - 1
+      ].toLowerCase() === 'ocasião'
+    ) {
       mainCategory = MainCategory.Ocasiao
     }
   }
@@ -331,7 +365,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     query: ExploreProductsDocument,
     errorPolicy: 'all',
     variables: {
-      search: context.query.categories ? context.query.categories[0] : '',
+      search: context.query.categories
+        ? context.query.categories[context.query.categories.length - 1]
+        : '',
       searchMain: mainCategory,
     },
   })
