@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from 'react'
+import { useRouter } from 'next/router'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import {
   BasicCategoryInfoFragment,
   Exact,
@@ -37,6 +38,25 @@ export const SelectCategories: React.FC<SelectCategoriesProps> = ({
   variables,
   refetch,
 }) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (router.query.categories) {
+      if (router.query.categories[0].toLowerCase() === 'flores') {
+        return
+      } else if (router.query.categories[0].toLowerCase() === 'plantas') {
+        return
+      } else if (router.query.categories[0].toLowerCase() === 'acessórios') {
+        return
+      } else if (router.query.categories[0].toLowerCase() === 'ocasião') {
+        return
+      } else {
+        variables.searchCatName1 = router.query.categories[0].toUpperCase()
+        setSelectedCategories([router.query.categories[0].toUpperCase()])
+      }
+    }
+  }, [])
+
   return (
     <label htmlFor={category.name} className='flex w-full'>
       {category.name.toLowerCase()}

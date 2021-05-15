@@ -105,7 +105,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   }
 
   useEffect(() => {
-    console.log(productsData.products)
     document.addEventListener('mousedown', orderByButtonClick)
 
     return () => {
@@ -312,7 +311,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
   let mainCategory = MainCategory.None
 
   if (context.query.categories) {
