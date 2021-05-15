@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { isEqual, uniqWith } from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Layout } from '../../components/Layout'
 import { ProductItem } from '../../components/ProductItem'
@@ -21,6 +21,7 @@ import {
 } from '../../lib/generated/graphql'
 import { ApolloQueryResult } from '@apollo/client'
 import { SelectCategories } from '../../components/explore/SelectCategories'
+import { OrderByModal } from '../../components/explore/OrderByModal'
 
 interface explorarCategoriesProps {
   serverCategories: BasicCategoryInfoFragment[]
@@ -33,6 +34,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   const [subOpen, setSubOpen] = useState<SubCategory[]>([])
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [orderByModal, setOrderByModal] = useState(false)
 
   const router = useRouter()
 
@@ -65,10 +67,34 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     errorPolicy: 'all',
   })
 
+  const orderByButtonNode = useRef<HTMLButtonElement | null>(null)
+  const orderByModalNode = useRef<HTMLDivElement | null>(null)
+
+  const orderByButtonClick = (e: any) => {
+    if (
+      orderByButtonNode.current &&
+      orderByButtonNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    if (
+      orderByModalNode.current &&
+      orderByModalNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    setOrderByModal(false)
+  }
+
   useEffect(() => {
-    console.log(selectedCategories)
-    console.log(variables)
-  }, [selectedCategories, variables])
+    document.addEventListener('mousedown', orderByButtonClick)
+
+    return () => {
+      document.removeEventListener('mousedown', orderByButtonClick)
+    }
+  })
 
   return (
     <Layout>
@@ -210,7 +236,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
             !filtersOpen ? 'col-span-full row-span-full' : 'col-span-full'
           }  lg:col-span-9 2xl:col-span-10 lg:row-span-full`}
         >
-          <div className='flex w-[40%] lg:w-[90%] mt-4 mb-4 mx-auto'>
+          <div className='relative flex w-[40%] lg:w-[90%] mt-4 mb-4 mx-auto'>
             <button
               className={`${
                 filtersOpen && 'hidden'
@@ -224,12 +250,25 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
               className={`${
                 filtersOpen && 'hidden lg:inline-block'
               } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-green-extraLight lg:bg-white`}
+              ref={orderByButtonNode}
+              type='button'
+              onClick={() => {
+                setOrderByModal(!orderByModal)
+              }}
             >
               <h6 className='tracking-widest text-green-dark ml-2 mr-4 hidden lg:inline-block'>
                 Ordenar
               </h6>
               <Sort tailwind='lg:ml-2 h-6 text-green-dark' strokeWidth={2} />
             </button>
+            {orderByModal && (
+              <OrderByModal
+                setOrderByModal={setOrderByModal}
+                refetch={refetch}
+                variables={variables}
+                modalRef={orderByModalNode}
+              />
+            )}
           </div>
           <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4'>
             {productsData.products.map((product) => (

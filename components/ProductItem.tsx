@@ -31,9 +31,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
               <Heart tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
             </button>
             <Image
-              cloudName={
-                process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-              }
+              cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
               publicId={product.images[0]}
               quality={70}
               height={900}
@@ -44,7 +42,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
           </div>
           <div className='relative h-[30%] pt-2'>
             <h6 className='ml-4 tracking-widest text-pink-medium'>
-              {product.categories[0].name}
+              {product.categories[product.categories.length - 1].name}
             </h6>
             <button className='absolute bottom-0 right-1 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100 hover:scale-110'>
               <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
