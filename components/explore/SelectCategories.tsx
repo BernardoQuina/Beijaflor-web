@@ -73,7 +73,7 @@ export const SelectCategories: React.FC<SelectCategoriesProps> = ({
           !selectedCategories.includes(category.name)
         }
         onChange={() => {
-          variables.search = ''
+          variables.search = 'nonsense'
           variables.searchMain = MainCategory.None
           variables.searchSub = SubCategory.None
           if (selectedCategories.includes(category.name)) {
