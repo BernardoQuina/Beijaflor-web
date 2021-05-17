@@ -105,7 +105,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
         ? router.query.categories[
             router.query.categories.length - 1
           ].toUpperCase()
-        : '',
+        : 'none',
       searchCatName2: 'none',
       searchCatName3: 'none',
       searchCatName4: 'none',
@@ -149,12 +149,19 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
   useEffect(() => {
     if (
-      !selectedCategories.includes(router.query.categories[0].toUpperCase()) ||
+      (router.query.categories &&
+        router.query.categories[0] !== 'pesquisa' &&
+        !selectedCategories.includes(
+          router.query.categories[0].toUpperCase()
+        )) ||
       selectedCategories.length >= 2
     ) {
       router.reload()
     }
-    setSelectedCategories([router.query.categories[0].toUpperCase()])
+
+    if (router.query.categories && router.query.categories[0] !== 'pesquisa') {
+      setSelectedCategories([router.query.categories[0].toUpperCase()])
+    }
   }, [router.query.categories])
 
   return (
