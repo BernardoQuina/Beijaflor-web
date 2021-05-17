@@ -39,6 +39,9 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [selectedCategories, setSelectedCategories] =
     useState<string[]>(urlCategory)
+  const [selectedSearch, setSelectedSearch] = useState<string>(
+    router.query.categories[router.query.categories.length - 1]
+  )
   const [orderByModal, setOrderByModal] = useState(false)
 
   const mainCategoriesArray = [
@@ -163,6 +166,18 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     if (router.query.categories && router.query.categories[0] !== 'pesquisa') {
       setSelectedCategories([router.query.categories[0].toUpperCase()])
     }
+
+    if (
+      router.query.categories &&
+      router.query.categories[0] === 'pesquisa' &&
+      router.query.categories[1] !== selectedSearch
+    ) {
+      router.reload()
+    }
+
+    setSelectedSearch(
+      router.query.categories[router.query.categories.length - 1]
+    )
   }, [router.query.categories])
 
   return (

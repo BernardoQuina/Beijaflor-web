@@ -142,9 +142,8 @@ export const TopNav: React.FC<TopNavProps> = ({
         } md:w-6/12 lg:w-4/12 mx-auto self-center items-center rounded-lg shadow-inner bg-white text-3xl border`}
         onClick={() => setSearchActive(true)}
       >
-        <motion.button
-          layoutId='search-logo'
-          className='flex'
+        <button
+          className='flex absolute left-[92%] translate-x-[-92%] self-center'
           type='submit'
           onClick={() => {
             if (
@@ -157,11 +156,8 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          <Search
-            tailwind='h-5 absolute transform left-[92%] translate-x-[-92%] self-center text-gray-300'
-            strokeWidth={2}
-          />
-        </motion.button>
+          <Search tailwind='h-5 self-center text-gray-300' strokeWidth={2} />
+        </button>
         <input
           ref={searchNode}
           className='w-10/12 ml-2 pl-2 pr-5 text-lg font-thin tracking-widest focus:outline-none'
