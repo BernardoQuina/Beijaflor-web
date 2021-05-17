@@ -25,7 +25,7 @@ const login: NextPage<loginProps> = ({}) => {
           <AnimateSharedLayout>
             <motion.div
               layoutId='forms'
-              className='bg-white rounded-xl shadow-around pb-12 overflow-hidden'
+              className='max-w-md mx-auto bg-white rounded-xl shadow-around pb-12 overflow-hidden'
             >
               <motion.div layoutId='top' className='p-4 flex h-[4rem]'>
                 <button
