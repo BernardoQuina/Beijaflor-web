@@ -41,7 +41,7 @@ export const SelectCategories: React.FC<SelectCategoriesProps> = ({
     <label htmlFor={category.name} className='flex w-full'>
       {category.name.toLowerCase()}
       <input
-        className='form-checkbox ml-auto text-pink-medium border border-pink-dark rounded-sm focus:border-pink-dark self-center'
+        className='form-checkbox ml-auto text-pink-medium border border-pink-dark rounded-sm focus:border-pink-dark self-center cursor-pointer'
         type='checkbox'
         name={category.name}
         value={category.name}

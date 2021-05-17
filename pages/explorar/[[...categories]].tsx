@@ -101,11 +101,12 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
         ? router.query.categories[router.query.categories.length - 1]
         : '',
       searchMain: mainCategory,
-      searchCatName1: router.query.categories
-        ? router.query.categories[
-            router.query.categories.length - 1
-          ].toUpperCase()
-        : 'none',
+      searchCatName1:
+        router.query.categories && router.query.categories[0] !== 'pesquisa'
+          ? router.query.categories[
+              router.query.categories.length - 1
+            ].toUpperCase()
+          : 'none',
       searchCatName2: 'none',
       searchCatName3: 'none',
       searchCatName4: 'none',
@@ -403,11 +404,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ? context.query.categories[context.query.categories.length - 1]
         : '',
       searchMain: mainCategory,
-      searchCatName1: context.query.categories
-        ? context.query.categories[
-            context.query.categories.length - 1
-          ].toUpperCase()
-        : 'none',
+      searchCatName1:
+        context.query.categories && context.query.categories[0] !== 'pesquisa'
+          ? context.query.categories[
+              context.query.categories.length - 1
+            ].toUpperCase()
+          : 'none',
       searchCatName2: 'none',
       searchCatName3: 'none',
       searchCatName4: 'none',
