@@ -2,19 +2,18 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 
-import { SubCategory, useCategoriesQuery } from '../../lib/generated/graphql'
+import { BasicCategoryInfoFragment, SubCategory } from '../../lib/generated/graphql'
 
 interface OccasionCategoryProps {
   setOpen: Dispatch<SetStateAction<boolean>>
+  categories: BasicCategoryInfoFragment[]
 }
 
-export const OccasionCategory: React.FC<OccasionCategoryProps> = ({setOpen}) => {
+export const OccasionCategory: React.FC<OccasionCategoryProps> = ({
+  setOpen,
+  categories
+}) => {
   const [selected, setSelected] = useState(SubCategory.Calendario)
-
-  const { data } = useCategoriesQuery({
-    errorPolicy: 'all',
-    variables: { search: '' },
-  })
 
   const subCategories = [
     SubCategory.Calendario,
@@ -54,10 +53,13 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({setOpen}) => 
                   key={subCategory}
                   className='my-4 ml-4 mr-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'
                 >
-                  {data?.categories.map((category) => {
+                  {categories.map((category) => {
                     if (category.subCategory == subCategory) {
                       return (
-                        <Link key={category.name} href={`/explorar/${category.name.toLowerCase()}`}>
+                        <Link
+                          key={category.name}
+                          href={`/explorar/${category.name.toLowerCase()}`}
+                        >
                           <a
                             className='flex py-2 rounded-lg shadow-md cursor-pointer hover:bg-green-extraLight'
                             onClick={() => setOpen(false)}
@@ -74,6 +76,7 @@ export const OccasionCategory: React.FC<OccasionCategoryProps> = ({setOpen}) => 
                                 width={200}
                                 gravity='auto'
                                 crop='fill'
+                                secure={true}
                               />
                             </div>
                             <h6 className='w-[55%] mx-auto self-center text-lg text-center text-green-dark tracking-widest'>

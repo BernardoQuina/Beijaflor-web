@@ -25,18 +25,21 @@ import { OrderByModal } from '../../components/explore/OrderByModal'
 
 interface explorarCategoriesProps {
   serverCategories: BasicCategoryInfoFragment[]
+  urlCategory: string[]
 }
 
 const explorarCategories: NextPage<explorarCategoriesProps> = ({
   serverCategories,
+  urlCategory,
 }) => {
+  const router = useRouter()
+
   const [mainOpen, setMainOpen] = useState<MainCategory[]>([])
   const [subOpen, setSubOpen] = useState<SubCategory[]>([])
   const [filtersOpen, setFiltersOpen] = useState(false)
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [selectedCategories, setSelectedCategories] =
+    useState<string[]>(urlCategory)
   const [orderByModal, setOrderByModal] = useState(false)
-
-  const router = useRouter()
 
   const mainCategoriesArray = [
     MainCategory.Flores,
@@ -98,6 +101,20 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
         ? router.query.categories[router.query.categories.length - 1]
         : '',
       searchMain: mainCategory,
+      searchCatName1: router.query.categories
+        ? router.query.categories[
+            router.query.categories.length - 1
+          ].toUpperCase()
+        : '',
+      searchCatName2: 'none',
+      searchCatName3: 'none',
+      searchCatName4: 'none',
+      searchCatName5: 'none',
+      searchCatName6: 'none',
+      searchCatName7: 'none',
+      searchCatName8: 'none',
+      searchCatName9: 'none',
+      searchCatName10: 'none',
     },
   })
 
@@ -129,6 +146,16 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
       document.removeEventListener('mousedown', orderByButtonClick)
     }
   }, [])
+
+  useEffect(() => {
+    if (
+      !selectedCategories.includes(router.query.categories[0].toUpperCase()) ||
+      selectedCategories.length >= 2
+    ) {
+      router.reload()
+    }
+    setSelectedCategories([router.query.categories[0].toUpperCase()])
+  }, [router.query.categories])
 
   return (
     <Layout>
@@ -369,6 +396,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ? context.query.categories[context.query.categories.length - 1]
         : '',
       searchMain: mainCategory,
+      searchCatName1: context.query.categories
+        ? context.query.categories[
+            context.query.categories.length - 1
+          ].toUpperCase()
+        : 'none',
+      searchCatName2: 'none',
+      searchCatName3: 'none',
+      searchCatName4: 'none',
+      searchCatName5: 'none',
+      searchCatName6: 'none',
+      searchCatName7: 'none',
+      searchCatName8: 'none',
+      searchCatName9: 'none',
+      searchCatName10: 'none',
     },
   })
 
@@ -381,10 +422,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       errorPolicy: 'all',
     })
 
+  let urlCategory: string[] = []
+
+  if (context.query.categories && context.query.categories[0] !== 'pesquisa') {
+    urlCategory = [context.query.categories[0].toUpperCase()]
+  }
+
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
       serverCategories: categoriesResponse.data.categories,
+      urlCategory,
     },
   }
 }

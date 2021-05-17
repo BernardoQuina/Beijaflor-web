@@ -4,6 +4,7 @@ import { AnimateSharedLayout, motion } from 'framer-motion'
 import { TopNav } from './TopNav'
 import { ArrowDown } from '../svg/ArrowDown'
 import { ExpandedNav } from './ExpandedNav'
+import { useCategoriesQuery } from '../../lib/generated/graphql'
 
 interface NavbarProps {}
 
@@ -11,6 +12,12 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const [open, setOpen] = useState(false)
   const [searchActive, setSearchActive] = useState(false)
   const [underline, setUnderline] = useState(0)
+
+  const { data } = useCategoriesQuery({
+    errorPolicy: 'all',
+    variables: { search: '' },
+    fetchPolicy: 'network-only',
+  })
 
   const underlineRef = useRef<number>()
   underlineRef.current = underline
@@ -39,6 +46,10 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   useEffect(() => {
+    if (!open) {
+      setUnderline(0)
+    }
+
     document.addEventListener('mousedown', offNavClick)
     document.addEventListener('mousedown', offSearchClick)
     return () => {
@@ -71,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             searchActive={searchActive}
             searchNode={searchNode}
           />
-          <ExpandedNav setOpen={setOpen} open={open} underline={underline} />
+          <ExpandedNav categories={data?.categories} setOpen={setOpen} open={open} underline={underline} />
         </motion.nav>
         <button
           type='button'

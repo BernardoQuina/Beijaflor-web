@@ -91,6 +91,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                 width={200}
                 quality={20}
                 crop='fill'
+                secure={true}
               />
             </div>
           </div>

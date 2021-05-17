@@ -88,6 +88,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
                 width={200}
                 quality={20}
                 crop='fill'
+                secure={true}
               />
             </div>
           </div>

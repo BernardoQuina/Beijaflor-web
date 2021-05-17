@@ -70,6 +70,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               width={320}
               gravity='auto'
               crop='fill'
+              secure={true}
             />
           </div>
         </div>
@@ -94,6 +95,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                   width={320}
                   gravity='auto'
                   crop='fill'
+                  secure={true}
                 />
               </div>
             </button>

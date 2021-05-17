@@ -38,6 +38,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
               width={600}
               gravity='auto'
               crop='fill'
+              secure={true}
             />
           </div>
           <div className='relative h-[30%] pt-2'>

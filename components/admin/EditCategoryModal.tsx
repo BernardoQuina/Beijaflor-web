@@ -242,6 +242,7 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                             height={600}
                             width={400}
                             crop='fill'
+                            secure={true}
                           >
                             <Placeholder type='blur'></Placeholder>
                           </Image>

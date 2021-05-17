@@ -4,18 +4,23 @@ import { AccessoriesCategory } from './AccessoriesCategory'
 import { FlowersCategory } from './FlowersCategory'
 import { PlantsCategory } from './PlantsCategory'
 import { OccasionCategory } from './OccasionCategory'
-import { useProductsQuery } from '../../lib/generated/graphql'
+import {
+  BasicCategoryInfoFragment,
+  useProductsQuery,
+} from '../../lib/generated/graphql'
 
 interface ExpandedNavProps {
   setOpen: Dispatch<SetStateAction<boolean>>
   open: boolean
   underline: number
+  categories: BasicCategoryInfoFragment[]
 }
 
 export const ExpandedNav: React.FC<ExpandedNavProps> = ({
   open,
   setOpen,
   underline,
+  categories,
 }) => {
   const [currentCategory, setCurrentCategory] = useState('Flores')
 
@@ -38,7 +43,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
         </div>
       ) : open && underline === 2 ? ( // ocasião
         <div className='xl:flex mt-16 lg:mt-6'>
-          <OccasionCategory setOpen={setOpen} />
+          <OccasionCategory categories={categories} setOpen={setOpen} />
         </div>
       ) : open && underline === 3 ? ( // categorias
         <div className='xl:flex mt-12 lg:mt-0'>
@@ -80,9 +85,21 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
               Acessórios
             </button>
           </div>
-          <FlowersCategory setOpen={setOpen} currentCategory={currentCategory} />
-          <PlantsCategory setOpen={setOpen} currentCategory={currentCategory} />
-          <AccessoriesCategory setOpen={setOpen} currentCategory={currentCategory} />
+          <FlowersCategory
+            categories={categories}
+            setOpen={setOpen}
+            currentCategory={currentCategory}
+          />
+          <PlantsCategory
+            categories={categories}
+            setOpen={setOpen}
+            currentCategory={currentCategory}
+          />
+          <AccessoriesCategory
+            categories={categories}
+            setOpen={setOpen}
+            currentCategory={currentCategory}
+          />
         </div>
       ) : null}
     </div>

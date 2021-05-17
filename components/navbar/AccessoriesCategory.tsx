@@ -1,23 +1,23 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
-import { useCategoriesQuery, SubCategory } from '../../lib/generated/graphql'
+import {
+  SubCategory,
+  BasicCategoryInfoFragment,
+} from '../../lib/generated/graphql'
 
 interface AccessoriesCategoryProps {
   setOpen: Dispatch<SetStateAction<boolean>>
   currentCategory: string
+  categories: BasicCategoryInfoFragment[]
 }
 
 export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
   setOpen,
   currentCategory,
+  categories,
 }) => {
   const [selected, setSelected] = useState(SubCategory.Vasos)
-
-  const { data } = useCategoriesQuery({
-    errorPolicy: 'all',
-    variables: { search: '' },
-  })
 
   const subCategories = [SubCategory.Vasos, SubCategory.Outros]
 
@@ -54,7 +54,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
                   key={subCategory}
                   className='my-4 ml-4 mr-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 gap-5'
                 >
-                  {data?.categories.map((category) => {
+                  {categories.map((category) => {
                     if (category.subCategory === subCategory) {
                       return (
                         <Link
@@ -79,6 +79,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
                                 width={200}
                                 gravity='auto'
                                 crop='fill'
+                                secure={true}
                               />
                             </div>
                             <h6 className='w-[55%] mx-auto self-center text-lg text-center text-green-dark tracking-widest'>

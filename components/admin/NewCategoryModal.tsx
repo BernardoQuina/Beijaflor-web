@@ -251,6 +251,7 @@ export const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
                             width={400}
                             crop='fill'
                             quality={50}
+                            secure={true}
                           >
                             <Placeholder type='blur'></Placeholder>
                           </Image>

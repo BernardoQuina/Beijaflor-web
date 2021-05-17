@@ -349,6 +349,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                           height={300}
                           width={200}
                           crop='fill'
+                          secure={true}
                         >
                           <Placeholder type='blur'></Placeholder>
                         </Image>
