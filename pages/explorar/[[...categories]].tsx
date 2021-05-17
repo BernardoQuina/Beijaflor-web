@@ -40,7 +40,9 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   const [selectedCategories, setSelectedCategories] =
     useState<string[]>(urlCategory)
   const [selectedSearch, setSelectedSearch] = useState<string>(
-    router.query.categories[router.query.categories.length - 1]
+    router.query.categories
+      ? router.query.categories[router.query.categories.length - 1]
+      : ''
   )
   const [orderByModal, setOrderByModal] = useState(false)
 
@@ -176,7 +178,9 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     }
 
     setSelectedSearch(
-      router.query.categories[router.query.categories.length - 1]
+      router.query.categories
+        ? router.query.categories[router.query.categories.length - 1]
+        : ''
     )
   }, [router.query.categories])
 
