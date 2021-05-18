@@ -9,6 +9,7 @@ import {
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+import { useCartModal } from '../../context/CartModalContext'
 import { useMeQuery } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
 import { Search } from '../svg/Search'
@@ -40,8 +41,9 @@ export const TopNav: React.FC<TopNavProps> = ({
   searchActive,
   searchNode,
 }) => {
+  const { cartModal, setCartModal } = useCartModal()
+
   const [profileModal, setProfileModal] = useState(false)
-  const [cartModal, setCartModal] = useState(false)
   const [search, setSearch] = useState('')
 
   const router = useRouter()
@@ -81,7 +83,7 @@ export const TopNav: React.FC<TopNavProps> = ({
       return
     }
 
-    setCartModal(false)
+    setCartModal('false')
   }
 
   useEffect(() => {
@@ -202,7 +204,11 @@ export const TopNav: React.FC<TopNavProps> = ({
           type='button'
           ref={cartButtonNode}
           onClick={() => {
-            setCartModal(!cartModal)
+            if (cartModal) {
+              setCartModal('false')
+            } else {
+              setCartModal('true')
+            }
           }}
         >
           <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={1.5} />

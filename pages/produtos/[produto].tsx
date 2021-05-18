@@ -24,12 +24,15 @@ import {
   useMeQuery,
 } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
+import { useCartModal } from '../../context/CartModalContext'
 
 interface produtoProps {
   product: BasicProductInfoFragment
 }
 
 const produto: NextPage<produtoProps> = ({ product }) => {
+  const { setCartModal } = useCartModal()
+
   const [selectedImage, setSelectedImage] = useState(product.images[0])
   const [quantity, setQuantity] = useState(1)
 
@@ -219,6 +222,8 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                       cache.evict({ id: `Cart:${data.me.cart.id}` })
                     },
                   })
+
+                  setCartModal('true')
                 }
               }}
               className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight'

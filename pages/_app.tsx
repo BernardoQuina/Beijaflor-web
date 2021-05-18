@@ -4,11 +4,15 @@ import { useApollo } from '../lib/apolloClient'
 
 import '../styles/globals.css'
 
+import { CartModalProvider } from '../context/CartModalContext'
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const apolloClient = useApollo(pageProps.initialApolloState)
   return (
     <ApolloProvider client={apolloClient}>
-      <Component {...pageProps} />
+      <CartModalProvider>
+        <Component {...pageProps} />
+      </CartModalProvider>
     </ApolloProvider>
   )
 }
