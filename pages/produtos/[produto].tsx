@@ -113,7 +113,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             <h2 className='mt-4 lg:mt-6 mr-4 text-2xl lg:text-4xl tracking-widest font-bold text-green-medium font-serif'>
               {product.name}
             </h2>
-            <h5 className='mt-4 tracking-widest text-green-dark font-bold ml-auto mr-1 self-start'>
+            <h5 className='mt-3 tracking-widest text-green-dark font-bold ml-auto mr-1 self-start'>
               €
             </h5>
             <h5 className='mr-2 mt-3 lg:mr-10 text-xl lg:text-2xl tracking-widest font-bold text-green-dark self-start'>
@@ -231,7 +231,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 <h5 className='ml-2 mr-2 xs:mr-3 self-center text-green-dark tracking-wider font-bold'>
                   Adicionar ao cesto
                 </h5>
-                <h5 className='pl-2 xs:pl-3 mr-2 border-l-2 border-green-medium self-end font-bold text-green-dark'>
+                <h5 className='pl-2 xs:pl-3 mr-2 border-l-2 border-green-medium self-start font-bold text-green-dark'>
                   €
                 </h5>
                 <h5 className=' self-center font-bold text-green-dark tracking-widest xs:text-lg'>

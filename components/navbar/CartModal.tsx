@@ -10,6 +10,7 @@ import {
 import { X } from '../svg/X'
 import { Plus } from '../svg/Plus'
 import { Minus } from '../svg/Minus'
+import { NarrowArrow } from '../svg/NarrowArrow'
 
 interface CartModalProps {
   me: MeQuery
@@ -152,9 +153,9 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                 ))}
               </div>
               <div className='flex w-full h-[4rem] border-t'>
-                <div className='flex flex-col w-[70%] p-2'>
+                <div className='flex flex-col w-[55%] p-2'>
                   <div className='flex'>
-                    <h3 className='text-green-dark font-bold tracking-wide'>
+                    <h3 className='text-green-dark tracking-wide'>
                       TOTAL
                     </h3>
                     <h3 className='ml-auto mr-1 font-bold text-sm text-green-dark'>
@@ -165,16 +166,25 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                     </h3>
                   </div>
                   <div className='flex'>
-                    <h3 className='text-green-dark font-bold tracking-wide'>
+                    <h3 className='text-green-dark tracking-wide'>
                       PRODUTOS
                     </h3>
-
                     <h3 className='ml-auto font-bold text-green-dark'>
                       {me.me.cart.quantity}
                     </h3>
                   </div>
                 </div>
-                <div className='flex w-[30%]'></div>
+                <div className='flex w-[40%] ml-auto p-2'>
+                  <Link href='/checkout'>
+                    <a className='h-full w-full flex flex-col rounded-md hover:bg-green-extraLight'>
+                      <h5 className='text-center mt-auto font-bold text-green-dark tracking-wider'>Checkout</h5>
+                      <NarrowArrow
+                        tailwind='h-5 mb-auto text-green-dark'
+                        strokeWidth={2.5}
+                      />
+                    </a>
+                  </Link>
+                </div>
               </div>
             </>
           )}
