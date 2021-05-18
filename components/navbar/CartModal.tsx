@@ -13,11 +13,11 @@ import { Minus } from '../svg/Minus'
 import { NarrowArrow } from '../svg/NarrowArrow'
 
 interface CartModalProps {
-  me: MeQuery
+  data: MeQuery
   modalRef: MutableRefObject<HTMLDivElement>
 }
 
-export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
+export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
   const [changeItemQuantity] = useChangeItemQuantityMutation({
     errorPolicy: 'all',
   })
@@ -31,16 +31,16 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
       ref={modalRef}
       className='absolute flex flex-col z-[20] w-[20rem] min-h-[4rem] max-h-[20.2rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white overflow-hidden'
     >
-      {me.me ? (
+      {data?.me ? (
         <>
-          {me.me.cart.cartItems.length < 1 ? (
+          {data.me.cart.cartItems.length < 1 ? (
             <h4 className='m-auto tracking-wider text-green-dark'>
               O seu cesto está vazio!
             </h4>
           ) : (
             <>
               <div className='flex flex-col w-full pb-3 px-2 h-[75%] max-h-[16rem] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
-                {me.me.cart.cartItems.map((cartItem) => (
+                {data.me.cart.cartItems.map((cartItem) => (
                   <div
                     key={cartItem.id}
                     className='flex relative w-[98%] p-2 mt-3 h-[5.4rem] rounded-md shadow-around'
@@ -92,12 +92,12 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                         await removeItem({
                           variables: {
                             cartItemId: cartItem.id,
-                            cartId: me.me.cart.id,
+                            cartId: data.me.cart.id,
                             productId: cartItem.product.id,
                           },
                           update: (cache) => {
                             cache.evict({ id: `CartItem:${cartItem.id}` })
-                            cache.evict({ id: `Cart:${me.me.cart.id}` })
+                            cache.evict({ id: `Cart:${data.me.cart.id}` })
                           },
                         })
                       }}
@@ -112,12 +112,12 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                             variables: {
                               plusOrMinusOne: -1,
                               cartItemId: cartItem.id,
-                              cartId: me.me.cart.id,
+                              cartId: data.me.cart.id,
                               productId: cartItem.product.id,
                             },
                             update: (cache) => {
                               cache.evict({ id: `CartItem:${cartItem.id}` })
-                              cache.evict({ id: `Cart:${me.me.cart.id}` })
+                              cache.evict({ id: `Cart:${data.me.cart.id}` })
                             },
                           })
                         }}
@@ -135,12 +135,12 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                             variables: {
                               plusOrMinusOne: 1,
                               cartItemId: cartItem.id,
-                              cartId: me.me.cart.id,
+                              cartId: data.me.cart.id,
                               productId: cartItem.product.id,
                             },
                             update: (cache) => {
                               cache.evict({ id: `CartItem:${cartItem.id}` })
-                              cache.evict({ id: `Cart:${me.me.cart.id}` })
+                              cache.evict({ id: `Cart:${data.me.cart.id}` })
                             },
                           })
                         }}
@@ -162,7 +162,7 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                       €
                     </h3>
                     <h3 className='font-bold text-green-dark'>
-                      {me.me.cart.price.toFixed(2)}
+                      {data.me.cart.price.toFixed(2)}
                     </h3>
                   </div>
                   <div className='flex'>
@@ -170,7 +170,7 @@ export const CartModal: React.FC<CartModalProps> = ({ me, modalRef }) => {
                       PRODUTOS
                     </h3>
                     <h3 className='ml-auto font-bold text-green-dark'>
-                      {me.me.cart.quantity}
+                      {data.me.cart.quantity}
                     </h3>
                   </div>
                 </div>

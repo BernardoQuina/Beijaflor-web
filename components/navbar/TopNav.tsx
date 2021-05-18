@@ -243,7 +243,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
-        {cartModal && <CartModal me={data} modalRef={cartModalNode} />}
+        {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
       </div>
     </motion.div>
   )
