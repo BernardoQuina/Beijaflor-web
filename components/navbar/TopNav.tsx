@@ -200,7 +200,7 @@ export const TopNav: React.FC<TopNavProps> = ({
       </motion.div>
       <div className='relative z-[1] flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
         <button
-          className='md:mx-auto'
+          className='relative md:mx-auto'
           type='button'
           ref={cartButtonNode}
           onClick={() => {
@@ -211,10 +211,15 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={1.5} />
+          {data?.me && (
+            <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
+              {data.me.cart.quantity}
+            </h6>
+          )}
+          <ShoppingBag tailwind='h-9 text-green-dark' strokeWidth={1.5} />
         </button>
         <button className='md:mx-auto'>
-          <Heart tailwind='h-8 text-green-dark mx-2' strokeWidth={1.5} />
+          <Heart tailwind='h-9 text-green-dark mx-2' strokeWidth={1.5} />
         </button>
         <button
           className='md:mx-auto'
