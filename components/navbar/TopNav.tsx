@@ -91,6 +91,7 @@ export const TopNav: React.FC<TopNavProps> = ({
     document.addEventListener('mousedown', cartButtonClick)
 
     return () => {
+      document.removeEventListener('mousedown', profileButtonClick)
       document.removeEventListener('mousedown', cartButtonClick)
     }
   }, [])
@@ -166,7 +167,12 @@ export const TopNav: React.FC<TopNavProps> = ({
           className='flex absolute left-[92%] translate-x-[-92%] self-center'
           type='submit'
           onClick={() => {
-            if (
+            if (search === '') {
+              if (router.pathname.includes('explorar')) {
+                return
+              }
+              router.push('/explorar')
+            } else if (
               router.query.categories &&
               router.query.categories.includes(search)
             ) {
@@ -185,8 +191,12 @@ export const TopNav: React.FC<TopNavProps> = ({
           onChange={(e) => setSearch(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              console.log(router.query)
-              if (
+              if (search === '') {
+                if (router.pathname.includes('explorar')) {
+                  return
+                }
+                router.push('/explorar')
+              } else if (
                 router.query.categories &&
                 router.query.categories.includes(search)
               ) {

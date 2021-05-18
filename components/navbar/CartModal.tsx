@@ -155,9 +155,7 @@ export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
               <div className='flex w-full h-[4rem] border-t'>
                 <div className='flex flex-col w-[55%] p-2'>
                   <div className='flex'>
-                    <h3 className='text-green-dark tracking-wide'>
-                      TOTAL
-                    </h3>
+                    <h3 className='text-green-dark tracking-wide'>TOTAL</h3>
                     <h3 className='ml-auto mr-1 font-bold text-sm text-green-dark'>
                       €
                     </h3>
@@ -166,9 +164,7 @@ export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
                     </h3>
                   </div>
                   <div className='flex'>
-                    <h3 className='text-green-dark tracking-wide'>
-                      PRODUTOS
-                    </h3>
+                    <h3 className='text-green-dark tracking-wide'>PRODUTOS</h3>
                     <h3 className='ml-auto font-bold text-green-dark'>
                       {data.me.cart.quantity}
                     </h3>
@@ -177,7 +173,9 @@ export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
                 <div className='flex w-[40%] ml-auto p-2'>
                   <Link href='/checkout'>
                     <a className='h-full w-full flex flex-col rounded-md hover:bg-green-extraLight'>
-                      <h5 className='text-center mt-auto font-bold text-green-dark tracking-wider'>Checkout</h5>
+                      <h5 className='text-center mt-auto font-bold text-green-dark tracking-wider'>
+                        Checkout
+                      </h5>
                       <NarrowArrow
                         tailwind='h-5 mb-auto text-green-dark'
                         strokeWidth={2.5}
