@@ -1,0 +1,9 @@
+mutation CreateCartItem(
+  $cartId: String!
+  $productId: String!
+  $quantity: Int!
+) {
+  createCartItem(cartId: $cartId, productId: $productId, quantity: $quantity) {
+    ...BasicCartItemInfo
+  }
+}

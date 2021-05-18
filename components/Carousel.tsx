@@ -122,7 +122,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   return (
     <div className='w-full h-full flex flex-col'>
-      <div className='flex h-full w-full relative'>
+      <div className='flex h-full w-full relative z-[0]'>
         {(isRepeating || currentIndex > 0) && (
           <button
             className='absolute z-[1] top-[50%] translate-y-[-50%] w-[24px] text-green-dark left-[5px] lg:left-[0px] text-2xl font-bold'

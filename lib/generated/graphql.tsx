@@ -20,6 +20,98 @@ export type BoolFilter = {
   not?: Maybe<NestedBoolFilter>;
 };
 
+export type Cart = {
+  __typename?: 'Cart';
+  id: Scalars['String'];
+  user: User;
+  cartItems: Array<CartItem>;
+  price: Scalars['Float'];
+  quantity: Scalars['Int'];
+  userId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type CartCartItemsArgs = {
+  orderBy?: Maybe<Array<CartItemOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<CartItemWhereUniqueInput>;
+};
+
+export type CartItem = {
+  __typename?: 'CartItem';
+  id: Scalars['String'];
+  product: Product;
+  quantity: Scalars['Int'];
+  cart: Cart;
+  productId: Scalars['String'];
+  cartId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CartItemListRelationFilter = {
+  every?: Maybe<CartItemWhereInput>;
+  some?: Maybe<CartItemWhereInput>;
+  none?: Maybe<CartItemWhereInput>;
+};
+
+export type CartItemOrderByInput = {
+  id?: Maybe<SortOrder>;
+  quantity?: Maybe<SortOrder>;
+  productId?: Maybe<SortOrder>;
+  cartId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type CartItemWhereInput = {
+  AND?: Maybe<Array<CartItemWhereInput>>;
+  OR?: Maybe<Array<CartItemWhereInput>>;
+  NOT?: Maybe<Array<CartItemWhereInput>>;
+  id?: Maybe<StringFilter>;
+  product?: Maybe<ProductWhereInput>;
+  quantity?: Maybe<IntFilter>;
+  cart?: Maybe<CartWhereInput>;
+  productId?: Maybe<StringFilter>;
+  cartId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type CartItemWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type CartOrderByInput = {
+  id?: Maybe<SortOrder>;
+  price?: Maybe<SortOrder>;
+  quantity?: Maybe<SortOrder>;
+  userId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type CartWhereInput = {
+  AND?: Maybe<Array<CartWhereInput>>;
+  OR?: Maybe<Array<CartWhereInput>>;
+  NOT?: Maybe<Array<CartWhereInput>>;
+  id?: Maybe<StringFilter>;
+  user?: Maybe<UserWhereInput>;
+  cartItems?: Maybe<CartItemListRelationFilter>;
+  price?: Maybe<FloatFilter>;
+  quantity?: Maybe<IntFilter>;
+  userId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type CartWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['String'];
@@ -151,6 +243,9 @@ export type Mutation = {
   createCategory?: Maybe<Category>;
   editCategory?: Maybe<Category>;
   deleteCategory?: Maybe<Scalars['Boolean']>;
+  createCartItem?: Maybe<CartItem>;
+  changeItemQuantity?: Maybe<CartItem>;
+  removeItem?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -242,6 +337,28 @@ export type MutationEditCategoryArgs = {
 
 export type MutationDeleteCategoryArgs = {
   whereId: Scalars['String'];
+};
+
+
+export type MutationCreateCartItemArgs = {
+  cartId: Scalars['String'];
+  productId: Scalars['String'];
+  quantity: Scalars['Int'];
+};
+
+
+export type MutationChangeItemQuantityArgs = {
+  plusOrMinusOne: Scalars['Int'];
+  cartItemId: Scalars['String'];
+  cartId: Scalars['String'];
+  productId: Scalars['String'];
+};
+
+
+export type MutationRemoveItemArgs = {
+  cartItemId: Scalars['String'];
+  cartId: Scalars['String'];
+  productId: Scalars['String'];
 };
 
 export type NestedBoolFilter = {
@@ -346,6 +463,7 @@ export type Product = {
   exposure?: Maybe<Scalars['String']>;
   temperature?: Maybe<Scalars['String']>;
   lifespan?: Maybe<Scalars['String']>;
+  cartItems: Array<CartItem>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -355,6 +473,13 @@ export type ProductCategoriesArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<CategoryWhereUniqueInput>;
+};
+
+
+export type ProductCartItemsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<CartItemWhereUniqueInput>;
 };
 
 export type ProductListRelationFilter = {
@@ -399,6 +524,7 @@ export type ProductWhereInput = {
   lifespan?: Maybe<StringNullableFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
+  cartItems?: Maybe<CartItemListRelationFilter>;
 };
 
 export type ProductWhereUniqueInput = {
@@ -420,6 +546,10 @@ export type Query = {
   category?: Maybe<Category>;
   categories: Array<Category>;
   categoryCount?: Maybe<Scalars['Int']>;
+  cart?: Maybe<Cart>;
+  carts: Array<Cart>;
+  cartItem?: Maybe<CartItem>;
+  cartItems: Array<CartItem>;
 };
 
 
@@ -462,6 +592,34 @@ export type QueryCategoriesArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<CategoryWhereUniqueInput>;
+};
+
+
+export type QueryCartArgs = {
+  where: CartWhereUniqueInput;
+};
+
+
+export type QueryCartsArgs = {
+  where?: Maybe<CartWhereInput>;
+  orderBy?: Maybe<Array<CartOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<CartWhereUniqueInput>;
+};
+
+
+export type QueryCartItemArgs = {
+  where: CartItemWhereUniqueInput;
+};
+
+
+export type QueryCartItemsArgs = {
+  where?: Maybe<CartItemWhereInput>;
+  orderBy?: Maybe<Array<CartItemOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<CartItemWhereUniqueInput>;
 };
 
 export enum QueryMode {
@@ -544,6 +702,7 @@ export type User = {
   passwordHash?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
+  cart?: Maybe<Cart>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -575,6 +734,7 @@ export type UserWhereInput = {
   photo?: Maybe<StringNullableFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
+  cart?: Maybe<CartWhereInput>;
 };
 
 export type UserWhereUniqueInput = {
@@ -583,6 +743,24 @@ export type UserWhereUniqueInput = {
   facebookId?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
 };
+
+export type BasicCartInfoFragment = (
+  { __typename?: 'Cart' }
+  & Pick<Cart, 'id' | 'price' | 'quantity' | 'createdAt' | 'updatedAt'>
+  & { cartItems: Array<(
+    { __typename?: 'CartItem' }
+    & BasicCartItemInfoFragment
+  )> }
+);
+
+export type BasicCartItemInfoFragment = (
+  { __typename?: 'CartItem' }
+  & Pick<CartItem, 'id' | 'quantity' | 'createdAt' | 'updatedAt'>
+  & { product: (
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  ) }
+);
 
 export type BasicCategoryInfoFragment = (
   { __typename?: 'Category' }
@@ -601,6 +779,41 @@ export type BasicProductInfoFragment = (
 export type BasicUserInfoFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'googleId' | 'facebookId' | 'email' | 'name' | 'role' | 'photo' | 'createdAt' | 'updatedAt'>
+  & { cart?: Maybe<(
+    { __typename?: 'Cart' }
+    & BasicCartInfoFragment
+  )> }
+);
+
+export type ChangeItemQuantityMutationVariables = Exact<{
+  plusOrMinusOne: Scalars['Int'];
+  cartItemId: Scalars['String'];
+  cartId: Scalars['String'];
+  productId: Scalars['String'];
+}>;
+
+
+export type ChangeItemQuantityMutation = (
+  { __typename?: 'Mutation' }
+  & { changeItemQuantity?: Maybe<(
+    { __typename?: 'CartItem' }
+    & BasicCartItemInfoFragment
+  )> }
+);
+
+export type CreateCartItemMutationVariables = Exact<{
+  cartId: Scalars['String'];
+  productId: Scalars['String'];
+  quantity: Scalars['Int'];
+}>;
+
+
+export type CreateCartItemMutation = (
+  { __typename?: 'Mutation' }
+  & { createCartItem?: Maybe<(
+    { __typename?: 'CartItem' }
+    & BasicCartItemInfoFragment
+  )> }
 );
 
 export type DeleteCategoryMutationVariables = Exact<{
@@ -754,6 +967,18 @@ export type RegisterMutation = (
   )> }
 );
 
+export type RemoveItemMutationVariables = Exact<{
+  cartItemId: Scalars['String'];
+  cartId: Scalars['String'];
+  productId: Scalars['String'];
+}>;
+
+
+export type RemoveItemMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeItem'>
+);
+
 export type CategoriesQueryVariables = Exact<{
   orderBy?: Maybe<Array<CategoryOrderByInput> | CategoryOrderByInput>;
   search?: Maybe<Scalars['String']>;
@@ -897,6 +1122,29 @@ export const BasicProductInfoFragmentDoc = gql`
   lifespan
 }
     ${BasicCategoryInfoFragmentDoc}`;
+export const BasicCartItemInfoFragmentDoc = gql`
+    fragment BasicCartItemInfo on CartItem {
+  id
+  quantity
+  product {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicProductInfoFragmentDoc}`;
+export const BasicCartInfoFragmentDoc = gql`
+    fragment BasicCartInfo on Cart {
+  id
+  price
+  quantity
+  cartItems(orderBy: {createdAt: desc}) {
+    ...BasicCartItemInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicCartItemInfoFragmentDoc}`;
 export const BasicUserInfoFragmentDoc = gql`
     fragment BasicUserInfo on User {
   id
@@ -906,10 +1154,89 @@ export const BasicUserInfoFragmentDoc = gql`
   name
   role
   photo
+  cart {
+    ...BasicCartInfo
+  }
   createdAt
   updatedAt
 }
-    `;
+    ${BasicCartInfoFragmentDoc}`;
+export const ChangeItemQuantityDocument = gql`
+    mutation ChangeItemQuantity($plusOrMinusOne: Int!, $cartItemId: String!, $cartId: String!, $productId: String!) {
+  changeItemQuantity(
+    plusOrMinusOne: $plusOrMinusOne
+    cartItemId: $cartItemId
+    cartId: $cartId
+    productId: $productId
+  ) {
+    ...BasicCartItemInfo
+  }
+}
+    ${BasicCartItemInfoFragmentDoc}`;
+export type ChangeItemQuantityMutationFn = Apollo.MutationFunction<ChangeItemQuantityMutation, ChangeItemQuantityMutationVariables>;
+
+/**
+ * __useChangeItemQuantityMutation__
+ *
+ * To run a mutation, you first call `useChangeItemQuantityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeItemQuantityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeItemQuantityMutation, { data, loading, error }] = useChangeItemQuantityMutation({
+ *   variables: {
+ *      plusOrMinusOne: // value for 'plusOrMinusOne'
+ *      cartItemId: // value for 'cartItemId'
+ *      cartId: // value for 'cartId'
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useChangeItemQuantityMutation(baseOptions?: Apollo.MutationHookOptions<ChangeItemQuantityMutation, ChangeItemQuantityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeItemQuantityMutation, ChangeItemQuantityMutationVariables>(ChangeItemQuantityDocument, options);
+      }
+export type ChangeItemQuantityMutationHookResult = ReturnType<typeof useChangeItemQuantityMutation>;
+export type ChangeItemQuantityMutationResult = Apollo.MutationResult<ChangeItemQuantityMutation>;
+export type ChangeItemQuantityMutationOptions = Apollo.BaseMutationOptions<ChangeItemQuantityMutation, ChangeItemQuantityMutationVariables>;
+export const CreateCartItemDocument = gql`
+    mutation CreateCartItem($cartId: String!, $productId: String!, $quantity: Int!) {
+  createCartItem(cartId: $cartId, productId: $productId, quantity: $quantity) {
+    ...BasicCartItemInfo
+  }
+}
+    ${BasicCartItemInfoFragmentDoc}`;
+export type CreateCartItemMutationFn = Apollo.MutationFunction<CreateCartItemMutation, CreateCartItemMutationVariables>;
+
+/**
+ * __useCreateCartItemMutation__
+ *
+ * To run a mutation, you first call `useCreateCartItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCartItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCartItemMutation, { data, loading, error }] = useCreateCartItemMutation({
+ *   variables: {
+ *      cartId: // value for 'cartId'
+ *      productId: // value for 'productId'
+ *      quantity: // value for 'quantity'
+ *   },
+ * });
+ */
+export function useCreateCartItemMutation(baseOptions?: Apollo.MutationHookOptions<CreateCartItemMutation, CreateCartItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCartItemMutation, CreateCartItemMutationVariables>(CreateCartItemDocument, options);
+      }
+export type CreateCartItemMutationHookResult = ReturnType<typeof useCreateCartItemMutation>;
+export type CreateCartItemMutationResult = Apollo.MutationResult<CreateCartItemMutation>;
+export type CreateCartItemMutationOptions = Apollo.BaseMutationOptions<CreateCartItemMutation, CreateCartItemMutationVariables>;
 export const DeleteCategoryDocument = gql`
     mutation DeleteCategory($whereId: String!) {
   deleteCategory(whereId: $whereId)
@@ -1306,6 +1633,39 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const RemoveItemDocument = gql`
+    mutation RemoveItem($cartItemId: String!, $cartId: String!, $productId: String!) {
+  removeItem(cartItemId: $cartItemId, cartId: $cartId, productId: $productId)
+}
+    `;
+export type RemoveItemMutationFn = Apollo.MutationFunction<RemoveItemMutation, RemoveItemMutationVariables>;
+
+/**
+ * __useRemoveItemMutation__
+ *
+ * To run a mutation, you first call `useRemoveItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeItemMutation, { data, loading, error }] = useRemoveItemMutation({
+ *   variables: {
+ *      cartItemId: // value for 'cartItemId'
+ *      cartId: // value for 'cartId'
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useRemoveItemMutation(baseOptions?: Apollo.MutationHookOptions<RemoveItemMutation, RemoveItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveItemMutation, RemoveItemMutationVariables>(RemoveItemDocument, options);
+      }
+export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutation>;
+export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
+export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
 export const CategoriesDocument = gql`
     query Categories($orderBy: [CategoryOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   categories(

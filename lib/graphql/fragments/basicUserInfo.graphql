@@ -6,6 +6,9 @@ fragment BasicUserInfo on User {
   name
   role
   photo
+  cart {
+    ...BasicCartInfo
+  }
   createdAt
   updatedAt
 }

@@ -1,0 +1,10 @@
+fragment BasicCartInfo on Cart {
+  id
+  price
+  quantity
+  cartItems (orderBy: {createdAt: desc}) {
+    ...BasicCartItemInfo
+  }
+  createdAt
+  updatedAt
+}

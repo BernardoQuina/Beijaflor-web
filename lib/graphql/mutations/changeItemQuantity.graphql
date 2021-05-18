@@ -1,0 +1,15 @@
+mutation ChangeItemQuantity(
+  $plusOrMinusOne: Int!
+  $cartItemId: String!
+  $cartId: String!
+  $productId: String!
+) {
+  changeItemQuantity(
+    plusOrMinusOne: $plusOrMinusOne
+    cartItemId: $cartItemId
+    cartId: $cartId
+    productId: $productId
+  ) {
+    ...BasicCartItemInfo
+  }
+}

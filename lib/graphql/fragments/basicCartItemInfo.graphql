@@ -1,0 +1,9 @@
+fragment BasicCartItemInfo on CartItem {
+  id
+  quantity
+  product {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}

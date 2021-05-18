@@ -41,7 +41,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
               secure={true}
             />
           </div>
-          <div className='relative h-[30%] pt-2'>
+          <div className='relative flex flex-col h-[30%] pt-2'>
             <h6 className='ml-4 tracking-widest leading-tight text-pink-medium'>
               {product.categories[product.categories.length - 1].name}
             </h6>
@@ -49,12 +49,13 @@ export const ProductItem: React.FC<ProductItemProps> = ({
               <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
             </button>
             <h4
-              className={`mx-4 mt-2 font-serif leading-tight tracking-wide text-green-medium ${
+              className={`mx-4 my-auto font-serif leading-tight tracking-wide text-green-medium ${
                 sm ? 'text-lg' : 'text-xl'
               }`}
             >
               {product.name}
             </h4>
+            <div className='h-8 w-full'></div>
             <div className='absolute left-4 bottom-1 flex'>
               <h3 className='mr-2 text-green-dark'>€</h3>
               <h3 className='text-xl text-green-dark tracking-widest'>

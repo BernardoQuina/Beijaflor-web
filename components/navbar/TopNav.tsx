@@ -17,6 +17,7 @@ import { Heart } from '../svg/Heart'
 import { Person } from '../svg/Person'
 import { Logo } from '../svg/Logo'
 import { ProfileModal } from './ProfileModal'
+import { CartModal } from './CartModal'
 import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
 
@@ -40,6 +41,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   searchNode,
 }) => {
   const [profileModal, setProfileModal] = useState(false)
+  const [cartModal, setCartModal] = useState(false)
   const [search, setSearch] = useState('')
 
   const router = useRouter()
@@ -48,6 +50,9 @@ export const TopNav: React.FC<TopNavProps> = ({
 
   const profileButtonNode = useRef<HTMLButtonElement | null>(null)
   const profileModalNode = useRef<HTMLDivElement | null>(null)
+
+  const cartButtonNode = useRef<HTMLButtonElement | null>(null)
+  const cartModalNode = useRef<HTMLDivElement | null>(null)
 
   const profileButtonClick = (e: any) => {
     if (
@@ -67,13 +72,26 @@ export const TopNav: React.FC<TopNavProps> = ({
     setProfileModal(false)
   }
 
+  const cartButtonClick = (e: any) => {
+    if (cartButtonNode.current && cartButtonNode.current.contains(e.target)) {
+      return
+    }
+
+    if (cartModalNode.current && cartModalNode.current.contains(e.target)) {
+      return
+    }
+
+    setCartModal(false)
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', profileButtonClick)
+    document.addEventListener('mousedown', cartButtonClick)
 
     return () => {
-      document.removeEventListener('mousedown', profileButtonClick)
+      document.removeEventListener('mousedown', cartButtonClick)
     }
-  })
+  }, [])
 
   return (
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
@@ -179,7 +197,14 @@ export const TopNav: React.FC<TopNavProps> = ({
         />
       </motion.div>
       <div className='relative z-[1] flex transform scale-90 md:scale-100 mx-auto md:w-2/12 lg:w-[12%] 2xl:w-[10%] items-center'>
-        <button className='md:mx-auto'>
+        <button
+          className='md:mx-auto'
+          type='button'
+          ref={cartButtonNode}
+          onClick={() => {
+            setCartModal(!cartModal)
+          }}
+        >
           <ShoppingBag tailwind='h-8 text-green-dark' strokeWidth={1.5} />
         </button>
         <button className='md:mx-auto'>
@@ -207,6 +232,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
+        {cartModal && <CartModal me={data} modalRef={cartModalNode} />}
       </div>
     </motion.div>
   )

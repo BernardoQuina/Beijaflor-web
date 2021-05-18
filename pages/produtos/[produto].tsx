@@ -20,7 +20,10 @@ import {
   SingleProductDocument,
   SingleProductQuery,
   BasicProductInfoFragment,
+  useCreateCartItemMutation,
+  useMeQuery,
 } from '../../lib/generated/graphql'
+import { isServer } from '../../utils/isServer'
 
 interface produtoProps {
   product: BasicProductInfoFragment
@@ -31,6 +34,10 @@ const produto: NextPage<produtoProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
 
   const router = useRouter()
+
+  const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
+
+  const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
 
   useEffect(() => {
     setSelectedImage(product.images[0])
@@ -120,7 +127,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             {product.description}
           </p>
         </div>
-        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-xl overflow-x-auto overflow-y-hidden'>
+        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-2xl overflow-x-auto overflow-y-hidden'>
           {product.height && (
             <div className='mr-1 lg:mr-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
@@ -192,12 +199,30 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               <button
                 className='p-1 rounded-lg shadow-md bg-green-extraLight'
                 onClick={() => setQuantity((prev) => prev + 1)}
-                disabled={quantity >= 100}
+                disabled={quantity >= product.stock}
               >
                 <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
               </button>
             </div>
-            <button className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight'>
+            <button
+              type='button'
+              onClick={async () => {
+                if (data && data.me !== null) {
+                  await createCartItem({
+                    variables: {
+                      cartId: data.me.cart.id,
+                      productId: product.id,
+                      quantity,
+                    },
+                    update: (cache) => {
+                      cache.evict({ fieldName: 'CartItems' })
+                      cache.evict({ id: `Cart:${data.me.cart.id}` })
+                    },
+                  })
+                }
+              }}
+              className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight'
+            >
               <div className='flex mx-auto'>
                 <ShoppingBag
                   tailwind='h-5 xs:h-7 text-green-dark self-center'
