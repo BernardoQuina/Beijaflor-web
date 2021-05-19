@@ -10,6 +10,7 @@ import {
 } from '../lib/generated/graphql'
 import { isServer } from '../utils/isServer'
 import { useCartModal } from '../context/CartModalContext'
+import { LocalCart } from '../utils/localStorageTypes'
 
 interface ProductItemProps {
   product: BasicProductInfoFragment
@@ -31,6 +32,16 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
   const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
+
+  let localCart: LocalCart = {
+    price: 0,
+    quantity: 0,
+    cartItems: [],
+  }
+
+  if (!isServer()) {
+    localCart = JSON.parse(localStorage.getItem('cart'))
+  }
 
   return (
     <div
@@ -75,9 +86,77 @@ export const ProductItem: React.FC<ProductItemProps> = ({
                       cache.evict({ id: `Cart:${data.me.cart.id}` })
                     },
                   })
+                } else {
+                  if (!localCart) {
+                    const newLocalCart: LocalCart = {
+                      price: product.price * 1,
+                      quantity: 1,
+                      cartItems: [
+                        {
+                          quantity: 1,
+                          product: {
+                            id: product.id,
+                            name: product.name,
+                            images: product.images,
+                            price: product.price,
+                            stock: product.stock,
+                          },
+                          createdAt: Date.now(),
+                        },
+                      ],
+                    }
+                    localStorage.setItem('cart', JSON.stringify(newLocalCart))
+                  } else {
+                    const itemsMinusThisOne = localCart.cartItems.filter(
+                      (item) => {
+                        return item.product.name !== product.name
+                      }
+                    )
 
-                  setCartModal('true')
+                    const revisedItems = itemsMinusThisOne.concat({
+                      quantity: 1,
+                      product: {
+                        id: product.id,
+                        name: product.name,
+                        images: product.images,
+                        price: product.price,
+                        stock: product.stock,
+                      },
+                      createdAt: Date.now(),
+                    })
+
+                    const alreadyInCart = localCart.cartItems.filter((item) => {
+                      return item.product.name === product.name
+                    })[0]
+                      ? localCart.cartItems.filter((item) => {
+                          return item.product.name === product.name
+                        })[0]
+                      : { quantity: 0, price: 0 }
+
+                    const priceMinusThisOne =
+                      localCart.price - alreadyInCart.quantity * product.price
+
+                    const revisedPrice = priceMinusThisOne + 1 * product.price
+
+                    const quantityMinusThisOne =
+                      localCart.quantity - alreadyInCart.quantity
+
+                    const revisedQuantity = quantityMinusThisOne + 1
+
+                    const revisedLocalCart: LocalCart = {
+                      price: revisedPrice,
+                      quantity: revisedQuantity,
+                      cartItems: revisedItems,
+                    }
+
+                    localStorage.setItem(
+                      'cart',
+                      JSON.stringify(revisedLocalCart)
+                    )
+                  }
                 }
+
+                setCartModal('true')
               }}
             >
               <ShoppingBag tailwind='h-8 text-pink-dark' strokeWidth={1.8} />

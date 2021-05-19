@@ -59,8 +59,6 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   useEffect(() => {
     localCart = JSON.parse(localStorage.getItem('cart'))
-
-    console.log(localCart)
   }, [])
 
   return (
@@ -260,7 +258,6 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                     }
                     localStorage.setItem('cart', JSON.stringify(newLocalCart))
                   } else {
-                    console.log('here')
                     const itemsMinusThisOne = localCart.cartItems.filter(
                       (item) => {
                         return item.product.name !== product.name
