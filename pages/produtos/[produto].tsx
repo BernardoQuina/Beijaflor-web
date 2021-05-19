@@ -43,7 +43,15 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
 
-  let localCart: LocalCart
+  let localCart: LocalCart = {
+    price: 0,
+    quantity: 0,
+    cartItems: [],
+  }
+
+  if (!isServer()) {
+    localCart = JSON.parse(localStorage.getItem('cart'))
+  }
 
   useEffect(() => {
     setSelectedImage(product.images[0])
@@ -246,11 +254,13 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                             price: product.price,
                             stock: product.stock,
                           },
+                          createdAt: Date.now(),
                         },
                       ],
                     }
                     localStorage.setItem('cart', JSON.stringify(newLocalCart))
                   } else {
+                    console.log('here')
                     const itemsMinusThisOne = localCart.cartItems.filter(
                       (item) => {
                         return item.product.name !== product.name
@@ -266,23 +276,25 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                         price: product.price,
                         stock: product.stock,
                       },
+                      createdAt: Date.now(),
                     })
 
+                    const alreadyInCart = localCart.cartItems.filter((item) => {
+                      return item.product.name === product.name
+                    })[0]
+                      ? localCart.cartItems.filter((item) => {
+                          return item.product.name === product.name
+                        })[0]
+                      : { quantity: 0, price: 0 }
+
                     const priceMinusThisOne =
-                      localCart.price -
-                      localCart.cartItems.filter((item) => {
-                        return item.product.name === product.name
-                      })[0].quantity *
-                        product.price
+                      localCart.price - alreadyInCart.quantity * product.price
 
                     const revisedPrice =
                       priceMinusThisOne + quantity * product.price
 
                     const quantityMinusThisOne =
-                      localCart.quantity -
-                      localCart.cartItems.filter((item) => {
-                        return item.product.name === product.name
-                      })[0].quantity
+                      localCart.quantity - alreadyInCart.quantity
 
                     const revisedQuantity = quantityMinusThisOne + quantity
 

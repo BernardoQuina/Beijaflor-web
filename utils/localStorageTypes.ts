@@ -13,4 +13,5 @@ export type LocalCartItem = {
     price: number
     stock: number
   }
+  createdAt: number
 }

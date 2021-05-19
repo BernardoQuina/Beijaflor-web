@@ -209,116 +209,234 @@ export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
           {localCart && localCart.cartItems.length >= 1 ? (
             <>
               <div className='flex flex-col w-full pb-3 px-2 h-[75%] max-h-[16rem] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
-                {localCart.cartItems.map((cartItem) => (
-                  <div
-                    key={cartItem.product.name}
-                    className='flex relative w-[98%] p-2 mt-3 h-[5.4rem] rounded-md shadow-around'
-                  >
-                    <div className='flex'>
-                      <div className='w-14 h-16 m-auto flex overflow-hidden rounded-md'>
-                        <Image
-                          className='my-auto'
-                          cloudName={
-                            process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-                          }
-                          publicId={cartItem.product.images[0]}
-                          quality={20}
-                          height={250}
-                          width={200}
-                          gravity='auto'
-                          crop='fill'
-                          secure={true}
-                        />
-                      </div>
-                    </div>
-                    <div className='flex flex-col w-[70%]'>
-                      <div className='flex flex-col ml-4 my-auto'>
-                        <Link
-                          href={`/produtos/${encodeURIComponent(
-                            cartItem.product.name
-                          ).replace(/%20/g, '-')}`}
-                        >
-                          <a>
-                            <h5 className='mt-auto leading-tight text-green-dark font-serif tracking-wider'>
-                              {cartItem.product.name}
-                            </h5>
-                          </a>
-                        </Link>
-                        <div className='mb-auto flex mt-1'>
-                          <h5 className='mr-1 text-xs text-green-dark font-bold'>
-                            €
-                          </h5>
-                          <h5 className='text-green-dark font-bold'>
-                            {cartItem.product.price.toFixed(2)}
-                          </h5>
+                {localCart.cartItems
+                  .sort((a, b) => b.createdAt - a.createdAt)
+                  .map((cartItem) => (
+                    <div
+                      key={cartItem.product.name}
+                      className='flex relative w-[98%] p-2 mt-3 h-[5.4rem] rounded-md shadow-around'
+                    >
+                      <div className='flex'>
+                        <div className='w-14 h-16 m-auto flex overflow-hidden rounded-md'>
+                          <Image
+                            className='my-auto'
+                            cloudName={
+                              process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+                            }
+                            publicId={cartItem.product.images[0]}
+                            quality={20}
+                            height={250}
+                            width={200}
+                            gravity='auto'
+                            crop='fill'
+                            secure={true}
+                          />
                         </div>
                       </div>
-                    </div>
-                    <button
-                      className='absolute right-2 top-2 flex'
-                      type='button'
-                      onClick={() => {
-                        // remove from local cart
-                        const itemsMinusThisOne = localCart.cartItems.filter(
-                          (item) => {
-                            return item.product.name !== cartItem.product.name
+                      <div className='flex flex-col w-[70%]'>
+                        <div className='flex flex-col ml-4 my-auto'>
+                          <Link
+                            href={`/produtos/${encodeURIComponent(
+                              cartItem.product.name
+                            ).replace(/%20/g, '-')}`}
+                          >
+                            <a>
+                              <h5 className='mt-auto leading-tight text-green-dark font-serif tracking-wider'>
+                                {cartItem.product.name}
+                              </h5>
+                            </a>
+                          </Link>
+                          <div className='mb-auto flex mt-1'>
+                            <h5 className='mr-1 text-xs text-green-dark font-bold'>
+                              €
+                            </h5>
+                            <h5 className='text-green-dark font-bold'>
+                              {cartItem.product.price.toFixed(2)}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        className='absolute right-2 top-2 flex'
+                        type='button'
+                        onClick={() => {
+                          const itemsMinusThisOne = localCart.cartItems.filter(
+                            (item) => {
+                              return item.product.name !== cartItem.product.name
+                            }
+                          )
+
+                          const priceMinusThisOne =
+                            localCart.price -
+                            localCart.cartItems.filter((item) => {
+                              return item.product.name === cartItem.product.name
+                            })[0].quantity *
+                              cartItem.product.price
+
+                          const quantityMinusThisOne =
+                            localCart.quantity -
+                            localCart.cartItems.filter((item) => {
+                              return item.product.name === cartItem.product.name
+                            })[0].quantity
+
+                          const revisedLocalCart: LocalCart = {
+                            price: priceMinusThisOne,
+                            quantity: quantityMinusThisOne,
+                            cartItems: itemsMinusThisOne,
                           }
-                        )
 
-                        const priceMinusThisOne =
-                          localCart.price -
-                          localCart.cartItems.filter((item) => {
-                            return item.product.name === cartItem.product.name
-                          })[0].quantity *
-                            cartItem.product.price
+                          localStorage.setItem(
+                            'cart',
+                            JSON.stringify(revisedLocalCart)
+                          )
 
-                        const quantityMinusThisOne =
-                          localCart.quantity -
-                          localCart.cartItems.filter((item) => {
-                            return item.product.name === cartItem.product.name
-                          })[0].quantity
-
-                        const revisedLocalCart: LocalCart = {
-                          price: priceMinusThisOne,
-                          quantity: quantityMinusThisOne,
-                          cartItems: itemsMinusThisOne,
-                        }
-
-                        localStorage.setItem(
-                          'cart',
-                          JSON.stringify(revisedLocalCart)
-                        )
-
-                        setLocalStorageChange(true)
-                      }}
-                    >
-                      <X tailwind='h-4 text-green-medium' />
-                    </button>
-                    <div className='flex absolute m-auto w-[20%] right-2 bottom-2'>
-                      <button
-                        className='h-5 self-center'
-                        onClick={async () => {
-                          // -1
+                          setLocalStorageChange(true)
+                          setTimeout(() => setLocalStorageChange(false), 50)
                         }}
-                        disabled={cartItem.quantity <= 1}
                       >
-                        <Minus tailwind='h-4 text-green-dark' strokeWidth={2} />
+                        <X tailwind='h-4 text-green-medium' />
                       </button>
-                      <p className='self-center mx-auto font-bold text-green-dark'>
-                        {cartItem.quantity}
-                      </p>
-                      <button
-                        className='h-5 self-center'
-                        onClick={async () => {
-                          // +1
-                        }}
-                        disabled={cartItem.quantity >= cartItem.product.stock}
-                      >
-                        <Plus tailwind='h-4 text-green-dark' strokeWidth={2} />
-                      </button>
+                      <div className='flex absolute m-auto w-[20%] right-2 bottom-2'>
+                        <button
+                          className='h-5 self-center'
+                          onClick={() => {
+                            const itemsMinusThisOne =
+                              localCart.cartItems.filter((item) => {
+                                return (
+                                  item.product.name !== cartItem.product.name
+                                )
+                              })
+
+                            const revisedItems = itemsMinusThisOne.concat({
+                              quantity: cartItem.quantity - 1,
+                              product: {
+                                id: cartItem.product.id,
+                                name: cartItem.product.name,
+                                images: cartItem.product.images,
+                                price: cartItem.product.price,
+                                stock: cartItem.product.stock,
+                              },
+                              createdAt: cartItem.createdAt,
+                            })
+
+                            const priceMinusThisOne =
+                              localCart.price -
+                              localCart.cartItems.filter((item) => {
+                                return (
+                                  item.product.name === cartItem.product.name
+                                )
+                              })[0].quantity *
+                                cartItem.product.price
+
+                            const revisedPrice =
+                              priceMinusThisOne +
+                              (cartItem.quantity - 1) * cartItem.product.price
+
+                            const quantityMinusThisOne =
+                              localCart.quantity -
+                              localCart.cartItems.filter((item) => {
+                                return (
+                                  item.product.name === cartItem.product.name
+                                )
+                              })[0].quantity
+
+                            const revisedQuantity =
+                              quantityMinusThisOne + cartItem.quantity - 1
+
+                            const revisedLocalCart: LocalCart = {
+                              price: revisedPrice,
+                              quantity: revisedQuantity,
+                              cartItems: revisedItems,
+                            }
+
+                            localStorage.setItem(
+                              'cart',
+                              JSON.stringify(revisedLocalCart)
+                            )
+
+                            setLocalStorageChange(true)
+                            setTimeout(() => setLocalStorageChange(false), 50)
+                          }}
+                          disabled={cartItem.quantity <= 1}
+                        >
+                          <Minus
+                            tailwind='h-4 text-green-dark'
+                            strokeWidth={2}
+                          />
+                        </button>
+                        <p className='self-center mx-auto font-bold text-green-dark'>
+                          {cartItem.quantity}
+                        </p>
+                        <button
+                          className='h-5 self-center'
+                          onClick={async () => {
+                            const itemsMinusThisOne =
+                              localCart.cartItems.filter((item) => {
+                                return (
+                                  item.product.name !== cartItem.product.name
+                                )
+                              })
+
+                            const revisedItems = itemsMinusThisOne.concat({
+                              quantity: cartItem.quantity + 1,
+                              product: {
+                                id: cartItem.product.id,
+                                name: cartItem.product.name,
+                                images: cartItem.product.images,
+                                price: cartItem.product.price,
+                                stock: cartItem.product.stock,
+                              },
+                              createdAt: cartItem.createdAt,
+                            })
+
+                            const priceMinusThisOne =
+                              localCart.price -
+                              localCart.cartItems.filter((item) => {
+                                return (
+                                  item.product.name === cartItem.product.name
+                                )
+                              })[0].quantity *
+                                cartItem.product.price
+
+                            const revisedPrice =
+                              priceMinusThisOne +
+                              (cartItem.quantity + 1) * cartItem.product.price
+
+                            const quantityMinusThisOne =
+                              localCart.quantity -
+                              localCart.cartItems.filter((item) => {
+                                return (
+                                  item.product.name === cartItem.product.name
+                                )
+                              })[0].quantity
+
+                            const revisedQuantity =
+                              quantityMinusThisOne + cartItem.quantity + 1
+
+                            const revisedLocalCart: LocalCart = {
+                              price: revisedPrice,
+                              quantity: revisedQuantity,
+                              cartItems: revisedItems,
+                            }
+
+                            localStorage.setItem(
+                              'cart',
+                              JSON.stringify(revisedLocalCart)
+                            )
+
+                            setLocalStorageChange(true)
+                            setTimeout(() => setLocalStorageChange(false), 50)
+                          }}
+                          disabled={cartItem.quantity >= cartItem.product.stock}
+                        >
+                          <Plus
+                            tailwind='h-4 text-green-dark'
+                            strokeWidth={2}
+                          />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
               <div className='flex w-full h-[4rem] border-t'>
                 <div className='flex flex-col w-[55%] p-2'>
