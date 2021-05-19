@@ -25,6 +25,7 @@ import {
 } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
 import { useCartModal } from '../../context/CartModalContext'
+import { LocalCart } from '../../utils/localStorageTypes'
 
 interface produtoProps {
   product: BasicProductInfoFragment
@@ -42,9 +43,17 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
 
+  let localCart: LocalCart
+
   useEffect(() => {
     setSelectedImage(product.images[0])
   }, [product])
+
+  useEffect(() => {
+    localCart = JSON.parse(localStorage.getItem('cart'))
+
+    console.log(localCart)
+  }, [])
 
   return (
     <Layout>
@@ -222,9 +231,74 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                       cache.evict({ id: `Cart:${data.me.cart.id}` })
                     },
                   })
+                } else {
+                  if (!localCart) {
+                    const newLocalCart: LocalCart = {
+                      price: product.price * quantity,
+                      quantity: quantity,
+                      cartItems: [
+                        {
+                          quantity,
+                          product: {
+                            id: product.id,
+                            name: product.name,
+                            images: product.images,
+                            price: product.price,
+                            stock: product.stock,
+                          },
+                        },
+                      ],
+                    }
+                    localStorage.setItem('cart', JSON.stringify(newLocalCart))
+                  } else {
+                    const itemsMinusThisOne = localCart.cartItems.filter(
+                      (item) => {
+                        return item.product.name !== product.name
+                      }
+                    )
 
-                  setCartModal('true')
+                    const revisedItems = itemsMinusThisOne.concat({
+                      quantity,
+                      product: {
+                        id: product.id,
+                        name: product.name,
+                        images: product.images,
+                        price: product.price,
+                        stock: product.stock,
+                      },
+                    })
+
+                    const priceMinusThisOne =
+                      localCart.price -
+                      localCart.cartItems.filter((item) => {
+                        return item.product.name === product.name
+                      })[0].quantity *
+                        product.price
+
+                    const revisedPrice =
+                      priceMinusThisOne + quantity * product.price
+
+                    const quantityMinusThisOne =
+                      localCart.quantity -
+                      localCart.cartItems.filter((item) => {
+                        return item.product.name === product.name
+                      })[0].quantity
+
+                    const revisedQuantity = quantityMinusThisOne + quantity
+
+                    const revisedLocalCart: LocalCart = {
+                      price: revisedPrice,
+                      quantity: revisedQuantity,
+                      cartItems: revisedItems,
+                    }
+
+                    localStorage.setItem(
+                      'cart',
+                      JSON.stringify(revisedLocalCart)
+                    )
+                  }
                 }
+                setCartModal('true')
               }}
               className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight'
             >
