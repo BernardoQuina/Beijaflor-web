@@ -10,7 +10,7 @@ import {
 } from '../lib/generated/graphql'
 import { isServer } from '../utils/isServer'
 import { useCartModal } from '../context/CartModalContext'
-import { LocalCart } from '../utils/localStorageTypes'
+import { addToLocalCart, LocalCart } from '../utils/localStorageCart'
 
 interface ProductItemProps {
   product: BasicProductInfoFragment
@@ -87,73 +87,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
                     },
                   })
                 } else {
-                  if (!localCart) {
-                    const newLocalCart: LocalCart = {
-                      price: product.price * 1,
-                      quantity: 1,
-                      cartItems: [
-                        {
-                          quantity: 1,
-                          product: {
-                            id: product.id,
-                            name: product.name,
-                            images: product.images,
-                            price: product.price,
-                            stock: product.stock,
-                          },
-                          createdAt: Date.now(),
-                        },
-                      ],
-                    }
-                    localStorage.setItem('cart', JSON.stringify(newLocalCart))
-                  } else {
-                    const itemsMinusThisOne = localCart.cartItems.filter(
-                      (item) => {
-                        return item.product.name !== product.name
-                      }
-                    )
-
-                    const revisedItems = itemsMinusThisOne.concat({
-                      quantity: 1,
-                      product: {
-                        id: product.id,
-                        name: product.name,
-                        images: product.images,
-                        price: product.price,
-                        stock: product.stock,
-                      },
-                      createdAt: Date.now(),
-                    })
-
-                    const alreadyInCart = localCart.cartItems.filter((item) => {
-                      return item.product.name === product.name
-                    })[0]
-                      ? localCart.cartItems.filter((item) => {
-                          return item.product.name === product.name
-                        })[0]
-                      : { quantity: 0, price: 0 }
-
-                    const priceMinusThisOne =
-                      localCart.price - alreadyInCart.quantity * product.price
-
-                    const revisedPrice = priceMinusThisOne + 1 * product.price
-
-                    const quantityMinusThisOne =
-                      localCart.quantity - alreadyInCart.quantity
-
-                    const revisedQuantity = quantityMinusThisOne + 1
-
-                    const revisedLocalCart: LocalCart = {
-                      price: revisedPrice,
-                      quantity: revisedQuantity,
-                      cartItems: revisedItems,
-                    }
-
-                    localStorage.setItem(
-                      'cart',
-                      JSON.stringify(revisedLocalCart)
-                    )
-                  }
+                  addToLocalCart(localCart, product, 1)
                 }
 
                 setCartModal('true')

@@ -21,7 +21,7 @@ import { ProfileModal } from './ProfileModal'
 import { CartModal } from './CartModal'
 import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
-import { LocalCart } from '../../utils/localStorageTypes'
+import { LocalCart } from '../../utils/localStorageCart'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -239,13 +239,15 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
-            {data?.me
-              ? data.me.cart.quantity
-              : localCart
-              ? localCart.quantity
-              : null}
-          </h6>
+          {!isServer() ? (
+            <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
+              {data?.me
+                ? data.me.cart.quantity
+                : localCart
+                ? localCart.quantity
+                : null}
+            </h6>
+          ) : null}
           <ShoppingBag tailwind='h-9 text-green-dark' strokeWidth={1.5} />
         </button>
         <button className='md:mx-auto'>

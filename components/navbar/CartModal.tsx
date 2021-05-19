@@ -11,7 +11,12 @@ import { X } from '../svg/X'
 import { Plus } from '../svg/Plus'
 import { Minus } from '../svg/Minus'
 import { NarrowArrow } from '../svg/NarrowArrow'
-import { LocalCart } from '../../utils/localStorageTypes'
+import {
+  LocalCart,
+  minusOneItem,
+  plusOneItem,
+  removeFromLocalCart,
+} from '../../utils/localStorageCart'
 import { isServer } from '../../utils/isServer'
 
 interface CartModalProps {
@@ -266,38 +271,11 @@ export const CartModal: React.FC<CartModalProps> = ({
                         className='absolute right-2 top-2 flex'
                         type='button'
                         onClick={() => {
-                          const itemsMinusThisOne = localCart.cartItems.filter(
-                            (item) => {
-                              return item.product.name !== cartItem.product.name
-                            }
+                          removeFromLocalCart(
+                            localCart,
+                            cartItem,
+                            setLocalStorageChange
                           )
-
-                          const priceMinusThisOne =
-                            localCart.price -
-                            localCart.cartItems.filter((item) => {
-                              return item.product.name === cartItem.product.name
-                            })[0].quantity *
-                              cartItem.product.price
-
-                          const quantityMinusThisOne =
-                            localCart.quantity -
-                            localCart.cartItems.filter((item) => {
-                              return item.product.name === cartItem.product.name
-                            })[0].quantity
-
-                          const revisedLocalCart: LocalCart = {
-                            price: priceMinusThisOne,
-                            quantity: quantityMinusThisOne,
-                            cartItems: itemsMinusThisOne,
-                          }
-
-                          localStorage.setItem(
-                            'cart',
-                            JSON.stringify(revisedLocalCart)
-                          )
-
-                          setLocalStorageChange(true)
-                          setTimeout(() => setLocalStorageChange(false), 50)
                         }}
                       >
                         <X tailwind='h-4 text-green-medium' />
@@ -306,62 +284,11 @@ export const CartModal: React.FC<CartModalProps> = ({
                         <button
                           className='h-5 self-center'
                           onClick={() => {
-                            const itemsMinusThisOne =
-                              localCart.cartItems.filter((item) => {
-                                return (
-                                  item.product.name !== cartItem.product.name
-                                )
-                              })
-
-                            const revisedItems = itemsMinusThisOne.concat({
-                              quantity: cartItem.quantity - 1,
-                              product: {
-                                id: cartItem.product.id,
-                                name: cartItem.product.name,
-                                images: cartItem.product.images,
-                                price: cartItem.product.price,
-                                stock: cartItem.product.stock,
-                              },
-                              createdAt: cartItem.createdAt,
-                            })
-
-                            const priceMinusThisOne =
-                              localCart.price -
-                              localCart.cartItems.filter((item) => {
-                                return (
-                                  item.product.name === cartItem.product.name
-                                )
-                              })[0].quantity *
-                                cartItem.product.price
-
-                            const revisedPrice =
-                              priceMinusThisOne +
-                              (cartItem.quantity - 1) * cartItem.product.price
-
-                            const quantityMinusThisOne =
-                              localCart.quantity -
-                              localCart.cartItems.filter((item) => {
-                                return (
-                                  item.product.name === cartItem.product.name
-                                )
-                              })[0].quantity
-
-                            const revisedQuantity =
-                              quantityMinusThisOne + cartItem.quantity - 1
-
-                            const revisedLocalCart: LocalCart = {
-                              price: revisedPrice,
-                              quantity: revisedQuantity,
-                              cartItems: revisedItems,
-                            }
-
-                            localStorage.setItem(
-                              'cart',
-                              JSON.stringify(revisedLocalCart)
+                            minusOneItem(
+                              localCart,
+                              cartItem,
+                              setLocalStorageChange
                             )
-
-                            setLocalStorageChange(true)
-                            setTimeout(() => setLocalStorageChange(false), 50)
                           }}
                           disabled={cartItem.quantity <= 1}
                         >
@@ -376,62 +303,11 @@ export const CartModal: React.FC<CartModalProps> = ({
                         <button
                           className='h-5 self-center'
                           onClick={async () => {
-                            const itemsMinusThisOne =
-                              localCart.cartItems.filter((item) => {
-                                return (
-                                  item.product.name !== cartItem.product.name
-                                )
-                              })
-
-                            const revisedItems = itemsMinusThisOne.concat({
-                              quantity: cartItem.quantity + 1,
-                              product: {
-                                id: cartItem.product.id,
-                                name: cartItem.product.name,
-                                images: cartItem.product.images,
-                                price: cartItem.product.price,
-                                stock: cartItem.product.stock,
-                              },
-                              createdAt: cartItem.createdAt,
-                            })
-
-                            const priceMinusThisOne =
-                              localCart.price -
-                              localCart.cartItems.filter((item) => {
-                                return (
-                                  item.product.name === cartItem.product.name
-                                )
-                              })[0].quantity *
-                                cartItem.product.price
-
-                            const revisedPrice =
-                              priceMinusThisOne +
-                              (cartItem.quantity + 1) * cartItem.product.price
-
-                            const quantityMinusThisOne =
-                              localCart.quantity -
-                              localCart.cartItems.filter((item) => {
-                                return (
-                                  item.product.name === cartItem.product.name
-                                )
-                              })[0].quantity
-
-                            const revisedQuantity =
-                              quantityMinusThisOne + cartItem.quantity + 1
-
-                            const revisedLocalCart: LocalCart = {
-                              price: revisedPrice,
-                              quantity: revisedQuantity,
-                              cartItems: revisedItems,
-                            }
-
-                            localStorage.setItem(
-                              'cart',
-                              JSON.stringify(revisedLocalCart)
+                            plusOneItem(
+                              localCart,
+                              cartItem,
+                              setLocalStorageChange
                             )
-
-                            setLocalStorageChange(true)
-                            setTimeout(() => setLocalStorageChange(false), 50)
                           }}
                           disabled={cartItem.quantity >= cartItem.product.stock}
                         >
