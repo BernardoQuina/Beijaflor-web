@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useState } from 'react'
+import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 
@@ -17,15 +17,21 @@ import { isServer } from '../../utils/isServer'
 interface CartModalProps {
   data: MeQuery
   modalRef: MutableRefObject<HTMLDivElement>
+  localStorageChange: boolean
+  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
 }
 
-export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
+export const CartModal: React.FC<CartModalProps> = ({
+  data,
+  modalRef,
+  localStorageChange,
+  setLocalStorageChange,
+}) => {
   const [changeItemQuantity] = useChangeItemQuantityMutation({
     errorPolicy: 'all',
   })
 
   const [removeItem] = useRemoveItemMutation({ errorPolicy: 'all' })
-  const [localStorageChange, setLocalStorageChange] = useState(false)
 
   let localCart: LocalCart = {
     price: 0,

@@ -21,6 +21,7 @@ import { ProfileModal } from './ProfileModal'
 import { CartModal } from './CartModal'
 import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
+import { LocalCart } from '../../utils/localStorageTypes'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -45,6 +46,7 @@ export const TopNav: React.FC<TopNavProps> = ({
 
   const [profileModal, setProfileModal] = useState(false)
   const [search, setSearch] = useState('')
+  const [localStorageChange, setLocalStorageChange] = useState(false)
 
   const router = useRouter()
 
@@ -95,6 +97,22 @@ export const TopNav: React.FC<TopNavProps> = ({
       document.removeEventListener('mousedown', cartButtonClick)
     }
   }, [])
+
+  let localCart: LocalCart = {
+    price: 0,
+    quantity: 0,
+    cartItems: [],
+  }
+
+  if (!isServer()) {
+    localCart = JSON.parse(localStorage.getItem('cart'))
+  }
+
+  useEffect(() => {
+    if (localStorageChange) {
+      localCart = JSON.parse(localStorage.getItem('cart'))
+    }
+  }, [localStorageChange])
 
   return (
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
@@ -221,11 +239,13 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          {data?.me && (
-            <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
-              {data.me.cart.quantity}
-            </h6>
-          )}
+          <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
+            {data?.me
+              ? data.me.cart.quantity
+              : localCart
+              ? localCart.quantity
+              : null}
+          </h6>
           <ShoppingBag tailwind='h-9 text-green-dark' strokeWidth={1.5} />
         </button>
         <button className='md:mx-auto'>
@@ -253,7 +273,14 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
-        {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
+        {cartModal && (
+          <CartModal
+            localStorageChange={localStorageChange}
+            setLocalStorageChange={setLocalStorageChange}
+            data={data}
+            modalRef={cartModalNode}
+          />
+        )}
       </div>
     </motion.div>
   )
