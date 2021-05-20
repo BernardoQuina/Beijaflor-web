@@ -47,6 +47,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   const [profileModal, setProfileModal] = useState(false)
   const [search, setSearch] = useState('')
   const [localStorageChange, setLocalStorageChange] = useState(false)
+  const [cartQuantity, setCartQuantity] = useState(0)
 
   const router = useRouter()
 
@@ -112,7 +113,13 @@ export const TopNav: React.FC<TopNavProps> = ({
     if (localStorageChange) {
       localCart = JSON.parse(localStorage.getItem('cart'))
     }
-  }, [localStorageChange])
+
+    if (data?.me) {
+      setCartQuantity(data.me.cart.quantity)
+    } else if (localCart) {
+      setCartQuantity(localCart.quantity)
+    }
+  }, [localStorageChange, data, localCart])
 
   return (
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
@@ -239,15 +246,9 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          {!isServer() ? (
-            <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
-              {data?.me
-                ? data.me.cart.quantity
-                : localCart
-                ? localCart.quantity
-                : null}
-            </h6>
-          ) : null}
+          <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
+            {cartQuantity}
+          </h6>
           <ShoppingBag tailwind='h-9 text-green-dark' strokeWidth={1.5} />
         </button>
         <button className='md:mx-auto'>
