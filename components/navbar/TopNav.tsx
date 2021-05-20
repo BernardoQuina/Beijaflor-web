@@ -10,7 +10,10 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 import { useCartModal } from '../../context/CartModalContext'
-import { useMeQuery } from '../../lib/generated/graphql'
+import {
+  useCreateCartItemMutation,
+  useMeQuery,
+} from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
 import { Search } from '../svg/Search'
 import { ShoppingBag } from '../svg/ShoppingBag'
@@ -21,7 +24,7 @@ import { ProfileModal } from './ProfileModal'
 import { CartModal } from './CartModal'
 import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
-import { LocalCart } from '../../utils/localStorageCart'
+import { LocalCart, LocalCartItem } from '../../utils/localStorageCart'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -48,10 +51,13 @@ export const TopNav: React.FC<TopNavProps> = ({
   const [search, setSearch] = useState('')
   const [localStorageChange, setLocalStorageChange] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
+  // const [mergeCartsModal, setMergeCartsModal] = useState(false)
 
   const router = useRouter()
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
+
+  const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
 
   const profileButtonNode = useRef<HTMLButtonElement | null>(null)
   const profileModalNode = useRef<HTMLDivElement | null>(null)
@@ -115,6 +121,33 @@ export const TopNav: React.FC<TopNavProps> = ({
     }
 
     if (data?.me) {
+      if (
+        data.me.cart.quantity < 1 &&
+        localCart !== null &&
+        localCart.quantity > 0
+      ) {
+
+        const createForEach = async (cartItems: LocalCartItem[]) => {
+          for (let i = 0; i < cartItems.length; i++) {
+            await createCartItem({
+              variables: {
+                cartId: data.me.cart.id,
+                productId: cartItems[i].product.id,
+                quantity: cartItems[i].quantity
+              },
+              update: (cache) => {
+                cache.evict({ fieldName: 'CartItems' })
+                cache.evict({ id: `Cart:${data.me.cart.id}` })
+              },
+            })
+          }
+        }
+
+        createForEach(localCart.cartItems)
+
+        localStorage.removeItem('cart')
+      }
+
       setCartQuantity(data.me.cart.quantity)
     } else if (localCart) {
       setCartQuantity(localCart.quantity)

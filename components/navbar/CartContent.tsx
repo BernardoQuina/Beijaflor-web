@@ -42,7 +42,7 @@ export const CartContent: React.FC<CartContentProps> = ({
 
   return (
     <>
-      {cart.cartItems.length < 1 ? (
+      {cart === null || cart.cartItems.length < 1 ? (
         <h4 className='m-auto tracking-wider text-green-dark'>
           O seu cesto está vazio!
         </h4>
