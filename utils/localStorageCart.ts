@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
+import { v4 } from 'uuid'
+
 import { BasicProductInfoFragment } from '../lib/generated/graphql'
 
 export type LocalCart = {
@@ -8,6 +10,7 @@ export type LocalCart = {
 }
 
 export type LocalCartItem = {
+  id: string
   quantity: number
   product: {
     id: string
@@ -30,6 +33,7 @@ export const addToLocalCart = (
       quantity: quantity,
       cartItems: [
         {
+          id: v4(),
           quantity,
           product: {
             id: product.id,
@@ -44,13 +48,12 @@ export const addToLocalCart = (
     }
     localStorage.setItem('cart', JSON.stringify(newLocalCart))
   } else {
-    const itemsMinusThisOne = localCart.cartItems.filter(
-      (item) => {
-        return item.product.name !== product.name
-      }
-    )
+    const itemsMinusThisOne = localCart.cartItems.filter((item) => {
+      return item.product.name !== product.name
+    })
 
     const revisedItems = itemsMinusThisOne.concat({
+      id: v4(),
       quantity,
       product: {
         id: product.id,
@@ -73,11 +76,9 @@ export const addToLocalCart = (
     const priceMinusThisOne =
       localCart.price - alreadyInCart.quantity * product.price
 
-    const revisedPrice =
-      priceMinusThisOne + quantity * product.price
+    const revisedPrice = priceMinusThisOne + quantity * product.price
 
-    const quantityMinusThisOne =
-      localCart.quantity - alreadyInCart.quantity
+    const quantityMinusThisOne = localCart.quantity - alreadyInCart.quantity
 
     const revisedQuantity = quantityMinusThisOne + quantity
 
@@ -87,10 +88,7 @@ export const addToLocalCart = (
       cartItems: revisedItems,
     }
 
-    localStorage.setItem(
-      'cart',
-      JSON.stringify(revisedLocalCart)
-    )
+    localStorage.setItem('cart', JSON.stringify(revisedLocalCart))
   }
 }
 
@@ -138,6 +136,7 @@ export const minusOneItem = (
   })
 
   const revisedItems = itemsMinusThisOne.concat({
+    id: cartItem.id,
     quantity: cartItem.quantity - 1,
     product: {
       id: cartItem.product.id,
@@ -189,6 +188,7 @@ export const plusOneItem = (
   })
 
   const revisedItems = itemsMinusThisOne.concat({
+    id: cartItem.id,
     quantity: cartItem.quantity + 1,
     product: {
       id: cartItem.product.id,
