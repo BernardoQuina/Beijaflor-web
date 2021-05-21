@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -97,12 +97,12 @@ export const MergeCartsModal: React.FC<MergeCartsModalProps> = ({
               <div className='flex flex-col min-h-[80.4%] w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-green-medium'>
                 <h5 className='w-[97%] lg:w-[80%] mx-auto my-4 text-center text-green-dark lg:text-xl tracking-wider font-thin'>
                   Já existem itens no cesto da sua conta, como pretende
-                  conciliar com o cesto anterior?
+                  conciliar com o cesto atual?
                 </h5>
                 <div className='w-full flex flex-col lg:flex-row'>
                   <div className=' w-full lg:w-[50%] min-h-[30rem] border-t lg:border-r'>
                     <h5 className='mt-4 ml-4 text-green-medium text-xl tracking-wider'>
-                      Cesto anterior
+                      Cesto atual
                     </h5>
                     {localCart.cartItems
                       .sort((a, b) => b.createdAt - a.createdAt)
