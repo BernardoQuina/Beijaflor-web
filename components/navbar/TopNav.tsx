@@ -25,6 +25,7 @@ import { CartModal } from './CartModal'
 import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
 import { LocalCart, LocalCartItem } from '../../utils/localStorageCart'
+import { MergeCartsModal } from './MergeCartsModal'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -51,7 +52,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   const [search, setSearch] = useState('')
   const [localStorageChange, setLocalStorageChange] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
-  // const [mergeCartsModal, setMergeCartsModal] = useState(false)
+  const [ShowMergeCartsModal, setShowMergeCartsModal] = useState(false)
 
   const router = useRouter()
 
@@ -124,16 +125,16 @@ export const TopNav: React.FC<TopNavProps> = ({
       if (
         data.me.cart.quantity < 1 &&
         localCart !== null &&
-        localCart.quantity > 0
+        localCart.quantity > 0 &&
+        !ShowMergeCartsModal
       ) {
-
         const createForEach = async (cartItems: LocalCartItem[]) => {
           for (let i = 0; i < cartItems.length; i++) {
             await createCartItem({
               variables: {
                 cartId: data.me.cart.id,
                 productId: cartItems[i].product.id,
-                quantity: cartItems[i].quantity
+                quantity: cartItems[i].quantity,
               },
               update: (cache) => {
                 cache.evict({ fieldName: 'CartItems' })
@@ -146,6 +147,15 @@ export const TopNav: React.FC<TopNavProps> = ({
         createForEach(localCart.cartItems)
 
         localStorage.removeItem('cart')
+      }
+
+      if (
+        data.me.cart.quantity >= 1 &&
+        localCart !== null &&
+        localCart.quantity > 0
+      ) {
+        setShowMergeCartsModal(true)
+        console.log('merge active: ', ShowMergeCartsModal)
       }
 
       setCartQuantity(data.me.cart.quantity)
@@ -318,6 +328,15 @@ export const TopNav: React.FC<TopNavProps> = ({
           />
         )}
       </div>
+      {data?.me && (
+        <MergeCartsModal
+          showMergeCartsModal={ShowMergeCartsModal}
+          setShowMergeCartsModal={setShowMergeCartsModal}
+          localCart={localCart}
+          data={data}
+          setLocalStorageChange={setLocalStorageChange}
+        />
+      )}
     </motion.div>
   )
 }
