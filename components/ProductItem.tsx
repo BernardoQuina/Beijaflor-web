@@ -7,6 +7,7 @@ import {
   BasicProductInfoFragment,
   useCreateCartItemMutation,
   useMeQuery,
+  useToggleFromWishListMutation,
 } from '../lib/generated/graphql'
 import { isServer } from '../utils/isServer'
 import { useCartModal } from '../context/CartModalContext'
@@ -33,6 +34,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({
 
   const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
 
+  const [toggleFromWishList] = useToggleFromWishListMutation({
+    errorPolicy: 'all',
+  })
+
   let localCart: LocalCart = {
     price: 0,
     quantity: 0,
@@ -50,8 +55,41 @@ export const ProductItem: React.FC<ProductItemProps> = ({
       <Link href={`/produtos/${routeName}`}>
         <a>
           <div className='w-full h-[70%] overflow-hidden'>
-            <button className='absolute top-4 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'>
-              <Heart tailwind='h-8 text-pink-dark' strokeWidth={1.8} />
+            <button
+              className='absolute top-4 right-4 rounded-full p-2 bg-opacity-20 bg-white hover:bg-opacity-100'
+              type='button'
+              onClick={async (e) => {
+                e.preventDefault()
+
+                if (data?.me) {
+                  await toggleFromWishList({
+                    variables: {
+                      productId: product.id,
+                      wishListId: data.me.wishlist.id,
+                    },
+                    update: (cache, { data: mutationData }) => {
+                      cache.modify({
+                        id: `Product:${product.id}`,
+                        fields: {
+                          wishLists() {
+                            return [mutationData.toggleFromWishList]
+                          },
+                        },
+                      })
+                      cache.evict({ id: `Wishlist:${data.me.wishlist.id}` })
+                    },
+                  })
+                }
+              }}
+            >
+              <Heart
+                tailwind={`h-8 text-pink-dark ${
+                  data?.me?.wishlist.products.some(
+                    (wishProduct) => wishProduct.id === product.id
+                  ) && 'fill-current'
+                }`}
+                strokeWidth={1.8}
+              />
             </button>
             <Image
               cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}

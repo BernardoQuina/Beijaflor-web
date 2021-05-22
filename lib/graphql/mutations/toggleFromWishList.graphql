@@ -1,0 +1,5 @@
+mutation ToggleFromWishList($wishListId: String!, $productId: String!) {
+  toggleFromWishList(wishListId: $wishListId, productId: $productId) {
+    ...BasicWishListInfo
+  }
+}

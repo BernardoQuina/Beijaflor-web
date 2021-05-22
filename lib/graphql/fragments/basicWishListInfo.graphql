@@ -1,0 +1,8 @@
+fragment BasicWishListInfo on WishList {
+  id
+  products {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}

@@ -246,6 +246,7 @@ export type Mutation = {
   createCartItem?: Maybe<CartItem>;
   changeItemQuantity?: Maybe<CartItem>;
   removeItem?: Maybe<Scalars['Boolean']>;
+  toggleFromWishList?: Maybe<WishList>;
 };
 
 
@@ -361,6 +362,12 @@ export type MutationRemoveItemArgs = {
   productId: Scalars['String'];
 };
 
+
+export type MutationToggleFromWishListArgs = {
+  wishListId: Scalars['String'];
+  productId: Scalars['String'];
+};
+
 export type NestedBoolFilter = {
   equals?: Maybe<Scalars['Boolean']>;
   not?: Maybe<NestedBoolFilter>;
@@ -464,6 +471,7 @@ export type Product = {
   temperature?: Maybe<Scalars['String']>;
   lifespan?: Maybe<Scalars['String']>;
   cartItems: Array<CartItem>;
+  wishLists: Array<WishList>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -480,6 +488,13 @@ export type ProductCartItemsArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<CartItemWhereUniqueInput>;
+};
+
+
+export type ProductWishListsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<WishListWhereUniqueInput>;
 };
 
 export type ProductListRelationFilter = {
@@ -525,6 +540,7 @@ export type ProductWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   cartItems?: Maybe<CartItemListRelationFilter>;
+  wishLists?: Maybe<WishListListRelationFilter>;
 };
 
 export type ProductWhereUniqueInput = {
@@ -550,6 +566,8 @@ export type Query = {
   carts: Array<Cart>;
   cartItem?: Maybe<CartItem>;
   cartItems: Array<CartItem>;
+  wishList?: Maybe<WishList>;
+  wishLists: Array<WishList>;
 };
 
 
@@ -620,6 +638,20 @@ export type QueryCartItemsArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<CartItemWhereUniqueInput>;
+};
+
+
+export type QueryWishListArgs = {
+  where: WishListWhereUniqueInput;
+};
+
+
+export type QueryWishListsArgs = {
+  where?: Maybe<WishListWhereInput>;
+  orderBy?: Maybe<Array<WishListOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<WishListWhereUniqueInput>;
 };
 
 export enum QueryMode {
@@ -703,6 +735,7 @@ export type User = {
   name: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
   cart?: Maybe<Cart>;
+  wishlist?: Maybe<WishList>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -735,6 +768,7 @@ export type UserWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   cart?: Maybe<CartWhereInput>;
+  wishlist?: Maybe<WishListWhereInput>;
 };
 
 export type UserWhereUniqueInput = {
@@ -742,6 +776,52 @@ export type UserWhereUniqueInput = {
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+};
+
+export type WishList = {
+  __typename?: 'WishList';
+  id: Scalars['String'];
+  user: User;
+  products: Array<Product>;
+  userId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type WishListProductsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<ProductWhereUniqueInput>;
+};
+
+export type WishListListRelationFilter = {
+  every?: Maybe<WishListWhereInput>;
+  some?: Maybe<WishListWhereInput>;
+  none?: Maybe<WishListWhereInput>;
+};
+
+export type WishListOrderByInput = {
+  id?: Maybe<SortOrder>;
+  userId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type WishListWhereInput = {
+  AND?: Maybe<Array<WishListWhereInput>>;
+  OR?: Maybe<Array<WishListWhereInput>>;
+  NOT?: Maybe<Array<WishListWhereInput>>;
+  id?: Maybe<StringFilter>;
+  user?: Maybe<UserWhereInput>;
+  products?: Maybe<ProductListRelationFilter>;
+  userId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type WishListWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
 };
 
 export type BasicCartInfoFragment = (
@@ -782,6 +862,18 @@ export type BasicUserInfoFragment = (
   & { cart?: Maybe<(
     { __typename?: 'Cart' }
     & BasicCartInfoFragment
+  )>, wishlist?: Maybe<(
+    { __typename?: 'WishList' }
+    & BasicWishListInfoFragment
+  )> }
+);
+
+export type BasicWishListInfoFragment = (
+  { __typename?: 'WishList' }
+  & Pick<WishList, 'id' | 'createdAt' | 'updatedAt'>
+  & { products: Array<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
   )> }
 );
 
@@ -979,6 +1071,20 @@ export type RemoveItemMutation = (
   & Pick<Mutation, 'removeItem'>
 );
 
+export type ToggleFromWishListMutationVariables = Exact<{
+  wishListId: Scalars['String'];
+  productId: Scalars['String'];
+}>;
+
+
+export type ToggleFromWishListMutation = (
+  { __typename?: 'Mutation' }
+  & { toggleFromWishList?: Maybe<(
+    { __typename?: 'WishList' }
+    & BasicWishListInfoFragment
+  )> }
+);
+
 export type CategoriesQueryVariables = Exact<{
   orderBy?: Maybe<Array<CategoryOrderByInput> | CategoryOrderByInput>;
   search?: Maybe<Scalars['String']>;
@@ -1145,6 +1251,16 @@ export const BasicCartInfoFragmentDoc = gql`
   updatedAt
 }
     ${BasicCartItemInfoFragmentDoc}`;
+export const BasicWishListInfoFragmentDoc = gql`
+    fragment BasicWishListInfo on WishList {
+  id
+  products {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicProductInfoFragmentDoc}`;
 export const BasicUserInfoFragmentDoc = gql`
     fragment BasicUserInfo on User {
   id
@@ -1157,10 +1273,14 @@ export const BasicUserInfoFragmentDoc = gql`
   cart {
     ...BasicCartInfo
   }
+  wishlist {
+    ...BasicWishListInfo
+  }
   createdAt
   updatedAt
 }
-    ${BasicCartInfoFragmentDoc}`;
+    ${BasicCartInfoFragmentDoc}
+${BasicWishListInfoFragmentDoc}`;
 export const ChangeItemQuantityDocument = gql`
     mutation ChangeItemQuantity($plusOrMinusOne: Int!, $cartItemId: String!, $cartId: String!, $productId: String!) {
   changeItemQuantity(
@@ -1666,6 +1786,40 @@ export function useRemoveItemMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutation>;
 export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
 export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
+export const ToggleFromWishListDocument = gql`
+    mutation ToggleFromWishList($wishListId: String!, $productId: String!) {
+  toggleFromWishList(wishListId: $wishListId, productId: $productId) {
+    ...BasicWishListInfo
+  }
+}
+    ${BasicWishListInfoFragmentDoc}`;
+export type ToggleFromWishListMutationFn = Apollo.MutationFunction<ToggleFromWishListMutation, ToggleFromWishListMutationVariables>;
+
+/**
+ * __useToggleFromWishListMutation__
+ *
+ * To run a mutation, you first call `useToggleFromWishListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleFromWishListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleFromWishListMutation, { data, loading, error }] = useToggleFromWishListMutation({
+ *   variables: {
+ *      wishListId: // value for 'wishListId'
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useToggleFromWishListMutation(baseOptions?: Apollo.MutationHookOptions<ToggleFromWishListMutation, ToggleFromWishListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ToggleFromWishListMutation, ToggleFromWishListMutationVariables>(ToggleFromWishListDocument, options);
+      }
+export type ToggleFromWishListMutationHookResult = ReturnType<typeof useToggleFromWishListMutation>;
+export type ToggleFromWishListMutationResult = Apollo.MutationResult<ToggleFromWishListMutation>;
+export type ToggleFromWishListMutationOptions = Apollo.BaseMutationOptions<ToggleFromWishListMutation, ToggleFromWishListMutationVariables>;
 export const CategoriesDocument = gql`
     query Categories($orderBy: [CategoryOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   categories(

@@ -9,6 +9,9 @@ fragment BasicUserInfo on User {
   cart {
     ...BasicCartInfo
   }
+  wishlist {
+    ...BasicWishListInfo
+  }
   createdAt
   updatedAt
 }

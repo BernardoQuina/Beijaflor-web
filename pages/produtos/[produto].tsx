@@ -22,6 +22,7 @@ import {
   BasicProductInfoFragment,
   useCreateCartItemMutation,
   useMeQuery,
+  useToggleFromWishListMutation,
 } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
 import { useCartModal } from '../../context/CartModalContext'
@@ -42,6 +43,10 @@ const produto: NextPage<produtoProps> = ({ product }) => {
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
   const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
+
+  const [toggleFromWishList] = useToggleFromWishListMutation({
+    errorPolicy: 'all',
+  })
 
   let localCart: LocalCart = {
     price: 0,
@@ -78,9 +83,30 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 voltar
               </h6>
             </button>
-            <button className='flex mb-2 lg:-mb-6 ml-auto mr-2 lg:mr-10'>
+            <button
+              className='flex mb-2 lg:-mb-6 ml-auto mr-2 lg:mr-10'
+              type='button'
+              onClick={async () => {
+                if (data?.me) {
+                  await toggleFromWishList({
+                    variables: {
+                      productId: product.id,
+                      wishListId: data.me.wishlist.id,
+                    },
+                    update: (cache) => {
+                      cache.evict({ id: `Product:${product.id}` })
+                      cache.evict({ id: `Wishlist:${data.me.wishlist.id}` })
+                    },
+                  })
+                }
+              }}
+            >
               <Heart
-                tailwind='h-8 lg:h-10 text-pink-dark self-center'
+                tailwind={`h-8 lg:h-10 text-pink-dark self-center ${
+                  data?.me?.wishlist.products.some(
+                    (wishProduct) => wishProduct.id === product.id
+                  ) && 'fill-current'
+                }`}
                 strokeWidth={1.8}
               />
             </button>
