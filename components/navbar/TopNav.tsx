@@ -26,6 +26,8 @@ import { Image } from 'cloudinary-react'
 import { useRouter } from 'next/router'
 import { LocalCart, LocalCartItem } from '../../utils/localStorageCart'
 import { MergeCartsModal } from './MergeCartsModal'
+import { useWishlistModal } from '../../context/wishListModalContext'
+import { WishlistModal } from './WishlistModal'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -47,6 +49,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   searchNode,
 }) => {
   const { cartModal, setCartModal } = useCartModal()
+  const { wishlistModal, setWishlistModal } = useWishlistModal()
 
   const [profileModal, setProfileModal] = useState(false)
   const [search, setSearch] = useState('')
@@ -65,6 +68,9 @@ export const TopNav: React.FC<TopNavProps> = ({
 
   const cartButtonNode = useRef<HTMLButtonElement | null>(null)
   const cartModalNode = useRef<HTMLDivElement | null>(null)
+
+  const wishlistButtonNode = useRef<HTMLButtonElement | null>(null)
+  const wishlistModalNode = useRef<HTMLDivElement | null>(null)
 
   const profileButtonClick = (e: any) => {
     if (
@@ -96,13 +102,33 @@ export const TopNav: React.FC<TopNavProps> = ({
     setCartModal('false')
   }
 
+  const wishlistButtonClick = (e: any) => {
+    if (
+      wishlistButtonNode.current &&
+      wishlistButtonNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    if (
+      wishlistModalNode.current &&
+      wishlistModalNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    setWishlistModal('false')
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', profileButtonClick)
     document.addEventListener('mousedown', cartButtonClick)
+    document.addEventListener('mousedown', wishlistButtonClick)
 
     return () => {
       document.removeEventListener('mousedown', profileButtonClick)
       document.removeEventListener('mousedown', cartButtonClick)
+      document.removeEventListener('mousedown', wishlistButtonClick)
     }
   }, [])
 
@@ -294,7 +320,18 @@ export const TopNav: React.FC<TopNavProps> = ({
           </h6>
           <ShoppingBag tailwind='h-9 text-green-dark' strokeWidth={1.5} />
         </button>
-        <button className='md:mx-auto'>
+        <button
+          className='relative md:mx-auto'
+          type='button'
+          ref={wishlistButtonNode}
+          onClick={() => {
+            if (wishlistModal) {
+              setWishlistModal('false')
+            } else {
+              setWishlistModal('true')
+            }
+          }}
+        >
           <Heart tailwind='h-9 text-green-dark mx-2' strokeWidth={1.5} />
         </button>
         <button
@@ -325,6 +362,14 @@ export const TopNav: React.FC<TopNavProps> = ({
             setLocalStorageChange={setLocalStorageChange}
             data={data}
             modalRef={cartModalNode}
+          />
+        )}
+        {wishlistModal && (
+          <WishlistModal
+            localStorageChange={localStorageChange}
+            setLocalStorageChange={setLocalStorageChange}
+            data={data}
+            modalRef={wishlistModalNode}
           />
         )}
       </div>

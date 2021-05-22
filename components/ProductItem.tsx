@@ -12,6 +12,7 @@ import {
 import { isServer } from '../utils/isServer'
 import { useCartModal } from '../context/CartModalContext'
 import { addToLocalCart, LocalCart } from '../utils/localStorageCart'
+import { useWishlistModal } from '../context/wishListModalContext'
 
 interface ProductItemProps {
   product: BasicProductInfoFragment
@@ -29,6 +30,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   const routeName = encodeURIComponent(product.name).replace(/%20/g, '-')
 
   const { setCartModal } = useCartModal()
+  const { setWishlistModal } = useWishlistModal()
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
@@ -62,7 +64,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
                 e.preventDefault()
 
                 if (data?.me) {
-                  await toggleFromWishList({
+                  const response = await toggleFromWishList({
                     variables: {
                       productId: product.id,
                       wishListId: data.me.wishlist.id,
@@ -79,6 +81,14 @@ export const ProductItem: React.FC<ProductItemProps> = ({
                       cache.evict({ id: `Wishlist:${data.me.wishlist.id}` })
                     },
                   })
+
+                  if (
+                    response.data.toggleFromWishList.products.some(
+                      (wishlistProduct) => wishlistProduct.id === product.id
+                    )
+                  ) {
+                    setWishlistModal('true')
+                  }
                 }
               }}
             >
