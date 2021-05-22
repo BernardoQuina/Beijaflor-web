@@ -4,6 +4,7 @@ import { MeQuery } from '../../lib/generated/graphql'
 import { LocalCart } from '../../utils/localStorageCart'
 import { isServer } from '../../utils/isServer'
 import { CartContent } from './CartContent'
+import { WishlistContent } from './WishlistContent'
 
 interface WishlistModalProps {
   data: MeQuery
@@ -40,18 +41,19 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
       className='absolute flex flex-col z-[20] w-[20rem] min-h-[4rem] max-h-[20.2rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white overflow-hidden'
     >
       {data?.me ? (
-        <div>
-          
-        </div>
-      ) : (
-        null
-        // <CartContent
-        //   cart={localCart}
-        //   data={data}
-        //   setLocalStorageChange={setLocalStorageChange}
-        //   isLocal={true}
-        // />
-      )}
+        <WishlistContent
+          data={data}
+          setLocalStorageChange={setLocalStorageChange}
+          wishlist={data.me.wishlist}
+        />
+      ) : null
+      // <CartContent
+      //   cart={localCart}
+      //   data={data}
+      //   setLocalStorageChange={setLocalStorageChange}
+      //   isLocal={true}
+      // />
+      }
     </div>
   )
 }

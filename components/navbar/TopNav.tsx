@@ -315,10 +315,10 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[0.95rem] font-black text-sm text-green-dark'>
+          <h6 className='absolute transform left-[50%] translate-x-[-50%] top-[1.1rem] font-black text-sm text-green-dark'>
             {cartQuantity}
           </h6>
-          <ShoppingBag tailwind='h-9 text-green-dark' strokeWidth={1.5} />
+          <ShoppingBag tailwind='h-10 text-green-dark' strokeWidth={1.5} />
         </button>
         <button
           className='relative md:mx-auto'
@@ -332,7 +332,7 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          <Heart tailwind='h-9 text-green-dark mx-2' strokeWidth={1.5} />
+          <Heart tailwind='h-10 text-green-dark mx-2' strokeWidth={1.5} />
         </button>
         <button
           className='md:mx-auto'
@@ -352,7 +352,7 @@ export const TopNav: React.FC<TopNavProps> = ({
               />
             </div>
           ) : (
-            <Person tailwind='h-8 md:mr-2 text-green-dark' strokeWidth={1.5} />
+            <Person tailwind='h-9 md:mr-2 text-green-dark' strokeWidth={1.5} />
           )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
