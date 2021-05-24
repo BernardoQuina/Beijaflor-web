@@ -8,6 +8,7 @@ declare global {
       NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: string
       NEXT_PUBLIC_CLOUDINARY_KEY: string
       CLOUDINARY_SECRET: string
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string
     }
   }
 }

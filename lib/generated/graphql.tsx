@@ -243,6 +243,7 @@ export type Mutation = {
   createCategory?: Maybe<Category>;
   editCategory?: Maybe<Category>;
   deleteCategory?: Maybe<Scalars['Boolean']>;
+  stripeCharge?: Maybe<Scalars['Boolean']>;
   createCartItem?: Maybe<CartItem>;
   changeItemQuantity?: Maybe<CartItem>;
   removeItem?: Maybe<Scalars['Boolean']>;
@@ -338,6 +339,12 @@ export type MutationEditCategoryArgs = {
 
 export type MutationDeleteCategoryArgs = {
   whereId: Scalars['String'];
+};
+
+
+export type MutationStripeChargeArgs = {
+  id: Scalars['String'];
+  amount: Scalars['Int'];
 };
 
 
@@ -1072,6 +1079,17 @@ export type RemoveItemMutation = (
   & Pick<Mutation, 'removeItem'>
 );
 
+export type StripeChargeMutationVariables = Exact<{
+  id: Scalars['String'];
+  amount: Scalars['Int'];
+}>;
+
+
+export type StripeChargeMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'stripeCharge'>
+);
+
 export type ToggleFromWishListMutationVariables = Exact<{
   wishListId: Scalars['String'];
   productId: Scalars['String'];
@@ -1788,6 +1806,38 @@ export function useRemoveItemMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutation>;
 export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
 export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
+export const StripeChargeDocument = gql`
+    mutation StripeCharge($id: String!, $amount: Int!) {
+  stripeCharge(id: $id, amount: $amount)
+}
+    `;
+export type StripeChargeMutationFn = Apollo.MutationFunction<StripeChargeMutation, StripeChargeMutationVariables>;
+
+/**
+ * __useStripeChargeMutation__
+ *
+ * To run a mutation, you first call `useStripeChargeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useStripeChargeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [stripeChargeMutation, { data, loading, error }] = useStripeChargeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      amount: // value for 'amount'
+ *   },
+ * });
+ */
+export function useStripeChargeMutation(baseOptions?: Apollo.MutationHookOptions<StripeChargeMutation, StripeChargeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<StripeChargeMutation, StripeChargeMutationVariables>(StripeChargeDocument, options);
+      }
+export type StripeChargeMutationHookResult = ReturnType<typeof useStripeChargeMutation>;
+export type StripeChargeMutationResult = Apollo.MutationResult<StripeChargeMutation>;
+export type StripeChargeMutationOptions = Apollo.BaseMutationOptions<StripeChargeMutation, StripeChargeMutationVariables>;
 export const ToggleFromWishListDocument = gql`
     mutation ToggleFromWishList($wishListId: String!, $productId: String!, $merge: Boolean) {
   toggleFromWishList(

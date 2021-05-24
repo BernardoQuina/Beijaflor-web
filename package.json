@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.13",
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.15.0",
     "cloudinary": "^1.25.1",
     "cloudinary-react": "^1.7.0",
     "formik": "^2.2.6",

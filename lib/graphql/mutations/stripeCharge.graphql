@@ -1,0 +1,3 @@
+mutation StripeCharge($id: String!, $amount: Int!) {
+  stripeCharge(id: $id, amount: $amount)
+}
