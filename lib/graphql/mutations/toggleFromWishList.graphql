@@ -1,5 +1,13 @@
-mutation ToggleFromWishList($wishListId: String!, $productId: String!) {
-  toggleFromWishList(wishListId: $wishListId, productId: $productId) {
+mutation ToggleFromWishList(
+  $wishListId: String!
+  $productId: String!
+  $merge: Boolean
+) {
+  toggleFromWishList(
+    wishListId: $wishListId
+    productId: $productId
+    merge: $merge
+  ) {
     ...BasicWishListInfo
   }
 }

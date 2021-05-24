@@ -13,6 +13,7 @@ import { useCartModal } from '../../context/CartModalContext'
 import {
   useCreateCartItemMutation,
   useMeQuery,
+  useToggleFromWishListMutation,
 } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
 import { Search } from '../svg/Search'
@@ -30,6 +31,7 @@ import { useWishlistModal } from '../../context/wishListModalContext'
 import { WishlistModal } from './WishlistModal'
 import { LocalWishlist } from '../../utils/localStorageWishlist'
 import { useLocalStorageChange } from '../../context/localStorageChangeContext'
+import { LocalProduct } from '../../utils/localStorageProduct'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -64,6 +66,9 @@ export const TopNav: React.FC<TopNavProps> = ({
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
   const [createCartItem] = useCreateCartItemMutation({ errorPolicy: 'all' })
+  const [toggleFromWishlist] = useToggleFromWishListMutation({
+    errorPolicy: 'all',
+  })
 
   const profileButtonNode = useRef<HTMLButtonElement | null>(null)
   const profileModalNode = useRef<HTMLDivElement | null>(null)
@@ -189,6 +194,35 @@ export const TopNav: React.FC<TopNavProps> = ({
         localCart.quantity > 0
       ) {
         setShowMergeCartsModal(true)
+      }
+
+      if (localWishlist && localWishlist.products.length > 0) {
+        const addForEach = async (products: LocalProduct[]) => {
+          for (let i = 0; i < products.length; i++) {
+            await toggleFromWishlist({
+              variables: {
+                productId: products[i].id,
+                wishListId: data.me.wishlist.id,
+                merge: true,
+              },
+              update: (cache, { data: mutationData }) => {
+                cache.modify({
+                  id: `Product:${products[i].id}`,
+                  fields: {
+                    wishLists() {
+                      return [mutationData.toggleFromWishList]
+                    },
+                  },
+                })
+                cache.evict({ id: `Wishlist:${data.me.wishlist.id}` })
+              },
+            })
+          }
+        }
+
+        addForEach(localWishlist.products)
+
+        localStorage.removeItem('wishlist')
       }
 
       setCartQuantity(data.me.cart.quantity)
@@ -365,10 +399,7 @@ export const TopNav: React.FC<TopNavProps> = ({
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
         {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
         {wishlistModal && (
-          <WishlistModal
-            data={data}
-            modalRef={wishlistModalNode}
-          />
+          <WishlistModal data={data} modalRef={wishlistModalNode} />
         )}
       </div>
       {data?.me && (

@@ -366,6 +366,7 @@ export type MutationRemoveItemArgs = {
 export type MutationToggleFromWishListArgs = {
   wishListId: Scalars['String'];
   productId: Scalars['String'];
+  merge?: Maybe<Scalars['Boolean']>;
 };
 
 export type NestedBoolFilter = {
@@ -1074,6 +1075,7 @@ export type RemoveItemMutation = (
 export type ToggleFromWishListMutationVariables = Exact<{
   wishListId: Scalars['String'];
   productId: Scalars['String'];
+  merge?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -1787,8 +1789,12 @@ export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutati
 export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
 export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
 export const ToggleFromWishListDocument = gql`
-    mutation ToggleFromWishList($wishListId: String!, $productId: String!) {
-  toggleFromWishList(wishListId: $wishListId, productId: $productId) {
+    mutation ToggleFromWishList($wishListId: String!, $productId: String!, $merge: Boolean) {
+  toggleFromWishList(
+    wishListId: $wishListId
+    productId: $productId
+    merge: $merge
+  ) {
     ...BasicWishListInfo
   }
 }
@@ -1810,6 +1816,7 @@ export type ToggleFromWishListMutationFn = Apollo.MutationFunction<ToggleFromWis
  *   variables: {
  *      wishListId: // value for 'wishListId'
  *      productId: // value for 'productId'
+ *      merge: // value for 'merge'
  *   },
  * });
  */
