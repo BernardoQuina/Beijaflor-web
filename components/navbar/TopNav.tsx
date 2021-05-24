@@ -28,6 +28,8 @@ import { LocalCart, LocalCartItem } from '../../utils/localStorageCart'
 import { MergeCartsModal } from './MergeCartsModal'
 import { useWishlistModal } from '../../context/wishListModalContext'
 import { WishlistModal } from './WishlistModal'
+import { LocalWishlist } from '../../utils/localStorageWishlist'
+import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface TopNavProps {
   setUnderline: Dispatch<SetStateAction<number>>
@@ -50,10 +52,10 @@ export const TopNav: React.FC<TopNavProps> = ({
 }) => {
   const { cartModal, setCartModal } = useCartModal()
   const { wishlistModal, setWishlistModal } = useWishlistModal()
+  const { localStorageChange } = useLocalStorageChange()
 
   const [profileModal, setProfileModal] = useState(false)
   const [search, setSearch] = useState('')
-  const [localStorageChange, setLocalStorageChange] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
   const [ShowMergeCartsModal, setShowMergeCartsModal] = useState(false)
 
@@ -138,13 +140,19 @@ export const TopNav: React.FC<TopNavProps> = ({
     cartItems: [],
   }
 
+  let localWishlist: LocalWishlist = {
+    products: [],
+  }
+
   if (!isServer()) {
     localCart = JSON.parse(localStorage.getItem('cart'))
+    localWishlist = JSON.parse(localStorage.getItem('wishlist'))
   }
 
   useEffect(() => {
     if (localStorageChange) {
       localCart = JSON.parse(localStorage.getItem('cart'))
+      localWishlist = JSON.parse(localStorage.getItem('wishlist'))
     }
 
     if (data?.me) {
@@ -181,14 +189,13 @@ export const TopNav: React.FC<TopNavProps> = ({
         localCart.quantity > 0
       ) {
         setShowMergeCartsModal(true)
-        console.log('merge active: ', ShowMergeCartsModal)
       }
 
       setCartQuantity(data.me.cart.quantity)
     } else if (localCart) {
       setCartQuantity(localCart.quantity)
     }
-  }, [localStorageChange, data, localCart])
+  }, [localStorageChange, data, localCart, localWishlist])
 
   return (
     <motion.div layoutId='top-nav' className='flex w-full h-[3rem]'>
@@ -356,18 +363,9 @@ export const TopNav: React.FC<TopNavProps> = ({
           )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
-        {cartModal && (
-          <CartModal
-            localStorageChange={localStorageChange}
-            setLocalStorageChange={setLocalStorageChange}
-            data={data}
-            modalRef={cartModalNode}
-          />
-        )}
+        {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
         {wishlistModal && (
           <WishlistModal
-            localStorageChange={localStorageChange}
-            setLocalStorageChange={setLocalStorageChange}
             data={data}
             modalRef={wishlistModalNode}
           />
@@ -379,7 +377,6 @@ export const TopNav: React.FC<TopNavProps> = ({
           setShowMergeCartsModal={setShowMergeCartsModal}
           localCart={localCart}
           data={data}
-          setLocalStorageChange={setLocalStorageChange}
         />
       )}
     </motion.div>

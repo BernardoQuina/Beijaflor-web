@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch } from 'react'
 import { v4 } from 'uuid'
 
 import { BasicProductInfoFragment } from '../lib/generated/graphql'
+import { LocalProduct } from './localStorageProduct'
 
 export type LocalCart = {
   price: number
@@ -12,19 +13,13 @@ export type LocalCart = {
 export type LocalCartItem = {
   id: string
   quantity: number
-  product: {
-    id: string
-    name: string
-    images: string[]
-    price: number
-    stock: number
-  }
+  product: LocalProduct
   createdAt: number
 }
 
 export const addToLocalCart = (
   localCart: LocalCart,
-  product: BasicProductInfoFragment,
+  product: BasicProductInfoFragment | LocalProduct,
   quantity: number
 ) => {
   if (!localCart) {
@@ -95,7 +90,7 @@ export const addToLocalCart = (
 export const removeFromLocalCart = (
   localCart: LocalCart,
   cartItem: LocalCartItem,
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
+  setLocalStorageChange: Dispatch<'true' | 'false'>
 ) => {
   const itemsMinusThisOne = localCart.cartItems.filter((item) => {
     return item.product.name !== cartItem.product.name
@@ -122,14 +117,14 @@ export const removeFromLocalCart = (
 
   localStorage.setItem('cart', JSON.stringify(revisedLocalCart))
 
-  setLocalStorageChange(true)
-  setTimeout(() => setLocalStorageChange(false), 50)
+  setLocalStorageChange('true')
+  setTimeout(() => setLocalStorageChange('false'), 50)
 }
 
 export const minusOneItem = (
   localCart: LocalCart,
   cartItem: LocalCartItem,
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
+  setLocalStorageChange: Dispatch<'true' | 'false'>
 ) => {
   const itemsMinusThisOne = localCart.cartItems.filter((item) => {
     return item.product.name !== cartItem.product.name
@@ -174,14 +169,14 @@ export const minusOneItem = (
 
   localStorage.setItem('cart', JSON.stringify(revisedLocalCart))
 
-  setLocalStorageChange(true)
-  setTimeout(() => setLocalStorageChange(false), 50)
+  setLocalStorageChange('true')
+  setTimeout(() => setLocalStorageChange('false'), 50)
 }
 
 export const plusOneItem = (
   localCart: LocalCart,
   cartItem: LocalCartItem,
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
+  setLocalStorageChange: Dispatch<'true' | 'false'>
 ) => {
   const itemsMinusThisOne = localCart.cartItems.filter((item) => {
     return item.product.name !== cartItem.product.name
@@ -226,6 +221,6 @@ export const plusOneItem = (
 
   localStorage.setItem('cart', JSON.stringify(revisedLocalCart))
 
-  setLocalStorageChange(true)
-  setTimeout(() => setLocalStorageChange(false), 50)
+  setLocalStorageChange('true')
+  setTimeout(() => setLocalStorageChange('false'), 50)
 }

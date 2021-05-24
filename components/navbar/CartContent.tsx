@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { Image } from 'cloudinary-react'
 import Link from 'next/link'
 
@@ -20,20 +19,21 @@ import { NarrowArrow } from '../svg/NarrowArrow'
 import { Minus } from '../svg/Minus'
 import { Plus } from '../svg/Plus'
 import { X } from '../svg/X'
+import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface CartContentProps {
   cart: BasicCartInfoFragment | LocalCart
   data: MeQuery
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
   isLocal?: boolean
 }
 
 export const CartContent: React.FC<CartContentProps> = ({
   cart,
   data,
-  setLocalStorageChange,
   isLocal,
 }) => {
+  const { setLocalStorageChange } = useLocalStorageChange()
+
   const [changeItemQuantity] = useChangeItemQuantityMutation({
     errorPolicy: 'all',
   })

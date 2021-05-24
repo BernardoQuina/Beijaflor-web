@@ -1,23 +1,19 @@
-import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react'
+import { MutableRefObject, useEffect } from 'react'
 
 import { MeQuery } from '../../lib/generated/graphql'
 import { LocalCart } from '../../utils/localStorageCart'
 import { isServer } from '../../utils/isServer'
 import { CartContent } from './CartContent'
+import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface CartModalProps {
   data: MeQuery
   modalRef: MutableRefObject<HTMLDivElement>
-  localStorageChange: boolean
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
 }
 
-export const CartModal: React.FC<CartModalProps> = ({
-  data,
-  modalRef,
-  localStorageChange,
-  setLocalStorageChange,
-}) => {
+export const CartModal: React.FC<CartModalProps> = ({ data, modalRef }) => {
+  const { localStorageChange } = useLocalStorageChange()
+
   let localCart: LocalCart = {
     price: 0,
     quantity: 0,
@@ -40,18 +36,9 @@ export const CartModal: React.FC<CartModalProps> = ({
       className='absolute flex flex-col z-[20] w-[20rem] min-h-[4rem] max-h-[20.2rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white overflow-hidden'
     >
       {data?.me ? (
-        <CartContent
-          cart={data.me.cart}
-          data={data}
-          setLocalStorageChange={setLocalStorageChange}
-        />
+        <CartContent cart={data.me.cart} data={data} />
       ) : (
-        <CartContent
-          cart={localCart}
-          data={data}
-          setLocalStorageChange={setLocalStorageChange}
-          isLocal={true}
-        />
+        <CartContent cart={localCart} data={data} isLocal={true} />
       )}
     </div>
   )

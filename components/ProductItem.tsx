@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 
@@ -13,6 +14,11 @@ import { isServer } from '../utils/isServer'
 import { useCartModal } from '../context/CartModalContext'
 import { addToLocalCart, LocalCart } from '../utils/localStorageCart'
 import { useWishlistModal } from '../context/wishListModalContext'
+import {
+  LocalWishlist,
+  toggleFromLocalWishlist,
+} from '../utils/localStorageWishlist'
+import { useLocalStorageChange } from '../context/localStorageChangeContext'
 
 interface ProductItemProps {
   product: BasicProductInfoFragment
@@ -31,6 +37,11 @@ export const ProductItem: React.FC<ProductItemProps> = ({
 
   const { setCartModal } = useCartModal()
   const { setWishlistModal } = useWishlistModal()
+  const { localStorageChange, setLocalStorageChange } = useLocalStorageChange()
+
+  const [localWishlist, setLocalWishlist] = useState<LocalWishlist>({
+    products: [],
+  })
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
@@ -49,6 +60,11 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   if (!isServer()) {
     localCart = JSON.parse(localStorage.getItem('cart'))
   }
+
+  useEffect(() => {
+    localCart = JSON.parse(localStorage.getItem('cart'))
+    setLocalWishlist(JSON.parse(localStorage.getItem('wishlist')))
+  }, [localStorageChange])
 
   return (
     <div
@@ -89,14 +105,27 @@ export const ProductItem: React.FC<ProductItemProps> = ({
                   ) {
                     setWishlistModal('true')
                   }
+                } else {
+                  toggleFromLocalWishlist(
+                    localWishlist,
+                    product,
+                    setLocalStorageChange,
+                    setWishlistModal
+                  )
                 }
               }}
             >
               <Heart
                 tailwind={`h-8 text-pink-dark ${
-                  data?.me?.wishlist.products.some(
+                  (data?.me?.wishlist.products.some(
                     (wishProduct) => wishProduct.id === product.id
-                  ) && 'fill-current'
+                  ) &&
+                    'fill-current') ||
+                  (localWishlist?.products?.some(
+                    (wishProduct) => wishProduct.name === product.name
+                  ) &&
+                    !data?.me &&
+                    'fill-current')
                 }`}
                 strokeWidth={1.8}
               />

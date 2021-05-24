@@ -1,24 +1,27 @@
-import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react'
+import { MutableRefObject, useEffect, useState } from 'react'
 
 import { MeQuery } from '../../lib/generated/graphql'
 import { LocalCart } from '../../utils/localStorageCart'
 import { isServer } from '../../utils/isServer'
-import { CartContent } from './CartContent'
 import { WishlistContent } from './WishlistContent'
+import { LocalWishlist } from '../../utils/localStorageWishlist'
+import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface WishlistModalProps {
   data: MeQuery
   modalRef: MutableRefObject<HTMLDivElement>
-  localStorageChange: boolean
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
 }
 
 export const WishlistModal: React.FC<WishlistModalProps> = ({
   data,
   modalRef,
-  localStorageChange,
-  setLocalStorageChange,
 }) => {
+  const { localStorageChange } = useLocalStorageChange()
+
+  const [localWishlist, setLocalWishlist] = useState<LocalWishlist>({
+    products: [],
+  })
+
   let localCart: LocalCart = {
     price: 0,
     quantity: 0,
@@ -32,8 +35,13 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
   useEffect(() => {
     if (localStorageChange) {
       localCart = JSON.parse(localStorage.getItem('cart'))
+      setLocalWishlist(JSON.parse(localStorage.getItem('wishlist')))
     }
   }, [localStorageChange])
+
+  useEffect(() => {
+    setLocalWishlist(JSON.parse(localStorage.getItem('wishlist')))
+  }, [])
 
   return (
     <div
@@ -43,17 +51,16 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
       {data?.me ? (
         <WishlistContent
           data={data}
-          setLocalStorageChange={setLocalStorageChange}
           wishlist={data.me.wishlist}
+          cart={localCart}
         />
-      ) : null
-      // <CartContent
-      //   cart={localCart}
-      //   data={data}
-      //   setLocalStorageChange={setLocalStorageChange}
-      //   isLocal={true}
-      // />
-      }
+      ) : (
+        <WishlistContent
+          data={data}
+          wishlist={localWishlist}
+          cart={localCart}
+        />
+      )}
     </div>
   )
 }

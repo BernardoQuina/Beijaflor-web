@@ -6,6 +6,7 @@ import '../styles/globals.css'
 
 import { CartModalProvider } from '../context/CartModalContext'
 import { WishlistModalProvider } from '../context/wishListModalContext'
+import { LocalStorageChangeProvider } from '../context/localStorageChangeContext'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const apolloClient = useApollo(pageProps.initialApolloState)
@@ -13,7 +14,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={apolloClient}>
       <CartModalProvider>
         <WishlistModalProvider>
-          <Component {...pageProps} />
+          <LocalStorageChangeProvider>
+            <Component {...pageProps} />
+          </LocalStorageChangeProvider>
         </WishlistModalProvider>
       </CartModalProvider>
     </ApolloProvider>

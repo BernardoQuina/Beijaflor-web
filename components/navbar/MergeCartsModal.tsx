@@ -20,13 +20,13 @@ import {
   useRemoveItemMutation,
 } from '../../lib/generated/graphql'
 import { Sort } from '../svg/Sort'
+import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface MergeCartsModalProps {
   showMergeCartsModal: boolean
   setShowMergeCartsModal: Dispatch<SetStateAction<boolean>>
   localCart: LocalCart
   data: MeQuery
-  setLocalStorageChange: Dispatch<SetStateAction<boolean>>
 }
 
 export const MergeCartsModal: React.FC<MergeCartsModalProps> = ({
@@ -34,8 +34,9 @@ export const MergeCartsModal: React.FC<MergeCartsModalProps> = ({
   setShowMergeCartsModal,
   localCart,
   data,
-  setLocalStorageChange,
 }) => {
+  const { setLocalStorageChange } = useLocalStorageChange()
+
   const [changeItemQuantity] = useChangeItemQuantityMutation({
     errorPolicy: 'all',
   })

@@ -28,6 +28,11 @@ import { isServer } from '../../utils/isServer'
 import { useCartModal } from '../../context/CartModalContext'
 import { addToLocalCart, LocalCart } from '../../utils/localStorageCart'
 import { useWishlistModal } from '../../context/wishListModalContext'
+import {
+  LocalWishlist,
+  toggleFromLocalWishlist,
+} from '../../utils/localStorageWishlist'
+import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface produtoProps {
   product: BasicProductInfoFragment
@@ -36,9 +41,13 @@ interface produtoProps {
 const produto: NextPage<produtoProps> = ({ product }) => {
   const { setCartModal } = useCartModal()
   const { setWishlistModal } = useWishlistModal()
+  const { localStorageChange, setLocalStorageChange } = useLocalStorageChange()
 
   const [selectedImage, setSelectedImage] = useState(product.images[0])
   const [quantity, setQuantity] = useState(1)
+  const [localWishlist, setLocalWishlist] = useState<LocalWishlist>({
+    products: [],
+  })
 
   const router = useRouter()
 
@@ -66,7 +75,8 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   useEffect(() => {
     localCart = JSON.parse(localStorage.getItem('cart'))
-  }, [])
+    setLocalWishlist(JSON.parse(localStorage.getItem('wishlist')))
+  }, [localStorageChange])
 
   return (
     <Layout>
@@ -89,7 +99,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               className='flex mb-2 lg:-mb-6 ml-auto mr-2 lg:mr-10'
               type='button'
               onClick={async () => {
-                if (data?.me) {
+                if (data && data.me !== null) {
                   const response = await toggleFromWishList({
                     variables: {
                       productId: product.id,
@@ -108,14 +118,27 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                   ) {
                     setWishlistModal('true')
                   }
+                } else {
+                  toggleFromLocalWishlist(
+                    localWishlist,
+                    product,
+                    setLocalStorageChange,
+                    setWishlistModal
+                  )
                 }
               }}
             >
               <Heart
                 tailwind={`h-8 lg:h-10 text-pink-dark self-center ${
-                  data?.me?.wishlist.products.some(
+                  (data?.me?.wishlist.products.some(
                     (wishProduct) => wishProduct.id === product.id
-                  ) && 'fill-current'
+                  ) &&
+                    'fill-current') ||
+                  (localWishlist?.products?.some(
+                    (wishProduct) => wishProduct.name === product.name
+                  ) &&
+                    !data?.me &&
+                    'fill-current')
                 }`}
                 strokeWidth={1.8}
               />
@@ -242,7 +265,9 @@ const produto: NextPage<produtoProps> = ({ product }) => {
               </p>
               <button
                 className='p-1 rounded-lg shadow-md bg-green-extraLight'
-                onClick={() => setQuantity((prev) => prev - 1)}
+                onClick={() => {
+                  setQuantity((prev) => prev - 1)
+                }}
                 disabled={quantity <= 1}
               >
                 <Minus tailwind='h-6 text-green-dark' strokeWidth={2} />
