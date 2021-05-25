@@ -1,0 +1,5 @@
+mutation CreatePaymentIntent($amount: Int!) {
+  createPaymentIntent(amount: $amount) {
+    ...BasicPaymentIntent
+  }
+}

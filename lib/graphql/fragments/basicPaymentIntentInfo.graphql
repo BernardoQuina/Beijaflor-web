@@ -1,0 +1,9 @@
+fragment BasicPaymentIntent on PaymentIntent {
+  id
+  amount
+  client_secret
+  last_payment_error {
+      code
+      message
+    }
+}

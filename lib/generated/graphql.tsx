@@ -243,7 +243,8 @@ export type Mutation = {
   createCategory?: Maybe<Category>;
   editCategory?: Maybe<Category>;
   deleteCategory?: Maybe<Scalars['Boolean']>;
-  stripeCharge?: Maybe<Scalars['Boolean']>;
+  createPaymentIntent?: Maybe<PaymentIntent>;
+  successfulPayment?: Maybe<Scalars['Boolean']>;
   createCartItem?: Maybe<CartItem>;
   changeItemQuantity?: Maybe<CartItem>;
   removeItem?: Maybe<Scalars['Boolean']>;
@@ -342,8 +343,7 @@ export type MutationDeleteCategoryArgs = {
 };
 
 
-export type MutationStripeChargeArgs = {
-  id: Scalars['String'];
+export type MutationCreatePaymentIntentArgs = {
   amount: Scalars['Int'];
 };
 
@@ -461,6 +461,21 @@ export type NestedStringNullableFilter = {
   startsWith?: Maybe<Scalars['String']>;
   endsWith?: Maybe<Scalars['String']>;
   not?: Maybe<NestedStringNullableFilter>;
+};
+
+export type PaymentIntent = {
+  __typename?: 'PaymentIntent';
+  id?: Maybe<Scalars['String']>;
+  client_secret?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Int']>;
+  amount_capturable?: Maybe<Scalars['Int']>;
+  amount_received?: Maybe<Scalars['Int']>;
+  last_payment_error?: Maybe<LastPaymentError>;
+  application?: Maybe<Scalars['String']>;
+  application_fee_amount?: Maybe<Scalars['Int']>;
+  canceled_at?: Maybe<Scalars['Int']>;
+  cancellation_reason?: Maybe<Scalars['String']>;
+  capture_method?: Maybe<Scalars['String']>;
 };
 
 export type Product = {
@@ -832,6 +847,12 @@ export type WishListWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type LastPaymentError = {
+  __typename?: 'lastPaymentError';
+  code?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+};
+
 export type BasicCartInfoFragment = (
   { __typename?: 'Cart' }
   & Pick<Cart, 'id' | 'price' | 'quantity' | 'createdAt' | 'updatedAt'>
@@ -853,6 +874,15 @@ export type BasicCartItemInfoFragment = (
 export type BasicCategoryInfoFragment = (
   { __typename?: 'Category' }
   & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'createdAt' | 'updatedAt'>
+);
+
+export type BasicPaymentIntentFragment = (
+  { __typename?: 'PaymentIntent' }
+  & Pick<PaymentIntent, 'id' | 'amount' | 'client_secret'>
+  & { last_payment_error?: Maybe<(
+    { __typename?: 'lastPaymentError' }
+    & Pick<LastPaymentError, 'code' | 'message'>
+  )> }
 );
 
 export type BasicProductInfoFragment = (
@@ -913,6 +943,19 @@ export type CreateCartItemMutation = (
   & { createCartItem?: Maybe<(
     { __typename?: 'CartItem' }
     & BasicCartItemInfoFragment
+  )> }
+);
+
+export type CreatePaymentIntentMutationVariables = Exact<{
+  amount: Scalars['Int'];
+}>;
+
+
+export type CreatePaymentIntentMutation = (
+  { __typename?: 'Mutation' }
+  & { createPaymentIntent?: Maybe<(
+    { __typename?: 'PaymentIntent' }
+    & BasicPaymentIntentFragment
   )> }
 );
 
@@ -1079,15 +1122,12 @@ export type RemoveItemMutation = (
   & Pick<Mutation, 'removeItem'>
 );
 
-export type StripeChargeMutationVariables = Exact<{
-  id: Scalars['String'];
-  amount: Scalars['Int'];
-}>;
+export type SuccessfulPaymentMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StripeChargeMutation = (
+export type SuccessfulPaymentMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'stripeCharge'>
+  & Pick<Mutation, 'successfulPayment'>
 );
 
 export type ToggleFromWishListMutationVariables = Exact<{
@@ -1216,6 +1256,17 @@ export type UserQuery = (
   )> }
 );
 
+export const BasicPaymentIntentFragmentDoc = gql`
+    fragment BasicPaymentIntent on PaymentIntent {
+  id
+  amount
+  client_secret
+  last_payment_error {
+    code
+    message
+  }
+}
+    `;
 export const BasicCategoryInfoFragmentDoc = gql`
     fragment BasicCategoryInfo on Category {
   id
@@ -1377,6 +1428,39 @@ export function useCreateCartItemMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateCartItemMutationHookResult = ReturnType<typeof useCreateCartItemMutation>;
 export type CreateCartItemMutationResult = Apollo.MutationResult<CreateCartItemMutation>;
 export type CreateCartItemMutationOptions = Apollo.BaseMutationOptions<CreateCartItemMutation, CreateCartItemMutationVariables>;
+export const CreatePaymentIntentDocument = gql`
+    mutation CreatePaymentIntent($amount: Int!) {
+  createPaymentIntent(amount: $amount) {
+    ...BasicPaymentIntent
+  }
+}
+    ${BasicPaymentIntentFragmentDoc}`;
+export type CreatePaymentIntentMutationFn = Apollo.MutationFunction<CreatePaymentIntentMutation, CreatePaymentIntentMutationVariables>;
+
+/**
+ * __useCreatePaymentIntentMutation__
+ *
+ * To run a mutation, you first call `useCreatePaymentIntentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePaymentIntentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPaymentIntentMutation, { data, loading, error }] = useCreatePaymentIntentMutation({
+ *   variables: {
+ *      amount: // value for 'amount'
+ *   },
+ * });
+ */
+export function useCreatePaymentIntentMutation(baseOptions?: Apollo.MutationHookOptions<CreatePaymentIntentMutation, CreatePaymentIntentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePaymentIntentMutation, CreatePaymentIntentMutationVariables>(CreatePaymentIntentDocument, options);
+      }
+export type CreatePaymentIntentMutationHookResult = ReturnType<typeof useCreatePaymentIntentMutation>;
+export type CreatePaymentIntentMutationResult = Apollo.MutationResult<CreatePaymentIntentMutation>;
+export type CreatePaymentIntentMutationOptions = Apollo.BaseMutationOptions<CreatePaymentIntentMutation, CreatePaymentIntentMutationVariables>;
 export const DeleteCategoryDocument = gql`
     mutation DeleteCategory($whereId: String!) {
   deleteCategory(whereId: $whereId)
@@ -1806,38 +1890,36 @@ export function useRemoveItemMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutation>;
 export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
 export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
-export const StripeChargeDocument = gql`
-    mutation StripeCharge($id: String!, $amount: Int!) {
-  stripeCharge(id: $id, amount: $amount)
+export const SuccessfulPaymentDocument = gql`
+    mutation SuccessfulPayment {
+  successfulPayment
 }
     `;
-export type StripeChargeMutationFn = Apollo.MutationFunction<StripeChargeMutation, StripeChargeMutationVariables>;
+export type SuccessfulPaymentMutationFn = Apollo.MutationFunction<SuccessfulPaymentMutation, SuccessfulPaymentMutationVariables>;
 
 /**
- * __useStripeChargeMutation__
+ * __useSuccessfulPaymentMutation__
  *
- * To run a mutation, you first call `useStripeChargeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useStripeChargeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useSuccessfulPaymentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSuccessfulPaymentMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [stripeChargeMutation, { data, loading, error }] = useStripeChargeMutation({
+ * const [successfulPaymentMutation, { data, loading, error }] = useSuccessfulPaymentMutation({
  *   variables: {
- *      id: // value for 'id'
- *      amount: // value for 'amount'
  *   },
  * });
  */
-export function useStripeChargeMutation(baseOptions?: Apollo.MutationHookOptions<StripeChargeMutation, StripeChargeMutationVariables>) {
+export function useSuccessfulPaymentMutation(baseOptions?: Apollo.MutationHookOptions<SuccessfulPaymentMutation, SuccessfulPaymentMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<StripeChargeMutation, StripeChargeMutationVariables>(StripeChargeDocument, options);
+        return Apollo.useMutation<SuccessfulPaymentMutation, SuccessfulPaymentMutationVariables>(SuccessfulPaymentDocument, options);
       }
-export type StripeChargeMutationHookResult = ReturnType<typeof useStripeChargeMutation>;
-export type StripeChargeMutationResult = Apollo.MutationResult<StripeChargeMutation>;
-export type StripeChargeMutationOptions = Apollo.BaseMutationOptions<StripeChargeMutation, StripeChargeMutationVariables>;
+export type SuccessfulPaymentMutationHookResult = ReturnType<typeof useSuccessfulPaymentMutation>;
+export type SuccessfulPaymentMutationResult = Apollo.MutationResult<SuccessfulPaymentMutation>;
+export type SuccessfulPaymentMutationOptions = Apollo.BaseMutationOptions<SuccessfulPaymentMutation, SuccessfulPaymentMutationVariables>;
 export const ToggleFromWishListDocument = gql`
     mutation ToggleFromWishList($wishListId: String!, $productId: String!, $merge: Boolean) {
   toggleFromWishList(
