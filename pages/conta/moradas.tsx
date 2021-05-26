@@ -1,14 +1,20 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
+import { AddressItem } from '../../components/account/AddressItem'
 import { NewAddressModal } from '../../components/account/NewAddressModal'
 
 import { Layout } from '../../components/Layout'
 import { Plus } from '../../components/svg/Plus'
+import { useMeQuery } from '../../lib/generated/graphql'
+import { isServer } from '../../utils/isServer'
 
 interface moradasProps {}
 
 const moradas: NextPage<moradasProps> = ({}) => {
   const [showNewAddressModal, setShowNewAddressModal] = useState(false)
+
+  const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
+
   return (
     <Layout>
       <NewAddressModal
@@ -32,6 +38,19 @@ const moradas: NextPage<moradasProps> = ({}) => {
           <Plus tailwind='m-auto h-6 text-green-dark' strokeWidth={2} />
         </button>
       </div>
+      {data?.me && data.me.addresses.length > 0 ? (
+        <div className='grid mt-8 mx-auto max-w-5xl grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
+          {data.me.addresses.map((address) => (
+            <AddressItem key={address.id} address={address} />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <h4 className='ml-4 mt-10 lg:mt-0 text-center lg:text-left text-xl text-green-dark tracking-wider'>
+              Ainda não tem nenhuma morada guardada!
+            </h4>
+        </div>
+      )}
     </Layout>
   )
 }

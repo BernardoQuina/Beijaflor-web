@@ -314,6 +314,7 @@ export type Mutation = {
   removeItem?: Maybe<Scalars['Boolean']>;
   toggleFromWishList?: Maybe<WishList>;
   createAddress?: Maybe<Address>;
+  editAddress?: Maybe<Address>;
 };
 
 
@@ -443,6 +444,20 @@ export type MutationToggleFromWishListArgs = {
 
 
 export type MutationCreateAddressArgs = {
+  completeName: Scalars['String'];
+  country: Scalars['String'];
+  street: Scalars['String'];
+  numberAndBlock: Scalars['String'];
+  zone: Scalars['String'];
+  region: Scalars['String'];
+  postal: Scalars['String'];
+  contact: Scalars['String'];
+  instructions?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationEditAddressArgs = {
+  whereId: Scalars['String'];
   completeName: Scalars['String'];
   country: Scalars['String'];
   street: Scalars['String'];
@@ -1111,6 +1126,28 @@ export type DeleteProductMutation = (
   & Pick<Mutation, 'deleteProduct'>
 );
 
+export type EditAddressMutationVariables = Exact<{
+  whereId: Scalars['String'];
+  completeName: Scalars['String'];
+  country: Scalars['String'];
+  street: Scalars['String'];
+  numberAndBlock: Scalars['String'];
+  zone: Scalars['String'];
+  region: Scalars['String'];
+  postal: Scalars['String'];
+  contact: Scalars['String'];
+  instructions?: Maybe<Scalars['String']>;
+}>;
+
+
+export type EditAddressMutation = (
+  { __typename?: 'Mutation' }
+  & { editAddress?: Maybe<(
+    { __typename?: 'Address' }
+    & BasicAddressInfoFragment
+  )> }
+);
+
 export type EditCategoryMutationVariables = Exact<{
   whereId: Scalars['String'];
   name?: Maybe<Scalars['String']>;
@@ -1724,6 +1761,59 @@ export function useDeleteProductMutation(baseOptions?: Apollo.MutationHookOption
 export type DeleteProductMutationHookResult = ReturnType<typeof useDeleteProductMutation>;
 export type DeleteProductMutationResult = Apollo.MutationResult<DeleteProductMutation>;
 export type DeleteProductMutationOptions = Apollo.BaseMutationOptions<DeleteProductMutation, DeleteProductMutationVariables>;
+export const EditAddressDocument = gql`
+    mutation EditAddress($whereId: String!, $completeName: String!, $country: String!, $street: String!, $numberAndBlock: String!, $zone: String!, $region: String!, $postal: String!, $contact: String!, $instructions: String) {
+  editAddress(
+    whereId: $whereId
+    completeName: $completeName
+    country: $country
+    street: $street
+    numberAndBlock: $numberAndBlock
+    zone: $zone
+    region: $region
+    postal: $postal
+    contact: $contact
+    instructions: $instructions
+  ) {
+    ...BasicAddressInfo
+  }
+}
+    ${BasicAddressInfoFragmentDoc}`;
+export type EditAddressMutationFn = Apollo.MutationFunction<EditAddressMutation, EditAddressMutationVariables>;
+
+/**
+ * __useEditAddressMutation__
+ *
+ * To run a mutation, you first call `useEditAddressMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditAddressMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editAddressMutation, { data, loading, error }] = useEditAddressMutation({
+ *   variables: {
+ *      whereId: // value for 'whereId'
+ *      completeName: // value for 'completeName'
+ *      country: // value for 'country'
+ *      street: // value for 'street'
+ *      numberAndBlock: // value for 'numberAndBlock'
+ *      zone: // value for 'zone'
+ *      region: // value for 'region'
+ *      postal: // value for 'postal'
+ *      contact: // value for 'contact'
+ *      instructions: // value for 'instructions'
+ *   },
+ * });
+ */
+export function useEditAddressMutation(baseOptions?: Apollo.MutationHookOptions<EditAddressMutation, EditAddressMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditAddressMutation, EditAddressMutationVariables>(EditAddressDocument, options);
+      }
+export type EditAddressMutationHookResult = ReturnType<typeof useEditAddressMutation>;
+export type EditAddressMutationResult = Apollo.MutationResult<EditAddressMutation>;
+export type EditAddressMutationOptions = Apollo.BaseMutationOptions<EditAddressMutation, EditAddressMutationVariables>;
 export const EditCategoryDocument = gql`
     mutation EditCategory($whereId: String!, $name: String, $mainCategory: MainCategory, $subCategory: SubCategory, $image: String) {
   editCategory(
