@@ -1042,6 +1042,27 @@ export type ChangeItemQuantityMutation = (
   )> }
 );
 
+export type CreateAddressMutationVariables = Exact<{
+  completeName: Scalars['String'];
+  country: Scalars['String'];
+  street: Scalars['String'];
+  numberAndBlock: Scalars['String'];
+  zone: Scalars['String'];
+  region: Scalars['String'];
+  postal: Scalars['String'];
+  contact: Scalars['String'];
+  instructions?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateAddressMutation = (
+  { __typename?: 'Mutation' }
+  & { createAddress?: Maybe<(
+    { __typename?: 'Address' }
+    & BasicAddressInfoFragment
+  )> }
+);
+
 export type CreateCartItemMutationVariables = Exact<{
   cartId: Scalars['String'];
   productId: Scalars['String'];
@@ -1522,6 +1543,57 @@ export function useChangeItemQuantityMutation(baseOptions?: Apollo.MutationHookO
 export type ChangeItemQuantityMutationHookResult = ReturnType<typeof useChangeItemQuantityMutation>;
 export type ChangeItemQuantityMutationResult = Apollo.MutationResult<ChangeItemQuantityMutation>;
 export type ChangeItemQuantityMutationOptions = Apollo.BaseMutationOptions<ChangeItemQuantityMutation, ChangeItemQuantityMutationVariables>;
+export const CreateAddressDocument = gql`
+    mutation CreateAddress($completeName: String!, $country: String!, $street: String!, $numberAndBlock: String!, $zone: String!, $region: String!, $postal: String!, $contact: String!, $instructions: String) {
+  createAddress(
+    completeName: $completeName
+    country: $country
+    street: $street
+    numberAndBlock: $numberAndBlock
+    zone: $zone
+    region: $region
+    postal: $postal
+    contact: $contact
+    instructions: $instructions
+  ) {
+    ...BasicAddressInfo
+  }
+}
+    ${BasicAddressInfoFragmentDoc}`;
+export type CreateAddressMutationFn = Apollo.MutationFunction<CreateAddressMutation, CreateAddressMutationVariables>;
+
+/**
+ * __useCreateAddressMutation__
+ *
+ * To run a mutation, you first call `useCreateAddressMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAddressMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAddressMutation, { data, loading, error }] = useCreateAddressMutation({
+ *   variables: {
+ *      completeName: // value for 'completeName'
+ *      country: // value for 'country'
+ *      street: // value for 'street'
+ *      numberAndBlock: // value for 'numberAndBlock'
+ *      zone: // value for 'zone'
+ *      region: // value for 'region'
+ *      postal: // value for 'postal'
+ *      contact: // value for 'contact'
+ *      instructions: // value for 'instructions'
+ *   },
+ * });
+ */
+export function useCreateAddressMutation(baseOptions?: Apollo.MutationHookOptions<CreateAddressMutation, CreateAddressMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAddressMutation, CreateAddressMutationVariables>(CreateAddressDocument, options);
+      }
+export type CreateAddressMutationHookResult = ReturnType<typeof useCreateAddressMutation>;
+export type CreateAddressMutationResult = Apollo.MutationResult<CreateAddressMutation>;
+export type CreateAddressMutationOptions = Apollo.BaseMutationOptions<CreateAddressMutation, CreateAddressMutationVariables>;
 export const CreateCartItemDocument = gql`
     mutation CreateCartItem($cartId: String!, $productId: String!, $quantity: Int!) {
   createCartItem(cartId: $cartId, productId: $productId, quantity: $quantity) {

@@ -1,0 +1,26 @@
+mutation CreateAddress (
+  $completeName: String!
+  $country: String!
+  $street: String!
+  $numberAndBlock: String!
+  $zone: String!
+  $region: String!
+  $postal: String!
+  $contact: String!
+  $instructions: String
+) {
+  createAddress (
+    completeName: $completeName
+    country: $country
+    street: $street
+    numberAndBlock: $numberAndBlock
+    zone: $zone
+    region: $region
+    postal: $postal
+    contact: $contact
+    instructions: $instructions
+    
+  ) {
+    ...BasicAddressInfo
+  }
+}

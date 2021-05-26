@@ -1,14 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { Form, Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { InputField } from '../InputField'
-import { Textarea } from '../Textarea'
 import { X } from '../svg/X'
-import { useNewProductMutation } from '../../lib/generated/graphql'
+import { useCreateAddressMutation } from '../../lib/generated/graphql'
 import { backdrop, scaleUp } from '../../utils/animations'
-import { Plus } from '../svg/Plus'
-import { Image, Placeholder } from 'cloudinary-react'
 
 interface NewAddressModalProps {
   showAddressModal: boolean
@@ -19,13 +16,7 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = ({
   showAddressModal,
   setShowAddressModal,
 }) => {
-  const [newCategory, setNewCategory] = useState<string>('')
-  const [chosenCategories, setChosenCategories] = useState([])
-  const [uploadedImages, setUploadedImages] = useState<{ public_id: string }[]>(
-    []
-  )
-
-  const [newProduct] = useNewProductMutation({ errorPolicy: 'all' })
+  const [newAddress] = useCreateAddressMutation({ errorPolicy: 'all' })
 
   const addressModalNode = useRef<HTMLFormElement | null>(null)
 
@@ -60,69 +51,58 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = ({
         >
           <Formik
             initialValues={{
-              name: '',
-              description: '',
-              images: [''],
-              price: 0,
-              stock: 0,
-              categories: [''],
-              height: '',
-              water: '',
-              exposure: '',
-              temperature: '',
-              lifespan: '',
+              completeName: '',
+              country: 'Portugal',
+              street: '',
+              numberAndBlock: '',
+              zone: '',
+              region: '',
+              postal: '',
+              contact: '',
+              instructions: '',
             }}
             onSubmit={async (
               {
-                name,
-                description,
-                images,
-                price,
-                stock,
-                categories,
-                height,
-                water,
-                exposure,
-                temperature,
-                lifespan,
+                completeName,
+                country,
+                street,
+                numberAndBlock,
+                zone,
+                region,
+                postal,
+                contact,
+                instructions,
               },
               { setErrors }
             ) => {
-              categories = chosenCategories.map((category) => category)
-              images = uploadedImages.map((image) => image.public_id)
-
-              const response = await newProduct({
+              const response = await newAddress({
                 variables: {
-                  name,
-                  description,
-                  images,
-                  price,
-                  stock,
-                  categories,
-                  height: height.length > 0 ? height : null,
-                  water: water.length > 0 ? water : null,
-                  exposure: exposure.length > 0 ? exposure : null,
-                  temperature: temperature.length > 0 ? temperature : null,
-                  lifespan: lifespan.length > 0 ? lifespan : null,
+                  completeName,
+                  country,
+                  street,
+                  numberAndBlock,
+                  zone,
+                  region,
+                  postal,
+                  contact,
+                  instructions: instructions !== '' ? instructions : null,
                 },
                 update: (cache) => {
-                  cache.evict({ fieldName: 'products' })
+                  cache.evict({ fieldName: 'addresses' })
                 },
               })
 
               if (response.errors) {
-                setErrors({ name: response.errors[0].message })
-              } else if (response.data?.createProduct) {
+                setErrors({ completeName: response.errors[0].message })
+              } else if (response.data?.createAddress) {
                 setShowAddressModal(false)
-                setUploadedImages([])
-                setChosenCategories([])
               }
             }}
           >
             <motion.div variants={scaleUp} className='flex py-4 h-[100vh]'>
               <Form
                 ref={addressModalNode}
-                className='relative flex flex-col max-w-4xl w-[95%] max-h-[90vh] m-auto rounded-md shadow-md bg-white'
+                className='relative flex flex-col max-w-2xl w-[95%] max-h-[90vh] m-auto rounded-md shadow-md bg-white'
               >
                 <div className='sticky top-0 flex py-2 px-2 border-b'>
                   <h4 className='ml-2 font-thin tracking-widest text-green-dark text-xl'>
@@ -140,220 +120,91 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = ({
                 </div>
                 <div className='flex flex-col w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-green-medium'>
                   <div className='flex flex-col lg:flex-row w-[90%] mx-auto'>
-                    <div className='w-full mt-4 lg:mr-10'>
+                    <div className='w-full my-10'>
                       <InputField
-                        name='name'
-                        placeholder='ex: Ramo de rosas'
-                        label='Nome'
+                        name='completeName'
+                        placeholder='ex: Maria Ferreira Silva'
+                        label='Nome completo (Nome e Sobrenome)'
                         type='text'
                         labelStyling='ml-3 text-green-medium tracking-wider'
                         inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
-                        errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                        errorStyling='absolute bottom-20 text-center max-w-xs lg:max-w-xl w-full rounded-md py-1 text-red-800 bg-red-200 transform left-[50%] translate-x-[-50%]'
                       />
-                      <Textarea
-                        name='description'
-                        placeholder='ex: Ramo de 20 rosas vermelhas em um arranjo ideal para despertar emoção.'
-                        label='Descrição'
+                      <InputField
+                        name='country'
+                        placeholder='ex: Portugal'
+                        label='País (de momento disponível apenas em Portugal)'
                         type='text'
-                        maxLength={250}
                         labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
-                        textareaStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                      />
-                    </div>
-                    <div className='flex lg:flex-col w-full lg:w-[50%] mt-6 lg:mt-4'>
-                      <InputField
-                        name='price'
-                        placeholder='ex: 9.99'
-                        label='Preço (€)'
-                        type='number'
-                        step='0.01'
-                        min='0'
-                        pattern='^\d*(\.\d{0,2})?$'
-                        labelStyling='ml-3 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
-                        errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                        disabled={true}
                       />
                       <InputField
-                        name='stock'
-                        placeholder='ex: 15'
-                        label='Stock'
-                        type='number'
-                        step='1'
-                        min='0'
-                        pattern='^\d*(\.\d{0,2})?$'
-                        labelStyling='lg:mt-6 ml-3 text-green-medium tracking-wider'
-                        inputStyling='mt-1 ml-2 lg:ml-0 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-[95%] lg:w-full tracking-wider font-thin text-lg'
-                        errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
-                      />
-                    </div>
-                  </div>
-                  <div className='flex flex-col lg:flex-row mx-auto w-[90%]'>
-                    <div className='flex w-full lg:w-[35%]'>
-                      <InputField
-                        name='category'
-                        placeholder='ex: rosas'
-                        label='Adicionar categoria'
+                        name='street'
+                        placeholder='ex: Rua Alegre, Av. da Liberdade'
+                        label='Morada'
                         type='text'
-                        value={newCategory}
-                        onChange={(e) => setNewCategory(e.target.value)}
                         labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
                         inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
-                      <button
-                        className='flex ml-4 mb-1 lg:mb-0 lg:mt-[3.3rem] p-2 self-end lg:self-start bg-green-extraLight rounded-md shadow-md'
-                        type='button'
-                        onClick={() => {
-                          if (
-                            !chosenCategories.includes(
-                              newCategory.toUpperCase()
-                            )
-                          ) {
-                            setChosenCategories((prev) => [
-                              ...prev,
-                              newCategory.toUpperCase(),
-                            ])
-                          }
-                          setNewCategory('')
-                        }}
-                      >
-                        <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
-                      </button>
-                    </div>
-                    <div className='flex flex-wrap min-h-[6.8rem] mt-6 w-full lg:w-[60%] ml-auto border rounded-md shadow-sm'>
-                      {chosenCategories.map((category) => (
-                        <div
-                          key={category}
-                          className='flex h-9 py-1 m-2 px-3 bg-green-extraLight rounded-md'
-                        >
-                          <p className='text-lg font-thin text-green-dark tracking-wider'>
-                            {category}
-                          </p>
-                          <button
-                            onClick={() => {
-                              setChosenCategories((prev) => [
-                                ...prev.filter((chosen) => chosen !== category),
-                              ])
-                            }}
-                            type='button'
-                            className='flex self-center ml-2 rounded-full h-6 w-6 bg-green-medium bg-opacity-20'
-                          >
-                            <X tailwind='self-center mx-auto h-4 text-green-dark' />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className='flex flex-col mx-auto w-[90%] mt-10'>
-                    <div>
-                      <p className='ml-3 text-green-medium tracking-wider'>
-                        Características do produto (opcionais)
-                      </p>
-                      <p className='ml-3 text-sm text-green-medium'>
-                        (Recomendado adicionar pelo menos 3 e usar texto curto
-                        para melhor apresentação)
-                      </p>
-                    </div>
-                    <div className='flex flex-col lg:flex-row lg:flex-wrap w-full mt-4'>
                       <InputField
-                        name='height'
-                        placeholder='ex: 40 cm'
-                        label='Comprimento'
+                        name='numberAndBlock'
+                        placeholder='ex: nº7, 4º Dto.'
+                        label='Nº da porta (e lote/andar)'
                         type='text'
-                        maxLength={20}
-                        labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 w-full max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium tracking-wider font-thin text-lg'
+                        labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
-                        name='water'
-                        placeholder='ex: 200 ml por dia'
-                        label='Àgua'
+                        name='zone'
+                        placeholder='ex: Lisboa'
+                        label='Localidade'
                         type='text'
-                        maxLength={20}
-                        labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
-                        name='exposure'
-                        placeholder='ex: sombra'
-                        label='Exposição'
+                        name='region'
+                        placeholder='ex: Lisboa'
+                        label='Distrito'
                         type='text'
-                        maxLength={20}
-                        labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
-                        name='temperature'
-                        placeholder='ex: 15-20 ºC'
-                        label='Temperatura'
+                        name='postal'
+                        placeholder='ex: 1200-120'
+                        label='Código postal'
                         type='text'
-                        maxLength={20}
-                        labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <InputField
-                        name='lifespan'
-                        placeholder='ex: 2-3 semanas'
-                        label='Duração'
+                        name='contact'
+                        placeholder='ex: +351 919191919'
+                        label='Contacto'
                         type='text'
-                        maxLength={20}
-                        labelStyling='ml-3 mt-4 text-green-medium tracking-wider'
-                        inputStyling='mt-1 pl-4 py-2 max-w-[15rem] border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                        errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                      />
+                      <InputField
+                        name='instructions'
+                        placeholder='ex: Não na porta, mas no portão / campainha avariada'
+                        label='Instruções de entrega (opcional)'
+                        type='text'
+                        labelStyling='mt-6 ml-3 text-green-medium tracking-wider'
+                        inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                     </div>
                   </div>
-                  <div className='flex mx-auto w-[90%] mt-10'>
-                    <div className='flex flex-col'>
-                      <p className=' ml-3 text-green-medium tracking-wider'>
-                        Adicionar Imagens
-                      </p>
-                      <p className='ml-3 text-sm self-center text-green-medium tracking-wide'>
-                        (Utilizar apenas imagens verticais (3:2))
-                      </p>
-                    </div>
-                  </div>
-                  <ul className='flex flex-wrap mx-auto w-[90%] mt-3 mb-6 border rounded-md shadow-sm '>
-                    <div className='h-[13rem]'></div>
-                    {uploadedImages.map((image) => (
-                      <li
-                        className='relative rounded-md mx-auto lg:mx-2 overflow-hidden m-2 h-[12rem] w-[8rem]'
-                        key={image.public_id}
-                      >
-                        <button
-                          type='button'
-                          onClick={() => {
-                            setUploadedImages(
-                              uploadedImages.filter(
-                                (uploaded) =>
-                                  uploaded.public_id !== image.public_id
-                              )
-                            )
-                          }}
-                          className='absolute rounded-full bg-green-medium p-1 bg-opacity-20 right-2 top-2'
-                        >
-                          <X tailwind='self-center mx-auto h-4 text-green-dark' />
-                        </button>
-                        <Image
-                          cloudName={
-                            process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-                          }
-                          publicId={image.public_id}
-                          height={300}
-                          width={200}
-                          crop='fill'
-                          secure={true}
-                        >
-                          <Placeholder type='blur'></Placeholder>
-                        </Image>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
                 <div className='flex py-3 border-t'>
                   <button
