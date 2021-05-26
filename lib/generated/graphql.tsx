@@ -315,6 +315,7 @@ export type Mutation = {
   toggleFromWishList?: Maybe<WishList>;
   createAddress?: Maybe<Address>;
   editAddress?: Maybe<Address>;
+  deleteAddress?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -467,6 +468,11 @@ export type MutationEditAddressArgs = {
   postal: Scalars['String'];
   contact: Scalars['String'];
   instructions?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationDeleteAddressArgs = {
+  whereId: Scalars['String'];
 };
 
 export type NestedBoolFilter = {
@@ -1106,6 +1112,16 @@ export type CreatePaymentIntentMutation = (
   )> }
 );
 
+export type DeleteAddressMutationVariables = Exact<{
+  whereId: Scalars['String'];
+}>;
+
+
+export type DeleteAddressMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteAddress'>
+);
+
 export type DeleteCategoryMutationVariables = Exact<{
   whereId: Scalars['String'];
 }>;
@@ -1699,6 +1715,37 @@ export function useCreatePaymentIntentMutation(baseOptions?: Apollo.MutationHook
 export type CreatePaymentIntentMutationHookResult = ReturnType<typeof useCreatePaymentIntentMutation>;
 export type CreatePaymentIntentMutationResult = Apollo.MutationResult<CreatePaymentIntentMutation>;
 export type CreatePaymentIntentMutationOptions = Apollo.BaseMutationOptions<CreatePaymentIntentMutation, CreatePaymentIntentMutationVariables>;
+export const DeleteAddressDocument = gql`
+    mutation DeleteAddress($whereId: String!) {
+  deleteAddress(whereId: $whereId)
+}
+    `;
+export type DeleteAddressMutationFn = Apollo.MutationFunction<DeleteAddressMutation, DeleteAddressMutationVariables>;
+
+/**
+ * __useDeleteAddressMutation__
+ *
+ * To run a mutation, you first call `useDeleteAddressMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAddressMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAddressMutation, { data, loading, error }] = useDeleteAddressMutation({
+ *   variables: {
+ *      whereId: // value for 'whereId'
+ *   },
+ * });
+ */
+export function useDeleteAddressMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAddressMutation, DeleteAddressMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteAddressMutation, DeleteAddressMutationVariables>(DeleteAddressDocument, options);
+      }
+export type DeleteAddressMutationHookResult = ReturnType<typeof useDeleteAddressMutation>;
+export type DeleteAddressMutationResult = Apollo.MutationResult<DeleteAddressMutation>;
+export type DeleteAddressMutationOptions = Apollo.BaseMutationOptions<DeleteAddressMutation, DeleteAddressMutationVariables>;
 export const DeleteCategoryDocument = gql`
     mutation DeleteCategory($whereId: String!) {
   deleteCategory(whereId: $whereId)

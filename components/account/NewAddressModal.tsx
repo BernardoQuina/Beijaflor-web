@@ -88,7 +88,7 @@ export const NewAddressModal: React.FC<NewAddressModalProps> = ({
                   instructions: instructions !== '' ? instructions : null,
                 },
                 update: (cache) => {
-                  cache.evict({ fieldName: 'addresses' })
+                  cache.evict({ fieldName: 'me' })
                 },
               })
 

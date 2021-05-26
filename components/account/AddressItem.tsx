@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { BasicAddressInfoFragment } from '../../lib/generated/graphql'
 import { Settings } from '../svg/Settings'
 import { AddressOptionsModal } from './AddressOptionsModal'
+import { DeleteAddressModal } from './DeleteAddressModal'
 import { EditAddressModal } from './EditAddressModal'
 
 interface AddressItemProps {
@@ -54,6 +55,11 @@ export const AddressItem: React.FC<AddressItemProps> = ({ address }) => {
       <EditAddressModal
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}
+        address={address}
+      />
+      <DeleteAddressModal
+        setShowDeleteModal={setShowDeleteModal}
+        showDeleteModal={showDeleteModal}
         address={address}
       />
       <h3 className='font-bold tracking-wider text-green-dark'>
