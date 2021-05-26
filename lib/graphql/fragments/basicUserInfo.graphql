@@ -12,6 +12,9 @@ fragment BasicUserInfo on User {
   wishlist {
     ...BasicWishListInfo
   }
+  addresses {
+    ...BasicAddressInfo
+  }
   createdAt
   updatedAt
 }

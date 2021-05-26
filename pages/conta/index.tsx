@@ -5,7 +5,6 @@ import { Layout } from '../../components/Layout'
 import { Admin } from '../../components/svg/Admin'
 import { Box } from '../../components/svg/Box'
 import { Location } from '../../components/svg/Location'
-import { Payment } from '../../components/svg/Payment'
 import { Settings } from '../../components/svg/Settings'
 import { useMeQuery } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
@@ -90,25 +89,6 @@ const index: NextPage<indexProps> = ({}) => {
                 </h3>
                 <p className='my-auto text-center text-sm xs:text-base text-green-dark font-thin'>
                   Consulte e edite as suas moradas para entrega / faturação
-                </p>
-              </div>
-            </div>
-          </a>
-        </Link>
-        <Link href='/conta/métodos-pagamento'>
-          <a>
-            <div className='group flex mx-auto w-full lg:w-[30rem] bg-white rounded-md shadow-around'>
-              <div className='flex w-[35%] xs:w-[30%] h-[8rem] lg:h-[10rem]'>
-                <div className='group flex m-4 h-16 lg:h-24 w-16 lg:w-24 self-center bg-pink-light group-hover:bg-green-extraLight rounded-full'>
-                  <Payment tailwind='group mx-auto self-center h-10 lg:h-16 w-10 lg:w-16 text-pink-medium group-hover:text-green-medium' />
-                </div>
-              </div>
-              <div className='flex flex-col pt-2 pr-2 lg:pb-4 w-full'>
-                <h3 className='group xs:text-lg lg:mt-2 text-center tracking-wide xs:tracking-wider text-green-dark group-hover:font-bold'>
-                  Métodos de pagamento
-                </h3>
-                <p className='my-auto text-center text-sm xs:text-base text-green-dark font-thin'>
-                  Adicione / remova métodos de pagamento para compras futuras
                 </p>
               </div>
             </div>

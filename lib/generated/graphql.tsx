@@ -15,6 +15,70 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type Address = {
+  __typename?: 'Address';
+  id: Scalars['String'];
+  completeName: Scalars['String'];
+  country: Scalars['String'];
+  street: Scalars['String'];
+  numberAndBlock: Scalars['String'];
+  zone: Scalars['String'];
+  region: Scalars['String'];
+  postal: Scalars['String'];
+  contact: Scalars['String'];
+  instructions?: Maybe<Scalars['String']>;
+  user: User;
+  userId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type AddressListRelationFilter = {
+  every?: Maybe<AddressWhereInput>;
+  some?: Maybe<AddressWhereInput>;
+  none?: Maybe<AddressWhereInput>;
+};
+
+export type AddressOrderByInput = {
+  id?: Maybe<SortOrder>;
+  completeName?: Maybe<SortOrder>;
+  country?: Maybe<SortOrder>;
+  street?: Maybe<SortOrder>;
+  numberAndBlock?: Maybe<SortOrder>;
+  zone?: Maybe<SortOrder>;
+  region?: Maybe<SortOrder>;
+  postal?: Maybe<SortOrder>;
+  contact?: Maybe<SortOrder>;
+  instructions?: Maybe<SortOrder>;
+  userId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type AddressWhereInput = {
+  AND?: Maybe<Array<AddressWhereInput>>;
+  OR?: Maybe<Array<AddressWhereInput>>;
+  NOT?: Maybe<Array<AddressWhereInput>>;
+  id?: Maybe<StringFilter>;
+  completeName?: Maybe<StringFilter>;
+  country?: Maybe<StringFilter>;
+  street?: Maybe<StringFilter>;
+  numberAndBlock?: Maybe<StringFilter>;
+  zone?: Maybe<StringFilter>;
+  region?: Maybe<StringFilter>;
+  postal?: Maybe<StringFilter>;
+  contact?: Maybe<StringFilter>;
+  instructions?: Maybe<StringNullableFilter>;
+  user?: Maybe<UserWhereInput>;
+  userId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type AddressWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type BoolFilter = {
   equals?: Maybe<Scalars['Boolean']>;
   not?: Maybe<NestedBoolFilter>;
@@ -249,6 +313,7 @@ export type Mutation = {
   changeItemQuantity?: Maybe<CartItem>;
   removeItem?: Maybe<Scalars['Boolean']>;
   toggleFromWishList?: Maybe<WishList>;
+  createAddress?: Maybe<Address>;
 };
 
 
@@ -374,6 +439,19 @@ export type MutationToggleFromWishListArgs = {
   wishListId: Scalars['String'];
   productId: Scalars['String'];
   merge?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationCreateAddressArgs = {
+  completeName: Scalars['String'];
+  country: Scalars['String'];
+  street: Scalars['String'];
+  numberAndBlock: Scalars['String'];
+  zone: Scalars['String'];
+  region: Scalars['String'];
+  postal: Scalars['String'];
+  contact: Scalars['String'];
+  instructions?: Maybe<Scalars['String']>;
 };
 
 export type NestedBoolFilter = {
@@ -591,6 +669,8 @@ export type Query = {
   cartItems: Array<CartItem>;
   wishList?: Maybe<WishList>;
   wishLists: Array<WishList>;
+  address?: Maybe<Address>;
+  addresses: Array<Address>;
 };
 
 
@@ -677,6 +757,20 @@ export type QueryWishListsArgs = {
   cursor?: Maybe<WishListWhereUniqueInput>;
 };
 
+
+export type QueryAddressArgs = {
+  where: AddressWhereUniqueInput;
+};
+
+
+export type QueryAddressesArgs = {
+  where?: Maybe<AddressWhereInput>;
+  orderBy?: Maybe<Array<AddressOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<AddressWhereUniqueInput>;
+};
+
 export enum QueryMode {
   Default = 'default',
   Insensitive = 'insensitive'
@@ -759,8 +853,16 @@ export type User = {
   photo?: Maybe<Scalars['String']>;
   cart?: Maybe<Cart>;
   wishlist?: Maybe<WishList>;
+  addresses: Array<Address>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+
+export type UserAddressesArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<AddressWhereUniqueInput>;
 };
 
 export type UserOrderByInput = {
@@ -792,6 +894,7 @@ export type UserWhereInput = {
   updatedAt?: Maybe<DateTimeFilter>;
   cart?: Maybe<CartWhereInput>;
   wishlist?: Maybe<WishListWhereInput>;
+  addresses?: Maybe<AddressListRelationFilter>;
 };
 
 export type UserWhereUniqueInput = {
@@ -853,6 +956,11 @@ export type LastPaymentError = {
   message?: Maybe<Scalars['String']>;
 };
 
+export type BasicAddressInfoFragment = (
+  { __typename?: 'Address' }
+  & Pick<Address, 'id' | 'completeName' | 'country' | 'street' | 'numberAndBlock' | 'zone' | 'region' | 'postal' | 'contact' | 'instructions'>
+);
+
 export type BasicCartInfoFragment = (
   { __typename?: 'Cart' }
   & Pick<Cart, 'id' | 'price' | 'quantity' | 'createdAt' | 'updatedAt'>
@@ -903,6 +1011,9 @@ export type BasicUserInfoFragment = (
   )>, wishlist?: Maybe<(
     { __typename?: 'WishList' }
     & BasicWishListInfoFragment
+  )>, addresses: Array<(
+    { __typename?: 'Address' }
+    & BasicAddressInfoFragment
   )> }
 );
 
@@ -1332,6 +1443,20 @@ export const BasicWishListInfoFragmentDoc = gql`
   updatedAt
 }
     ${BasicProductInfoFragmentDoc}`;
+export const BasicAddressInfoFragmentDoc = gql`
+    fragment BasicAddressInfo on Address {
+  id
+  completeName
+  country
+  street
+  numberAndBlock
+  zone
+  region
+  postal
+  contact
+  instructions
+}
+    `;
 export const BasicUserInfoFragmentDoc = gql`
     fragment BasicUserInfo on User {
   id
@@ -1347,11 +1472,15 @@ export const BasicUserInfoFragmentDoc = gql`
   wishlist {
     ...BasicWishListInfo
   }
+  addresses {
+    ...BasicAddressInfo
+  }
   createdAt
   updatedAt
 }
     ${BasicCartInfoFragmentDoc}
-${BasicWishListInfoFragmentDoc}`;
+${BasicWishListInfoFragmentDoc}
+${BasicAddressInfoFragmentDoc}`;
 export const ChangeItemQuantityDocument = gql`
     mutation ChangeItemQuantity($plusOrMinusOne: Int!, $cartItemId: String!, $cartId: String!, $productId: String!) {
   changeItemQuantity(

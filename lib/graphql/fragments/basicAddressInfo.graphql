@@ -1,0 +1,12 @@
+fragment BasicAddressInfo on Address {
+  id
+  completeName
+  country
+  street
+  numberAndBlock
+  zone
+  region
+  postal
+  contact
+  instructions
+}
