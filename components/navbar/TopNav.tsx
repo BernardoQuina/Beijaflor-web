@@ -373,7 +373,7 @@ export const TopNav: React.FC<TopNavProps> = ({
             }
           }}
         >
-          <Heart tailwind='h-10 text-green-dark mx-2' strokeWidth={1.5} />
+          <Heart tailwind='h-9 text-green-dark mx-2' strokeWidth={1.5} />
         </button>
         <button
           className='md:mx-auto'
@@ -384,7 +384,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           }}
         >
           {data?.me && data.me.photo ? (
-            <div className='md:mr-2'>
+            <div className='md:mr-2 lg:mr-0'>
               <Image
                 className='rounded-full'
                 src={data.me.photo}
@@ -393,7 +393,7 @@ export const TopNav: React.FC<TopNavProps> = ({
               />
             </div>
           ) : (
-            <Person tailwind='h-9 md:mr-2 text-green-dark' strokeWidth={1.5} />
+            <Person tailwind='h-9 md:mr-2 lg:mr-0 text-green-dark' strokeWidth={1.5} />
           )}
         </button>
         {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}

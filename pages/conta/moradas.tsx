@@ -24,7 +24,7 @@ const moradas: NextPage<moradasProps> = ({}) => {
       <div className='flex mx-auto -mt-10 max-w-6xl'>
         <h1 className='relative z-[0] mt-1 lg:mt-4 ml-2 mr-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark'>
           As minhas moradas
-          <div className='absolute z-[-1] ml-1 -mt-3 lg:-mt-4 rounded-sm bg-pink-light w-full h-[0.4rem] lg:h-[0.6rem]'></div>
+          <div className='absolute z-[-1] ml-1 -mt-3 rounded-sm bg-pink-light w-full h-[0.4rem]'></div>
         </h1>
       </div>
       <div className='flex mx-auto max-w-6xl'>
