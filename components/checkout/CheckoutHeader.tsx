@@ -1,18 +1,22 @@
 import { motion, AnimateSharedLayout } from 'framer-motion'
+import { Dispatch, SetStateAction } from 'react'
 
 import { ArrowDown } from '../svg/ArrowDown'
 
 interface CheckoutHeaderProps {
   checkoutFase: string
+  setCheckoutFase: Dispatch<SetStateAction<string>>
 }
 
 export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
   checkoutFase,
+  setCheckoutFase,
 }) => {
   return (
-    <div className='flex mx-auto -mt-12 lg:-mt-14 max-w-4xl'>
-      <AnimateSharedLayout>
-        <motion.h1
+    <AnimateSharedLayout>
+      <div className='flex mx-auto -mt-12 lg:-mt-14 max-w-4xl'>
+        <motion.button
+          onClick={() => setCheckoutFase('confirm items')}
           layoutId='confirm Items'
           className={`${
             checkoutFase !== 'confirm items' && 'hidden md:inline-block'
@@ -30,7 +34,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
               className='absolute z-[-1] ml-1 -mt-3 rounded-sm bg-pink-light w-full h-[0.4rem]'
             ></motion.div>
           )}
-        </motion.h1>
+        </motion.button>
         <div
           className={`${
             checkoutFase !== 'confirm items' && 'hidden md:inline-block'
@@ -41,7 +45,8 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
             strokeWidth={2}
           />
         </div>
-        <motion.h1
+        <motion.button
+          onClick={() => setCheckoutFase('address')}
           layoutId='address'
           className={`${
             checkoutFase !== 'confirm items' &&
@@ -61,7 +66,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
               className='absolute z-[-1] ml-1 -mt-3 rounded-sm bg-pink-light w-full h-[0.4rem]'
             ></motion.div>
           )}
-        </motion.h1>
+        </motion.button>
         <div
           className={`${
             checkoutFase !== 'address' && 'hidden md:inline-block'
@@ -72,7 +77,8 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
             strokeWidth={2}
           />
         </div>
-        <motion.h1
+        <motion.button
+          onClick={() => setCheckoutFase('payment')}
           layoutId='payment'
           className={`${
             checkoutFase !== 'address' &&
@@ -92,7 +98,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
               className='absolute z-[-1] ml-1 -mt-3 rounded-sm bg-pink-light w-full h-[0.4rem]'
             ></motion.div>
           )}
-        </motion.h1>
+        </motion.button>
         <div
           className={`${
             checkoutFase !== 'payment' && 'hidden md:inline-block'
@@ -103,7 +109,8 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
             strokeWidth={2}
           />
         </div>
-        <h1
+        <motion.h1
+          layoutId='confirmation'
           className={`${
             checkoutFase !== 'payment' &&
             checkoutFase !== 'confirmation' &&
@@ -121,8 +128,8 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
               className='absolute z-[-1] ml-1 -mt-3 rounded-sm bg-pink-light w-full h-[0.4rem]'
             ></motion.div>
           )}
-        </h1>
-      </AnimateSharedLayout>
-    </div>
+        </motion.h1>
+      </div>
+    </AnimateSharedLayout>
   )
 }

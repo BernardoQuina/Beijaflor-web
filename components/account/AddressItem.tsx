@@ -1,4 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 
 import { BasicAddressInfoFragment } from '../../lib/generated/graphql'
 import { Settings } from '../svg/Settings'
@@ -8,9 +15,17 @@ import { EditAddressModal } from './EditAddressModal'
 
 interface AddressItemProps {
   address: BasicAddressInfoFragment
+  checkout?: boolean
+  setAddressId?: Dispatch<SetStateAction<string>>
+  addressId?: string
 }
 
-export const AddressItem: React.FC<AddressItemProps> = ({ address }) => {
+export const AddressItem: React.FC<AddressItemProps> = ({
+  address,
+  checkout,
+  setAddressId,
+  addressId,
+}) => {
   const [showAddressOptionsModal, setShowAddressOptionsModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -44,46 +59,70 @@ export const AddressItem: React.FC<AddressItemProps> = ({ address }) => {
   })
 
   return (
-    <div className='relative flex flex-col mx-auto p-4 w-[20rem] max-h-[15rem] rounded-md shadow-around bg-white'>
-      {showAddressOptionsModal && (
-        <AddressOptionsModal
-          modalRef={addressOptionsModalNode}
-          setShowEditModal={setShowEditModal}
-          setShowDeleteModal={setShowDeleteModal}
-        />
-      )}
-      <EditAddressModal
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
-        address={address}
-      />
-      <DeleteAddressModal
-        setShowDeleteModal={setShowDeleteModal}
-        showDeleteModal={showDeleteModal}
-        address={address}
-      />
-      <h3 className='font-bold tracking-wider text-green-dark'>
-        {address.completeName}
-      </h3>
-      <p className='mt-4 text-green-dark tracking-wide'>
-        {address.street}, {address.numberAndBlock}
-      </p>
-      <p className='mt-1 text-green-dark tracking-wide'>
-        {address.postal} {address.zone},
-      </p>
-      <p className='mt-2 text-green-dark tracking-wide'>{address.region},</p>
-      <p className='mt-1 mb-2 text-green-dark tracking-wide'>
-        {address.country}
-      </p>
-      <p className='mt-auto text-green-dark tracking-wide'>{address.contact}</p>
-      <button
-        type='button'
-        onClick={() => setShowAddressOptionsModal(!showAddressOptionsModal)}
-        ref={addressOptionsButtonNode}
-        className='absolute bottom-4 right-4 bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+    <div className='h-[20rem]'>
+      <motion.div
+        layoutId={`address ${address.id}`}
+        className={`relative flex flex-col mx-auto p-4 ${
+          checkout ? 'w-[18rem] min-h-[18.5rem]' : 'w-[20rem] min-h-[15rem]'
+        } max-h-[20rem] rounded-md  bg-white ${
+          addressId === address.id
+            ? 'border-4 border-green-extraLight shadow-inner'
+            : 'shadow-around'
+        }`}
       >
-        <Settings tailwind='h-5 text-green-dark' />
-      </button>
+        {showAddressOptionsModal && (
+          <AddressOptionsModal
+            modalRef={addressOptionsModalNode}
+            setShowEditModal={setShowEditModal}
+            setShowDeleteModal={setShowDeleteModal}
+          />
+        )}
+        <EditAddressModal
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+          address={address}
+        />
+        <DeleteAddressModal
+          setShowDeleteModal={setShowDeleteModal}
+          showDeleteModal={showDeleteModal}
+          address={address}
+        />
+        <h3 className='font-bold tracking-wider text-green-dark'>
+          {address.completeName}
+        </h3>
+        <p className='mt-4 text-green-dark tracking-wide'>
+          {address.street}, {address.numberAndBlock}
+        </p>
+        <p className='mt-1 text-green-dark tracking-wide'>
+          {address.postal} {address.zone},
+        </p>
+        <p className='mt-2 text-green-dark tracking-wide'>{address.region},</p>
+        <p className='mt-1 mb-2 text-green-dark tracking-wide'>
+          {address.country}
+        </p>
+        <p className='mt-auto text-green-dark tracking-wide'>
+          {address.contact}
+        </p>
+        {checkout && (
+          <button
+            type='button'
+            onClick={() => {
+              setAddressId(address.id)
+            }}
+            className='w-[10rem] mt-2 p-2 rounded-md shadow-md bg-green-extraLight'
+          >
+            <p className='text-green-dark tracking-wide'>Selecionar morada</p>
+          </button>
+        )}
+        <button
+          type='button'
+          onClick={() => setShowAddressOptionsModal(!showAddressOptionsModal)}
+          ref={addressOptionsButtonNode}
+          className='absolute bottom-4 right-4 bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+        >
+          <Settings tailwind='h-5 text-green-dark' />
+        </button>
+      </motion.div>
     </div>
   )
 }
