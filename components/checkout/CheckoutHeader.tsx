@@ -19,7 +19,9 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
           onClick={() => setCheckoutFase('confirm items')}
           layoutId='confirm Items'
           className={`${
-            checkoutFase !== 'confirm items' && 'hidden md:inline-block'
+            checkoutFase !== 'confirm items' &&
+            checkoutFase !== 'address' &&
+            'hidden md:inline-block'
           }
         relative z-[0] mt-1 lg:mt-4 mx-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark ${
           checkoutFase === 'confirm items'
@@ -37,7 +39,9 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         </motion.button>
         <div
           className={`${
-            checkoutFase !== 'confirm items' && 'hidden md:inline-block'
+            checkoutFase !== 'confirm items' &&
+            checkoutFase !== 'address' &&
+            'hidden md:inline-block'
           } self-end`}
         >
           <ArrowDown
@@ -51,6 +55,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
           className={`${
             checkoutFase !== 'confirm items' &&
             checkoutFase !== 'address' &&
+            checkoutFase !== 'payment' &&
             'hidden md:inline-block'
           }
         relative z-[0] mt-1 lg:mt-4 mx-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark ${
@@ -69,7 +74,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         </motion.button>
         <div
           className={`${
-            checkoutFase !== 'address' && 'hidden md:inline-block'
+            checkoutFase !== 'payment' && 'hidden md:inline-block'
           } self-end`}
         >
           <ArrowDown
@@ -80,11 +85,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         <motion.button
           onClick={() => setCheckoutFase('payment')}
           layoutId='payment'
-          className={`${
-            checkoutFase !== 'address' &&
-            checkoutFase !== 'payment' &&
-            'hidden md:inline-block'
-          }
+          className={`${checkoutFase !== 'payment' && 'hidden md:inline-block'}
         relative z-[0] mt-1 lg:mt-4 mx-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark ${
           checkoutFase === 'payment'
             ? 'text-xl md:text-3xl'
@@ -99,11 +100,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
             ></motion.div>
           )}
         </motion.button>
-        <div
-          className={`${
-            checkoutFase !== 'payment' && 'hidden md:inline-block'
-          } self-end`}
-        >
+        <div className='hidden md:inline-block self-end'>
           <ArrowDown
             tailwind='h-6 text-pink-dark transform -rotate-90'
             strokeWidth={2}
@@ -112,9 +109,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         <motion.h1
           layoutId='confirmation'
           className={`${
-            checkoutFase !== 'payment' &&
-            checkoutFase !== 'confirmation' &&
-            'hidden md:inline-block'
+            checkoutFase !== 'confirmation' && 'hidden md:inline-block'
           } relative z-[0] mt-1 lg:mt-4 mx-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark ${
             checkoutFase === 'confirmation'
               ? 'text-xl md:text-3xl'
