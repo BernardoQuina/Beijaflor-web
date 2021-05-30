@@ -6,6 +6,8 @@ import { isServer } from '../../utils/isServer'
 import { WishlistContent } from './WishlistContent'
 import { LocalWishlist } from '../../utils/localStorageWishlist'
 import { useLocalStorageChange } from '../../context/localStorageChangeContext'
+import { motion } from 'framer-motion'
+import { fadeDown, fadeDownToLeft } from '../../utils/animations'
 
 interface WishlistModalProps {
   data: MeQuery
@@ -44,7 +46,12 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
   }, [])
 
   return (
-    <div
+    <motion.div
+      key='wishlist modal'
+      initial='initial'
+      animate='animate'
+      exit='exit'
+      variants={fadeDownToLeft}
       ref={modalRef}
       className='absolute flex flex-col z-[20] w-[20rem] min-h-[4rem] max-h-[20.2rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white overflow-hidden'
     >
@@ -61,6 +68,6 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
           cart={localCart}
         />
       )}
-    </div>
+    </motion.div>
   )
 }

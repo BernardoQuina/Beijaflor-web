@@ -83,3 +83,46 @@ export const scaleUp: Variants = {
     transition: { duration: 0.3 },
   },
 }
+
+export const fadeDownToLeft: Variants = {
+  initial: {
+    y: -70,
+    x: 70,
+    opacity: 0,
+    scale: 0.5,
+  },
+  animate: {
+    y: 0,
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition:{ type: 'tween'}
+  },
+  exit: {
+    y: -70,
+    x: 70,
+    opacity: 0,
+    scale: 0.5,
+    transition:{ type: 'tween'}
+  },
+}
+
+export const fadeDown: Variants = {
+  initial: {
+    y: -100,
+    opacity: 0,
+    scale: 0.5,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition:{ type: 'tween'}
+  },
+  exit: {
+    y: -100,
+    opacity: 0,
+    scale: 0.5,
+    transition:{ type: 'tween'}
+  },
+}

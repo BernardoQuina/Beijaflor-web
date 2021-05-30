@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { MeQuery, useLogoutMutation } from '../../lib/generated/graphql'
+import { motion } from 'framer-motion'
+import { scaleUp, fadeDownToLeft } from '../../utils/animations'
 
 interface ProfileModalProps {
   me: MeQuery
@@ -17,7 +19,12 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
   const [logout] = useLogoutMutation({ errorPolicy: 'all' })
 
   return (
-    <div
+    <motion.div
+      key='profile modal'
+      initial='initial'
+      animate='animate'
+      exit='exit'
+      variants={fadeDownToLeft}
       ref={modalRef}
       className='absolute z-[20] py-2 px-2 w-[15rem] top-[3.7rem] right-0 rounded-md shadow-around bg-white'
     >
@@ -60,6 +67,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ me, modalRef }) => {
           </a>
         </Link>
       )}
-    </div>
+    </motion.div>
   )
 }

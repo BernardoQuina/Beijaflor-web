@@ -1,17 +1,10 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
 import { MeQuery } from '../../lib/generated/graphql'
-import { NewAddressModal } from '../account/NewAddressModal'
-import { AddressItem } from '../account/AddressItem'
-import { Plus } from '../svg/Plus'
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Payment } from '../svg/Payment'
 import { Paypal } from '../svg/Paypal'
-import {
-  slideFromRightToLeft,
-  slideLeft,
-  slideRight,
-} from '../../utils/animations'
+import { slideLeft, slideRight } from '../../utils/animations'
 
 interface MakePaymentProps {
   data: MeQuery

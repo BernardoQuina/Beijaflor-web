@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { useCartModal } from '../../context/CartModalContext'
 import {
@@ -393,14 +393,21 @@ export const TopNav: React.FC<TopNavProps> = ({
               />
             </div>
           ) : (
-            <Person tailwind='h-9 md:mr-2 lg:mr-0 text-green-dark' strokeWidth={1.5} />
+            <Person
+              tailwind='h-9 md:mr-2 lg:mr-0 text-green-dark'
+              strokeWidth={1.5}
+            />
           )}
         </button>
-        {profileModal && <ProfileModal me={data} modalRef={profileModalNode} />}
+        <AnimatePresence exitBeforeEnter>
+          {profileModal && (
+            <ProfileModal me={data} modalRef={profileModalNode} />
+          )}
         {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
         {wishlistModal && (
           <WishlistModal data={data} modalRef={wishlistModalNode} />
-        )}
+          )}
+          </AnimatePresence>
       </div>
       {data?.me && (
         <MergeCartsModal
