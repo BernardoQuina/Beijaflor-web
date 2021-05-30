@@ -20,6 +20,7 @@ import { Minus } from '../svg/Minus'
 import { Plus } from '../svg/Plus'
 import { X } from '../svg/X'
 import { useLocalStorageChange } from '../../context/localStorageChangeContext'
+import { useCartModal } from '../../context/CartModalContext'
 
 interface CartContentProps {
   cart: BasicCartInfoFragment | LocalCart
@@ -33,6 +34,7 @@ export const CartContent: React.FC<CartContentProps> = ({
   isLocal,
 }) => {
   const { setLocalStorageChange } = useLocalStorageChange()
+  const { setCartModal } = useCartModal()
 
   const [changeItemQuantity] = useChangeItemQuantityMutation({
     errorPolicy: 'all',
@@ -193,7 +195,7 @@ export const CartContent: React.FC<CartContentProps> = ({
           <div className='flex w-full h-[4rem] border-t'>
             <div className='flex flex-col w-[55%] p-2'>
               <div className='flex'>
-                <h3 className='text-green-dark tracking-wide'>TOTAL</h3>
+                <h3 className='text-green-dark tracking-wide'>Total</h3>
                 <h3 className='ml-auto mr-1 font-bold text-sm text-green-dark'>
                   €
                 </h3>
@@ -202,7 +204,7 @@ export const CartContent: React.FC<CartContentProps> = ({
                 </h3>
               </div>
               <div className='flex'>
-                <h3 className='text-green-dark tracking-wide'>PRODUTOS</h3>
+                <h3 className='text-green-dark tracking-wide'>Produtos</h3>
                 <h3 className='ml-auto font-bold text-green-dark'>
                   {cart.quantity}
                 </h3>
@@ -210,7 +212,10 @@ export const CartContent: React.FC<CartContentProps> = ({
             </div>
             <div className='flex w-[40%] ml-auto p-2'>
               <Link href='/checkout'>
-                <a className='h-full w-full flex flex-col rounded-md hover:bg-green-extraLight'>
+                <a
+                  onClick={() => setCartModal('false')}
+                  className='h-full w-full flex flex-col rounded-md shadow-md bg-green-extraLight'
+                >
                   <h5 className='text-center mt-auto font-bold text-green-dark tracking-wider'>
                     Checkout
                   </h5>

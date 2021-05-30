@@ -175,9 +175,9 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
             ))}
           </div>
           <div className='flex w-full h-[4rem] border-t'>
-            <div className='flex flex-col w-[55%] lg:w-[78%] p-2'>
+            <div className='flex flex-col w-[55%] lg:w-[78%] pl-4 p-2'>
               <div className='flex'>
-                <h3 className='text-green-dark tracking-wide'>TOTAL</h3>
+                <h3 className='text-green-dark tracking-wide'>Total</h3>
                 <h3 className='ml-auto mr-1 font-bold text-sm text-green-dark'>
                   €
                 </h3>
@@ -186,7 +186,7 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
                 </h3>
               </div>
               <div className='flex'>
-                <h3 className='text-green-dark tracking-wide'>PRODUTOS</h3>
+                <h3 className='text-green-dark tracking-wide'>Produtos</h3>
                 <h3 className='ml-auto font-bold text-green-dark'>
                   {data?.me.cart.quantity}
                 </h3>

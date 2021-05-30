@@ -63,10 +63,10 @@ export const AddressItem: React.FC<AddressItemProps> = ({
       <motion.div
         layoutId={`address ${address.id}`}
         className={`relative flex flex-col mx-auto p-4 ${
-          checkout ? 'w-[18rem] min-h-[18.5rem]' : 'w-[20rem] min-h-[15rem]'
+          checkout ? 'w-[17rem] xs:w-[18rem] min-h-[18.5rem]' : 'w-[20rem] min-h-[15rem]'
         } max-h-[20rem] rounded-md  bg-white ${
           addressId === address.id
-            ? 'border-4 border-green-extraLight shadow-inner'
+            ? 'border-4 border-green-200 shadow-inner'
             : 'shadow-around'
         }`}
       >

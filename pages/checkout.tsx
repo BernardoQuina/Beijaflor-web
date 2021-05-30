@@ -13,6 +13,7 @@ import { ConfirmItems } from '../components/checkout/ConfirmItems'
 import { SetAddress } from '../components/checkout/SetAddress'
 import { AnimatePresence, motion } from 'framer-motion'
 import { slideFromRightToLeft, slideLeft } from '../utils/animations'
+import { MakePayment } from '../components/checkout/MakePayment'
 
 interface checkoutProps {}
 
@@ -58,6 +59,21 @@ const checkout: NextPage<checkoutProps> = ({}) => {
                 data={data}
                 setCheckoutFase={setCheckoutFase}
                 setAddressId={setAddressId}
+                addressId={addressId}
+              />
+            </motion.div>
+          ) : checkoutFase === 'payment' ? (
+            <motion.div
+              key='payment'
+              className='w-full'
+              initial='initial'
+              animate='animate'
+              exit='exit'
+              variants={slideFromRightToLeft}
+            >
+              <MakePayment
+                data={data}
+                setCheckoutFase={setCheckoutFase}
                 addressId={addressId}
               />
             </motion.div>
