@@ -1,0 +1,13 @@
+mutation CreateOrder(
+  $cartId: String!
+  $cartItemsIds: [String!]!
+  $addressId: String!
+) {
+  createOrder(
+    cartId: $cartId
+    cartItemsIds: $cartItemsIds
+    addressId: $addressId
+  ) {
+    ...BasicOrderInfo
+  }
+}

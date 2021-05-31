@@ -2,14 +2,17 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 import { MeQuery } from '../../lib/generated/graphql'
 import { AnimatePresence, motion } from 'framer-motion'
+
+import { ArrowDown } from '../svg/ArrowDown'
 import { Payment } from '../svg/Payment'
 import { Paypal } from '../svg/Paypal'
 import { slideLeft, slideRight } from '../../utils/animations'
+import { Stripe } from '../svg/Stripe'
+import { StripeCheckout } from './StripeCheckout'
 
 interface MakePaymentProps {
   data: MeQuery
   setCheckoutFase: Dispatch<SetStateAction<string>>
-
   addressId: string
 }
 
@@ -19,8 +22,6 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
   addressId,
 }) => {
   const [paymentMethod, setPaymentMethod] = useState('')
-
-  console.log(data)
 
   return (
     <div className='mt-3 xs:mt-6 flex flex-col mx-auto max-w-2xl h-[27rem] xs:h-[40rem] bg-white rounded-md shadow-around'>
@@ -56,12 +57,8 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
                   </h4>
                   <div className='flex mx-auto mb-auto mt-2 text-green-light tracking-wider'>
                     <h4 className='self-end'>Powered by</h4>
-                    <h4
-                      className='ml-2 font-black text-lg'
-                      style={{ fontFamily: 'sans-serif' }}
-                    >
-                      stripe
-                    </h4>
+
+                    <Stripe tailwind='self-end h-5 ml-2 mb-[0.2rem]' />
                   </div>
                 </div>
               </button>
@@ -80,15 +77,31 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
           ) : paymentMethod === 'stripe' ? (
             <motion.div
               key='stripe'
-              className='w-full h-full flex flex-col'
+              className='w-full h-full flex flex-col relative'
               initial='initial'
               animate='animate'
               exit='exit'
               variants={slideRight}
             >
-              <button type='button' onClick={() => setPaymentMethod('')}>
-                voltar
+              <button
+                className='hidden absolute top-2 left-2 lg:flex p-1'
+                onClick={() => setPaymentMethod('')}
+                type='button'
+              >
+                <ArrowDown
+                  tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
+                  strokeWidth={3}
+                />
+                <h6 className='mx-1 lg:mx-2 text-lg text-green-dark tracking-widest self-center'>
+                  voltar
+                </h6>
               </button>
+              <StripeCheckout
+                setPaymentMethod={setPaymentMethod}
+                setCheckoutFase={setCheckoutFase}
+                addressId={addressId}
+                data={data}
+              />
             </motion.div>
           ) : paymentMethod === 'paypal' ? (
             <motion.div

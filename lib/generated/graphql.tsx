@@ -28,9 +28,17 @@ export type Address = {
   contact: Scalars['String'];
   instructions?: Maybe<Scalars['String']>;
   user: User;
+  orders: Array<Order>;
   userId: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+
+export type AddressOrdersArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<OrderWhereUniqueInput>;
 };
 
 export type AddressListRelationFilter = {
@@ -70,6 +78,7 @@ export type AddressWhereInput = {
   contact?: Maybe<StringFilter>;
   instructions?: Maybe<StringNullableFilter>;
   user?: Maybe<UserWhereInput>;
+  orders?: Maybe<OrderListRelationFilter>;
   userId?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -309,6 +318,7 @@ export type Mutation = {
   deleteCategory?: Maybe<Scalars['Boolean']>;
   createPaymentIntent?: Maybe<PaymentIntent>;
   successfulPayment?: Maybe<Scalars['Boolean']>;
+  unsuccessfulPayment?: Maybe<Scalars['Boolean']>;
   createCartItem?: Maybe<CartItem>;
   changeItemQuantity?: Maybe<CartItem>;
   removeItem?: Maybe<Scalars['Boolean']>;
@@ -316,6 +326,7 @@ export type Mutation = {
   createAddress?: Maybe<Address>;
   editAddress?: Maybe<Address>;
   deleteAddress?: Maybe<Scalars['Boolean']>;
+  createOrder?: Maybe<Order>;
 };
 
 
@@ -415,6 +426,11 @@ export type MutationCreatePaymentIntentArgs = {
 };
 
 
+export type MutationUnsuccessfulPaymentArgs = {
+  orderId: Scalars['String'];
+};
+
+
 export type MutationCreateCartItemArgs = {
   cartId: Scalars['String'];
   productId: Scalars['String'];
@@ -473,6 +489,13 @@ export type MutationEditAddressArgs = {
 
 export type MutationDeleteAddressArgs = {
   whereId: Scalars['String'];
+};
+
+
+export type MutationCreateOrderArgs = {
+  cartId: Scalars['String'];
+  cartItemsIds: Array<Scalars['String']>;
+  addressId: Scalars['String'];
 };
 
 export type NestedBoolFilter = {
@@ -562,6 +585,109 @@ export type NestedStringNullableFilter = {
   not?: Maybe<NestedStringNullableFilter>;
 };
 
+export type Order = {
+  __typename?: 'Order';
+  id: Scalars['String'];
+  user: User;
+  address: Address;
+  orderItems: Array<OrderItem>;
+  price: Scalars['Float'];
+  quantity: Scalars['Int'];
+  userId: Scalars['String'];
+  addressId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type OrderOrderItemsArgs = {
+  orderBy?: Maybe<Array<OrderItemOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<OrderItemWhereUniqueInput>;
+};
+
+export type OrderItem = {
+  __typename?: 'OrderItem';
+  id: Scalars['String'];
+  product: Product;
+  quantity: Scalars['Int'];
+  order: Order;
+  productId: Scalars['String'];
+  orderId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type OrderItemListRelationFilter = {
+  every?: Maybe<OrderItemWhereInput>;
+  some?: Maybe<OrderItemWhereInput>;
+  none?: Maybe<OrderItemWhereInput>;
+};
+
+export type OrderItemOrderByInput = {
+  id?: Maybe<SortOrder>;
+  quantity?: Maybe<SortOrder>;
+  productId?: Maybe<SortOrder>;
+  orderId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type OrderItemWhereInput = {
+  AND?: Maybe<Array<OrderItemWhereInput>>;
+  OR?: Maybe<Array<OrderItemWhereInput>>;
+  NOT?: Maybe<Array<OrderItemWhereInput>>;
+  id?: Maybe<StringFilter>;
+  product?: Maybe<ProductWhereInput>;
+  quantity?: Maybe<IntFilter>;
+  order?: Maybe<OrderWhereInput>;
+  productId?: Maybe<StringFilter>;
+  orderId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type OrderItemWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type OrderListRelationFilter = {
+  every?: Maybe<OrderWhereInput>;
+  some?: Maybe<OrderWhereInput>;
+  none?: Maybe<OrderWhereInput>;
+};
+
+export type OrderOrderByInput = {
+  id?: Maybe<SortOrder>;
+  price?: Maybe<SortOrder>;
+  quantity?: Maybe<SortOrder>;
+  userId?: Maybe<SortOrder>;
+  addressId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type OrderWhereInput = {
+  AND?: Maybe<Array<OrderWhereInput>>;
+  OR?: Maybe<Array<OrderWhereInput>>;
+  NOT?: Maybe<Array<OrderWhereInput>>;
+  id?: Maybe<StringFilter>;
+  user?: Maybe<UserWhereInput>;
+  address?: Maybe<AddressWhereInput>;
+  price?: Maybe<FloatFilter>;
+  quantity?: Maybe<IntFilter>;
+  orderItems?: Maybe<OrderItemListRelationFilter>;
+  userId?: Maybe<StringFilter>;
+  addressId?: Maybe<StringFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type OrderWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type PaymentIntent = {
   __typename?: 'PaymentIntent';
   id?: Maybe<Scalars['String']>;
@@ -593,6 +719,7 @@ export type Product = {
   temperature?: Maybe<Scalars['String']>;
   lifespan?: Maybe<Scalars['String']>;
   cartItems: Array<CartItem>;
+  orderItems: Array<OrderItem>;
   wishLists: Array<WishList>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -610,6 +737,13 @@ export type ProductCartItemsArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<CartItemWhereUniqueInput>;
+};
+
+
+export type ProductOrderItemsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<OrderItemWhereUniqueInput>;
 };
 
 
@@ -662,6 +796,7 @@ export type ProductWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   cartItems?: Maybe<CartItemListRelationFilter>;
+  orderItems?: Maybe<OrderItemListRelationFilter>;
   wishLists?: Maybe<WishListListRelationFilter>;
 };
 
@@ -692,6 +827,10 @@ export type Query = {
   wishLists: Array<WishList>;
   address?: Maybe<Address>;
   addresses: Array<Address>;
+  order?: Maybe<Order>;
+  orders: Array<Order>;
+  orderItem?: Maybe<OrderItem>;
+  orderItems: Array<OrderItem>;
 };
 
 
@@ -792,6 +931,34 @@ export type QueryAddressesArgs = {
   cursor?: Maybe<AddressWhereUniqueInput>;
 };
 
+
+export type QueryOrderArgs = {
+  where: OrderWhereUniqueInput;
+};
+
+
+export type QueryOrdersArgs = {
+  where?: Maybe<OrderWhereInput>;
+  orderBy?: Maybe<Array<OrderOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<OrderWhereUniqueInput>;
+};
+
+
+export type QueryOrderItemArgs = {
+  where: OrderItemWhereUniqueInput;
+};
+
+
+export type QueryOrderItemsArgs = {
+  where?: Maybe<OrderItemWhereInput>;
+  orderBy?: Maybe<Array<OrderItemOrderByInput>>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<OrderItemWhereUniqueInput>;
+};
+
 export enum QueryMode {
   Default = 'default',
   Insensitive = 'insensitive'
@@ -873,10 +1040,18 @@ export type User = {
   name: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
   cart?: Maybe<Cart>;
+  orders: Array<Order>;
   wishlist?: Maybe<WishList>;
   addresses: Array<Address>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+
+export type UserOrdersArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<OrderWhereUniqueInput>;
 };
 
 
@@ -916,6 +1091,7 @@ export type UserWhereInput = {
   cart?: Maybe<CartWhereInput>;
   wishlist?: Maybe<WishListWhereInput>;
   addresses?: Maybe<AddressListRelationFilter>;
+  orders?: Maybe<OrderListRelationFilter>;
 };
 
 export type UserWhereUniqueInput = {
@@ -1003,6 +1179,27 @@ export type BasicCartItemInfoFragment = (
 export type BasicCategoryInfoFragment = (
   { __typename?: 'Category' }
   & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'createdAt' | 'updatedAt'>
+);
+
+export type BasicOrderInfoFragment = (
+  { __typename?: 'Order' }
+  & Pick<Order, 'id' | 'price' | 'quantity' | 'createdAt' | 'updatedAt'>
+  & { orderItems: Array<(
+    { __typename?: 'OrderItem' }
+    & BasicOrderItemInfoFragment
+  )>, address: (
+    { __typename?: 'Address' }
+    & BasicAddressInfoFragment
+  ) }
+);
+
+export type BasicOrderItemInfoFragment = (
+  { __typename?: 'OrderItem' }
+  & Pick<OrderItem, 'id' | 'quantity' | 'createdAt' | 'updatedAt'>
+  & { product: (
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  ) }
 );
 
 export type BasicPaymentIntentFragment = (
@@ -1096,6 +1293,21 @@ export type CreateCartItemMutation = (
   & { createCartItem?: Maybe<(
     { __typename?: 'CartItem' }
     & BasicCartItemInfoFragment
+  )> }
+);
+
+export type CreateOrderMutationVariables = Exact<{
+  cartId: Scalars['String'];
+  cartItemsIds: Array<Scalars['String']> | Scalars['String'];
+  addressId: Scalars['String'];
+}>;
+
+
+export type CreateOrderMutation = (
+  { __typename?: 'Mutation' }
+  & { createOrder?: Maybe<(
+    { __typename?: 'Order' }
+    & BasicOrderInfoFragment
   )> }
 );
 
@@ -1330,6 +1542,16 @@ export type ToggleFromWishListMutation = (
   )> }
 );
 
+export type UnsuccessfulPaymentMutationVariables = Exact<{
+  orderId: Scalars['String'];
+}>;
+
+
+export type UnsuccessfulPaymentMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'unsuccessfulPayment'>
+);
+
 export type CategoriesQueryVariables = Exact<{
   orderBy?: Maybe<Array<CategoryOrderByInput> | CategoryOrderByInput>;
   search?: Maybe<Scalars['String']>;
@@ -1441,17 +1663,6 @@ export type UserQuery = (
   )> }
 );
 
-export const BasicPaymentIntentFragmentDoc = gql`
-    fragment BasicPaymentIntent on PaymentIntent {
-  id
-  amount
-  client_secret
-  last_payment_error {
-    code
-    message
-  }
-}
-    `;
 export const BasicCategoryInfoFragmentDoc = gql`
     fragment BasicCategoryInfo on Category {
   id
@@ -1484,6 +1695,58 @@ export const BasicProductInfoFragmentDoc = gql`
   lifespan
 }
     ${BasicCategoryInfoFragmentDoc}`;
+export const BasicOrderItemInfoFragmentDoc = gql`
+    fragment BasicOrderItemInfo on OrderItem {
+  id
+  quantity
+  product {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicProductInfoFragmentDoc}`;
+export const BasicAddressInfoFragmentDoc = gql`
+    fragment BasicAddressInfo on Address {
+  id
+  completeName
+  country
+  street
+  numberAndBlock
+  zone
+  region
+  postal
+  contact
+  instructions
+}
+    `;
+export const BasicOrderInfoFragmentDoc = gql`
+    fragment BasicOrderInfo on Order {
+  id
+  price
+  quantity
+  orderItems {
+    ...BasicOrderItemInfo
+  }
+  address {
+    ...BasicAddressInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicOrderItemInfoFragmentDoc}
+${BasicAddressInfoFragmentDoc}`;
+export const BasicPaymentIntentFragmentDoc = gql`
+    fragment BasicPaymentIntent on PaymentIntent {
+  id
+  amount
+  client_secret
+  last_payment_error {
+    code
+    message
+  }
+}
+    `;
 export const BasicCartItemInfoFragmentDoc = gql`
     fragment BasicCartItemInfo on CartItem {
   id
@@ -1517,20 +1780,6 @@ export const BasicWishListInfoFragmentDoc = gql`
   updatedAt
 }
     ${BasicProductInfoFragmentDoc}`;
-export const BasicAddressInfoFragmentDoc = gql`
-    fragment BasicAddressInfo on Address {
-  id
-  completeName
-  country
-  street
-  numberAndBlock
-  zone
-  region
-  postal
-  contact
-  instructions
-}
-    `;
 export const BasicUserInfoFragmentDoc = gql`
     fragment BasicUserInfo on User {
   id
@@ -1682,6 +1931,41 @@ export function useCreateCartItemMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateCartItemMutationHookResult = ReturnType<typeof useCreateCartItemMutation>;
 export type CreateCartItemMutationResult = Apollo.MutationResult<CreateCartItemMutation>;
 export type CreateCartItemMutationOptions = Apollo.BaseMutationOptions<CreateCartItemMutation, CreateCartItemMutationVariables>;
+export const CreateOrderDocument = gql`
+    mutation CreateOrder($cartId: String!, $cartItemsIds: [String!]!, $addressId: String!) {
+  createOrder(cartId: $cartId, cartItemsIds: $cartItemsIds, addressId: $addressId) {
+    ...BasicOrderInfo
+  }
+}
+    ${BasicOrderInfoFragmentDoc}`;
+export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
+
+/**
+ * __useCreateOrderMutation__
+ *
+ * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
+ *   variables: {
+ *      cartId: // value for 'cartId'
+ *      cartItemsIds: // value for 'cartItemsIds'
+ *      addressId: // value for 'addressId'
+ *   },
+ * });
+ */
+export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
+      }
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
+export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
+export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
 export const CreatePaymentIntentDocument = gql`
     mutation CreatePaymentIntent($amount: Int!) {
   createPaymentIntent(amount: $amount) {
@@ -2297,6 +2581,37 @@ export function useToggleFromWishListMutation(baseOptions?: Apollo.MutationHookO
 export type ToggleFromWishListMutationHookResult = ReturnType<typeof useToggleFromWishListMutation>;
 export type ToggleFromWishListMutationResult = Apollo.MutationResult<ToggleFromWishListMutation>;
 export type ToggleFromWishListMutationOptions = Apollo.BaseMutationOptions<ToggleFromWishListMutation, ToggleFromWishListMutationVariables>;
+export const UnsuccessfulPaymentDocument = gql`
+    mutation UnsuccessfulPayment($orderId: String!) {
+  unsuccessfulPayment(orderId: $orderId)
+}
+    `;
+export type UnsuccessfulPaymentMutationFn = Apollo.MutationFunction<UnsuccessfulPaymentMutation, UnsuccessfulPaymentMutationVariables>;
+
+/**
+ * __useUnsuccessfulPaymentMutation__
+ *
+ * To run a mutation, you first call `useUnsuccessfulPaymentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnsuccessfulPaymentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unsuccessfulPaymentMutation, { data, loading, error }] = useUnsuccessfulPaymentMutation({
+ *   variables: {
+ *      orderId: // value for 'orderId'
+ *   },
+ * });
+ */
+export function useUnsuccessfulPaymentMutation(baseOptions?: Apollo.MutationHookOptions<UnsuccessfulPaymentMutation, UnsuccessfulPaymentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnsuccessfulPaymentMutation, UnsuccessfulPaymentMutationVariables>(UnsuccessfulPaymentDocument, options);
+      }
+export type UnsuccessfulPaymentMutationHookResult = ReturnType<typeof useUnsuccessfulPaymentMutation>;
+export type UnsuccessfulPaymentMutationResult = Apollo.MutationResult<UnsuccessfulPaymentMutation>;
+export type UnsuccessfulPaymentMutationOptions = Apollo.BaseMutationOptions<UnsuccessfulPaymentMutation, UnsuccessfulPaymentMutationVariables>;
 export const CategoriesDocument = gql`
     query Categories($orderBy: [CategoryOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   categories(

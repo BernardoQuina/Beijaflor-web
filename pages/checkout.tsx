@@ -3,7 +3,6 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import { Layout } from '../components/Layout'
-import { CheckoutForm } from '../components/checkout/CheckoutForm'
 import { useState } from 'react'
 import { useMeQuery } from '../lib/generated/graphql'
 import { isServer } from '../utils/isServer'
@@ -33,6 +32,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
         <CheckoutHeader
           checkoutFase={checkoutFase}
           setCheckoutFase={setCheckoutFase}
+          cart={data?.me?.cart}
         />
         <AnimatePresence exitBeforeEnter>
           {checkoutFase === 'confirm items' ? (
@@ -77,9 +77,23 @@ const checkout: NextPage<checkoutProps> = ({}) => {
                 addressId={addressId}
               />
             </motion.div>
+          ) : checkoutFase === 'confirmation' ? (
+            <motion.div
+              key='confirmation'
+              className='w-full'
+              initial='initial'
+              animate='animate'
+              exit='exit'
+              variants={slideFromRightToLeft}
+            >
+              <MakePayment
+                data={data}
+                setCheckoutFase={setCheckoutFase}
+                addressId={addressId}
+              />
+            </motion.div>
           ) : null}
         </AnimatePresence>
-        {/* <CheckoutForm /> */}
       </Layout>
     </Elements>
   )

@@ -1,9 +1,11 @@
 import { motion, AnimateSharedLayout } from 'framer-motion'
 import { Dispatch, SetStateAction } from 'react'
+import { BasicCartInfoFragment } from '../../lib/generated/graphql'
 
 import { ArrowDown } from '../svg/ArrowDown'
 
 interface CheckoutHeaderProps {
+  cart: BasicCartInfoFragment
   checkoutFase: string
   setCheckoutFase: Dispatch<SetStateAction<string>>
 }
@@ -11,6 +13,7 @@ interface CheckoutHeaderProps {
 export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
   checkoutFase,
   setCheckoutFase,
+  cart
 }) => {
   return (
     <AnimateSharedLayout>
@@ -51,6 +54,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         </div>
         <motion.button
           onClick={() => setCheckoutFase('address')}
+          disabled={cart?.quantity < 1}
           layoutId='address'
           className={`${
             checkoutFase !== 'confirm items' &&
@@ -84,6 +88,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         </div>
         <motion.button
           onClick={() => setCheckoutFase('payment')}
+          disabled={cart?.quantity < 1}
           layoutId='payment'
           className={`${checkoutFase !== 'payment' && 'hidden md:inline-block'}
         relative z-[0] mt-1 lg:mt-4 mx-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark ${

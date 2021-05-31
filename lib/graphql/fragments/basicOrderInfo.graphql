@@ -1,0 +1,13 @@
+fragment BasicOrderInfo on Order {
+  id
+  price
+  quantity
+  orderItems {
+    ...BasicOrderItemInfo
+  }
+  address {
+    ...BasicAddressInfo
+  }
+  createdAt
+  updatedAt
+}

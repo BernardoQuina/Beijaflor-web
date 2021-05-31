@@ -1,0 +1,9 @@
+fragment BasicOrderItemInfo on OrderItem {
+  id
+  quantity
+  product {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}
