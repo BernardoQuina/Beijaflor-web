@@ -13,6 +13,7 @@ import { SetAddress } from '../components/checkout/SetAddress'
 import { AnimatePresence, motion } from 'framer-motion'
 import { slideFromRightToLeft, slideLeft } from '../utils/animations'
 import { MakePayment } from '../components/checkout/MakePayment'
+import { OrderConfirmation } from '../components/checkout/OrderConfirmation'
 
 interface checkoutProps {}
 
@@ -86,11 +87,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
               exit='exit'
               variants={slideFromRightToLeft}
             >
-              <MakePayment
-                data={data}
-                setCheckoutFase={setCheckoutFase}
-                addressId={addressId}
-              />
+              <OrderConfirmation data={data} />
             </motion.div>
           ) : null}
         </AnimatePresence>
