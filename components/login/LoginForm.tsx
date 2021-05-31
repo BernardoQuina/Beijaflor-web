@@ -37,7 +37,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({}) => {
         })
 
         if (response.errors) {
-          console.log(response.errors)
           setErrors({ email: response.errors[0].message })
         } else if (response.data.login) {
           router.push('/')

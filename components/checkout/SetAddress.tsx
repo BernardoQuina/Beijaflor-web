@@ -21,8 +21,6 @@ export const SetAddress: React.FC<SetAddressProps> = ({
 }) => {
   const [showNewAddressModal, setShowNewAddressModal] = useState(false)
 
-  console.log(data)
-
   return (
     <div className='mt-3 xs:mt-6 flex flex-col mx-auto max-w-2xl h-[27rem] xs:h-[40rem] bg-white rounded-md shadow-around'>
       <NewAddressModal

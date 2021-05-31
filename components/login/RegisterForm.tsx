@@ -41,7 +41,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({}) => {
         })
 
         if (response.errors) {
-          console.log(response.errors)
           setErrors({ name: response.errors[0].message })
         } else if (response.data.register) {
           router.push('/')

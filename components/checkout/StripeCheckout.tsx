@@ -26,7 +26,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   data,
   addressId,
   setPaymentMethod,
-  setCheckoutFase
+  setCheckoutFase,
 }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -67,16 +67,8 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
         },
       })
 
-      if (response.errors) {
-        console.log(response.errors[0].message)
-        return
-      }
-
-      console.log('successful response: ', response.data.createPaymentIntent)
       setPaymentIntent(response.data.createPaymentIntent)
     }
-
-    console.log('cart price: ', data?.me?.cart.price)
 
     getIntent()
 
@@ -113,14 +105,10 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
         if (createOrderResponse.errors) {
           setPaymentError(createOrderResponse.errors[0].message)
         } else if (createOrderResponse.data?.createOrder) {
-          console.log(
-            'successful order: ',
-            createOrderResponse.data.createOrder
-          )
           try {
             const {
               error,
-              paymentIntent: { status, last_payment_error },
+              paymentIntent: { status },
             } = await stripe.confirmCardPayment(paymentIntent.client_secret, {
               payment_method: {
                 card: elements.getElement(CardElement),
@@ -139,12 +127,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
             })
 
             if (error) {
-              console.log('payment error: ', error)
               setPaymentError(error.message)
-            }
-
-            if (last_payment_error) {
-              console.log('last payment error: ', last_payment_error.message)
             }
 
             if (status === 'succeeded') {
@@ -153,7 +136,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
                   cache.evict({ id: `Cart:${data.me.cart.id}` })
                 },
               })
-              
+
               setCheckoutFase('confirmation')
             } else {
               await unsuccessfulPayment({
@@ -170,16 +153,9 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
               },
             })
 
-            const unsuccessfulPaymentRes = await unsuccessfulPayment({
+            await unsuccessfulPayment({
               variables: { orderId: createOrderResponse.data.createOrder.id },
             })
-
-            if (unsuccessfulPaymentRes.errors) {
-              console.log(
-                'unsuccessful payment error: ',
-                unsuccessfulPaymentRes.errors[0].message
-              )
-            }
 
             if (response.data.createPaymentIntent.last_payment_error) {
               const inPt = ptErrors.some(
