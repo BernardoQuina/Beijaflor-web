@@ -13,13 +13,14 @@ interface CheckoutHeaderProps {
 export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
   checkoutFase,
   setCheckoutFase,
-  cart
+  cart,
 }) => {
   return (
     <AnimateSharedLayout>
       <div className='flex mx-auto -mt-12 lg:-mt-14 max-w-4xl'>
         <motion.button
           onClick={() => setCheckoutFase('confirm items')}
+          disabled={checkoutFase === 'confirmation'}
           layoutId='confirm Items'
           className={`${
             checkoutFase !== 'confirm items' &&
@@ -54,7 +55,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         </div>
         <motion.button
           onClick={() => setCheckoutFase('address')}
-          disabled={cart?.quantity < 1}
+          disabled={cart?.quantity < 1 || checkoutFase === 'confirmation'}
           layoutId='address'
           className={`${
             checkoutFase !== 'confirm items' &&
@@ -88,7 +89,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
         </div>
         <motion.button
           onClick={() => setCheckoutFase('payment')}
-          disabled={cart?.quantity < 1}
+          disabled={cart?.quantity < 1 || checkoutFase === 'confirmation'}
           layoutId='payment'
           className={`${checkoutFase !== 'payment' && 'hidden md:inline-block'}
         relative z-[0] mt-1 lg:mt-4 mx-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark ${

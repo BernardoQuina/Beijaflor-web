@@ -20,6 +20,7 @@ interface StripeCheckoutProps {
   addressId: string
   setPaymentMethod: Dispatch<SetStateAction<string>>
   setCheckoutFase: Dispatch<SetStateAction<string>>
+  setConfirmedOrderId: Dispatch<SetStateAction<string>>
 }
 
 export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
@@ -27,6 +28,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   addressId,
   setPaymentMethod,
   setCheckoutFase,
+  setConfirmedOrderId,
 }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -132,11 +134,16 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
 
             if (status === 'succeeded') {
               await successfulPayment({
+                variables: { orderId: createOrderResponse.data.createOrder.id },
                 update: (cache) => {
                   cache.evict({ id: `Cart:${data.me.cart.id}` })
+                  cache.evict({
+                    id: `Order:${createOrderResponse.data.createOrder.id}`,
+                  })
                 },
               })
 
+              setConfirmedOrderId(createOrderResponse.data.createOrder.id)
               setCheckoutFase('confirmation')
             } else {
               await unsuccessfulPayment({

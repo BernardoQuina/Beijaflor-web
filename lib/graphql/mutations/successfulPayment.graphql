@@ -1,3 +1,3 @@
-mutation SuccessfulPayment {
-  successfulPayment
+mutation SuccessfulPayment ($orderId: String!) {
+  successfulPayment(orderId: $orderId)
 }

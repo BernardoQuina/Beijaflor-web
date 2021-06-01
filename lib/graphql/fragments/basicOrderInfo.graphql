@@ -2,6 +2,7 @@ fragment BasicOrderInfo on Order {
   id
   price
   quantity
+  cardDetails
   orderItems {
     ...BasicOrderItemInfo
   }

@@ -13,12 +13,14 @@ import { StripeCheckout } from './StripeCheckout'
 interface MakePaymentProps {
   data: MeQuery
   setCheckoutFase: Dispatch<SetStateAction<string>>
+  setConfirmedOrderId: Dispatch<SetStateAction<string>>
   addressId: string
 }
 
 export const MakePayment: React.FC<MakePaymentProps> = ({
   data,
   setCheckoutFase,
+  setConfirmedOrderId,
   addressId,
 }) => {
   const [paymentMethod, setPaymentMethod] = useState('')
@@ -99,6 +101,7 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
               <StripeCheckout
                 setPaymentMethod={setPaymentMethod}
                 setCheckoutFase={setCheckoutFase}
+                setConfirmedOrderId={setConfirmedOrderId}
                 addressId={addressId}
                 data={data}
               />

@@ -22,6 +22,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const checkout: NextPage<checkoutProps> = ({}) => {
   const [checkoutFase, setCheckoutFase] = useState('confirm items')
   const [addressId, setAddressId] = useState<string | null>(null)
+  const [confirmedOrderId, setConfirmedOrderId] = useState<string | null>(null)
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
@@ -75,6 +76,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
               <MakePayment
                 data={data}
                 setCheckoutFase={setCheckoutFase}
+                setConfirmedOrderId={setConfirmedOrderId}
                 addressId={addressId}
               />
             </motion.div>
@@ -87,7 +89,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
               exit='exit'
               variants={slideFromRightToLeft}
             >
-              <OrderConfirmation data={data} />
+              <OrderConfirmation confirmedOrderId={confirmedOrderId} />
             </motion.div>
           ) : null}
         </AnimatePresence>

@@ -426,6 +426,11 @@ export type MutationCreatePaymentIntentArgs = {
 };
 
 
+export type MutationSuccessfulPaymentArgs = {
+  orderId: Scalars['String'];
+};
+
+
 export type MutationUnsuccessfulPaymentArgs = {
   orderId: Scalars['String'];
 };
@@ -593,6 +598,7 @@ export type Order = {
   orderItems: Array<OrderItem>;
   price: Scalars['Float'];
   quantity: Scalars['Int'];
+  cardDetails?: Maybe<Scalars['String']>;
   userId: Scalars['String'];
   addressId: Scalars['String'];
   createdAt: Scalars['DateTime'];
@@ -662,6 +668,7 @@ export type OrderOrderByInput = {
   id?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   quantity?: Maybe<SortOrder>;
+  cardDetails?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   addressId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
@@ -677,6 +684,7 @@ export type OrderWhereInput = {
   address?: Maybe<AddressWhereInput>;
   price?: Maybe<FloatFilter>;
   quantity?: Maybe<IntFilter>;
+  cardDetails?: Maybe<StringNullableFilter>;
   orderItems?: Maybe<OrderItemListRelationFilter>;
   userId?: Maybe<StringFilter>;
   addressId?: Maybe<StringFilter>;
@@ -1183,7 +1191,7 @@ export type BasicCategoryInfoFragment = (
 
 export type BasicOrderInfoFragment = (
   { __typename?: 'Order' }
-  & Pick<Order, 'id' | 'price' | 'quantity' | 'createdAt' | 'updatedAt'>
+  & Pick<Order, 'id' | 'price' | 'quantity' | 'cardDetails' | 'createdAt' | 'updatedAt'>
   & { orderItems: Array<(
     { __typename?: 'OrderItem' }
     & BasicOrderItemInfoFragment
@@ -1519,7 +1527,9 @@ export type RemoveItemMutation = (
   & Pick<Mutation, 'removeItem'>
 );
 
-export type SuccessfulPaymentMutationVariables = Exact<{ [key: string]: never; }>;
+export type SuccessfulPaymentMutationVariables = Exact<{
+  orderId: Scalars['String'];
+}>;
 
 
 export type SuccessfulPaymentMutation = (
@@ -1574,6 +1584,19 @@ export type CategoryCountQueryVariables = Exact<{ [key: string]: never; }>;
 export type CategoryCountQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'categoryCount'>
+);
+
+export type ConfirmedOrderQueryVariables = Exact<{
+  orderId: Scalars['String'];
+}>;
+
+
+export type ConfirmedOrderQuery = (
+  { __typename?: 'Query' }
+  & { order?: Maybe<(
+    { __typename?: 'Order' }
+    & BasicOrderInfoFragment
+  )> }
 );
 
 export type ExploreProductsQueryVariables = Exact<{
@@ -1725,6 +1748,7 @@ export const BasicOrderInfoFragmentDoc = gql`
   id
   price
   quantity
+  cardDetails
   orderItems {
     ...BasicOrderItemInfo
   }
@@ -2513,8 +2537,8 @@ export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutati
 export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
 export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
 export const SuccessfulPaymentDocument = gql`
-    mutation SuccessfulPayment {
-  successfulPayment
+    mutation SuccessfulPayment($orderId: String!) {
+  successfulPayment(orderId: $orderId)
 }
     `;
 export type SuccessfulPaymentMutationFn = Apollo.MutationFunction<SuccessfulPaymentMutation, SuccessfulPaymentMutationVariables>;
@@ -2532,6 +2556,7 @@ export type SuccessfulPaymentMutationFn = Apollo.MutationFunction<SuccessfulPaym
  * @example
  * const [successfulPaymentMutation, { data, loading, error }] = useSuccessfulPaymentMutation({
  *   variables: {
+ *      orderId: // value for 'orderId'
  *   },
  * });
  */
@@ -2685,6 +2710,41 @@ export function useCategoryCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type CategoryCountQueryHookResult = ReturnType<typeof useCategoryCountQuery>;
 export type CategoryCountLazyQueryHookResult = ReturnType<typeof useCategoryCountLazyQuery>;
 export type CategoryCountQueryResult = Apollo.QueryResult<CategoryCountQuery, CategoryCountQueryVariables>;
+export const ConfirmedOrderDocument = gql`
+    query ConfirmedOrder($orderId: String!) {
+  order(where: {id: $orderId}) {
+    ...BasicOrderInfo
+  }
+}
+    ${BasicOrderInfoFragmentDoc}`;
+
+/**
+ * __useConfirmedOrderQuery__
+ *
+ * To run a query within a React component, call `useConfirmedOrderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useConfirmedOrderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useConfirmedOrderQuery({
+ *   variables: {
+ *      orderId: // value for 'orderId'
+ *   },
+ * });
+ */
+export function useConfirmedOrderQuery(baseOptions: Apollo.QueryHookOptions<ConfirmedOrderQuery, ConfirmedOrderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ConfirmedOrderQuery, ConfirmedOrderQueryVariables>(ConfirmedOrderDocument, options);
+      }
+export function useConfirmedOrderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ConfirmedOrderQuery, ConfirmedOrderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ConfirmedOrderQuery, ConfirmedOrderQueryVariables>(ConfirmedOrderDocument, options);
+        }
+export type ConfirmedOrderQueryHookResult = ReturnType<typeof useConfirmedOrderQuery>;
+export type ConfirmedOrderLazyQueryHookResult = ReturnType<typeof useConfirmedOrderLazyQuery>;
+export type ConfirmedOrderQueryResult = Apollo.QueryResult<ConfirmedOrderQuery, ConfirmedOrderQueryVariables>;
 export const ExploreProductsDocument = gql`
     query ExploreProducts($orderBy: [ProductOrderByInput!], $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none", $searchCatName3: String = "none", $searchCatName4: String = "none", $searchCatName5: String = "none", $searchCatName6: String = "none", $searchCatName7: String = "none", $searchCatName8: String = "none", $searchCatName9: String = "none", $searchCatName10: String = "none") {
   products(

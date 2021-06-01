@@ -1,0 +1,5 @@
+query ConfirmedOrder($orderId: String!) {
+  order(where: { id: $orderId }) {
+    ...BasicOrderInfo
+  }
+}
