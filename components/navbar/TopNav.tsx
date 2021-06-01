@@ -403,11 +403,15 @@ export const TopNav: React.FC<TopNavProps> = ({
           {profileModal && (
             <ProfileModal me={data} modalRef={profileModalNode} />
           )}
-        {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
-        {wishlistModal && (
-          <WishlistModal data={data} modalRef={wishlistModalNode} />
+        </AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
+          {cartModal && <CartModal data={data} modalRef={cartModalNode} />}
+        </AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
+          {wishlistModal && (
+            <WishlistModal data={data} modalRef={wishlistModalNode} />
           )}
-          </AnimatePresence>
+        </AnimatePresence>
       </div>
       {data?.me && (
         <MergeCartsModal

@@ -80,6 +80,10 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
       setCartItemsIds((prev) => [...prev, cartItem.id])
     })
 
+    if (data?.me?.cart.quantity < 1) {
+      setCheckoutFase('confirm items')
+    }
+
     document.addEventListener('mousedown', messageClick)
 
     return () => {
