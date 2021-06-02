@@ -1240,6 +1240,9 @@ export type BasicUserInfoFragment = (
   )>, addresses: Array<(
     { __typename?: 'Address' }
     & BasicAddressInfoFragment
+  )>, orders: Array<(
+    { __typename?: 'Order' }
+    & BasicOrderInfoFragment
   )> }
 );
 
@@ -1686,6 +1689,17 @@ export type UserQuery = (
   )> }
 );
 
+export const BasicPaymentIntentFragmentDoc = gql`
+    fragment BasicPaymentIntent on PaymentIntent {
+  id
+  amount
+  client_secret
+  last_payment_error {
+    code
+    message
+  }
+}
+    `;
 export const BasicCategoryInfoFragmentDoc = gql`
     fragment BasicCategoryInfo on Category {
   id
@@ -1718,59 +1732,6 @@ export const BasicProductInfoFragmentDoc = gql`
   lifespan
 }
     ${BasicCategoryInfoFragmentDoc}`;
-export const BasicOrderItemInfoFragmentDoc = gql`
-    fragment BasicOrderItemInfo on OrderItem {
-  id
-  quantity
-  product {
-    ...BasicProductInfo
-  }
-  createdAt
-  updatedAt
-}
-    ${BasicProductInfoFragmentDoc}`;
-export const BasicAddressInfoFragmentDoc = gql`
-    fragment BasicAddressInfo on Address {
-  id
-  completeName
-  country
-  street
-  numberAndBlock
-  zone
-  region
-  postal
-  contact
-  instructions
-}
-    `;
-export const BasicOrderInfoFragmentDoc = gql`
-    fragment BasicOrderInfo on Order {
-  id
-  price
-  quantity
-  cardDetails
-  orderItems {
-    ...BasicOrderItemInfo
-  }
-  address {
-    ...BasicAddressInfo
-  }
-  createdAt
-  updatedAt
-}
-    ${BasicOrderItemInfoFragmentDoc}
-${BasicAddressInfoFragmentDoc}`;
-export const BasicPaymentIntentFragmentDoc = gql`
-    fragment BasicPaymentIntent on PaymentIntent {
-  id
-  amount
-  client_secret
-  last_payment_error {
-    code
-    message
-  }
-}
-    `;
 export const BasicCartItemInfoFragmentDoc = gql`
     fragment BasicCartItemInfo on CartItem {
   id
@@ -1804,6 +1765,48 @@ export const BasicWishListInfoFragmentDoc = gql`
   updatedAt
 }
     ${BasicProductInfoFragmentDoc}`;
+export const BasicAddressInfoFragmentDoc = gql`
+    fragment BasicAddressInfo on Address {
+  id
+  completeName
+  country
+  street
+  numberAndBlock
+  zone
+  region
+  postal
+  contact
+  instructions
+}
+    `;
+export const BasicOrderItemInfoFragmentDoc = gql`
+    fragment BasicOrderItemInfo on OrderItem {
+  id
+  quantity
+  product {
+    ...BasicProductInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicProductInfoFragmentDoc}`;
+export const BasicOrderInfoFragmentDoc = gql`
+    fragment BasicOrderInfo on Order {
+  id
+  price
+  quantity
+  cardDetails
+  orderItems {
+    ...BasicOrderItemInfo
+  }
+  address {
+    ...BasicAddressInfo
+  }
+  createdAt
+  updatedAt
+}
+    ${BasicOrderItemInfoFragmentDoc}
+${BasicAddressInfoFragmentDoc}`;
 export const BasicUserInfoFragmentDoc = gql`
     fragment BasicUserInfo on User {
   id
@@ -1822,12 +1825,16 @@ export const BasicUserInfoFragmentDoc = gql`
   addresses {
     ...BasicAddressInfo
   }
+  orders {
+    ...BasicOrderInfo
+  }
   createdAt
   updatedAt
 }
     ${BasicCartInfoFragmentDoc}
 ${BasicWishListInfoFragmentDoc}
-${BasicAddressInfoFragmentDoc}`;
+${BasicAddressInfoFragmentDoc}
+${BasicOrderInfoFragmentDoc}`;
 export const ChangeItemQuantityDocument = gql`
     mutation ChangeItemQuantity($plusOrMinusOne: Int!, $cartItemId: String!, $cartId: String!, $productId: String!) {
   changeItemQuantity(

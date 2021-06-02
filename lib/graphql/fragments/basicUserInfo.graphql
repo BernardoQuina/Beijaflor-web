@@ -15,6 +15,9 @@ fragment BasicUserInfo on User {
   addresses {
     ...BasicAddressInfo
   }
+  orders {
+    ...BasicOrderInfo
+  }
   createdAt
   updatedAt
 }
