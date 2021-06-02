@@ -28,7 +28,7 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
 
   useEffect(() => {
     if (data?.order?.userId && meData.me?.id) {
-      if (data?.order?.userId !== meData.me?.id) {
+      if (data.order.userId !== meData.me.id && meData.me.role !== 'ADMIN') {
         console.log('pushing')
         router.push('/')
       }

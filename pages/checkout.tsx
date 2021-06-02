@@ -17,7 +17,7 @@ import { OrderConfirmation } from '../components/checkout/OrderConfirmation'
 
 interface checkoutProps {}
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
 
 const checkout: NextPage<checkoutProps> = ({}) => {
   const [checkoutFase, setCheckoutFase] = useState('confirm items')
