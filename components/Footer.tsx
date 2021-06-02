@@ -6,11 +6,14 @@ import { Pinterest } from './svg/Pinterest'
 import { Send } from './svg/Send'
 import { ArrowDown } from './svg/ArrowDown'
 import { useState } from 'react'
+import { useWishlistModal } from '../context/wishListModalContext'
 
 interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = ({}) => {
   const [open, setOpen] = useState('')
+
+  const { setWishlistModal } = useWishlistModal()
 
   return (
     <footer className='w-full bg-pink-light shadow-inner pt-10 mt-10'>
@@ -50,7 +53,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                   }
                 }}
               >
-                <h6 className='font-bold font-serif tracking-widest self-center'>Navegação</h6>
+                <h6 className='font-bold font-serif tracking-widest self-center'>
+                  Navegação
+                </h6>
 
                 <ArrowDown
                   tailwind={`h-4 transform ml-1 self-center lg:hidden ${
@@ -86,12 +91,12 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                 </Link>
                 <Link href='/explorar/acessórios'>
                   <a>
-                    <p className='my-4'>acessórios</p>
+                    <p className='my-4'>Acessórios</p>
                   </a>
                 </Link>
                 <Link href='/explorar/ocasião'>
                   <a>
-                    <p className='my-4'>ocasião</p>
+                    <p className='my-4'>Ocasião</p>
                   </a>
                 </Link>
               </div>
@@ -107,7 +112,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                   }
                 }}
               >
-                <h6 className='font-bold font-serif tracking-widest self-center'>Conta</h6>
+                <h6 className='font-bold font-serif tracking-widest self-center'>
+                  Conta
+                </h6>
 
                 <ArrowDown
                   tailwind={`h-4 transform ml-1 self-center lg:hidden ${
@@ -124,12 +131,13 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                     <p className='my-4'>A minha conta</p>
                   </a>
                 </Link>
-                <Link href='/favoritos'>
-                  <a>
-                    <p className='my-4'>Favoritos</p>
-                  </a>
-                </Link>
-                <Link href='/cesto'>
+                <button
+                  onClick={() => setWishlistModal('true')}
+                  className='tracking-widest hover:underline'
+                >
+                  <p>Lista de desejos</p>
+                </button>
+                <Link href='/checkout'>
                   <a>
                     <p className='my-4'>Cesto</p>
                   </a>
@@ -142,6 +150,11 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                 <Link href='/conta/encomendas'>
                   <a>
                     <p className='my-4'>Encomendas</p>
+                  </a>
+                </Link>
+                <Link href='/conta/moradas'>
+                  <a>
+                    <p className='my-4'>Moradas</p>
                   </a>
                 </Link>
               </div>
@@ -157,7 +170,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                   }
                 }}
               >
-                <h6 className='font-bold font-serif tracking-widest self-center'>Beijaflor</h6>
+                <h6 className='font-bold font-serif tracking-widest self-center'>
+                  Beijaflor
+                </h6>
                 <ArrowDown
                   tailwind={`h-4 transform ml-1 self-center lg:hidden ${
                     open === 'beijaflor' && 'rotate-180'

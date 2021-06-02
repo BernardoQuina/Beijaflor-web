@@ -7,7 +7,7 @@ import { WishlistContent } from './WishlistContent'
 import { LocalWishlist } from '../../utils/localStorageWishlist'
 import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 import { motion } from 'framer-motion'
-import { fadeDown, fadeDownToLeft } from '../../utils/animations'
+import { fadeDownToLeft } from '../../utils/animations'
 
 interface WishlistModalProps {
   data: MeQuery

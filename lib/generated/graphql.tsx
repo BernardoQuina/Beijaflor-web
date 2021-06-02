@@ -1057,6 +1057,7 @@ export type User = {
 
 
 export type UserOrdersArgs = {
+  orderBy?: Maybe<Array<OrderOrderByInput>>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<OrderWhereUniqueInput>;
@@ -1839,7 +1840,7 @@ export const BasicUserInfoFragmentDoc = gql`
   addresses {
     ...BasicAddressInfo
   }
-  orders {
+  orders(orderBy: {createdAt: desc}) {
     ...BasicOrderInfo
   }
   createdAt

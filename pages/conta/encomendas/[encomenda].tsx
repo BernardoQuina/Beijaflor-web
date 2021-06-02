@@ -67,13 +67,13 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
               <h6 className='text-gray-400 tracking-wide mb-1'>
                 ID da encomenda
               </h6>
-              <p className='text-sm'>{data?.order?.id}</p>
+              <p className='text-sm text-green-dark'>{data?.order?.id}</p>
             </div>
             <div className='flex flex-col p-2 min-w-[20%] lg:mr-auto border-t lg:border-t-0 lg:border-l'>
               <h6 className='text-gray-400 tracking-wide mb-1'>
                 Data de encomenda
               </h6>
-              <p className='tracking-wide'>
+              <p className='tracking-wide text-green-dark'>
                 {DateTime.fromISO(data?.order?.createdAt)
                   .setLocale('pt-pt')
                   .toLocaleString(DateTime.DATETIME_MED)}
@@ -81,14 +81,14 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
             </div>
             <div className='flex flex-col p-2 lg:mr-auto border-t lg:border-t-0 lg:border-l'>
               <h6 className='text-gray-400 tracking-wide mb-1'>Pagamento</h6>
-              <p className='tracking-wide'>{data?.order?.cardDetails}</p>
+              <p className='tracking-wide text-green-dark'>{data?.order?.cardDetails}</p>
             </div>
             <div className='flex flex-col lg:w-[50%] p-2 border-t lg:border-t-0 lg:border-l'>
               <h6 className='text-gray-400 tracking-wide mb-1'>Morada</h6>
-              <p className='tracking-wide'>
+              <p className='tracking-wide text-green-dark'>
                 {data?.order?.address.completeName},
               </p>
-              <p className='tracking-wide'>
+              <p className='tracking-wide text-green-dark'>
                 {`${data?.order?.address.street}, ${data?.order?.address.numberAndBlock}, ${data?.order?.address.postal} ${data?.order?.address.zone}`}
               </p>
             </div>

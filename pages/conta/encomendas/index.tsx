@@ -47,9 +47,9 @@ const encomendas: NextPage<encomendasProps> = ({}) => {
               className='relative flex w-full px-2 my-2 rounded-md shadow-md bg-white'
             >
               <Link href={`/conta/encomendas/${order.id}`}>
-                <a className='absolute top-2 right-2 p-1 rounded-md shadow-md bg-green-extraLight'>
+                <a className='absolute flex top-[50%] translate-y-[-50%] right-2 p-1 h-[90%] lg:h-[85%] rounded-md shadow-md bg-green-extraLight'>
                   <ArrowDown
-                    tailwind='h-4 text-green-dark transform -rotate-90'
+                    tailwind='h-4 self-center text-green-dark transform -rotate-90'
                     strokeWidth={2}
                   />
                 </a>
@@ -78,7 +78,7 @@ const encomendas: NextPage<encomendasProps> = ({}) => {
                   outros`
                     : null}
                 </h5>
-                <div className='flex flex-col lg:flex-row mt-2'>
+                <div className='flex flex-col lg:flex-row mt-2 w-[85%] xs:w-[90%] lg:w-[97%]'>
                   <div className='flex flex-col ml-1 min-w-[9rem]'>
                     <h5 className='text-gray-400'>Data de encomenda</h5>
                     <p className='ml-1 tracking-wide text-green-dark'>

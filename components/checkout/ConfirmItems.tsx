@@ -26,6 +26,12 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
 
   const [removeItem] = useRemoveItemMutation({ errorPolicy: 'all' })
 
+  if (!data?.me) {
+    return (
+      <h1 className='text-green-dark text-center w-full m-auto'>Faça login para fazer checkout</h1>
+    )
+  }
+
   return (
     <div className='mt-3 xs:mt-6 flex flex-col mx-auto max-w-2xl h-[27rem] xs:h-[40rem] bg-white rounded-md shadow-around'>
       {data?.me?.cart === null || data?.me?.cart.cartItems.length < 1 ? (

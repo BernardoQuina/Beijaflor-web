@@ -15,7 +15,7 @@ fragment BasicUserInfo on User {
   addresses {
     ...BasicAddressInfo
   }
-  orders {
+  orders(orderBy: { createdAt: desc }) {
     ...BasicOrderInfo
   }
   createdAt

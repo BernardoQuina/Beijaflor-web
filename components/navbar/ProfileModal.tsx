@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import { MeQuery, useLogoutMutation } from '../../lib/generated/graphql'
 import { motion } from 'framer-motion'
-import { scaleUp, fadeDownToLeft } from '../../utils/animations'
+import { fadeDownToLeft } from '../../utils/animations'
 
 interface ProfileModalProps {
   me: MeQuery
