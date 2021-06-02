@@ -1,0 +1,5 @@
+query SingleOrder($orderId: String!) {
+  order(where: { id: $orderId }) {
+    ...BasicOrderInfo
+  }
+}

@@ -1191,7 +1191,7 @@ export type BasicCategoryInfoFragment = (
 
 export type BasicOrderInfoFragment = (
   { __typename?: 'Order' }
-  & Pick<Order, 'id' | 'price' | 'quantity' | 'cardDetails' | 'createdAt' | 'updatedAt'>
+  & Pick<Order, 'id' | 'userId' | 'price' | 'quantity' | 'cardDetails' | 'createdAt' | 'updatedAt'>
   & { orderItems: Array<(
     { __typename?: 'OrderItem' }
     & BasicOrderItemInfoFragment
@@ -1663,6 +1663,19 @@ export type ProductsQuery = (
   )> }
 );
 
+export type SingleOrderQueryVariables = Exact<{
+  orderId: Scalars['String'];
+}>;
+
+
+export type SingleOrderQuery = (
+  { __typename?: 'Query' }
+  & { order?: Maybe<(
+    { __typename?: 'Order' }
+    & BasicOrderInfoFragment
+  )> }
+);
+
 export type SingleProductQueryVariables = Exact<{
   name: Scalars['String'];
 }>;
@@ -1793,6 +1806,7 @@ export const BasicOrderItemInfoFragmentDoc = gql`
 export const BasicOrderInfoFragmentDoc = gql`
     fragment BasicOrderInfo on Order {
   id
+  userId
   price
   quantity
   cardDetails
@@ -2912,6 +2926,41 @@ export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
 export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
 export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export const SingleOrderDocument = gql`
+    query SingleOrder($orderId: String!) {
+  order(where: {id: $orderId}) {
+    ...BasicOrderInfo
+  }
+}
+    ${BasicOrderInfoFragmentDoc}`;
+
+/**
+ * __useSingleOrderQuery__
+ *
+ * To run a query within a React component, call `useSingleOrderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleOrderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleOrderQuery({
+ *   variables: {
+ *      orderId: // value for 'orderId'
+ *   },
+ * });
+ */
+export function useSingleOrderQuery(baseOptions: Apollo.QueryHookOptions<SingleOrderQuery, SingleOrderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SingleOrderQuery, SingleOrderQueryVariables>(SingleOrderDocument, options);
+      }
+export function useSingleOrderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SingleOrderQuery, SingleOrderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SingleOrderQuery, SingleOrderQueryVariables>(SingleOrderDocument, options);
+        }
+export type SingleOrderQueryHookResult = ReturnType<typeof useSingleOrderQuery>;
+export type SingleOrderLazyQueryHookResult = ReturnType<typeof useSingleOrderLazyQuery>;
+export type SingleOrderQueryResult = Apollo.QueryResult<SingleOrderQuery, SingleOrderQueryVariables>;
 export const SingleProductDocument = gql`
     query SingleProduct($name: String!) {
   product(where: {name: $name}) {

@@ -1,5 +1,7 @@
-import { NextPage } from 'next'
 import { useState } from 'react'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
+
 import { CategoriesSection } from '../../components/admin/CategoriesSection'
 import { ProductsSection } from '../../components/admin/ProductsSection'
 import { Layout } from '../../components/Layout'
@@ -7,6 +9,7 @@ import { Box } from '../../components/svg/Box'
 import { Categories } from '../../components/svg/Categories'
 import { Chart } from '../../components/svg/Chart'
 import { Shelf } from '../../components/svg/Shelf'
+import { ArrowDown } from '../../components/svg/ArrowDown'
 import { useIsAuth } from '../../utils/useIsAuth'
 
 interface adminDashProps {}
@@ -14,11 +17,25 @@ interface adminDashProps {}
 const adminDash: NextPage<adminDashProps> = ({}) => {
   const [active, setActive] = useState('produtos')
 
+  const router = useRouter()
+
   useIsAuth(true)
 
   return (
     <Layout>
-      <div className='-mt-6 lg:-mt-10 mx-auto max-w-6xl 3xl:max-w-[90rem] w-full  grid grid-cols-12'>
+      <button
+        className='flex lg:mb-0 lg:ml-10  p-1 -mt-12 lg:-mt-20'
+        onClick={() => router.back()}
+      >
+        <ArrowDown
+          tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
+          strokeWidth={3}
+        />
+        <h6 className='mx-1 lg:mx-2 text-lg text-green-dark tracking-widest self-center'>
+          voltar
+        </h6>
+      </button>
+      <div className='relative mt-4 mx-auto max-w-6xl 3xl:max-w-[90rem] w-full  grid grid-cols-12'>
         <div className='sticky top-20 z-[2] flex mb-4 lg:mx-4 col-span-full lg:col-span-3 '>
           <div className='sticky top-20 z-[2] flex lg:flex-col lg:mb-auto w-full py-2 lg:p-4 bg-white rounded-md shadow-around'>
             <button

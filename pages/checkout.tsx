@@ -30,7 +30,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
 
   return (
     <Elements options={{ locale: 'pt' }} stripe={stripePromise}>
-      <Layout>
+      <Layout overflowHide={true}>
         <CheckoutHeader
           checkoutFase={checkoutFase}
           setCheckoutFase={setCheckoutFase}

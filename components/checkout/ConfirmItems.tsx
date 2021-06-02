@@ -29,7 +29,7 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
   return (
     <div className='mt-3 xs:mt-6 flex flex-col mx-auto max-w-2xl h-[27rem] xs:h-[40rem] bg-white rounded-md shadow-around'>
       {data?.me?.cart === null || data?.me?.cart.cartItems.length < 1 ? (
-        <h4 className='m-auto tracking-wider text-green-dark'>
+        <h4 className='m-auto w-[90%] lg:w-full text-center tracking-wider text-green-dark'>
           O seu cesto está vazio! Adicione algo para continuar.
         </h4>
       ) : (
