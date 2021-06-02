@@ -63,6 +63,7 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
           <div className='flex flex-col px-2 py-4 border-t'>
             {orderData?.order?.orderItems.map((orderItem, index) => (
               <div
+                key={orderItem.id}
                 className={`w-full py-2 flex ${
                   orderData?.order?.orderItems.length !== index + 1 &&
                   'border-b'
