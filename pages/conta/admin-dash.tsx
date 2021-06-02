@@ -7,10 +7,11 @@ import { ProductsSection } from '../../components/admin/ProductsSection'
 import { Layout } from '../../components/Layout'
 import { Box } from '../../components/svg/Box'
 import { Categories } from '../../components/svg/Categories'
-import { Chart } from '../../components/svg/Chart'
+// import { Chart } from '../../components/svg/Chart'
 import { Shelf } from '../../components/svg/Shelf'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { useIsAuth } from '../../utils/useIsAuth'
+import { OrdersSection } from '../../components/admin/OrdersSection'
 
 interface adminDashProps {}
 
@@ -69,7 +70,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
               onClick={() => setActive('encomendas')}
               className={`${
                 active === 'encomendas' && 'bg-green-extraLight'
-              } flex p-3 mx-auto lg:mx-0 lg:my-3 rounded-lg lg:shadow-md cursor-pointer lg:hover:bg-green-extraLight`}
+              } flex p-3 mx-auto lg:mx-0 lg:mt-3 rounded-lg lg:shadow-md cursor-pointer lg:hover:bg-green-extraLight`}
             >
               <div className='flex w-full lg:w-[30%] lg:ml-2 self-center'>
                 <Box tailwind='h-8 w-10 pr-1 mx-auto text-green-dark self-center' />
@@ -78,7 +79,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
                 Encomendas
               </h4>
             </button>
-            <button
+            {/* <button
               onClick={() => setActive('características')}
               className={`${
                 active === 'características' && 'bg-green-extraLight'
@@ -90,7 +91,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
               <h4 className='hidden lg:inline-block mr-auto text-lg text-green-dark tracking-widest'>
                 Estatísticas
               </h4>
-            </button>
+            </button> */}
           </div>
         </div>
         <div className='min-h-[60rem] col-span-full lg:col-span-9'>
@@ -99,7 +100,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
           ) : active === 'categorias' ? (
             <CategoriesSection />
           ) : active === 'encomendas' ? (
-            <div></div>
+            <OrdersSection />
           ) : active === 'estatísticas' ? (
             <div></div>
           ) : null}
