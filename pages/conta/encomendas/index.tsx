@@ -19,18 +19,17 @@ const encomendas: NextPage<encomendasProps> = ({}) => {
 
   return (
     <Layout>
-      <button
-        className='flex lg:mb-0 lg:ml-10  p-1 -mt-12 lg:-mt-20'
-        onClick={() => router.back()}
-      >
-        <ArrowDown
-          tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
-          strokeWidth={3}
-        />
-        <h6 className='mx-1 lg:mx-2 text-lg text-green-dark tracking-widest self-center'>
-          voltar
-        </h6>
-      </button>
+      <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
+        <button className='flex p-1' onClick={() => router.back()}>
+          <ArrowDown
+            tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
+            strokeWidth={3}
+          />
+          <h6 className='mx-1 lg:mx-2 text-lg text-green-dark tracking-widest self-center'>
+            voltar
+          </h6>
+        </button>
+      </div>
       <div className='flex mx-auto max-w-6xl'>
         <h1 className='relative z-[0] mt-1 lg:mt-4 ml-2 mr-auto font-serif text-xl md:text-3xl tracking-widest text-pink-dark'>
           As minhas Encomendas
