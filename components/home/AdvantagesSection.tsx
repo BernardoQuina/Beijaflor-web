@@ -7,9 +7,9 @@ interface AdvantagesSectionProps {}
 
 export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
   return (
-    <section className='max-w-full 4xl:max-w-[120rem] mx-auto flex mt-14 lg:mt-32 2xl:mt-40'>
+    <section className='max-w-full 4xl:max-w-[120rem] mx-auto flex mt-14 mb-32'>
       <div className='lg:flex mx-auto md:w-[50%]'>
-        <div className='mx-auto mt-20 text-center'>
+        <div className='mx-auto text-center'>
           <Plant
             tailwind='h-12 md:h-16 mx-auto fill-current text-green-light'
             strokeWidth={0.2}
@@ -21,7 +21,7 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             flores frescas que duram
           </p>
         </div>
-        <div className='mx-auto mt-8 lg:mt-20 text-center'>
+        <div className='mx-auto mt-8 lg:mt-0 text-center'>
           <Shipping
             tailwind='h-12 md:h-16 mx-auto fill-current text-green-light'
             strokeWidth={0.1}
@@ -33,7 +33,7 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
         </div>
       </div>
       <div className='lg:flex mx-auto md:w-[50%]'>
-        <div className='mx-auto mt-20 text-center'>
+        <div className='mx-auto text-center'>
           <Support
             tailwind='h-12 md:h-16 fill-current mx-auto text-green-light'
             strokeWidth={0.2}
@@ -45,7 +45,7 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({}) => {
             Sempre disponíveis para oferecer ajuda
           </p>
         </div>
-        <div className='mx-auto mt-8 lg:mt-20 text-center'>
+        <div className='mx-auto mt-8 lg:mt-0 text-center'>
           <Secure
             tailwind='h-12 md:h-16 fill-current mx-auto text-green-light'
             strokeWidth={0.2}

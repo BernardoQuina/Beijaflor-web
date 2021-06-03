@@ -47,7 +47,7 @@ const encomendas: NextPage<encomendasProps> = ({}) => {
               className='relative flex w-full px-2 my-2 rounded-md shadow-md bg-white'
             >
               <Link href={`/conta/encomendas/${order.id}`}>
-                <a className='absolute flex top-[50%] translate-y-[-50%] right-2 p-1 h-[90%] lg:h-[85%] rounded-md shadow-md bg-green-extraLight'>
+                <a className='absolute flex top-[50%] translate-y-[-50%] right-2 p-1 h-[30%] lg:h-[85%] rounded-md shadow-md bg-green-extraLight'>
                   <ArrowDown
                     tailwind='h-4 self-center text-green-dark transform -rotate-90'
                     strokeWidth={2}

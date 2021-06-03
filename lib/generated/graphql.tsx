@@ -1640,6 +1640,20 @@ export type MeQuery = (
   )> }
 );
 
+export type OrdersQueryVariables = Exact<{
+  orderBy?: Maybe<Array<OrderOrderByInput> | OrderOrderByInput>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type OrdersQuery = (
+  { __typename?: 'Query' }
+  & { orders: Array<(
+    { __typename?: 'Order' }
+    & BasicOrderInfoFragment
+  )> }
+);
+
 export type ProductCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2852,6 +2866,45 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const OrdersDocument = gql`
+    query Orders($orderBy: [OrderOrderByInput!], $search: String) {
+  orders(
+    orderBy: $orderBy
+    where: {OR: [{id: {mode: insensitive, contains: $search}}, {userId: {mode: insensitive, contains: $search}}, {user: {name: {mode: insensitive, contains: $search}}}, {user: {email: {mode: insensitive, contains: $search}}}, {address: {completeName: {mode: insensitive, contains: $search}}}, {address: {street: {mode: insensitive, contains: $search}}}, {address: {zone: {mode: insensitive, contains: $search}}}, {address: {postal: {mode: insensitive, contains: $search}}}, {address: {region: {mode: insensitive, contains: $search}}}, {address: {country: {mode: insensitive, contains: $search}}}]}
+  ) {
+    ...BasicOrderInfo
+  }
+}
+    ${BasicOrderInfoFragmentDoc}`;
+
+/**
+ * __useOrdersQuery__
+ *
+ * To run a query within a React component, call `useOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrdersQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function useOrdersQuery(baseOptions?: Apollo.QueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrdersQuery, OrdersQueryVariables>(OrdersDocument, options);
+      }
+export function useOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrdersQuery, OrdersQueryVariables>(OrdersDocument, options);
+        }
+export type OrdersQueryHookResult = ReturnType<typeof useOrdersQuery>;
+export type OrdersLazyQueryHookResult = ReturnType<typeof useOrdersLazyQuery>;
+export type OrdersQueryResult = Apollo.QueryResult<OrdersQuery, OrdersQueryVariables>;
 export const ProductCountsDocument = gql`
     query ProductCounts {
   productCount

@@ -17,10 +17,10 @@ const Home: NextPage<HomeProps> = ({}) => {
   return (
     <Layout>
       <HeroSection />
-      <AdvantagesSection />
       <SpecialOccasionSection />
       <MostPopularSection />
       <CategoriesSection />
+      <AdvantagesSection />
     </Layout>
   )
 }

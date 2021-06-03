@@ -1,0 +1,21 @@
+query Orders($orderBy: [OrderOrderByInput!], $search: String) {
+  orders(
+    orderBy: $orderBy
+    where: {
+      OR: [
+        { id: { mode: insensitive, contains: $search } }
+        { userId: { mode: insensitive, contains: $search } }
+        { user: { name: { mode: insensitive, contains: $search } } }
+        { user: { email: { mode: insensitive, contains: $search } } }
+        { address: { completeName: { mode: insensitive, contains: $search } } }
+        { address: { street: { mode: insensitive, contains: $search } } }
+        { address: { zone: { mode: insensitive, contains: $search } } }
+        { address: { postal: { mode: insensitive, contains: $search } } }
+        { address: { region: { mode: insensitive, contains: $search } } }
+        { address: { country: { mode: insensitive, contains: $search } } }
+      ]
+    }
+  ) {
+    ...BasicOrderInfo
+  }
+}
