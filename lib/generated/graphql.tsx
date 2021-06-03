@@ -327,6 +327,7 @@ export type Mutation = {
   editAddress?: Maybe<Address>;
   deleteAddress?: Maybe<Scalars['Boolean']>;
   createOrder?: Maybe<Order>;
+  orderState?: Maybe<Order>;
 };
 
 
@@ -501,6 +502,12 @@ export type MutationCreateOrderArgs = {
   cartId: Scalars['String'];
   cartItemsIds: Array<Scalars['String']>;
   addressId: Scalars['String'];
+};
+
+
+export type MutationOrderStateArgs = {
+  whereId: Scalars['String'];
+  state: Scalars['String'];
 };
 
 export type NestedBoolFilter = {
@@ -1497,6 +1504,20 @@ export type NewProductMutation = (
   )> }
 );
 
+export type OrderStateMutationVariables = Exact<{
+  whereId: Scalars['String'];
+  state: Scalars['String'];
+}>;
+
+
+export type OrderStateMutation = (
+  { __typename?: 'Mutation' }
+  & { orderState?: Maybe<(
+    { __typename?: 'Order' }
+    & BasicOrderInfoFragment
+  )> }
+);
+
 export type ProductStatusMutationVariables = Exact<{
   whereId: Scalars['String'];
 }>;
@@ -2481,6 +2502,40 @@ export function useNewProductMutation(baseOptions?: Apollo.MutationHookOptions<N
 export type NewProductMutationHookResult = ReturnType<typeof useNewProductMutation>;
 export type NewProductMutationResult = Apollo.MutationResult<NewProductMutation>;
 export type NewProductMutationOptions = Apollo.BaseMutationOptions<NewProductMutation, NewProductMutationVariables>;
+export const OrderStateDocument = gql`
+    mutation OrderState($whereId: String!, $state: String!) {
+  orderState(whereId: $whereId, state: $state) {
+    ...BasicOrderInfo
+  }
+}
+    ${BasicOrderInfoFragmentDoc}`;
+export type OrderStateMutationFn = Apollo.MutationFunction<OrderStateMutation, OrderStateMutationVariables>;
+
+/**
+ * __useOrderStateMutation__
+ *
+ * To run a mutation, you first call `useOrderStateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useOrderStateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [orderStateMutation, { data, loading, error }] = useOrderStateMutation({
+ *   variables: {
+ *      whereId: // value for 'whereId'
+ *      state: // value for 'state'
+ *   },
+ * });
+ */
+export function useOrderStateMutation(baseOptions?: Apollo.MutationHookOptions<OrderStateMutation, OrderStateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<OrderStateMutation, OrderStateMutationVariables>(OrderStateDocument, options);
+      }
+export type OrderStateMutationHookResult = ReturnType<typeof useOrderStateMutation>;
+export type OrderStateMutationResult = Apollo.MutationResult<OrderStateMutation>;
+export type OrderStateMutationOptions = Apollo.BaseMutationOptions<OrderStateMutation, OrderStateMutationVariables>;
 export const ProductStatusDocument = gql`
     mutation ProductStatus($whereId: String!) {
   changeProductStatus(whereId: $whereId) {

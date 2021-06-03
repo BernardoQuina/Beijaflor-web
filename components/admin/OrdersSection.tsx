@@ -160,7 +160,7 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
       </div>
       <div className='w-full mx-auto lg:p-2 min-h-[46rem]'>
         {data?.orders.map((order) => (
-          <OrderItem order={order} key={order.id} />
+          <OrderItem order={order} admin={true} key={order.id} />
         ))}
       </div>
     </section>

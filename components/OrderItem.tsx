@@ -1,17 +1,68 @@
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Image } from 'cloudinary-react'
 import { DateTime } from 'luxon'
 
 import { BasicOrderInfoFragment } from '../lib/generated/graphql'
 import { ArrowDown } from './svg/ArrowDown'
+import { Settings } from './svg/Settings'
+import { OrderOptionsModal } from './admin/OrderOptionsModal'
 
 interface OrderItemProps {
   order: BasicOrderInfoFragment
+  admin?: boolean
 }
 
-export const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
+export const OrderItem: React.FC<OrderItemProps> = ({ order, admin }) => {
+  const [showOrderOptionsModal, setShowOrderOptionsModal] = useState(false)
+
+  const orderOptionsButtonNode = useRef<HTMLButtonElement | null>(null)
+  const orderOptionsModalNode = useRef<HTMLDivElement | null>(null)
+
+  const orderOptionsButtonClick = (e: any) => {
+    if (
+      orderOptionsButtonNode.current &&
+      orderOptionsButtonNode.current.contains(e.target)
+    ) {
+      return
+    }
+    if (
+      orderOptionsModalNode.current &&
+      orderOptionsModalNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    setShowOrderOptionsModal(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', orderOptionsButtonClick)
+
+    return () => {
+      document.removeEventListener('mousedown', orderOptionsButtonClick)
+    }
+  })
+
   return (
     <div className='relative flex w-full px-2 my-4 rounded-md shadow-md bg-white'>
+      {showOrderOptionsModal && (
+        <OrderOptionsModal
+          order={order}
+          setShowOrderOptionsModal={setShowOrderOptionsModal}
+          modalRef={orderOptionsModalNode}
+        />
+      )}
+      {admin && (
+        <button
+          className='absolute top-2 right-2 lg:right-10 mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+          type='button'
+          onClick={() => setShowOrderOptionsModal(!showOrderOptionsModal)}
+          ref={orderOptionsButtonNode}
+        >
+          <Settings tailwind='h-5 text-green-dark' />
+        </button>
+      )}
       <Link href={`/conta/encomendas/${order.id}`}>
         <a className='absolute flex top-[50%] translate-y-[-50%] right-2 p-1 h-[30%] lg:h-[85%] rounded-md shadow-md bg-green-extraLight'>
           <ArrowDown
@@ -71,10 +122,8 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           </div>
           <div className='flex flex-col ml-1 lg:ml-5 mt-2 lg:mt-0'>
             <h5 className='text-gray-400'>Estado</h5>
-              
-              <h5 className='text-green-dark tracking-wide'>
-                {order.state}
-              </h5>
+
+            <h5 className='text-green-dark tracking-wide'>{order.state}</h5>
           </div>
           <div className='flex flex-col ml-1 lg:ml-5 mt-2 lg:mt-0'>
             <h5 className='text-gray-400'>ID da encomenda</h5>

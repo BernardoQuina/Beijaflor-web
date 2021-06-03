@@ -1,0 +1,5 @@
+mutation OrderState($whereId: String!, $state: String!) {
+  orderState(whereId: $whereId, state: $state) {
+    ...BasicOrderInfo
+  }
+}
