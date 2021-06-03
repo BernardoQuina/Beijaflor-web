@@ -1,0 +1,6 @@
+query OrderCounts {
+  orderCount
+  processingCount
+  inTransitCount
+  deliveredCount
+}

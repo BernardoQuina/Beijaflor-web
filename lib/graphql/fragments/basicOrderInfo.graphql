@@ -4,6 +4,7 @@ fragment BasicOrderInfo on Order {
   price
   quantity
   cardDetails
+  state
   orderItems {
     ...BasicOrderItemInfo
   }

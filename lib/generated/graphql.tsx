@@ -599,6 +599,7 @@ export type Order = {
   price: Scalars['Float'];
   quantity: Scalars['Int'];
   cardDetails?: Maybe<Scalars['String']>;
+  state: Scalars['String'];
   userId: Scalars['String'];
   addressId: Scalars['String'];
   createdAt: Scalars['DateTime'];
@@ -669,6 +670,7 @@ export type OrderOrderByInput = {
   price?: Maybe<SortOrder>;
   quantity?: Maybe<SortOrder>;
   cardDetails?: Maybe<SortOrder>;
+  state?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   addressId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
@@ -685,6 +687,7 @@ export type OrderWhereInput = {
   price?: Maybe<FloatFilter>;
   quantity?: Maybe<IntFilter>;
   cardDetails?: Maybe<StringNullableFilter>;
+  state?: Maybe<StringFilter>;
   orderItems?: Maybe<OrderItemListRelationFilter>;
   userId?: Maybe<StringFilter>;
   addressId?: Maybe<StringFilter>;
@@ -837,6 +840,10 @@ export type Query = {
   addresses: Array<Address>;
   order?: Maybe<Order>;
   orders: Array<Order>;
+  orderCount?: Maybe<Scalars['Int']>;
+  processingCount?: Maybe<Scalars['Int']>;
+  inTransitCount?: Maybe<Scalars['Int']>;
+  deliveredCount?: Maybe<Scalars['Int']>;
   orderItem?: Maybe<OrderItem>;
   orderItems: Array<OrderItem>;
 };
@@ -1192,7 +1199,7 @@ export type BasicCategoryInfoFragment = (
 
 export type BasicOrderInfoFragment = (
   { __typename?: 'Order' }
-  & Pick<Order, 'id' | 'userId' | 'price' | 'quantity' | 'cardDetails' | 'createdAt' | 'updatedAt'>
+  & Pick<Order, 'id' | 'userId' | 'price' | 'quantity' | 'cardDetails' | 'state' | 'createdAt' | 'updatedAt'>
   & { orderItems: Array<(
     { __typename?: 'OrderItem' }
     & BasicOrderItemInfoFragment
@@ -1640,6 +1647,14 @@ export type MeQuery = (
   )> }
 );
 
+export type OrderCountsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OrderCountsQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'orderCount' | 'processingCount' | 'inTransitCount' | 'deliveredCount'>
+);
+
 export type OrdersQueryVariables = Exact<{
   orderBy?: Maybe<Array<OrderOrderByInput> | OrderOrderByInput>;
   search?: Maybe<Scalars['String']>;
@@ -1825,6 +1840,7 @@ export const BasicOrderInfoFragmentDoc = gql`
   price
   quantity
   cardDetails
+  state
   orderItems {
     ...BasicOrderItemInfo
   }
@@ -2866,11 +2882,46 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const OrderCountsDocument = gql`
+    query OrderCounts {
+  orderCount
+  processingCount
+  inTransitCount
+  deliveredCount
+}
+    `;
+
+/**
+ * __useOrderCountsQuery__
+ *
+ * To run a query within a React component, call `useOrderCountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrderCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrderCountsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOrderCountsQuery(baseOptions?: Apollo.QueryHookOptions<OrderCountsQuery, OrderCountsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrderCountsQuery, OrderCountsQueryVariables>(OrderCountsDocument, options);
+      }
+export function useOrderCountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrderCountsQuery, OrderCountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrderCountsQuery, OrderCountsQueryVariables>(OrderCountsDocument, options);
+        }
+export type OrderCountsQueryHookResult = ReturnType<typeof useOrderCountsQuery>;
+export type OrderCountsLazyQueryHookResult = ReturnType<typeof useOrderCountsLazyQuery>;
+export type OrderCountsQueryResult = Apollo.QueryResult<OrderCountsQuery, OrderCountsQueryVariables>;
 export const OrdersDocument = gql`
     query Orders($orderBy: [OrderOrderByInput!], $search: String) {
   orders(
     orderBy: $orderBy
-    where: {OR: [{id: {mode: insensitive, contains: $search}}, {userId: {mode: insensitive, contains: $search}}, {user: {name: {mode: insensitive, contains: $search}}}, {user: {email: {mode: insensitive, contains: $search}}}, {address: {completeName: {mode: insensitive, contains: $search}}}, {address: {street: {mode: insensitive, contains: $search}}}, {address: {zone: {mode: insensitive, contains: $search}}}, {address: {postal: {mode: insensitive, contains: $search}}}, {address: {region: {mode: insensitive, contains: $search}}}, {address: {country: {mode: insensitive, contains: $search}}}]}
+    where: {OR: [{id: {mode: insensitive, contains: $search}}, {state: {mode: insensitive, contains: $search}}, {userId: {mode: insensitive, contains: $search}}, {user: {name: {mode: insensitive, contains: $search}}}, {user: {email: {mode: insensitive, contains: $search}}}, {address: {completeName: {mode: insensitive, contains: $search}}}, {address: {street: {mode: insensitive, contains: $search}}}, {address: {zone: {mode: insensitive, contains: $search}}}, {address: {postal: {mode: insensitive, contains: $search}}}, {address: {region: {mode: insensitive, contains: $search}}}, {address: {country: {mode: insensitive, contains: $search}}}]}
   ) {
     ...BasicOrderInfo
   }

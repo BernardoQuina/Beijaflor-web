@@ -4,6 +4,7 @@ query Orders($orderBy: [OrderOrderByInput!], $search: String) {
     where: {
       OR: [
         { id: { mode: insensitive, contains: $search } }
+        { state: { mode: insensitive, contains: $search } }
         { userId: { mode: insensitive, contains: $search } }
         { user: { name: { mode: insensitive, contains: $search } } }
         { user: { email: { mode: insensitive, contains: $search } } }
