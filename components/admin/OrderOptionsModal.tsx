@@ -32,6 +32,10 @@ export const OrderOptionsModal: React.FC<OrderOptionsModalProps> = ({
             variables: { whereId: order.id, state: 'Em processamento' },
             update: (cache) => {
               cache.evict({ fieldName: 'orders' })
+              cache.evict({ fieldName: 'orderCount' })
+              cache.evict({ fieldName: 'processingCount' })
+              cache.evict({ fieldName: 'inTransitCount' })
+              cache.evict({ fieldName: 'deliveredCount' })
             },
           })
           setShowOrderOptionsModal(false)
@@ -49,6 +53,10 @@ export const OrderOptionsModal: React.FC<OrderOptionsModalProps> = ({
             variables: { whereId: order.id, state: 'Em distribuição' },
             update: (cache) => {
               cache.evict({ fieldName: 'orders' })
+              cache.evict({ fieldName: 'orderCount' })
+              cache.evict({ fieldName: 'processingCount' })
+              cache.evict({ fieldName: 'inTransitCount' })
+              cache.evict({ fieldName: 'deliveredCount' })
             },
           })
           setShowOrderOptionsModal(false)
@@ -66,6 +74,10 @@ export const OrderOptionsModal: React.FC<OrderOptionsModalProps> = ({
             variables: { whereId: order.id, state: 'Entregue' },
             update: (cache) => {
               cache.evict({ fieldName: 'orders' })
+              cache.evict({ fieldName: 'orderCount' })
+              cache.evict({ fieldName: 'processingCount' })
+              cache.evict({ fieldName: 'inTransitCount' })
+              cache.evict({ fieldName: 'deliveredCount' })
             },
           })
           setShowOrderOptionsModal(false)

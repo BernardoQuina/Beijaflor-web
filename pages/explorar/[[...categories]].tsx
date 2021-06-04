@@ -22,6 +22,8 @@ import {
 import { ApolloQueryResult } from '@apollo/client'
 import { SelectCategories } from '../../components/explore/SelectCategories'
 import { OrderByModal } from '../../components/explore/OrderByModal'
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
+import { slideLeft } from '../../utils/animations'
 
 interface explorarCategoriesProps {
   serverCategories: BasicCategoryInfoFragment[]
@@ -187,138 +189,152 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   return (
     <Layout>
       <div className='mt-20 mb-20 max-w-[110rem] lg:w-[97%]  mx-auto grid grid-cols-12 grid-row-6'>
-        <div
-          className={`${
-            filtersOpen ? 'row-span-full col-span-full pt-6 z-[1]' : 'hidden'
-          } lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full  bg-white lg:bg-transparent shadow-lg lg:shadow-none rounded-lg`}
-        >
-          <div className='w-[88%] sticky top-28 flex flex-col mx-auto'>
-            <h4 className=' relative ml-4 mr-auto text-pink-dark ont-serif tracking-widest text-2xl'>
-              Categorias
-              <div className='absolute z-[-1] ml-1 mt-[-0.8rem] rounded-sm bg-pink-light w-full h-[0.4rem]'></div>
-            </h4>
-            <button
-              className='ml-auto -mt-10 lg:hidden'
-              type='button'
-              onClick={() => setFiltersOpen(false)}
-            >
-              <X tailwind='h-5 text-green-dark' />
-            </button>
-            {mainCategoriesArray.map((mainCategory) => (
-              <div
-                className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
-                key={mainCategory}
+        <AnimatePresence exitBeforeEnter>
+          <motion.div
+            key='categories'
+            initial='initial'
+            animate='animate'
+            exit='exit'
+            variants={slideLeft}
+            className={`${
+              filtersOpen ? 'row-span-full col-span-full pt-6 z-[1]' : 'hidden'
+            } lg:inline-block lg:col-span-3 2xl:col-span-2 lg:row-span-full  bg-white lg:bg-transparent shadow-lg lg:shadow-none rounded-lg`}
+          >
+            <div className='w-[88%] sticky top-28 flex flex-col mx-auto'>
+              <h4 className=' relative ml-4 mb-2 lg:mb-0 mr-auto text-pink-dark font-serif tracking-widest text-2xl'>
+                Categorias
+                <div className='absolute z-[-1] ml-1 mt-[-0.8rem] rounded-sm bg-pink-light w-full h-[0.4rem]'></div>
+              </h4>
+              <button
+                className='ml-auto -mt-10 lg:hidden'
+                type='button'
+                onClick={() => setFiltersOpen(false)}
               >
-                <button
-                  className='flex w-full'
-                  onClick={() => {
-                    if (!mainOpen.includes(mainCategory)) {
-                      setMainOpen((prev) => [...prev, mainCategory])
-                    } else {
-                      setMainOpen((prev) => [
-                        ...prev.filter((e) => e !== mainCategory),
-                      ])
-                    }
-                  }}
-                >
-                  <h6 className='text-xl tracking-widest font-thin'>
-                    {mainCategory === MainCategory.Acessorios
-                      ? 'Acessórios'
-                      : mainCategory === MainCategory.Ocasiao
-                      ? 'Ocasião'
-                      : mainCategory}
-                  </h6>
-                  <ArrowDown
-                    tailwind={`h-5 transform ml-auto self-center ${
-                      mainOpen.includes(mainCategory) && 'rotate-180'
-                    }`}
-                    strokeWidth={3}
-                  />
-                </button>
-                <div
-                  className={`${
-                    !mainOpen.includes(mainCategory) && 'hidden'
-                  } mt-6`}
-                >
-                  {uniqueMainSubCombinations.map((unique) => {
-                    if (unique.main === mainCategory) {
-                      return (
-                        <div
-                          className='text-green-medium mx-auto pl-4 my-4'
-                          key={unique.sub}
-                        >
-                          <button
-                            className='flex w-full'
-                            onClick={() => {
-                              if (!subOpen.includes(unique.sub)) {
-                                setSubOpen((prev) => [...prev, unique.sub])
-                              } else {
-                                setSubOpen((prev) => [
-                                  ...prev.filter((e) => e !== unique.sub),
-                                ])
-                              }
-                            }}
-                          >
-                            <h6 className='text-lg max-w-[90%] font-thin text-left tracking-widest self-center'>
-                              {unique.sub === SubCategory.MomentosEspeciais
-                                ? 'momentos especiais'
-                                : unique.sub === SubCategory.Estacao
-                                ? 'estação'
-                                : unique.sub === SubCategory.Cerimonias
-                                ? 'cerimónias'
-                                : unique.sub === SubCategory.Calendario
-                                ? 'calendário'
-                                : unique.sub === SubCategory.TiposFlores
-                                ? 'tipos'
-                                : unique.sub === SubCategory.TiposPlantas
-                                ? 'tipos'
-                                : unique.sub}
-                            </h6>
-                            <ArrowDown
-                              tailwind={`h-4 transform ml-auto self-center ${
-                                subOpen.includes(unique.sub) && 'rotate-180'
-                              }`}
-                              strokeWidth={3}
-                            />
-                          </button>
-                          <div
-                            className={`${
-                              !subOpen.includes(unique.sub) && 'hidden'
-                            } mt-4 mb-8 ml-2 border-l`}
-                          >
-                            {serverCategories.map((category) => {
-                              if (
-                                category.mainCategory === mainCategory &&
-                                category.subCategory === unique.sub
-                              ) {
-                                return (
-                                  <div
-                                    key={category.name}
-                                    className='ml-4 my-4 flex tracking-wider'
-                                  >
-                                    <SelectCategories
-                                      category={category}
-                                      selectedCategories={selectedCategories}
-                                      setSelectedCategories={
-                                        setSelectedCategories
-                                      }
-                                      variables={variables}
-                                      refetch={refetch}
-                                    />
-                                  </div>
-                                )
-                              }
-                            })}
-                          </div>
-                        </div>
-                      )
-                    }
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                <X tailwind='h-5 text-green-dark' />
+              </button>
+              {mainCategoriesArray.map((mainCategory) => (
+                <AnimateSharedLayout>
+                  <motion.div
+                    layoutId={mainCategory}
+                    className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
+                    key={mainCategory}
+                  >
+                    <motion.button
+                      layoutId={mainCategory + ' button'}
+                      className='flex w-full'
+                      onClick={() => {
+                        if (!mainOpen.includes(mainCategory)) {
+                          setMainOpen((prev) => [...prev, mainCategory])
+                        } else {
+                          setMainOpen((prev) => [
+                            ...prev.filter((e) => e !== mainCategory),
+                          ])
+                        }
+                      }}
+                    >
+                      <h6 className='text-xl tracking-widest font-thin'>
+                        {mainCategory === MainCategory.Acessorios
+                          ? 'Acessórios'
+                          : mainCategory === MainCategory.Ocasiao
+                          ? 'Ocasião'
+                          : mainCategory}
+                      </h6>
+                      <ArrowDown
+                        tailwind={`h-5 transform ml-auto self-center ${
+                          mainOpen.includes(mainCategory) && 'rotate-180'
+                        }`}
+                        strokeWidth={3}
+                      />
+                    </motion.button>
+                    <div
+                      className={`${
+                        !mainOpen.includes(mainCategory) && 'hidden'
+                      } mt-6`}
+                    >
+                      {uniqueMainSubCombinations.map((unique) => {
+                        if (unique.main === mainCategory) {
+                          return (
+                            <div
+                              className='text-green-medium mx-auto pl-4 my-4'
+                              key={unique.sub}
+                            >
+                              <motion.button
+                                layoutId={unique.sub}
+                                className='flex w-full'
+                                onClick={() => {
+                                  if (!subOpen.includes(unique.sub)) {
+                                    setSubOpen((prev) => [...prev, unique.sub])
+                                  } else {
+                                    setSubOpen((prev) => [
+                                      ...prev.filter((e) => e !== unique.sub),
+                                    ])
+                                  }
+                                }}
+                              >
+                                <h6 className='text-lg max-w-[90%] font-thin text-left tracking-widest self-center'>
+                                  {unique.sub === SubCategory.MomentosEspeciais
+                                    ? 'momentos especiais'
+                                    : unique.sub === SubCategory.Estacao
+                                    ? 'estação'
+                                    : unique.sub === SubCategory.Cerimonias
+                                    ? 'cerimónias'
+                                    : unique.sub === SubCategory.Calendario
+                                    ? 'calendário'
+                                    : unique.sub === SubCategory.TiposFlores
+                                    ? 'tipos'
+                                    : unique.sub === SubCategory.TiposPlantas
+                                    ? 'tipos'
+                                    : unique.sub}
+                                </h6>
+                                <ArrowDown
+                                  tailwind={`h-4 transform ml-auto self-center ${
+                                    subOpen.includes(unique.sub) && 'rotate-180'
+                                  }`}
+                                  strokeWidth={3}
+                                />
+                              </motion.button>
+                              <div
+                                className={`${
+                                  !subOpen.includes(unique.sub) && 'hidden'
+                                } mt-4 mb-8 ml-2 border-l`}
+                              >
+                                {serverCategories.map((category) => {
+                                  if (
+                                    category.mainCategory === mainCategory &&
+                                    category.subCategory === unique.sub
+                                  ) {
+                                    return (
+                                      <div
+                                        key={category.name}
+                                        className='ml-4 my-4 flex tracking-wider'
+                                      >
+                                        <SelectCategories
+                                          category={category}
+                                          selectedCategories={
+                                            selectedCategories
+                                          }
+                                          setSelectedCategories={
+                                            setSelectedCategories
+                                          }
+                                          variables={variables}
+                                          refetch={refetch}
+                                        />
+                                      </div>
+                                    )
+                                  }
+                                })}
+                              </div>
+                            </div>
+                          )
+                        }
+                      })}
+                    </div>
+                  </motion.div>
+                </AnimateSharedLayout>
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
         <div
           className={`${
             !filtersOpen ? 'col-span-full row-span-full' : 'col-span-full'

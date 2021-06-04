@@ -94,7 +94,7 @@ const index: NextPage<indexProps> = ({}) => {
             </div>
           </a>
         </Link>
-        <Link href='/conta/definições'>
+        <Link href='/conta/definicoes'>
           <a>
             <div className='group flex mx-auto w-full lg:w-[30rem] bg-white rounded-md shadow-around'>
               <div className='flex w-[35%] xs:w-[30%] h-[8rem] lg:h-[10rem]'>
