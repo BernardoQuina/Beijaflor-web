@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Formik, Form } from 'formik'
@@ -11,17 +11,47 @@ import { useIsAuth } from '../../utils/useIsAuth'
 import { isServer } from '../../utils/isServer'
 import { AnimatePresence, motion } from 'framer-motion'
 import { fadeDown } from '../../utils/animations'
+import { DeleteUserModal } from '../../components/account/DeleteUserModal'
 
 interface definiçõesProps {}
 
 const definições: NextPage<definiçõesProps> = ({}) => {
   const [successMessage, setSuccessMessage] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const router = useRouter()
   useIsAuth(true)
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
   const [editUser] = useEditUserMutation({ errorPolicy: 'all' })
+
+  const deleteUserButtonNode = useRef<HTMLButtonElement | null>(null)
+  const deleteUserModalNode = useRef<HTMLFormElement | null>(null)
+
+  const deleteUserButtonClick = (e: any) => {
+    if (
+      deleteUserButtonNode.current &&
+      deleteUserButtonNode.current.contains(e.target)
+    ) {
+      return
+    }
+    if (
+      deleteUserModalNode.current &&
+      deleteUserModalNode.current.contains(e.target)
+    ) {
+      return
+    }
+
+    setShowDeleteModal(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', deleteUserButtonClick)
+
+    return () => {
+      document.removeEventListener('mousedown', deleteUserButtonClick)
+    }
+  })
 
   useEffect(() => {
     if (successMessage) {
@@ -34,6 +64,15 @@ const definições: NextPage<definiçõesProps> = ({}) => {
   return (
     <Layout>
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
+        <AnimatePresence exitBeforeEnter>
+          {showDeleteModal && (
+            <DeleteUserModal
+              data={data}
+              deleteUserModalNode={deleteUserModalNode}
+              setShowDeleteModal={setShowDeleteModal}
+            />
+          )}
+        </AnimatePresence>
         <button className='flex p-1' onClick={() => router.back()}>
           <ArrowDown
             tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
@@ -91,6 +130,14 @@ const definições: NextPage<definiçõesProps> = ({}) => {
             <h4 className='ml-2 font-thin tracking-widest text-green-dark text-xl'>
               Editar conta
             </h4>
+            <button
+              className='flex px-2 ml-auto mr-1 rounded-md shadow-md hover:bg-red-200'
+              ref={deleteUserButtonNode}
+              type='button'
+              onClick={() => setShowDeleteModal(true)}
+            >
+              <h5 className='self-center text-red-600'>Eliminar</h5>
+            </button>
           </div>
           <div className='relative flex flex-col pt-4 pb-12 w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-green-medium'>
             <AnimatePresence exitBeforeEnter>
