@@ -76,7 +76,7 @@ const definições: NextPage<definiçõesProps> = ({}) => {
           } else setSuccessMessage(true)
         }}
       >
-        <Form className='w-full max-w-2xl min-h-[70vh] mx-auto mt-6 bg-white rounded-md shadow-around'>
+        <Form className='flex flex-col w-full max-w-2xl min-h-[70vh] mx-auto mt-6 bg-white rounded-md shadow-around'>
           <div className='sticky top-0 flex py-2 px-2 border-b'>
             <h4 className='ml-2 font-thin tracking-widest text-green-dark text-xl'>
               Editar conta
@@ -84,6 +84,11 @@ const definições: NextPage<definiçõesProps> = ({}) => {
           </div>
           <div className='relative flex flex-col pt-4 pb-12 w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-green-medium'>
             <div className='w-[90%] lg:w-[80%] mx-auto mt-2'>
+              {data?.me?.facebookId || data?.me?.googleId ? (
+                <p className='my-4 mx-2 text-lg p-4 text-center rounded-md shadow-md bg-pink-light text-pink-dark'>
+                Como a sua conta foi criada via Google ou Facebook, não a pode editar, apenas eliminá-la.
+              </p>
+              ): null}
               <InputField
                 name='password'
                 label='Password'
@@ -91,6 +96,10 @@ const definições: NextPage<definiçõesProps> = ({}) => {
                 labelStyling='ml-3 text-green-medium tracking-wider'
                 inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                 errorStyling='absolute bottom-2 text-center max-w-xs lg:max-w-xl w-full rounded-md py-1 text-red-800 bg-red-200 transform left-[50%] translate-x-[-50%]'
+                showLabel={!data?.me?.facebookId && !data?.me?.googleId}
+                hidden={
+                  data?.me?.facebookId || data?.me?.googleId ? true : false
+                }
               />
             </div>
             <div className='w-[90%] lg:w-[80%] mx-auto mt-8'>
@@ -102,6 +111,9 @@ const definições: NextPage<definiçõesProps> = ({}) => {
                 labelStyling='ml-3 text-green-medium tracking-wider'
                 inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                 errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                disabled={
+                  data?.me?.facebookId || data?.me?.googleId ? true : false
+                }
               />
             </div>
             <div className='w-[90%] lg:w-[80%] mx-auto mt-8'>
@@ -113,6 +125,9 @@ const definições: NextPage<definiçõesProps> = ({}) => {
                 labelStyling='ml-3 text-green-medium tracking-wider'
                 inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                 errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                disabled={
+                  data?.me?.facebookId || data?.me?.googleId ? true : false
+                }
               />
             </div>
             <div className='w-[90%] lg:w-[80%] mx-auto mt-8'>
@@ -123,6 +138,10 @@ const definições: NextPage<definiçõesProps> = ({}) => {
                 labelStyling='ml-3 text-green-medium tracking-wider'
                 inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                 errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                showLabel={!data?.me?.facebookId && !data?.me?.googleId}
+                hidden={
+                  data?.me?.facebookId || data?.me?.googleId ? true : false
+                }
               />
             </div>
             <div className='w-[90%] lg:w-[80%] mx-auto mt-8'>
@@ -133,15 +152,22 @@ const definições: NextPage<definiçõesProps> = ({}) => {
                 labelStyling='ml-3 text-green-medium tracking-wider'
                 inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
                 errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
+                showLabel={!data?.me?.facebookId && !data?.me?.googleId}
+                hidden={
+                  data?.me?.facebookId || data?.me?.googleId ? true : false
+                }
               />
             </div>
           </div>
-          <div className='flex py-3 border-t'>
+          <div className='flex py-3 mt-auto border-t'>
             <button
-              className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight'
+              className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed'
               type='submit'
+              disabled={
+                data?.me?.facebookId || data?.me?.googleId ? true : false
+              }
             >
-              <p className='mx-auto text-lg text-green-dark tracking-widest'>
+              <p className='mx-auto text-lg text-green-dark tracking-widest disabled:text-gray-600'>
                 Editar!
               </p>
             </button>
