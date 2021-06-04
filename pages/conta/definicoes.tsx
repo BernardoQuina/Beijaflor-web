@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Formik, Form } from 'formik'
@@ -9,6 +9,8 @@ import { InputField } from '../../components/InputField'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { useIsAuth } from '../../utils/useIsAuth'
 import { isServer } from '../../utils/isServer'
+import { AnimatePresence, motion } from 'framer-motion'
+import { fadeDown } from '../../utils/animations'
 
 interface definiçõesProps {}
 
@@ -20,6 +22,14 @@ const definições: NextPage<definiçõesProps> = ({}) => {
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
   const [editUser] = useEditUserMutation({ errorPolicy: 'all' })
+
+  useEffect(() => {
+    if (successMessage) {
+      setTimeout(() => {
+        return setSuccessMessage(false)
+      }, 1500)
+    }
+  }, [successMessage])
 
   return (
     <Layout>
@@ -83,12 +93,27 @@ const definições: NextPage<definiçõesProps> = ({}) => {
             </h4>
           </div>
           <div className='relative flex flex-col pt-4 pb-12 w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-green-medium'>
+            <AnimatePresence exitBeforeEnter>
+              {successMessage && (
+                <motion.p
+                  key='success message'
+                  initial='initial'
+                  animate='animate'
+                  exit='exit'
+                  variants={fadeDown}
+                  className='absolute top-4 w-[80%] right-9 lg:right-[4.2rem] text-lg p-4 text-center rounded-md shadow-md bg-green-extraLight text-green-dark'
+                >
+                  Conta editada com sucesso!
+                </motion.p>
+              )}
+            </AnimatePresence>
             <div className='w-[90%] lg:w-[80%] mx-auto mt-2'>
               {data?.me?.facebookId || data?.me?.googleId ? (
                 <p className='my-4 mx-2 text-lg p-4 text-center rounded-md shadow-md bg-pink-light text-pink-dark'>
-                Como a sua conta foi criada via Google ou Facebook, não a pode editar, apenas eliminá-la.
-              </p>
-              ): null}
+                  Como a sua conta foi criada via Google ou Facebook, não a pode
+                  editar, apenas eliminá-la.
+                </p>
+              ) : null}
               <InputField
                 name='password'
                 label='Password'
@@ -161,15 +186,13 @@ const definições: NextPage<definiçõesProps> = ({}) => {
           </div>
           <div className='flex py-3 mt-auto border-t'>
             <button
-              className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed'
+              className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md text-green-dark bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-600'
               type='submit'
               disabled={
                 data?.me?.facebookId || data?.me?.googleId ? true : false
               }
             >
-              <p className='mx-auto text-lg text-green-dark tracking-widest disabled:text-gray-600'>
-                Editar!
-              </p>
+              <p className='mx-auto text-lg tracking-widest'>Editar!</p>
             </button>
           </div>
         </Form>
