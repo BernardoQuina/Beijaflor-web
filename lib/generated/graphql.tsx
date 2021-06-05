@@ -729,6 +729,7 @@ export type Product = {
   images: Array<Scalars['String']>;
   price: Scalars['Float'];
   stock: Scalars['Int'];
+  sales: Scalars['Int'];
   active: Scalars['Boolean'];
   categories: Array<Category>;
   height?: Maybe<Scalars['String']>;
@@ -784,6 +785,7 @@ export type ProductOrderByInput = {
   images?: Maybe<SortOrder>;
   price?: Maybe<SortOrder>;
   stock?: Maybe<SortOrder>;
+  sales?: Maybe<SortOrder>;
   active?: Maybe<SortOrder>;
   height?: Maybe<SortOrder>;
   water?: Maybe<SortOrder>;
@@ -804,6 +806,7 @@ export type ProductWhereInput = {
   images?: Maybe<StringNullableListFilter>;
   price?: Maybe<FloatFilter>;
   stock?: Maybe<IntFilter>;
+  sales?: Maybe<IntFilter>;
   active?: Maybe<BoolFilter>;
   categories?: Maybe<CategoryListRelationFilter>;
   height?: Maybe<StringNullableFilter>;
@@ -1236,7 +1239,7 @@ export type BasicPaymentIntentFragment = (
 
 export type BasicProductInfoFragment = (
   { __typename?: 'Product' }
-  & Pick<Product, 'id' | 'name' | 'description' | 'price' | 'stock' | 'active' | 'images' | 'createdAt' | 'updatedAt' | 'height' | 'water' | 'exposure' | 'temperature' | 'lifespan'>
+  & Pick<Product, 'id' | 'name' | 'description' | 'price' | 'stock' | 'sales' | 'active' | 'images' | 'createdAt' | 'updatedAt' | 'height' | 'water' | 'exposure' | 'temperature' | 'lifespan'>
   & { categories: Array<(
     { __typename?: 'Category' }
     & BasicCategoryInfoFragment
@@ -1809,6 +1812,7 @@ export const BasicProductInfoFragmentDoc = gql`
   description
   price
   stock
+  sales
   active
   images
   createdAt

@@ -111,6 +111,11 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
             </h4>
           </div>
           <div className='hidden lg:flex w-[34%]'>
+            <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+              {product.sales}
+            </h4>
+          </div>
+          <div className='hidden lg:flex w-[34%]'>
             {product.active ? (
               <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
                 ativo
@@ -149,21 +154,14 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
         <div className='flex flex-col w-full py-2 lg:px-2'>
           <div className='w-full lg:hidden'>
             <div className='flex w-full mt-2 h-8 py-2'>
-              <div className='flex w-[34%]'>
+              <div className='flex w-[50%]'>
                 <button className='flex mx-auto'>
                   <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                     PREÇO
                   </h5>
                 </button>
               </div>
-              <div className='flex w-[34%]'>
-                <button className='flex mx-auto'>
-                  <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
-                    STOCK
-                  </h5>
-                </button>
-              </div>
-              <div className='flex w-[34%]'>
+              <div className='flex w-[50%]'>
                 <button className='flex mx-auto'>
                   <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
                     ESTADO
@@ -172,17 +170,12 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
               </div>
             </div>
             <div className='flex w-full h-10 py-2'>
-              <div className='flex w-[34%]'>
+              <div className='flex w-[50%]'>
                 <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
                   € {product.price.toFixed(2)}
                 </h4>
               </div>
-              <div className='flex w-[34%]'>
-                <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
-                  {product.stock}
-                </h4>
-              </div>
-              <div className='flex w-[34%]'>
+              <div className='flex w-[50%]'>
                 {product.active ? (
                   <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
                     ativo
@@ -192,6 +185,36 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                     inativo
                   </h4>
                 )}
+              </div>
+            </div>
+          </div>
+          <div className='w-full lg:hidden'>
+            <div className='flex w-full mt-4 h-8 py-2'>
+              <div className='flex w-[50%]'>
+                <button className='flex mx-auto'>
+                  <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                    STOCK
+                  </h5>
+                </button>
+              </div>
+              <div className='flex w-[50%]'>
+                <button className='flex mx-auto'>
+                  <h5 className='self-center text-xs lg:text-sm tracking-widest font-bold text-green-dark'>
+                    VENDAS
+                  </h5>
+                </button>
+              </div>
+            </div>
+            <div className='flex w-full h-10 py-2'>
+              <div className='flex w-[50%]'>
+                <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+                  {product.stock}
+                </h4>
+              </div>
+              <div className='flex w-[50%]'>
+                <h4 className='w-full self-center text-center text-green-dark tracking-wider'>
+                  {product.sales}
+                </h4>
               </div>
             </div>
           </div>
