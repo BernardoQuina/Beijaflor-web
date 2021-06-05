@@ -146,7 +146,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
           </div>
           <div className='h-[85%] xs:h-[95%] m-auto self-center rounded-xl overflow-hidden'>
             <Image
-              className='mx-auto rounded-xl'
+              className='mx-auto max-w-[15rem] lg:max-w-[25rem] rounded-xl'
               cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
               publicId={selectedImage}
               quality={80}
@@ -158,34 +158,34 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             />
           </div>
         </div>
-        <div className='col-span-4 md:col-span-5 lg:col-span-6 lg:col-start-1 lg:row-start-10 row-span-6 lg:row-span-4 lg:flex overflow-y-auto'>
+        <div className='col-span-4 md:col-span-5 lg:col-span-6 lg:col-start-1 lg:row-start-10 row-span-6 lg:mx-auto lg:row-span-4 lg:flex lg:flex-wrap overflow-auto md:mt-2 sm:scrollbar-thin sm:scrollbar-thumb-green-light sm:scrollbar-thumb-rounded-full'>
           {product.images.map((image) => (
-            <button
-              className={`flex h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] lg:h-[10rem] lg:w-[7rem] my-3 mx-auto self-center rounded-xl overflow-hidden`}
-              key={image}
-              onClick={() => setSelectedImage(image)}
-            >
-              <div
-                className={`relative w-full h-full rounded-xl overflow-hidden  ${
-                  image === selectedImage && 'border-2 border-pink-dark'
-                }`}
+              <button
+                className={`flex h-[7rem] w-[5rem] md:h-[16rem] md:w-[12rem] lg:h-[10rem] lg:w-[7rem] my-3 mx-auto lg:mx-4 self-center rounded-xl overflow-hidden`}
+                key={image}
+                onClick={() => setSelectedImage(image)}
               >
-                <Image
-                  className='absolute'
-                  cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-                  publicId={image}
-                  quality={80}
-                  height={480}
-                  width={320}
-                  gravity='auto'
-                  crop='fill'
-                  secure={true}
-                />
-              </div>
-            </button>
+                <div
+                  className={`relative w-full h-full md:max-w-[11rem] rounded-xl overflow-hidden  ${
+                    image === selectedImage && 'border-2 border-pink-dark'
+                  }`}
+                >
+                  <Image
+                    className='absolute'
+                    cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+                    publicId={image}
+                    quality={80}
+                    height={480}
+                    width={320}
+                    gravity='auto'
+                    crop='fill'
+                    secure={true}
+                  />
+                </div>
+              </button>
           ))}
         </div>
-        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-3 lg:row-span-4 md:max-w-2xl lg:max-w-xl mx-2 md:mx-auto lg:mx-2'>
+        <div className='col-span-full lg:col-span-6  lg:row-start-2 row-span-3 lg:row-span-4 md:max-w-xl lg:max-w-xl mx-2 md:mx-auto lg:mx-2'>
           <div className='flex md:mt-6 lg:mt-0'>
             <h2 className='mt-4 lg:mt-6 mr-4 text-2xl lg:text-4xl tracking-widest font-bold text-green-medium font-serif'>
               {product.name}
@@ -204,7 +204,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
             {product.description}
           </p>
         </div>
-        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-6 lg:max-w-2xl overflow-x-auto overflow-y-hidden'>
+        <div className='flex col-span-full lg:col-span-6 lg:row-start-6 row-span-2 lg:row-span-2 mt-4 lg:max-w-2xl overflow-x-auto md:mx-auto lg:mx-0 overflow-y-hidden lg:scrollbar-thin lg:scrollbar-thumb-green-light lg:scrollbar-thumb-rounded-full'>
           {product.height && (
             <div className='mr-1 lg:mr-6 flex flex-col'>
               <div className='mx-auto p-2 rounded-full bg-pink-light'>
