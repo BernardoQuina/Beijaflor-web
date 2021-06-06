@@ -192,6 +192,7 @@ export type Category = {
   subCategory: SubCategory;
   name: Scalars['String'];
   image: Scalars['String'];
+  sales: Scalars['Int'];
   products: Array<Product>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -216,6 +217,7 @@ export type CategoryOrderByInput = {
   subCategory?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
   image?: Maybe<SortOrder>;
+  sales?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -229,6 +231,7 @@ export type CategoryWhereInput = {
   subCategory?: Maybe<EnumSubCategoryFilter>;
   name?: Maybe<StringFilter>;
   image?: Maybe<StringFilter>;
+  sales?: Maybe<IntFilter>;
   products?: Maybe<ProductListRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -1204,7 +1207,7 @@ export type BasicCartItemInfoFragment = (
 
 export type BasicCategoryInfoFragment = (
   { __typename?: 'Category' }
-  & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'createdAt' | 'updatedAt'>
+  & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'sales' | 'createdAt' | 'updatedAt'>
 );
 
 export type BasicOrderInfoFragment = (
@@ -1801,6 +1804,7 @@ export const BasicCategoryInfoFragmentDoc = gql`
   mainCategory
   subCategory
   image
+  sales
   createdAt
   updatedAt
 }

@@ -4,6 +4,7 @@ fragment BasicCategoryInfo on Category {
   mainCategory
   subCategory
   image
+  sales
   createdAt
   updatedAt
 }

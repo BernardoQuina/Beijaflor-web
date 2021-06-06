@@ -105,6 +105,7 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
           <div className='flex flex-col px-2 py-4 border-t'>
             {data?.order?.orderItems.map((orderItem, index) => (
               <div
+                key={orderItem.id}
                 className={`w-full py-2 flex ${
                   data?.order?.orderItems.length !== index + 1 && 'border-b'
                 }`}
