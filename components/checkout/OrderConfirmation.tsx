@@ -162,7 +162,7 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
       </div>
       <div className='w-full flex flex-col p-2 border-t'>
         <Link href='/conta/encomendas'>
-          <a className='mx-auto bg-green-extraLight rounded-md shadow-md p-2'>
+          <a className='mx-auto bg-green-extraLight rounded-md shadow-md p-2 hover:opacity-80'>
             <p className='text-green-dark '>minhas encomendas</p>
           </a>
         </Link>

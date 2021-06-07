@@ -41,10 +41,10 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
           <div className='absolute z-[-1] ml-1 -mt-3 lg:-mt-4 rounded-sm bg-pink-light w-full h-[0.4rem] lg:h-[0.6rem]'></div>
         </h1>
         <button
-          className='group flex px-2 lg:px-3 lg:mr-2 self-center h-10 rounded-md shadow-md bg-green-extraLight'
+          className='flex px-2 lg:px-3 lg:mr-2 self-center h-10 rounded-md shadow-md bg-green-extraLight hover:opacity-80'
           onClick={() => setShowNewProductModal(true)}
         >
-          <h5 className='hidden lg:inline-block mr-2 self-center tracking-wider text-green-dark group-hover:font-bold'>
+          <h5 className='hidden lg:inline-block mr-2 self-center tracking-wider text-green-dark'>
             Novo produto
           </h5>
           <Plus tailwind='m-auto h-6 text-green-dark' strokeWidth={2} />

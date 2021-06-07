@@ -233,7 +233,7 @@ const definições: NextPage<definiçõesProps> = ({}) => {
           </div>
           <div className='flex py-3 mt-auto border-t'>
             <button
-              className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md text-green-dark bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-600'
+              className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md text-green-dark bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-600  hover:opacity-80 hover:disabled:opacity-100'
               type='submit'
               disabled={
                 data?.me?.facebookId || data?.me?.googleId ? true : false

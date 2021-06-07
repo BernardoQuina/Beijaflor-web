@@ -51,7 +51,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       <button
         {...getRootProps()}
         type='button'
-        className='flex ml-4 p-2 self-center bg-green-extraLight rounded-md shadow-md'
+        className='flex ml-4 p-2 self-center bg-green-extraLight rounded-md shadow-md hover:opacity-80'
       >
         <p className='mx-2 text-green-dark tracking-wider'>Adicionar</p>
         <Photo tailwind='h-6 text-green-dark' strokeWidth={1.5} />

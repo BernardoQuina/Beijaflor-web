@@ -221,9 +221,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                   className='w-10/12 ml-2 pl-2 pr-2 text-lg font-thin tracking-widest focus:outline-none'
                   placeholder='email para newsletter'
                 />
-                <button className='h-full w-12 md:w-14 rounded-r-md bg-green-dark'>
+                <button className='h-full w-12 md:w-14 rounded-r-md bg-green-extraLight'>
                   <Send
-                    tailwind='h-6 mx-auto text-white transform rotate-45'
+                    tailwind='h-6 mx-auto text-green-dark transform rotate-45'
                     strokeWidth={1.5}
                   />
                 </button>

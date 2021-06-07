@@ -264,23 +264,23 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 Quantidade:
               </p>
               <button
-                className='p-1 rounded-lg shadow-md bg-green-extraLight'
+                className='p-1 rounded-lg shadow-md bg-green-extraLight hover:opacity-80'
                 onClick={() => {
                   setQuantity((prev) => prev - 1)
                 }}
                 disabled={quantity <= 1}
               >
-                <Minus tailwind='h-6 text-green-dark' strokeWidth={2} />
+                <Minus tailwind='h-6 text-green-dark' strokeWidth={1.6} />
               </button>
               <p className='self-center mx-4 font-bold text-lg text-green-dark'>
                 {quantity}
               </p>
               <button
-                className='p-1 rounded-lg shadow-md bg-green-extraLight'
+                className='p-1 rounded-lg shadow-md bg-green-extraLight hover:opacity-80'
                 onClick={() => setQuantity((prev) => prev + 1)}
                 disabled={quantity >= product.stock}
               >
-                <Plus tailwind='h-6 text-green-dark' strokeWidth={2} />
+                <Plus tailwind='h-6 text-green-dark' strokeWidth={1.6} />
               </button>
             </div>
             <button
@@ -303,14 +303,14 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 }
                 setCartModal('true')
               }}
-              className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight'
+              className='flex p-2 xs:w-[93%] max-w-xs mx-auto rounded-lg shadow-md bg-green-extraLight hover:opacity-80 opacity-100'
             >
               <div className='flex mx-auto'>
                 <ShoppingBag
                   tailwind='h-5 xs:h-7 text-green-dark self-center'
-                  strokeWidth={1.8}
+                  strokeWidth={1.6}
                 />
-                <h5 className='ml-2 mr-2 xs:mr-3 self-center text-green-dark tracking-wider font-bold'>
+                <h5 className='ml-2 mr-2 xs:mr-3 self-center text-green-dark tracking-wider'>
                   Adicionar ao cesto
                 </h5>
                 <h5 className='pl-2 xs:pl-3 mr-2 border-l-2 border-green-medium self-start font-bold text-green-dark'>

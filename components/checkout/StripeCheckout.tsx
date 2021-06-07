@@ -284,13 +284,13 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
           </div>
           <div className='flex flex-col w-full mt-auto border-t pt-4'>
             <button
-              className='mx-auto p-2 rounded-md shadow-md w-[10rem] bg-green-extraLight'
+              className='mx-auto p-2 rounded-md shadow-md w-[10rem] bg-green-extraLight opacity-80 hover:opacity-100'
               type='submit'
               disabled={!stripe || isSubmitting}
             >
               {isSubmitting ? (
                 <div className='w-full flex'>
-                  <h6 className='text-center font-bold text-green-dark tracking-widest transform animate-pulse'>
+                  <h6 className='text-center text-green-dark tracking-widest transform animate-pulse'>
                     A processar
                   </h6>
                   <Secure
@@ -299,7 +299,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
                   />
                 </div>
               ) : (
-                <h6 className='text-center font-bold text-green-dark tracking-widest'>
+                <h6 className='text-center text-green-dark tracking-widest'>
                   Pagar
                 </h6>
               )}

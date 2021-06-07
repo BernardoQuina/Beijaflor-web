@@ -72,10 +72,10 @@ export const SetAddress: React.FC<SetAddressProps> = ({
         <div className='flex w-[45%] lg:w-[22%]  ml-auto p-2'>
           <button
             type='button'
-            className='h-full w-full max-w-[8rem] ml-auto flex flex-col rounded-md shadow-md bg-green-extraLight'
+            className='h-full w-full max-w-[8rem] ml-auto flex flex-col rounded-md shadow-md bg-green-extraLight hover:opacity-80 opacity-100'
             onClick={() => setCheckoutFase('payment')}
           >
-            <h5 className='text-center m-auto font-bold text-green-dark tracking-wider'>
+            <h5 className='text-center m-auto text-green-dark tracking-wider'>
               Continuar
             </h5>
           </button>

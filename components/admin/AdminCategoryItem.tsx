@@ -130,7 +130,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
                 setShowCategoryOptionsModal(!showCategoryOptionsModal)
               }
               ref={categoryOptionsButtonNode}
-              className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+              className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center hover:opacity-80'
             >
               <Settings tailwind='h-5 text-green-dark' />
             </button>

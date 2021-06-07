@@ -55,7 +55,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, admin }) => {
       )}
       {admin && (
         <button
-          className='absolute top-2 right-2 lg:right-10 mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+          className='absolute top-2 right-2 lg:right-10 mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center hover:opacity-80'
           type='button'
           onClick={() => setShowOrderOptionsModal(!showOrderOptionsModal)}
           ref={orderOptionsButtonNode}
@@ -64,7 +64,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, admin }) => {
         </button>
       )}
       <Link href={`/conta/encomendas/${order.id}`}>
-        <a className='absolute flex top-[50%] translate-y-[-50%] right-2 p-1 h-[30%] lg:h-[85%] rounded-md shadow-md bg-green-extraLight'>
+        <a className='absolute flex top-[50%] translate-y-[-50%] right-2 p-1 h-[30%] lg:h-[85%] rounded-md shadow-md bg-green-extraLight hover:opacity-80'>
           <ArrowDown
             tailwind='h-4 self-center text-green-dark transform -rotate-90'
             strokeWidth={2}

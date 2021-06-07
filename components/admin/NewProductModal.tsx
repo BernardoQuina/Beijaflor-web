@@ -203,7 +203,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                         errorStyling='text-center mb-3 w-full rounded-md py-1 text-red-800 bg-red-200'
                       />
                       <button
-                        className='flex ml-4 mb-1 lg:mb-0 lg:mt-[3.3rem] p-2 self-end lg:self-start bg-green-extraLight rounded-md shadow-md'
+                        className='flex ml-4 mb-1 lg:mb-0 lg:mt-[3.3rem] p-2 self-end lg:self-start bg-green-extraLight rounded-md shadow-md hover:opacity-80'
                         type='button'
                         onClick={() => {
                           if (
@@ -359,7 +359,7 @@ export const NewProductModal: React.FC<NewProductModalProps> = ({
                 </div>
                 <div className='flex py-3 border-t'>
                   <button
-                    className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight'
+                    className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-green-extraLight hover:opacity-80'
                     type='submit'
                   >
                     <p className='mx-auto text-lg text-green-dark tracking-widest'>

@@ -15,7 +15,6 @@ import {
   plusOneItem,
   removeFromLocalCart,
 } from '../../utils/localStorageCart'
-import { NarrowArrow } from '../svg/NarrowArrow'
 import { Minus } from '../svg/Minus'
 import { Plus } from '../svg/Plus'
 import { X } from '../svg/X'
@@ -214,15 +213,11 @@ export const CartContent: React.FC<CartContentProps> = ({
               <Link href='/checkout'>
                 <a
                   onClick={() => setCartModal('false')}
-                  className='h-full w-full flex flex-col rounded-md shadow-md bg-green-extraLight'
+                  className='h-full w-full flex flex-col rounded-md shadow-md bg-green-extraLight hover:opacity-80 opacity-100'
                 >
-                  <h5 className='text-center mt-auto font-bold text-green-dark tracking-wider'>
+                  <h5 className='text-center m-auto text-green-dark tracking-wider'>
                     Checkout
                   </h5>
-                  <NarrowArrow
-                    tailwind='h-5 mb-auto text-green-dark'
-                    strokeWidth={2.5}
-                  />
                 </a>
               </Link>
             </div>

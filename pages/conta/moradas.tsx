@@ -47,10 +47,10 @@ const moradas: NextPage<moradasProps> = ({}) => {
       </div>
       <div className='flex mx-auto max-w-6xl'>
         <button
-          className='group flex mt-4 lg:px-3 ml-auto mr-2 px-2 self-center h-10 rounded-md shadow-md bg-green-extraLight'
+          className='group flex mt-4 lg:px-3 ml-auto mr-2 px-2 self-center h-10 rounded-md shadow-md bg-green-extraLight hover:opacity-80'
           onClick={() => setShowNewAddressModal(true)}
         >
-          <h5 className='mr-2 self-center tracking-wider text-green-dark group-hover:font-bold'>
+          <h5 className='mr-2 self-center tracking-wider text-green-dark'>
             Nova morada
           </h5>
           <Plus tailwind='m-auto h-6 text-green-dark' strokeWidth={2} />

@@ -109,7 +109,7 @@ export const AddressItem: React.FC<AddressItemProps> = ({
             onClick={() => {
               setAddressId(address.id)
             }}
-            className='w-[10rem] mt-2 p-2 rounded-md shadow-md bg-green-extraLight'
+            className='w-[10rem] mt-2 p-2 rounded-md shadow-md bg-green-extraLight hover:opacity-80'
           >
             <p className='text-green-dark tracking-wide'>Selecionar morada</p>
           </button>
@@ -118,7 +118,7 @@ export const AddressItem: React.FC<AddressItemProps> = ({
           type='button'
           onClick={() => setShowAddressOptionsModal(!showAddressOptionsModal)}
           ref={addressOptionsButtonNode}
-          className='absolute bottom-4 right-4 bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+          className='absolute bottom-4 right-4 bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center hover:opacity-80'
         >
           <Settings tailwind='h-5 text-green-dark' />
         </button>

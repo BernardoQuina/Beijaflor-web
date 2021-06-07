@@ -61,7 +61,7 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
       <div className='flex flex-col lg:flex-row w-full mt-6'>
         <div className='flex flex-col lg:flex-row lg:my-auto w-full lg:max-w-md lg:flex-wrap'>
           <button
-            className='flex mb-3 lg:my-2 mx-2 py-1 px-4 rounded-md shadow-md bg-green-extraLight'
+            className='flex mb-3 lg:my-2 mx-2 py-1 px-4 rounded-md shadow-md bg-green-extraLight hover:opacity-80'
             type='button'
             onClick={() => {
               variables.search = undefined
@@ -73,7 +73,7 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
             </h4>
           </button>
           <button
-            className='flex mb-3 lg:my-2 mx-2  py-1 px-4 rounded-md shadow-md bg-gray-200'
+            className='flex mb-3 lg:my-2 mx-2  py-1 px-4 rounded-md shadow-md bg-gray-200 hover:opacity-80'
             type='button'
             onClick={() => {
               variables.search = 'em processamento'
@@ -85,7 +85,7 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
             </h4>
           </button>
           <button
-            className='flex mb-3 lg:my-2 mx-2 py-1 px-4 rounded-md shadow-md bg-blue-100'
+            className='flex mb-3 lg:my-2 mx-2 py-1 px-4 rounded-md shadow-md bg-blue-100 hover:opacity-80'
             type='button'
             onClick={() => {
               variables.search = 'em distribuição'
@@ -97,7 +97,7 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
             </h4>
           </button>
           <button
-            className='flex mb-3 lg:my-2 mx-2 py-1 px-4 rounded-md shadow-md bg-green-extraLight'
+            className='flex mb-3 lg:my-2 mx-2 py-1 px-4 rounded-md shadow-md bg-green-extraLight hover:opacity-80'
             type='button'
             onClick={() => {
               variables.search = 'entregue'
@@ -139,7 +139,7 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
       </div>
       <div className='relative flex w-full mt-6'>
         <button
-          className=' flex my-auto ml-auto  rounded-md shadow-md p-2 bg-green-extraLight'
+          className='flex my-auto ml-auto  rounded-md shadow-md p-2 bg-green-extraLight hover:opacity-80'
           ref={orderByButtonNode}
           type='button'
           onClick={() => {

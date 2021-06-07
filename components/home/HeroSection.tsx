@@ -16,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 
         <Link href='/explorar'>
           <a className='m-auto mt-14 md:mt-20'>
-            <button className='p-2 px-2 rounded-md shadow-md text-pink-dark opacity-95 bg-opacity-80 hover:opacity-100 hover:bg-opacity-100 bg-pink-light tracking-widest text-xl md:text-2xl '>
+            <button className='p-2 px-2 rounded-md shadow-md text-green-dark hover:opacity-95 hover:bg-opacity-80 opacity-100 bg-opacity-100 bg-green-extraLight font-thin tracking-widest text-xl md:text-2xl '>
               EXPLORAR
             </button>
           </a>

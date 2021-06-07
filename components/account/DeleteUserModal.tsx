@@ -96,7 +96,7 @@ export const DeleteUserModal: React.FC<DeleteUserModalProps> = ({
               </div>
               <div className='flex py-3 border-t'>
                 <button
-                  className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-red-100'
+                  className='flex w-[8rem] mx-auto px-4 py-2 rounded-md shadow-md bg-red-100 hover:opacity-80'
                   type='submit'
                 >
                   <p className='mx-auto text-lg text-red-500 tracking-widest'>

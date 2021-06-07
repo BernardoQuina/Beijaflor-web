@@ -32,7 +32,7 @@ export const SpecialOccasionSection: React.FC<SpecialOccasionSectionProps> =
             <Link
               href={`/explorar/${headerData.categories[0].name.toLowerCase()}`}
             >
-              <a className='flex self-end ml-auto mr-2 md:mr-20 xl:mr-8 h-10 p-1 px-2 rounded-md shadow-md text-green-dark  opacity-80 hover:opacity-100 bg-green-extraLight tracking-widest md:text-lg'>
+              <a className='flex self-end ml-auto mr-2 md:mr-20 xl:mr-8 h-10 p-1 px-2 rounded-md shadow-md text-green-dark  hover:opacity-80 opacity-100 bg-green-extraLight tracking-widest md:text-lg'>
                 <p className='self-center'>VER MAIS</p>
               </a>
             </Link>

@@ -133,14 +133,14 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
                 setShowProductOptionsModal(!showProductOptionsModal)
               }
               ref={productOptionsButtonNode}
-              className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+              className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center hover:opacity-80'
             >
               <Settings tailwind='h-5 text-green-dark' />
             </button>
             <button
               type='button'
               onClick={() => setOpen(!open)}
-              className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center'
+              className='mx-auto bg-green-extraLight p-1 rounded-md shadow-md h-8 self-center hover:opacity-80'
             >
               <ArrowDown
                 tailwind={`h-5 text-green-dark transform ${
