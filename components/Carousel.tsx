@@ -11,7 +11,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [show, setShow] = useState(1)
 
-  const [currentIndex, setCurrentIndex] = useState(Children.count(children))
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [length, setLength] = useState<number>(Children.count(children))
 
   const [isRepeating, setIsRepeating] = useState(
@@ -118,6 +118,11 @@ export const Carousel: React.FC<CarouselProps> = ({
       }
     }
   }, [currentIndex, isRepeating, show, length, windowChange])
+
+  useEffect(() => {
+    setTransitionEnabled(false)
+    setCurrentIndex(length)
+  }, [])
 
   return (
     <div className='w-full h-full flex flex-col'>

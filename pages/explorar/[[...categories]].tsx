@@ -361,7 +361,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
             <button
               className={`${
                 filtersOpen && 'hidden lg:inline-block'
-              } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-green-extraLight lg:bg-white`}
+              } flex m-auto lg:ml-auto lg:mr-0 rounded-md shadow-md p-2 bg-green-extraLight hover:opacity-80`}
               ref={orderByButtonNode}
               type='button'
               onClick={() => {
