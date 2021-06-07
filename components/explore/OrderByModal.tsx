@@ -33,7 +33,7 @@ export const OrderByModal: React.FC<OrderByModalProps> = ({
   modalRef,
   setOrderByModal,
   variables,
-  refetch
+  refetch,
 }) => {
   return (
     <div
@@ -77,6 +77,19 @@ export const OrderByModal: React.FC<OrderByModalProps> = ({
       >
         <h6 className='w-full text-green-dark tracking-wide text-center'>
           Novidades
+        </h6>
+      </button>
+      <button
+        className='py-2 flex w-full  rounded-md hover:bg-green-extraLight'
+        type='button'
+        onClick={async () => {
+          variables.orderBy = { sales: SortOrder.Desc }
+          refetch()
+          setOrderByModal(false)
+        }}
+      >
+        <h6 className='w-full text-green-dark tracking-wide text-center'>
+          Populares
         </h6>
       </button>
     </div>

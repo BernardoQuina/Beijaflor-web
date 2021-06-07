@@ -16,6 +16,7 @@ import {
   CategoriesQuery,
   ExploreProductsDocument,
   MainCategory,
+  SortOrder,
   SubCategory,
   useExploreProductsQuery,
 } from '../../lib/generated/graphql'
@@ -104,12 +105,15 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
   } = useExploreProductsQuery({
     errorPolicy: 'all',
     variables: {
-      search: router.query.categories
-        ? router.query.categories[router.query.categories.length - 1]
-        : '',
+      search:
+        router.query.categories && router.query.categories[0] !== 'populares'
+          ? router.query.categories[router.query.categories.length - 1]
+          : '',
       searchMain: mainCategory,
       searchCatName1:
-        router.query.categories && router.query.categories[0] !== 'pesquisa'
+        router.query.categories &&
+        router.query.categories[0] !== 'pesquisa' &&
+        router.query.categories[0] !== 'populares'
           ? router.query.categories[
               router.query.categories.length - 1
             ].toUpperCase()
@@ -123,6 +127,10 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
       searchCatName8: 'none',
       searchCatName9: 'none',
       searchCatName10: 'none',
+      orderBy:
+        router.query.categories && router.query.categories[0] === 'populares'
+          ? { sales: SortOrder.Desc }
+          : undefined,
     },
   })
 
@@ -213,7 +221,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
                 <X tailwind='h-5 text-green-dark' />
               </button>
               {mainCategoriesArray.map((mainCategory) => (
-                <AnimateSharedLayout>
+                <AnimateSharedLayout key={mainCategory}>
                   <motion.div
                     layoutId={mainCategory}
                     className='text-green-medium w-full mx-auto my-4 px-6 py-4 rounded-md border-green-light bg-white  shadow-md'
@@ -435,12 +443,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     query: ExploreProductsDocument,
     errorPolicy: 'all',
     variables: {
-      search: context.query.categories
-        ? context.query.categories[context.query.categories.length - 1]
-        : '',
+      search:
+        context.query.categories && context.query.categories[0] !== 'populares'
+          ? context.query.categories[context.query.categories.length - 1]
+          : '',
       searchMain: mainCategory,
       searchCatName1:
-        context.query.categories && context.query.categories[0] !== 'pesquisa'
+        context.query.categories &&
+        context.query.categories[0] !== 'pesquisa' &&
+        context.query.categories[0] !== 'populares'
           ? context.query.categories[
               context.query.categories.length - 1
             ].toUpperCase()
@@ -454,6 +465,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       searchCatName8: 'none',
       searchCatName9: 'none',
       searchCatName10: 'none',
+      orderBy:
+        context.query.categories && context.query.categories[0] === 'populares'
+          ? { sales: SortOrder.Desc }
+          : undefined,
     },
   })
 
