@@ -1,0 +1,5 @@
+query HeaderCategory {
+  categories(where: { header: { equals: true } }, take: 1) {
+    ...BasicCategoryInfo
+  }
+}

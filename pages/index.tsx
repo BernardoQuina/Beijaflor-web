@@ -8,9 +8,10 @@ import { CategoriesSection } from '../components/home/CategoriesSection'
 import { MostPopularSection } from '../components/home/MostPopularSection'
 import { initializeApollo } from '../lib/apolloClient'
 import {
+  HeaderCategoryDocument,
   PopularCategoriesDocument,
   PopularProductsDocument,
-  ProductsDocument,
+  SpecialOccasionDocument,
 } from '../lib/generated/graphql'
 interface HomeProps {
   serverError?: { message: string }
@@ -32,8 +33,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const apolloClient = initializeApollo()
 
   await apolloClient.query({
-    query: ProductsDocument,
-    variables: { search: 'dia da mãe' },
+    query: PopularProductsDocument,
+    errorPolicy: 'all',
+  })
+
+  await apolloClient.query({
+    query: SpecialOccasionDocument,
     errorPolicy: 'all',
   })
 
@@ -43,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   })
 
   await apolloClient.query({
-    query: PopularProductsDocument,
+    query: HeaderCategoryDocument,
     errorPolicy: 'all',
   })
 

@@ -193,6 +193,7 @@ export type Category = {
   name: Scalars['String'];
   image: Scalars['String'];
   sales: Scalars['Int'];
+  header: Scalars['Boolean'];
   products: Array<Product>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -218,6 +219,7 @@ export type CategoryOrderByInput = {
   name?: Maybe<SortOrder>;
   image?: Maybe<SortOrder>;
   sales?: Maybe<SortOrder>;
+  header?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -232,6 +234,7 @@ export type CategoryWhereInput = {
   name?: Maybe<StringFilter>;
   image?: Maybe<StringFilter>;
   sales?: Maybe<IntFilter>;
+  header?: Maybe<BoolFilter>;
   products?: Maybe<ProductListRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -319,6 +322,7 @@ export type Mutation = {
   createCategory?: Maybe<Category>;
   editCategory?: Maybe<Category>;
   deleteCategory?: Maybe<Scalars['Boolean']>;
+  setAsHeader?: Maybe<Category>;
   createPaymentIntent?: Maybe<PaymentIntent>;
   successfulPayment?: Maybe<Scalars['Boolean']>;
   unsuccessfulPayment?: Maybe<Scalars['Boolean']>;
@@ -421,6 +425,11 @@ export type MutationEditCategoryArgs = {
 
 
 export type MutationDeleteCategoryArgs = {
+  whereId: Scalars['String'];
+};
+
+
+export type MutationSetAsHeaderArgs = {
   whereId: Scalars['String'];
 };
 
@@ -837,6 +846,7 @@ export type Query = {
   me?: Maybe<User>;
   product?: Maybe<Product>;
   products: Array<Product>;
+  specialOccasion?: Maybe<Array<Maybe<Product>>>;
   productCount?: Maybe<Scalars['Int']>;
   inactiveCount?: Maybe<Scalars['Int']>;
   outOfStockCount?: Maybe<Scalars['Int']>;
@@ -1207,7 +1217,7 @@ export type BasicCartItemInfoFragment = (
 
 export type BasicCategoryInfoFragment = (
   { __typename?: 'Category' }
-  & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'sales' | 'createdAt' | 'updatedAt'>
+  & Pick<Category, 'id' | 'name' | 'mainCategory' | 'subCategory' | 'image' | 'sales' | 'header' | 'createdAt' | 'updatedAt'>
 );
 
 export type BasicOrderInfoFragment = (
@@ -1592,6 +1602,19 @@ export type RemoveItemMutation = (
   & Pick<Mutation, 'removeItem'>
 );
 
+export type SetAsHeaderMutationVariables = Exact<{
+  whereId: Scalars['String'];
+}>;
+
+
+export type SetAsHeaderMutation = (
+  { __typename?: 'Mutation' }
+  & { setAsHeader?: Maybe<(
+    { __typename?: 'Category' }
+    & BasicCategoryInfoFragment
+  )> }
+);
+
 export type SuccessfulPaymentMutationVariables = Exact<{
   orderId: Scalars['String'];
 }>;
@@ -1687,6 +1710,17 @@ export type ExploreProductsQuery = (
   & { products: Array<(
     { __typename?: 'Product' }
     & BasicProductInfoFragment
+  )> }
+);
+
+export type HeaderCategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HeaderCategoryQuery = (
+  { __typename?: 'Query' }
+  & { categories: Array<(
+    { __typename?: 'Category' }
+    & BasicCategoryInfoFragment
   )> }
 );
 
@@ -1795,6 +1829,17 @@ export type SingleProductQuery = (
   )> }
 );
 
+export type SpecialOccasionQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SpecialOccasionQuery = (
+  { __typename?: 'Query' }
+  & { specialOccasion?: Maybe<Array<Maybe<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )>>> }
+);
+
 export type UserQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
@@ -1827,6 +1872,7 @@ export const BasicCategoryInfoFragmentDoc = gql`
   subCategory
   image
   sales
+  header
   createdAt
   updatedAt
 }
@@ -2774,6 +2820,39 @@ export function useRemoveItemMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type RemoveItemMutationHookResult = ReturnType<typeof useRemoveItemMutation>;
 export type RemoveItemMutationResult = Apollo.MutationResult<RemoveItemMutation>;
 export type RemoveItemMutationOptions = Apollo.BaseMutationOptions<RemoveItemMutation, RemoveItemMutationVariables>;
+export const SetAsHeaderDocument = gql`
+    mutation SetAsHeader($whereId: String!) {
+  setAsHeader(whereId: $whereId) {
+    ...BasicCategoryInfo
+  }
+}
+    ${BasicCategoryInfoFragmentDoc}`;
+export type SetAsHeaderMutationFn = Apollo.MutationFunction<SetAsHeaderMutation, SetAsHeaderMutationVariables>;
+
+/**
+ * __useSetAsHeaderMutation__
+ *
+ * To run a mutation, you first call `useSetAsHeaderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetAsHeaderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setAsHeaderMutation, { data, loading, error }] = useSetAsHeaderMutation({
+ *   variables: {
+ *      whereId: // value for 'whereId'
+ *   },
+ * });
+ */
+export function useSetAsHeaderMutation(baseOptions?: Apollo.MutationHookOptions<SetAsHeaderMutation, SetAsHeaderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetAsHeaderMutation, SetAsHeaderMutationVariables>(SetAsHeaderDocument, options);
+      }
+export type SetAsHeaderMutationHookResult = ReturnType<typeof useSetAsHeaderMutation>;
+export type SetAsHeaderMutationResult = Apollo.MutationResult<SetAsHeaderMutation>;
+export type SetAsHeaderMutationOptions = Apollo.BaseMutationOptions<SetAsHeaderMutation, SetAsHeaderMutationVariables>;
 export const SuccessfulPaymentDocument = gql`
     mutation SuccessfulPayment($orderId: String!) {
   successfulPayment(orderId: $orderId)
@@ -3034,6 +3113,40 @@ export function useExploreProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type ExploreProductsQueryHookResult = ReturnType<typeof useExploreProductsQuery>;
 export type ExploreProductsLazyQueryHookResult = ReturnType<typeof useExploreProductsLazyQuery>;
 export type ExploreProductsQueryResult = Apollo.QueryResult<ExploreProductsQuery, ExploreProductsQueryVariables>;
+export const HeaderCategoryDocument = gql`
+    query HeaderCategory {
+  categories(where: {header: {equals: true}}, take: 1) {
+    ...BasicCategoryInfo
+  }
+}
+    ${BasicCategoryInfoFragmentDoc}`;
+
+/**
+ * __useHeaderCategoryQuery__
+ *
+ * To run a query within a React component, call `useHeaderCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHeaderCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHeaderCategoryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useHeaderCategoryQuery(baseOptions?: Apollo.QueryHookOptions<HeaderCategoryQuery, HeaderCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<HeaderCategoryQuery, HeaderCategoryQueryVariables>(HeaderCategoryDocument, options);
+      }
+export function useHeaderCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HeaderCategoryQuery, HeaderCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<HeaderCategoryQuery, HeaderCategoryQueryVariables>(HeaderCategoryDocument, options);
+        }
+export type HeaderCategoryQueryHookResult = ReturnType<typeof useHeaderCategoryQuery>;
+export type HeaderCategoryLazyQueryHookResult = ReturnType<typeof useHeaderCategoryLazyQuery>;
+export type HeaderCategoryQueryResult = Apollo.QueryResult<HeaderCategoryQuery, HeaderCategoryQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -3355,6 +3468,40 @@ export function useSingleProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type SingleProductQueryHookResult = ReturnType<typeof useSingleProductQuery>;
 export type SingleProductLazyQueryHookResult = ReturnType<typeof useSingleProductLazyQuery>;
 export type SingleProductQueryResult = Apollo.QueryResult<SingleProductQuery, SingleProductQueryVariables>;
+export const SpecialOccasionDocument = gql`
+    query SpecialOccasion {
+  specialOccasion {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+
+/**
+ * __useSpecialOccasionQuery__
+ *
+ * To run a query within a React component, call `useSpecialOccasionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSpecialOccasionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSpecialOccasionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSpecialOccasionQuery(baseOptions?: Apollo.QueryHookOptions<SpecialOccasionQuery, SpecialOccasionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SpecialOccasionQuery, SpecialOccasionQueryVariables>(SpecialOccasionDocument, options);
+      }
+export function useSpecialOccasionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SpecialOccasionQuery, SpecialOccasionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SpecialOccasionQuery, SpecialOccasionQueryVariables>(SpecialOccasionDocument, options);
+        }
+export type SpecialOccasionQueryHookResult = ReturnType<typeof useSpecialOccasionQuery>;
+export type SpecialOccasionLazyQueryHookResult = ReturnType<typeof useSpecialOccasionLazyQuery>;
+export type SpecialOccasionQueryResult = Apollo.QueryResult<SpecialOccasionQuery, SpecialOccasionQueryVariables>;
 export const UserDocument = gql`
     query User($userId: String!) {
   user(where: {id: $userId}) {

@@ -5,6 +5,7 @@ fragment BasicCategoryInfo on Category {
   subCategory
   image
   sales
+  header
   createdAt
   updatedAt
 }

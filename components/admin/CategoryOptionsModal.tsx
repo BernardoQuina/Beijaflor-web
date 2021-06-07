@@ -1,16 +1,33 @@
-import { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react'
+import {
+  BasicCategoryInfoFragment,
+  useSetAsHeaderMutation,
+} from '../../lib/generated/graphql'
 
 interface CategoryOptionsModalProps {
   modalRef: MutableRefObject<HTMLDivElement>
+  category: BasicCategoryInfoFragment
+  setShowCategoryOptionsModal: Dispatch<SetStateAction<boolean>>
   setShowEditCategoryModal: Dispatch<SetStateAction<boolean>>
   setShowDeleteCategoryModal: Dispatch<SetStateAction<boolean>>
 }
 
 export const CategoryOptionsModal: React.FC<CategoryOptionsModalProps> = ({
   modalRef,
+  category,
+  setShowCategoryOptionsModal,
   setShowEditCategoryModal,
   setShowDeleteCategoryModal,
 }) => {
+  const [setAsHeader] = useSetAsHeaderMutation({
+    errorPolicy: 'all',
+    variables: { whereId: category.id },
+  })
+
+  useEffect(() => {
+    console.log('header: ', category.header)
+  }, [])
+
   return (
     <div
       ref={modalRef}
@@ -25,6 +42,22 @@ export const CategoryOptionsModal: React.FC<CategoryOptionsModalProps> = ({
       >
         <h6 className='w-full py-2 text-green-dark tracking-wide text-center rounded-md hover:bg-green-extraLight'>
           Editar
+        </h6>
+      </button>
+      <button
+        className='flex w-full'
+        type='button'
+        onClick={async () => {
+          await setAsHeader({
+            update: (cache) => {
+              cache.evict({ fieldName: 'categories' })
+            },
+          })
+          setShowCategoryOptionsModal(false)
+        }}
+      >
+        <h6 className='w-full py-2 text-green-dark tracking-wide text-center rounded-md hover:bg-green-extraLight'>
+          Destacar
         </h6>
       </button>
       <button

@@ -58,7 +58,9 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
     <div className='relative w-full '>
       {showCategoryOptionsModal && (
         <CategoryOptionsModal
+          category={category}
           modalRef={categoryOptionsModalNode}
+          setShowCategoryOptionsModal={setShowCategoryOptionsModal}
           setShowEditCategoryModal={setShowEditModal}
           setShowDeleteCategoryModal={setShowDeleteModal}
         />

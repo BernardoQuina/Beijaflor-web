@@ -1,0 +1,5 @@
+mutation SetAsHeader($whereId: String!) {
+  setAsHeader(whereId: $whereId) {
+    ...BasicCategoryInfo
+  }
+}
