@@ -1,0 +1,9 @@
+query PopularCategories {
+  categories(
+    
+    orderBy: {sales: desc}
+    take: 9
+  ) {
+    ...BasicCategoryInfo
+  }
+}
