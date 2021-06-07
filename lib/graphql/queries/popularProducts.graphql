@@ -1,0 +1,5 @@
+query PopularProducts {
+  products(orderBy: { sales: desc }, take: 10) {
+    ...BasicProductInfo
+  }
+}

@@ -9,6 +9,7 @@ import { MostPopularSection } from '../components/home/MostPopularSection'
 import { initializeApollo } from '../lib/apolloClient'
 import {
   PopularCategoriesDocument,
+  PopularProductsDocument,
   ProductsDocument,
 } from '../lib/generated/graphql'
 interface HomeProps {
@@ -38,6 +39,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   await apolloClient.query({
     query: PopularCategoriesDocument,
+    errorPolicy: 'all',
+  })
+
+  await apolloClient.query({
+    query: PopularProductsDocument,
     errorPolicy: 'all',
   })
 

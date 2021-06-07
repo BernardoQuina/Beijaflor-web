@@ -1734,6 +1734,17 @@ export type PopularCategoriesQuery = (
   )> }
 );
 
+export type PopularProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PopularProductsQuery = (
+  { __typename?: 'Query' }
+  & { products: Array<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
+);
+
 export type ProductCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3165,6 +3176,40 @@ export function usePopularCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type PopularCategoriesQueryHookResult = ReturnType<typeof usePopularCategoriesQuery>;
 export type PopularCategoriesLazyQueryHookResult = ReturnType<typeof usePopularCategoriesLazyQuery>;
 export type PopularCategoriesQueryResult = Apollo.QueryResult<PopularCategoriesQuery, PopularCategoriesQueryVariables>;
+export const PopularProductsDocument = gql`
+    query PopularProducts {
+  products(orderBy: {sales: desc}, take: 10) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+
+/**
+ * __usePopularProductsQuery__
+ *
+ * To run a query within a React component, call `usePopularProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePopularProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePopularProductsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePopularProductsQuery(baseOptions?: Apollo.QueryHookOptions<PopularProductsQuery, PopularProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PopularProductsQuery, PopularProductsQueryVariables>(PopularProductsDocument, options);
+      }
+export function usePopularProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PopularProductsQuery, PopularProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PopularProductsQuery, PopularProductsQueryVariables>(PopularProductsDocument, options);
+        }
+export type PopularProductsQueryHookResult = ReturnType<typeof usePopularProductsQuery>;
+export type PopularProductsLazyQueryHookResult = ReturnType<typeof usePopularProductsLazyQuery>;
+export type PopularProductsQueryResult = Apollo.QueryResult<PopularProductsQuery, PopularProductsQueryVariables>;
 export const ProductCountsDocument = gql`
     query ProductCounts {
   productCount

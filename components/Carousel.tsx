@@ -7,11 +7,11 @@ interface CarouselProps {
 
 export const Carousel: React.FC<CarouselProps> = ({
   children,
-  infiniteLoop
+  infiniteLoop,
 }) => {
   const [show, setShow] = useState(1)
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(Children.count(children))
   const [length, setLength] = useState<number>(Children.count(children))
 
   const [isRepeating, setIsRepeating] = useState(
@@ -111,7 +111,6 @@ export const Carousel: React.FC<CarouselProps> = ({
     } else {
       setShow(1)
     }
-
 
     if (isRepeating) {
       if (currentIndex === show || currentIndex === length) {
