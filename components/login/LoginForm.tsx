@@ -67,10 +67,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({}) => {
               inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin'
               errorStyling='text-center bg-red-200'
             />
-            <Link href='/forgot-password'>
-              <p className='mt-1 text-right text-sm text-green-dark hover:underline cursor-pointer'>
+            <Link href='/pedir-palavra-passe'>
+              <a className='mt-1 text-right text-sm text-green-dark hover:underline cursor-pointer'>
                 Esqueceu-se da palavra-passe?
-              </p>
+              </a>
             </Link>
           </div>
           <button

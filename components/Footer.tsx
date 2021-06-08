@@ -28,7 +28,12 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             />
           </div>
           <div className='flex lg:flex-col w-[50%] lg:w-full mx-auto mt-6 lg:mt-16'>
-            <a href='' className='mx-auto'>
+            <a
+              rel='noopener noreferrer'
+              target='_blank'
+              href='https://facebook.com/Florista-Beijaflor-em-Rio-de-MouroSintra-213481928713090'
+              className='mx-auto'
+            >
               <Facebook tailwind='h-6 text-green-dark mx-auto' />
             </a>
             <a href='' className='mx-auto'>
