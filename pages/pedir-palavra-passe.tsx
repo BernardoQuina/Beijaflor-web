@@ -89,7 +89,7 @@ const pedirPalavraPasse: NextPage<pedirPalavraPasseProps> = ({}) => {
             variants={fadeDown}
             className='text-lg mt-14 p-4 w-[90%] max-w-[40rem] mx-auto text-center rounded-md shadow-md bg-green-extraLight text-green-dark'
           >
-            Se uma conta existir com este email, enviamos-lhe um link para
+            Se uma conta existir com este email, enviámos-lhe um link para
             redefinir a palavra-passe
           </motion.div>
         )}
