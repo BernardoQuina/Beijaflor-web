@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 import { Layout } from '../components/Layout'
-import {InputField} from '../components/InputField'
+import { InputField } from '../components/InputField'
 import { useForgotPasswordMutation } from '../lib/generated/graphql'
 import { fadeDown } from '../utils/animations'
 import { ArrowDown } from '../components/svg/ArrowDown'
@@ -22,7 +22,11 @@ const pedirPalavraPasse: NextPage<pedirPalavraPasseProps> = ({}) => {
   return (
     <Layout>
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
-        <button className='flex p-1' type='button' onClick={() => router.back()}>
+        <button
+          className='flex p-1'
+          type='button'
+          onClick={() => router.back()}
+        >
           <ArrowDown
             tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
             strokeWidth={3}
@@ -60,27 +64,27 @@ const pedirPalavraPasse: NextPage<pedirPalavraPasseProps> = ({}) => {
               </h3>
             </div>
             <div className='relative flex flex-col pt-4 pb-12 w-full'>
-            <div className='w-[90%] lg:w-[80%] mx-auto mt-8'>
-              <InputField
-                name='email'
-                label='Email'
-                placeholder='ex: exemplo@email.com'
-                type='email'
-                labelStyling='ml-3 text-green-medium tracking-wider'
-                inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
-                errorStyling='absolute bottom-1 text-center max-w-xs lg:max-w-xl w-full rounded-md py-1 text-red-800 bg-red-200 transform left-[50%] translate-x-[-50%]'
-              />
+              <div className='w-[90%] lg:w-[80%] mx-auto mt-8'>
+                <InputField
+                  name='email'
+                  label='Email'
+                  placeholder='ex: exemplo@email.com'
+                  type='email'
+                  labelStyling='ml-3 text-green-medium tracking-wider'
+                  inputStyling='mt-1 pl-4 py-2 border shadow-sm rounded-md focus:border-green-medium w-full tracking-wider font-thin text-lg'
+                  errorStyling='absolute bottom-1 text-center max-w-xs lg:max-w-xl w-full rounded-md py-1 text-red-800 bg-red-200 transform left-[50%] translate-x-[-50%]'
+                />
+              </div>
             </div>
-            </div>
+            <p className='text-center mx-auto text-gray-400 text-sm'>Não aplicável a contas criadas via Google/Facebook</p>
             <div className='flex py-3 mt-auto border-t'>
-            <button
-              className='flex w-[10rem] mx-auto px-4 py-2 rounded-md shadow-md text-green-dark bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-600  hover:opacity-80 hover:disabled:opacity-100'
-              type='submit'
-              
-            >
-              <p className='mx-auto text-lg tracking-widest'>Enviar email</p>
-            </button>
-          </div>
+              <button
+                className='flex w-[10rem] mx-auto px-4 py-2 rounded-md shadow-md text-green-dark bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-600  hover:opacity-80 hover:disabled:opacity-100'
+                type='submit'
+              >
+                <p className='mx-auto text-lg tracking-widest'>Enviar email</p>
+              </button>
+            </div>
           </Form>
         ) : (
           <motion.div

@@ -9,6 +9,7 @@ declare global {
       NEXT_PUBLIC_CLOUDINARY_KEY: string
       CLOUDINARY_SECRET: string
       NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string
+      NEXT_PUBLIC_PAYPAL_CLIENT_ID: string
     }
   }
 }

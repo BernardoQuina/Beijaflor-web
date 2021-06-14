@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import { MeQuery } from '../../lib/generated/graphql'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -9,6 +9,7 @@ import { Paypal } from '../svg/Paypal'
 import { slideLeft, slideRight } from '../../utils/animations'
 import { Stripe } from '../svg/Stripe'
 import { StripeCheckout } from './StripeCheckout'
+import { PaypalCheckout } from './PaypalCheckout'
 
 interface MakePaymentProps {
   data: MeQuery
@@ -24,6 +25,20 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
   addressId,
 }) => {
   const [paymentMethod, setPaymentMethod] = useState('')
+
+  const addPaypalScript = () => {
+    const script = document.createElement('script')
+
+    script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=EUR&disable-funding=credit,card`
+
+    script.type = 'text/javascript'
+    script.async = true
+    document.body.appendChild(script)
+  }
+
+  useEffect(() => {
+    addPaypalScript()
+  }, [])
 
   return (
     <div className='mt-3 xs:mt-6 flex flex-col mx-auto max-w-2xl h-[27rem] xs:h-[40rem] bg-white rounded-md shadow-around'>
@@ -115,9 +130,13 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
               exit='exit'
               variants={slideRight}
             >
-              <button type='button' onClick={() => setPaymentMethod('')}>
-                voltar
-              </button>
+              <PaypalCheckout
+                setPaymentMethod={setPaymentMethod}
+                setCheckoutFase={setCheckoutFase}
+                setConfirmedOrderId={setConfirmedOrderId}
+                addressId={addressId}
+                data={data}
+              />
             </motion.div>
           ) : null}
         </AnimatePresence>
