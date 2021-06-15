@@ -14,4 +14,6 @@ declare global {
   }
 }
 
+export * from '@paypal/paypal-js/types/apis/orders'
+
 export {}

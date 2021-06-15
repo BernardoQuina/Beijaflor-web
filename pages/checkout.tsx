@@ -77,6 +77,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
                 data={data}
                 setCheckoutFase={setCheckoutFase}
                 setConfirmedOrderId={setConfirmedOrderId}
+                confirmedOrderId={confirmedOrderId}
                 addressId={addressId}
               />
             </motion.div>

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { loadScript, PayPalNamespace } from '@paypal/paypal-js'
 
 import { MeQuery } from '../../lib/generated/graphql'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -10,9 +11,11 @@ import { slideLeft, slideRight } from '../../utils/animations'
 import { Stripe } from '../svg/Stripe'
 import { StripeCheckout } from './StripeCheckout'
 import { PaypalCheckout } from './PaypalCheckout'
+import { PurchaseUnit } from '@paypal/paypal-js/types/apis/orders'
 
 interface MakePaymentProps {
   data: MeQuery
+  confirmedOrderId: string
   setCheckoutFase: Dispatch<SetStateAction<string>>
   setConfirmedOrderId: Dispatch<SetStateAction<string>>
   addressId: string
@@ -22,23 +25,41 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
   data,
   setCheckoutFase,
   setConfirmedOrderId,
+  confirmedOrderId,
   addressId,
 }) => {
   const [paymentMethod, setPaymentMethod] = useState('')
+  const [paypal, setPaypal] = useState<PayPalNamespace>(undefined)
+  const [cartItemsIds, setCartItemsIds] = useState([])
+  const [purchaseUnits, setPurchaseUnits] = useState<PurchaseUnit[]>([])
 
-  const addPaypalScript = () => {
-    const script = document.createElement('script')
-
-    script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=EUR&disable-funding=credit,card`
-
-    script.type = 'text/javascript'
-    script.async = true
-    document.body.appendChild(script)
-  }
+  const response = loadScript({
+    'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+    currency: 'EUR',
+    'disable-funding': 'credit,card',
+  })
 
   useEffect(() => {
-    addPaypalScript()
-  }, [])
+    response.then((paypalResponse) => setPaypal(paypalResponse))
+
+    setPurchaseUnits([])
+    setCartItemsIds([])
+
+    data?.me?.cart.cartItems.forEach((cartItem) => {
+      setCartItemsIds((prev) => [...prev, cartItem.id])
+      setPurchaseUnits((prev) => [
+        ...prev,
+        {
+          description: `${cartItem.product.name} x ${cartItem.quantity}`,
+          amount: {
+            currency_code: 'EUR',
+            value: (cartItem.product.price * cartItem.quantity).toFixed(2),
+          },
+          reference_id: cartItem.id
+        },
+      ])
+    })
+  }, [data])
 
   return (
     <div className='mt-3 xs:mt-6 flex flex-col mx-auto max-w-2xl h-[27rem] xs:h-[40rem] bg-white rounded-md shadow-around'>
@@ -117,6 +138,7 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
                 setPaymentMethod={setPaymentMethod}
                 setCheckoutFase={setCheckoutFase}
                 setConfirmedOrderId={setConfirmedOrderId}
+                cartItemsIds={cartItemsIds}
                 addressId={addressId}
                 data={data}
               />
@@ -124,16 +146,33 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
           ) : paymentMethod === 'paypal' ? (
             <motion.div
               key='paypal'
-              className='w-full h-full flex flex-col'
+              className='w-full h-full flex flex-col relative'
               initial='initial'
               animate='animate'
               exit='exit'
               variants={slideRight}
             >
+              <button
+                className='hidden absolute top-2 left-2 lg:flex p-1'
+                onClick={() => setPaymentMethod('')}
+                type='button'
+              >
+                <ArrowDown
+                  tailwind='h-4 lg:h-6 text-green-dark self-center transform rotate-90'
+                  strokeWidth={3}
+                />
+                <h6 className='mx-1 lg:mx-2 text-lg text-green-dark tracking-widest self-center'>
+                  voltar
+                </h6>
+              </button>
               <PaypalCheckout
+                paypal={paypal}
+                purchaseUnits={purchaseUnits}
                 setPaymentMethod={setPaymentMethod}
                 setCheckoutFase={setCheckoutFase}
                 setConfirmedOrderId={setConfirmedOrderId}
+                confirmedOrderId={confirmedOrderId}
+                cartItemsIds={cartItemsIds}
                 addressId={addressId}
                 data={data}
               />

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.13",
+    "@paypal/paypal-js": "^4.0.0",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.15.0",
     "cloudinary": "^1.25.1",

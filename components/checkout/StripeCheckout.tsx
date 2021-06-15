@@ -21,6 +21,7 @@ interface StripeCheckoutProps {
   setPaymentMethod: Dispatch<SetStateAction<string>>
   setCheckoutFase: Dispatch<SetStateAction<string>>
   setConfirmedOrderId: Dispatch<SetStateAction<string>>
+  cartItemsIds: string[]
 }
 
 export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
@@ -29,6 +30,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   setPaymentMethod,
   setCheckoutFase,
   setConfirmedOrderId,
+  cartItemsIds
 }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -36,7 +38,6 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   const [paymentIntent, setPaymentIntent] =
     useState<BasicPaymentIntentFragment>()
   const [paymentError, setPaymentError] = useState('')
-  const [cartItemsIds, setCartItemsIds] = useState([])
 
   const errorMessageRef = useRef<HTMLHeadingElement | null>(null)
 
@@ -73,12 +74,6 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
     }
 
     getIntent()
-
-    setCartItemsIds([])
-
-    data?.me?.cart.cartItems.forEach((cartItem) => {
-      setCartItemsIds((prev) => [...prev, cartItem.id])
-    })
 
     if (data?.me?.cart.quantity < 1) {
       setCheckoutFase('confirm items')
@@ -119,7 +114,6 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
               payment_method: {
                 card: elements.getElement(CardElement),
               },
-              receipt_email: data.me.email,
               shipping: {
                 name: createOrderResponse.data.createOrder.address.completeName,
                 address: {
