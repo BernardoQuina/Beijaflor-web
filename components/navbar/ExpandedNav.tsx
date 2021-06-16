@@ -6,7 +6,7 @@ import { PlantsCategory } from './PlantsCategory'
 import { OccasionCategory } from './OccasionCategory'
 import {
   BasicCategoryInfoFragment,
-  useProductsQuery,
+  useNewProductsQuery,
 } from '../../lib/generated/graphql'
 
 interface ExpandedNavProps {
@@ -24,10 +24,8 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
 }) => {
   const [currentCategory, setCurrentCategory] = useState('Flores')
 
-  const { data } = useProductsQuery({
-    variables: { search: 'dia da mãe' },
+  const { data } = useNewProductsQuery({
     errorPolicy: 'all',
-    fetchPolicy: 'network-only',
   })
 
   return (

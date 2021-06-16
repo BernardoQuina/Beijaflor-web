@@ -1,6 +1,6 @@
-query PopularProducts {
+query NewProducts {
   products(
-    orderBy: { sales: desc }
+    orderBy: { createdAt: desc }
     take: 10
     where: { AND: [{ stock: { gt: 0 } }, { active: { equals: true } }] }
   ) {

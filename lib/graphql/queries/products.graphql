@@ -1,11 +1,13 @@
 query Products(
   $orderBy: [ProductOrderByInput!]
+  $take: Int
   $search: String
   $searchMain: MainCategory
   $searchSub: SubCategory
 ) {
   products(
     orderBy: $orderBy
+    take: $take
     where: {
       OR: [
         { name: { mode: insensitive, contains: $search } }

@@ -78,6 +78,7 @@ query ExploreProducts(
         { categories: { some: { mainCategory: { equals: $searchMain } } } }
         { categories: { some: { subCategory: { equals: $searchSub } } } }
       ]
+      AND: [{ stock: { gt: 0 } }, { active: { equals: true } }]
     }
   ) {
     ...BasicProductInfo

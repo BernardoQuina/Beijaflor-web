@@ -1774,6 +1774,17 @@ export type MeQuery = (
   )> }
 );
 
+export type NewProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewProductsQuery = (
+  { __typename?: 'Query' }
+  & { products: Array<(
+    { __typename?: 'Product' }
+    & BasicProductInfoFragment
+  )> }
+);
+
 export type OrderCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1828,6 +1839,7 @@ export type ProductCountsQuery = (
 
 export type ProductsQueryVariables = Exact<{
   orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
+  take?: Maybe<Scalars['Int']>;
   search?: Maybe<Scalars['String']>;
   searchMain?: Maybe<MainCategory>;
   searchSub?: Maybe<SubCategory>;
@@ -3175,7 +3187,7 @@ export const ExploreProductsDocument = gql`
     query ExploreProducts($orderBy: [ProductOrderByInput!], $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none", $searchCatName3: String = "none", $searchCatName4: String = "none", $searchCatName5: String = "none", $searchCatName6: String = "none", $searchCatName7: String = "none", $searchCatName8: String = "none", $searchCatName9: String = "none", $searchCatName10: String = "none") {
   products(
     orderBy: $orderBy
-    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName1}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName2}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName3}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName4}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName5}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName6}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName7}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName8}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName9}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName10}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
+    where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName1}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName2}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName3}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName4}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName5}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName6}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName7}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName8}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName9}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName10}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}], AND: [{stock: {gt: 0}}, {active: {equals: true}}]}
   ) {
     ...BasicProductInfo
   }
@@ -3290,6 +3302,44 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const NewProductsDocument = gql`
+    query NewProducts {
+  products(
+    orderBy: {createdAt: desc}
+    take: 10
+    where: {AND: [{stock: {gt: 0}}, {active: {equals: true}}]}
+  ) {
+    ...BasicProductInfo
+  }
+}
+    ${BasicProductInfoFragmentDoc}`;
+
+/**
+ * __useNewProductsQuery__
+ *
+ * To run a query within a React component, call `useNewProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNewProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewProductsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNewProductsQuery(baseOptions?: Apollo.QueryHookOptions<NewProductsQuery, NewProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NewProductsQuery, NewProductsQueryVariables>(NewProductsDocument, options);
+      }
+export function useNewProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NewProductsQuery, NewProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NewProductsQuery, NewProductsQueryVariables>(NewProductsDocument, options);
+        }
+export type NewProductsQueryHookResult = ReturnType<typeof useNewProductsQuery>;
+export type NewProductsLazyQueryHookResult = ReturnType<typeof useNewProductsLazyQuery>;
+export type NewProductsQueryResult = Apollo.QueryResult<NewProductsQuery, NewProductsQueryVariables>;
 export const OrderCountsDocument = gql`
     query OrderCounts {
   orderCount
@@ -3400,7 +3450,11 @@ export type PopularCategoriesLazyQueryHookResult = ReturnType<typeof usePopularC
 export type PopularCategoriesQueryResult = Apollo.QueryResult<PopularCategoriesQuery, PopularCategoriesQueryVariables>;
 export const PopularProductsDocument = gql`
     query PopularProducts {
-  products(orderBy: {sales: desc}, take: 10) {
+  products(
+    orderBy: {sales: desc}
+    take: 10
+    where: {AND: [{stock: {gt: 0}}, {active: {equals: true}}]}
+  ) {
     ...BasicProductInfo
   }
 }
@@ -3467,9 +3521,10 @@ export type ProductCountsQueryHookResult = ReturnType<typeof useProductCountsQue
 export type ProductCountsLazyQueryHookResult = ReturnType<typeof useProductCountsLazyQuery>;
 export type ProductCountsQueryResult = Apollo.QueryResult<ProductCountsQuery, ProductCountsQueryVariables>;
 export const ProductsDocument = gql`
-    query Products($orderBy: [ProductOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
+    query Products($orderBy: [ProductOrderByInput!], $take: Int, $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   products(
     orderBy: $orderBy
+    take: $take
     where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
   ) {
     ...BasicProductInfo
@@ -3490,6 +3545,7 @@ export const ProductsDocument = gql`
  * const { data, loading, error } = useProductsQuery({
  *   variables: {
  *      orderBy: // value for 'orderBy'
+ *      take: // value for 'take'
  *      search: // value for 'search'
  *      searchMain: // value for 'searchMain'
  *      searchSub: // value for 'searchSub'
