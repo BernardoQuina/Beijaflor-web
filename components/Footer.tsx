@@ -7,6 +7,7 @@ import { Send } from './svg/Send'
 import { ArrowDown } from './svg/ArrowDown'
 import { useState } from 'react'
 import { useWishlistModal } from '../context/wishListModalContext'
+import { useCartModal } from '../context/CartModalContext'
 
 interface FooterProps {}
 
@@ -14,6 +15,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
   const [open, setOpen] = useState('')
 
   const { setWishlistModal } = useWishlistModal()
+  const { setCartModal } = useCartModal()
 
   return (
     <footer className='w-full bg-pink-light shadow-inner pt-10 mt-10'>
@@ -142,11 +144,14 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                 >
                   <p>Lista de desejos</p>
                 </button>
-                <Link href='/checkout'>
-                  <a>
-                    <p className='my-4'>Cesto</p>
-                  </a>
-                </Link>
+                <div className='my-4'>
+                  <button
+                    onClick={() => setCartModal('true')}
+                    className='tracking-widest hover:underline'
+                  >
+                    <p>Cesto</p>
+                  </button>
+                </div>
                 <Link href='/checkout'>
                   <a>
                     <p className='my-4'>Checkout</p>
