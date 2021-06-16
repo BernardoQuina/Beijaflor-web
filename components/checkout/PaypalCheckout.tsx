@@ -32,7 +32,7 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
   setCheckoutFase,
   setConfirmedOrderId,
   confirmedOrderId,
-  cartItemsIds
+  cartItemsIds,
 }) => {
   const [paymentError, setPaymentError] = useState('')
 
@@ -53,13 +53,23 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
     if (errorMessageRef.current && errorMessageRef.current.contains(e.target)) {
       return
     }
-
     setPaymentError('')
   }
 
   useEffect(() => {
+    if (data?.me?.cart.quantity < 1) {
+      setCheckoutFase('confirm items')
+    }
 
-    console.log('cartIds: ', cartItemsIds)
+    let unitsValue = 0
+
+    purchaseUnits.forEach(
+      (unit) => (unitsValue += parseFloat(unit.amount.value))
+    )
+
+    if (data.me.cart.price.toFixed(2) !== unitsValue.toFixed(2)) {
+      return setPaymentMethod('')
+    }
 
     paypal
       .Buttons({
@@ -130,14 +140,10 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
 
     document.addEventListener('mousedown', messageClick)
 
-    if (data?.me?.cart.quantity < 1) {
-      setCheckoutFase('confirm items')
-    }
-
     return () => {
       document.removeEventListener('mousedown', messageClick)
     }
-  }, [data, paypal])
+  }, [data])
 
   return (
     <div className='flex flex-col m-auto min-h-full  md:min-h-[29rem] w-[25rem] max-w-full p-4 rounded-md md:shadow-around bg-white'>
