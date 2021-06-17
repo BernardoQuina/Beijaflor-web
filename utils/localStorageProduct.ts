@@ -4,4 +4,5 @@ export type LocalProduct = {
   images: string[]
   price: number
   stock: number
+  active: boolean
 }

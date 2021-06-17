@@ -28,7 +28,9 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
 
   if (!data?.me) {
     return (
-      <h1 className='text-green-dark text-center w-full m-auto'>Faça login para fazer checkout</h1>
+      <h1 className='text-green-dark text-center w-full m-auto'>
+        Faça login para fazer checkout
+      </h1>
     )
   }
 
@@ -73,7 +75,20 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
                       />
                     </div>
                   </div>
-                  <div className='flex flex-col w-[70%]'>
+                  <div className='relative flex flex-col w-[70%]'>
+                    {cartItem.product.stock === 0 ? (
+                      <p className='absolute -bottom-2 left-4 text-red-500'>
+                        Sem stock!
+                      </p>
+                    ) : !cartItem.product.active ? (
+                      <p className='absolute -bottom-2 left-4 text-red-500'>
+                        Indisponível!
+                      </p>
+                    ) : cartItem.quantity > cartItem.product.stock ? (
+                      <p className='absolute -bottom-2 left-4 text-red-500'>
+                        stock insuficiente!
+                      </p>
+                    ) : null}
                     <div className='flex flex-col ml-4 my-auto'>
                       <Link
                         href={`/produtos/${encodeURIComponent(
