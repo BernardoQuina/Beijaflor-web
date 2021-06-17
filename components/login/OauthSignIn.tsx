@@ -31,6 +31,7 @@ export const OauthSignIn: React.FC<OauthSignInProps> = ({}) => {
           Entrar com o Google
         </p>
         <Image
+          alt='google logo'
           src='/google.png'
           width={30}
           height={30}
@@ -46,6 +47,7 @@ export const OauthSignIn: React.FC<OauthSignInProps> = ({}) => {
           Entrar com o Facebook
         </p>
         <Image
+          alt='facebook logo'
           src='/facebook.png'
           width={30}
           height={30}

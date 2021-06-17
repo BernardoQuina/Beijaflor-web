@@ -84,6 +84,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
           <div className='flex w-[20%]'>
             <div className='h-full w-12 mx-auto rounded-md overflow-hidden'>
               <Image
+                alt={category.name}
                 cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
                 publicId={category.image}
                 height={300}

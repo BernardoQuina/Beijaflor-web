@@ -85,6 +85,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
           <div className='flex w-[20%]'>
             <div className='h-full w-12 mx-auto rounded-md overflow-hidden'>
               <Image
+                alt={product.name}
                 cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
                 publicId={product.images[0]}
                 height={300}

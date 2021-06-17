@@ -62,6 +62,7 @@ export const WishlistContent: React.FC<WishlistContentProps> = ({
                   <div className='flex'>
                     <div className='w-14 h-16 m-auto flex overflow-hidden rounded-md'>
                       <Image
+                        alt={product.name}
                         className='my-auto'
                         cloudName={
                           process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME

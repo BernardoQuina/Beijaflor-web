@@ -17,6 +17,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
           <a className='relative flex h-[26em] w-[18em] mx-auto mb-20 rounded-xl shadow-xl overflow-hidden'>
             <div className='absolute z-[-1] w-full h-full flex  overflow-hidden rounded-xl'>
               <Image
+                alt={category.name}
                 className='w-full h-full'
                 cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
                 publicId={category.image}

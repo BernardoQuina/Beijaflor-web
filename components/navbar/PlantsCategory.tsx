@@ -78,6 +78,7 @@ export const PlantsCategory: React.FC<PlantsCategoryProps> = ({
                           >
                             <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
                               <Image
+                                alt={category.name}
                                 className='my-auto'
                                 cloudName={
                                   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME

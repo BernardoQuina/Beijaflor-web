@@ -23,6 +23,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
         </Link>
       </div>
       <Image
+          alt='flor ilustrativa da pagina inicial.'
           className='hidden lg:inline-block absolute right-[5%] top-[-30%]'
           src='/homepage-plant1.png'
           quality={30}

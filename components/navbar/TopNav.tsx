@@ -386,6 +386,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           {data?.me && data.me.photo ? (
             <div className='md:mr-2 lg:mr-0'>
               <Image
+                alt='user profile photo'
                 className='rounded-full'
                 src={data.me.photo}
                 height={30}

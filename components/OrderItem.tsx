@@ -74,6 +74,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, admin }) => {
       <div className='flex pt-2'>
         <div className='w-14 h-20 mx-auto mb-auto flex overflow-hidden rounded-md'>
           <Image
+            alt={order.orderItems[0].product.name}
             className='my-auto'
             cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
             publicId={order.orderItems[0].product.images[0]}

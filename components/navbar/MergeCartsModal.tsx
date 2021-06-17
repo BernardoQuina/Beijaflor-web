@@ -115,6 +115,7 @@ export const MergeCartsModal: React.FC<MergeCartsModalProps> = ({
                           <div className='flex'>
                             <div className='w-14 h-16 m-auto flex overflow-hidden rounded-md'>
                               <Image
+                                alt={cartItem.product.name}
                                 className='my-auto'
                                 cloudName={
                                   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
@@ -260,6 +261,7 @@ export const MergeCartsModal: React.FC<MergeCartsModalProps> = ({
                         <div className='flex'>
                           <div className='w-14 h-16 m-auto flex overflow-hidden rounded-md'>
                             <Image
+                              alt={cartItem.product.name}
                               className='my-auto'
                               cloudName={
                                 process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME

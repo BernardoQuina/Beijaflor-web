@@ -146,6 +146,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
           </div>
           <div className='h-[85%] xs:h-[95%] m-auto self-center rounded-xl overflow-hidden'>
             <Image
+              alt={product.name}
               className='mx-auto max-w-[15rem] lg:max-w-[25rem] rounded-xl'
               cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
               publicId={selectedImage}
@@ -171,6 +172,7 @@ const produto: NextPage<produtoProps> = ({ product }) => {
                 }`}
               >
                 <Image
+                  alt={product.name}
                   className='absolute'
                   cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
                   publicId={image}

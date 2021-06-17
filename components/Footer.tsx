@@ -23,6 +23,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
         <div className='flex flex-col lg:ml-auto lg:w-[10%]'>
           <div className='w-[120px] h-[120px] mx-auto lg:-mt-4'>
             <Image
+              alt='logo florista beijaflor'
               src='/logo-with-letters.png'
               height={120}
               width={120}

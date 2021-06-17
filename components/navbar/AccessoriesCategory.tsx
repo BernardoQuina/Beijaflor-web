@@ -69,6 +69,7 @@ export const AccessoriesCategory: React.FC<AccessoriesCategoryProps> = ({
                           >
                             <div className='w-14 h-14 m-auto flex overflow-hidden rounded-xl'>
                               <Image
+                                alt={category.name}
                                 className='my-auto'
                                 cloudName={
                                   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME

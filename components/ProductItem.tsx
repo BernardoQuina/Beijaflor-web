@@ -131,6 +131,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
               />
             </button>
             <Image
+              alt={product.name}
               cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
               publicId={product.images[0]}
               quality={70}
