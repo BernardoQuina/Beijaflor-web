@@ -5,6 +5,7 @@ import { AddressItem } from '../../components/account/AddressItem'
 import { NewAddressModal } from '../../components/account/NewAddressModal'
 
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { Plus } from '../../components/svg/Plus'
 import { useMeQuery } from '../../lib/generated/graphql'
 import { isServer } from '../../utils/isServer'
@@ -24,6 +25,7 @@ const moradas: NextPage<moradasProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta title='Moradas | Florista Beijaflor' />
       <NewAddressModal
         setShowAddressModal={setShowNewAddressModal}
         showAddressModal={showNewAddressModal}

@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import { Image } from 'cloudinary-react'
 
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { useEffect, useState } from 'react'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { useRouter } from 'next/dist/client/router'
@@ -36,9 +37,10 @@ import { useLocalStorageChange } from '../../context/localStorageChangeContext'
 
 interface produtoProps {
   product: BasicProductInfoFragment
+  keywords: string
 }
 
-const produto: NextPage<produtoProps> = ({ product }) => {
+const produto: NextPage<produtoProps> = ({ product, keywords }) => {
   const { setCartModal } = useCartModal()
   const { setWishlistModal } = useWishlistModal()
   const { localStorageChange, setLocalStorageChange } = useLocalStorageChange()
@@ -80,6 +82,11 @@ const produto: NextPage<produtoProps> = ({ product }) => {
 
   return (
     <Layout>
+      <Meta
+        title={`${product.name} | Florista Beijaflor`}
+        description={product.description}
+        keywords={keywords}
+      />
       <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-12 md:-mt-16 lg:-mt-14'>
         <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-6 lg:row-span-9'>
           <div className='flex'>
@@ -366,10 +373,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     product = response.data.product
   }
 
+  let keywordsArray: string[] = []
+  let keywords = ''
+
+  const makeKeywords = async () => {
+    for (let i = 0; i < product.categories.length; i++) {
+      keywordsArray.push(product.categories[i].name.toLocaleLowerCase())
+    }
+
+    keywords = keywordsArray.join(', ')
+  }
+
+  await makeKeywords()
+
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
       product,
+      keywords,
     },
   }
 }

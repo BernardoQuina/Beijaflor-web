@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import { Layout } from '../components/Layout'
+import { Meta } from '../components/Meta'
 import { useState } from 'react'
 import { useMeQuery } from '../lib/generated/graphql'
 import { isServer } from '../utils/isServer'
@@ -17,7 +18,9 @@ import { OrderConfirmation } from '../components/checkout/OrderConfirmation'
 
 interface checkoutProps {}
 
-const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
+const stripePromise = loadStripe(
+  `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+)
 
 const checkout: NextPage<checkoutProps> = ({}) => {
   const [checkoutFase, setCheckoutFase] = useState('confirm items')
@@ -31,6 +34,10 @@ const checkout: NextPage<checkoutProps> = ({}) => {
   return (
     <Elements options={{ locale: 'pt' }} stripe={stripePromise}>
       <Layout overflowHide={true}>
+        <Meta
+          title='Checkout | Florista Beijaflor'
+          description='Faça checkout na Florista Beijaflor com paypal ou cartão de crédito via stripe. Descubra a nossa seleção de plantas e flores e receba-as à sua porta. Mais de 20 anos de momentos especiais!'
+        />
         <CheckoutHeader
           checkoutFase={checkoutFase}
           setCheckoutFase={setCheckoutFase}

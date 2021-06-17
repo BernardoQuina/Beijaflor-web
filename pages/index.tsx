@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 
 import { Layout } from '../components/Layout'
+import { Meta } from '../components/Meta'
 import { HeroSection } from '../components/home/HeroSection'
 import { AdvantagesSection } from '../components/home/AdvantagesSection'
 import { SpecialOccasionSection } from '../components/home/SpecialOccasionSection'
@@ -20,6 +21,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({}) => {
   return (
     <Layout>
+      <Meta title='Início | Florista Beijaflor' />
       <HeroSection />
       <SpecialOccasionSection />
       <MostPopularSection />

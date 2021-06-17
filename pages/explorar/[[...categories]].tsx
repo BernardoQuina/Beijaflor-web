@@ -3,6 +3,7 @@ import { isEqual, uniqWith } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { ProductItem } from '../../components/ProductItem'
 import { Filter } from '../../components/svg/Filter'
 import { Sort } from '../../components/svg/Sort'
@@ -196,6 +197,15 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
   return (
     <Layout>
+      <Meta
+        title={
+          variables.search
+            ? `${variables.search} | Florista Beijaflor`
+            : 'Explorar | Florista BeijaFlor'
+        }
+
+        description='Explore aqui a nossa seleção de plantas e flores e receba-as à sua porta. Mais de 20 anos de momentos especiais!'
+      />
       <div className='mt-20 mb-20 max-w-[110rem] lg:w-[97%]  mx-auto grid grid-cols-12 grid-row-6'>
         <AnimatePresence exitBeforeEnter>
           <motion.div

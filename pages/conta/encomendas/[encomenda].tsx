@@ -6,6 +6,7 @@ import { Image } from 'cloudinary-react'
 import { DateTime } from 'luxon'
 
 import { Layout } from '../../../components/Layout'
+import { Meta } from '../../../components/Meta'
 import { ArrowDown } from '../../../components/svg/ArrowDown'
 import { useMeQuery, useSingleOrderQuery } from '../../../lib/generated/graphql'
 import { isServer } from '../../../utils/isServer'
@@ -39,6 +40,7 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta title={`Encomenda ${data?.order?.id} | Florista Beijaflor`} />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <button className='flex p-1' onClick={() => router.back()}>
           <ArrowDown

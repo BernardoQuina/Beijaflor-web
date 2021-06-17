@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Formik, Form } from 'formik'
 
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { InputField } from '../../components/InputField'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { useIsAuth } from '../../utils/useIsAuth'
@@ -21,6 +22,10 @@ const RedefinirPalavraPasse: NextPage<RedefinirPalavraPasseProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta
+        title='Redefinir palavra-passe | Florista Beijaflor'
+        description='Redefinir nova palavra-passe da sua conta. Descubra a nossa seleção de plantas e flores e receba-as à sua porta. Mais de 20 anos de momentos especiais!'
+      />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <button
           className='flex p-1'

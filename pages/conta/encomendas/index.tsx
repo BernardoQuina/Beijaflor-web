@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 
 import { Layout } from '../../../components/Layout'
+import { Meta } from '../../../components/Meta'
 import { useMeQuery } from '../../../lib/generated/graphql'
 import { isServer } from '../../../utils/isServer'
 import { ArrowDown } from '../../../components/svg/ArrowDown'
@@ -19,6 +20,7 @@ const encomendas: NextPage<encomendasProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta title='As minhas encomendas | Florista Beijaflor' />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <button className='flex p-1' onClick={() => router.back()}>
           <ArrowDown

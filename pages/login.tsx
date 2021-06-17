@@ -5,6 +5,7 @@ import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
 import { useIsAuth } from '../utils/useIsAuth'
 import { slideLeft, slideRight } from '../utils/animations'
 import { Layout } from '../components/Layout'
+import { Meta } from '../components/Meta'
 import { PresentationSection } from '../components/login/PresentationSection'
 import { LoginForm } from '../components/login/LoginForm'
 import { RegisterForm } from '../components/login/RegisterForm'
@@ -19,6 +20,10 @@ const login: NextPage<loginProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta
+        title='Entrar | Florista Beijaflor'
+        description='Entre na sua conta na Florista Beijaflor ou crie uma nova. Descubra a nossa seleção de plantas e flores e receba-as à sua porta. Mais de 20 anos de momentos especiais!'
+      />
       <div className='-mt-4 3xl:mt-72 mb-64 w-full max-w-7xl mx-auto grid grid-cols-1 grid-rows-2 lg:grid-rows-1 lg:grid-cols-2'>
         <PresentationSection />
         <section className='col-span-1 row-start-1 lg:col-start-2 w-[95%] lg:w-[26rem] mx-auto'>

@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { Admin } from '../../components/svg/Admin'
 import { Box } from '../../components/svg/Box'
 import { Location } from '../../components/svg/Location'
@@ -19,6 +20,7 @@ const index: NextPage<indexProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta title={`Conta de ${data?.me?.name} | Florista Beijaflor`} />
       <div className='-mt-10 lg:-mt-14 max-w-7xl 3xl:max-w-[100rem] mx-auto flex flex-col'>
         {data?.me && (
           <div className='flex flex-col mx-auto w-full max-w-5xl 3xl:max-w-[100rem]'>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 import { Layout } from '../components/Layout'
+import { Meta } from '../components/Meta'
 import { InputField } from '../components/InputField'
 import { useForgotPasswordMutation } from '../lib/generated/graphql'
 import { fadeDown } from '../utils/animations'
@@ -21,6 +22,10 @@ const pedirPalavraPasse: NextPage<pedirPalavraPasseProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta
+        title='Pedir palavra-passe | Florista Beijaflor'
+        description='Pedir nova palavra-passe via email para redefini-la. Descubra a nossa seleção de plantas e flores e receba-as à sua porta. Mais de 20 anos de momentos especiais!'
+      />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <button
           className='flex p-1'
@@ -76,7 +81,9 @@ const pedirPalavraPasse: NextPage<pedirPalavraPasseProps> = ({}) => {
                 />
               </div>
             </div>
-            <p className='text-center mx-auto text-gray-400 text-sm'>Não aplicável a contas criadas via Google/Facebook</p>
+            <p className='text-center mx-auto text-gray-400 text-sm'>
+              Não aplicável a contas criadas via Google/Facebook
+            </p>
             <div className='flex py-3 mt-auto border-t'>
               <button
                 className='flex w-[10rem] mx-auto px-4 py-2 rounded-md shadow-md text-green-dark bg-green-extraLight disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-600  hover:opacity-80 hover:disabled:opacity-100'

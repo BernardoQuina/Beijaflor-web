@@ -5,6 +5,7 @@ import { Formik, Form } from 'formik'
 
 import { useEditUserMutation, useMeQuery } from '../../lib/generated/graphql'
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { InputField } from '../../components/InputField'
 import { ArrowDown } from '../../components/svg/ArrowDown'
 import { useIsAuth } from '../../utils/useIsAuth'
@@ -63,6 +64,7 @@ const definições: NextPage<definiçõesProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta title='Definições de conta | Florista Beijaflor' />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <AnimatePresence exitBeforeEnter>
           {showDeleteModal && (

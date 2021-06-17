@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { CategoriesSection } from '../../components/admin/CategoriesSection'
 import { ProductsSection } from '../../components/admin/ProductsSection'
 import { Layout } from '../../components/Layout'
+import { Meta } from '../../components/Meta'
 import { Box } from '../../components/svg/Box'
 import { Categories } from '../../components/svg/Categories'
 // import { Chart } from '../../components/svg/Chart'
@@ -24,6 +25,7 @@ const adminDash: NextPage<adminDashProps> = ({}) => {
 
   return (
     <Layout>
+      <Meta title='Administração | Florista Beijaflor' />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <button className='flex p-1' onClick={() => router.back()}>
           <ArrowDown
