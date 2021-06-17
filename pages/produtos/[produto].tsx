@@ -86,6 +86,7 @@ const produto: NextPage<produtoProps> = ({ product, keywords }) => {
         title={`${product.name} | Florista Beijaflor`}
         description={product.description}
         keywords={keywords}
+        image={`https://res.cloudinary.com/florista-beijaflor/image/upload/c_fill,g_auto,h_480,q_80,w_320/${product.images[0]}`}
       />
       <div className='grid max-w-[100rem] mx-auto w-full h-[60rem] md:h-[60rem] lg:h-[50rem] grid-cols-12 grid-rows-14 -mt-12 md:-mt-16 lg:-mt-14'>
         <div className='flex flex-col col-span-8 md:col-span-7 lg:col-span-6 lg:col-start-1 lg:row-start-1 row-span-6 lg:row-span-9'>
