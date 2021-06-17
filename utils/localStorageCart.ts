@@ -36,6 +36,7 @@ export const addToLocalCart = (
             images: product.images,
             price: product.price,
             stock: product.stock,
+            active: product.active
           },
           createdAt: Date.now(),
         },
@@ -56,6 +57,7 @@ export const addToLocalCart = (
         images: product.images,
         price: product.price,
         stock: product.stock,
+        active: product.active
       },
       createdAt: Date.now(),
     })
@@ -139,6 +141,7 @@ export const minusOneItem = (
       images: cartItem.product.images,
       price: cartItem.product.price,
       stock: cartItem.product.stock,
+      active: cartItem.product.active
     },
     createdAt: cartItem.createdAt,
   })
@@ -191,6 +194,7 @@ export const plusOneItem = (
       images: cartItem.product.images,
       price: cartItem.product.price,
       stock: cartItem.product.stock,
+      active: cartItem.product.active
     },
     createdAt: cartItem.createdAt,
   })

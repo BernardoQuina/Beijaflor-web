@@ -21,6 +21,7 @@ export const toggleFromLocalWishlist = (
           images: product.images,
           price: product.price,
           stock: product.stock,
+          active: product.active
         },
       ],
     }
@@ -49,6 +50,7 @@ export const toggleFromLocalWishlist = (
         images: product.images,
         price: product.price,
         stock: product.stock,
+        active: product.active
       })
 
       const revisedWishlist: LocalWishlist = {
