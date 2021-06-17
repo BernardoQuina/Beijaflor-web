@@ -26,6 +26,7 @@ export const ExpandedNav: React.FC<ExpandedNavProps> = ({
 
   const { data } = useNewProductsQuery({
     errorPolicy: 'all',
+    fetchPolicy: 'network-only'
   })
 
   return (
