@@ -152,8 +152,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
   const lastProductElementRef = useCallback(
     (node) => {
-      console.log('hasMore: ', hasMore)
-
       if (loading) return
 
       if (observer.current) {
@@ -162,7 +160,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
       observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          console.log('here')
           const response = await fetchMore({
             variables: {
               skip: productsStateRef.current!.length,
