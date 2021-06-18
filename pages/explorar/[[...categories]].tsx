@@ -266,7 +266,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     <Layout>
       <Meta
         title={
-          variables.search
+          variables.search && variables.search !== 'nonsense'
             ? `${variables.search} | Florista Beijaflor`
             : 'Explorar | Florista BeijaFlor'
         }
