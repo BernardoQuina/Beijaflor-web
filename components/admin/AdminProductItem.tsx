@@ -16,11 +16,13 @@ import { DeleteProductModal } from './DeleteProductModal'
 interface AdminProductItemProps {
   product: BasicProductInfoFragment
   index: number
+  lastProductRef?: any
 }
 
 export const AdminProductItem: React.FC<AdminProductItemProps> = ({
   product,
   index,
+  lastProductRef,
 }) => {
   const [open, setOpen] = useState(false)
   const [showProductOptionsModal, setShowProductOptionsModal] = useState(false)
@@ -56,7 +58,7 @@ export const AdminProductItem: React.FC<AdminProductItemProps> = ({
   })
 
   return (
-    <div className='relative w-full '>
+    <div ref={lastProductRef} className='relative w-full '>
       {showProductOptionsModal && (
         <ProductOptionsModal
           product={product}

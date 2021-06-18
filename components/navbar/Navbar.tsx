@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   const { data } = useCategoriesQuery({
     errorPolicy: 'all',
-    variables: { search: '' },
+    variables: { search: '', skip: 0, take: 1000 },
     fetchPolicy: 'network-only',
   })
 

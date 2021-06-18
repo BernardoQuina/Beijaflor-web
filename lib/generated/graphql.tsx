@@ -1694,6 +1694,8 @@ export type CategoriesQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   searchMain?: Maybe<MainCategory>;
   searchSub?: Maybe<SubCategory>;
+  take: Scalars['Int'];
+  skip: Scalars['Int'];
 }>;
 
 
@@ -1798,6 +1800,8 @@ export type OrderCountsQuery = (
 export type OrdersQueryVariables = Exact<{
   orderBy?: Maybe<Array<OrderOrderByInput> | OrderOrderByInput>;
   search?: Maybe<Scalars['String']>;
+  take: Scalars['Int'];
+  skip: Scalars['Int'];
 }>;
 
 
@@ -1841,7 +1845,8 @@ export type ProductCountsQuery = (
 
 export type ProductsQueryVariables = Exact<{
   orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
-  take?: Maybe<Scalars['Int']>;
+  take: Scalars['Int'];
+  skip: Scalars['Int'];
   search?: Maybe<Scalars['String']>;
   searchMain?: Maybe<MainCategory>;
   searchSub?: Maybe<SubCategory>;
@@ -3078,9 +3083,11 @@ export type UnsuccessfulPaymentMutationHookResult = ReturnType<typeof useUnsucce
 export type UnsuccessfulPaymentMutationResult = Apollo.MutationResult<UnsuccessfulPaymentMutation>;
 export type UnsuccessfulPaymentMutationOptions = Apollo.BaseMutationOptions<UnsuccessfulPaymentMutation, UnsuccessfulPaymentMutationVariables>;
 export const CategoriesDocument = gql`
-    query Categories($orderBy: [CategoryOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
+    query Categories($orderBy: [CategoryOrderByInput!], $search: String, $searchMain: MainCategory, $searchSub: SubCategory, $take: Int!, $skip: Int!) {
   categories(
     orderBy: $orderBy
+    take: $take
+    skip: $skip
     where: {OR: [{name: {mode: insensitive, contains: $search}}, {mainCategory: {equals: $searchMain}}, {subCategory: {equals: $searchSub}}]}
   ) {
     ...BasicCategoryInfo
@@ -3104,10 +3111,12 @@ export const CategoriesDocument = gql`
  *      search: // value for 'search'
  *      searchMain: // value for 'searchMain'
  *      searchSub: // value for 'searchSub'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
-export function useCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+export function useCategoriesQuery(baseOptions: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
       }
@@ -3382,9 +3391,11 @@ export type OrderCountsQueryHookResult = ReturnType<typeof useOrderCountsQuery>;
 export type OrderCountsLazyQueryHookResult = ReturnType<typeof useOrderCountsLazyQuery>;
 export type OrderCountsQueryResult = Apollo.QueryResult<OrderCountsQuery, OrderCountsQueryVariables>;
 export const OrdersDocument = gql`
-    query Orders($orderBy: [OrderOrderByInput!], $search: String) {
+    query Orders($orderBy: [OrderOrderByInput!], $search: String, $take: Int!, $skip: Int!) {
   orders(
     orderBy: $orderBy
+    take: $take
+    skip: $skip
     where: {OR: [{id: {mode: insensitive, contains: $search}}, {state: {mode: insensitive, contains: $search}}, {userId: {mode: insensitive, contains: $search}}, {user: {name: {mode: insensitive, contains: $search}}}, {user: {email: {mode: insensitive, contains: $search}}}, {address: {completeName: {mode: insensitive, contains: $search}}}, {address: {street: {mode: insensitive, contains: $search}}}, {address: {zone: {mode: insensitive, contains: $search}}}, {address: {postal: {mode: insensitive, contains: $search}}}, {address: {region: {mode: insensitive, contains: $search}}}, {address: {country: {mode: insensitive, contains: $search}}}]}
   ) {
     ...BasicOrderInfo
@@ -3406,10 +3417,12 @@ export const OrdersDocument = gql`
  *   variables: {
  *      orderBy: // value for 'orderBy'
  *      search: // value for 'search'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
-export function useOrdersQuery(baseOptions?: Apollo.QueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
+export function useOrdersQuery(baseOptions: Apollo.QueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<OrdersQuery, OrdersQueryVariables>(OrdersDocument, options);
       }
@@ -3527,10 +3540,11 @@ export type ProductCountsQueryHookResult = ReturnType<typeof useProductCountsQue
 export type ProductCountsLazyQueryHookResult = ReturnType<typeof useProductCountsLazyQuery>;
 export type ProductCountsQueryResult = Apollo.QueryResult<ProductCountsQuery, ProductCountsQueryVariables>;
 export const ProductsDocument = gql`
-    query Products($orderBy: [ProductOrderByInput!], $take: Int, $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
+    query Products($orderBy: [ProductOrderByInput!], $take: Int!, $skip: Int!, $search: String, $searchMain: MainCategory, $searchSub: SubCategory) {
   products(
     orderBy: $orderBy
     take: $take
+    skip: $skip
     where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}]}
   ) {
     ...BasicProductInfo
@@ -3552,13 +3566,14 @@ export const ProductsDocument = gql`
  *   variables: {
  *      orderBy: // value for 'orderBy'
  *      take: // value for 'take'
+ *      skip: // value for 'skip'
  *      search: // value for 'search'
  *      searchMain: // value for 'searchMain'
  *      searchSub: // value for 'searchSub'
  *   },
  * });
  */
-export function useProductsQuery(baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+export function useProductsQuery(baseOptions: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
       }

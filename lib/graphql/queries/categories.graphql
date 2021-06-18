@@ -3,9 +3,13 @@ query Categories(
   $search: String
   $searchMain: MainCategory
   $searchSub: SubCategory
+  $take: Int!
+  $skip: Int!
 ) {
   categories(
     orderBy: $orderBy
+    take: $take
+    skip: $skip
     where: {
       OR: [
         { name: { mode: insensitive, contains: $search } }

@@ -1,6 +1,7 @@
-import { ChangeEvent, useState, useRef, useEffect } from 'react'
+import { ChangeEvent, useState, useRef, useEffect, useCallback } from 'react'
 
 import {
+  BasicOrderInfoFragment,
   useOrderCountsQuery,
   useOrdersQuery,
 } from '../../lib/generated/graphql'
@@ -15,11 +16,60 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
   const [orderByModal, setOrderByModal] = useState(false)
   const [search, setSearch] = useState('')
 
+  const [orders, setOrders] = useState<BasicOrderInfoFragment[]>()
+  const [hasMore, setHasMore] = useState(true)
+
+  const observer = useRef<IntersectionObserver>()
+  const ordersStateRef = useRef<BasicOrderInfoFragment[]>()
+
+  ordersStateRef.current = orders
+
   const { data: countData } = useOrderCountsQuery({ errorPolicy: 'all' })
 
-  const { data, refetch, variables } = useOrdersQuery({
+  const { data, loading, fetchMore, refetch, variables } = useOrdersQuery({
     errorPolicy: 'all',
+    variables: {
+      take: 10,
+      skip: 0,
+    },
   })
+
+  const lastOrderElementRef = useCallback(
+    (node) => {
+      if (loading) return
+
+      if (observer.current) {
+        observer.current.disconnect()
+      }
+
+      observer.current = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          const response = await fetchMore({
+            variables: {
+              skip: ordersStateRef.current.length,
+              take: 5,
+            },
+          })
+
+          if (response.data === null || response.data.orders.length < 5) {
+            setHasMore(false)
+          }
+
+          if (response.errors) {
+            console.log(response.errors[0].message)
+            setHasMore(false)
+          }
+
+          if (response.data.orders) {
+            setOrders(ordersStateRef.current.concat(response.data.orders))
+          }
+        }
+      })
+
+      if (node) observer.current.observe(node)
+    },
+    [loading, hasMore]
+  )
 
   const orderByButtonNode = useRef<HTMLButtonElement | null>(null)
   const orderByModalNode = useRef<HTMLDivElement | null>(null)
@@ -49,6 +99,16 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
       document.removeEventListener('mousedown', orderByButtonClick)
     }
   }, [])
+
+  useEffect(() => {
+    setOrders(data?.orders)
+
+    if (data && (data.orders.length % 5 !== 0 || data.orders.length < 5)) {
+      return setHasMore(false)
+    }
+
+    setHasMore(true)
+  }, [data])
 
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
@@ -159,9 +219,22 @@ export const OrdersSection: React.FC<OrdersSectionProps> = ({}) => {
         )}
       </div>
       <div className='w-full mx-auto lg:p-2 min-h-[46rem]'>
-        {data?.orders.map((order) => (
-          <OrderItem order={order} admin={true} key={order.id} />
-        ))}
+        {orders?.length > 0
+          ? orders.map((order, index) => {
+              if (orders.length === index + 1) {
+                return (
+                  <OrderItem
+                    order={order}
+                    admin={true}
+                    key={order.id}
+                    lastOrderRef={lastOrderElementRef}
+                  />
+                )
+              } else {
+                return <OrderItem order={order} admin={true} key={order.id} />
+              }
+            })
+          : null}
       </div>
     </section>
   )

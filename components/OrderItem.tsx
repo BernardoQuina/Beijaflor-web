@@ -11,9 +11,14 @@ import { OrderOptionsModal } from './admin/OrderOptionsModal'
 interface OrderItemProps {
   order: BasicOrderInfoFragment
   admin?: boolean
+  lastOrderRef?: any
 }
 
-export const OrderItem: React.FC<OrderItemProps> = ({ order, admin }) => {
+export const OrderItem: React.FC<OrderItemProps> = ({
+  order,
+  admin,
+  lastOrderRef,
+}) => {
   const [showOrderOptionsModal, setShowOrderOptionsModal] = useState(false)
 
   const orderOptionsButtonNode = useRef<HTMLButtonElement | null>(null)
@@ -45,7 +50,10 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, admin }) => {
   })
 
   return (
-    <div className='relative flex w-full px-2 my-4 rounded-md shadow-md bg-white'>
+    <div
+      ref={lastOrderRef}
+      className='relative flex w-full px-2 my-4 rounded-md shadow-md bg-white'
+    >
       {showOrderOptionsModal && (
         <OrderOptionsModal
           order={order}

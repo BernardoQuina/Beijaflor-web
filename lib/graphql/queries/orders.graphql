@@ -1,6 +1,13 @@
-query Orders($orderBy: [OrderOrderByInput!], $search: String) {
+query Orders(
+  $orderBy: [OrderOrderByInput!]
+  $search: String
+  $take: Int!
+  $skip: Int!
+) {
   orders(
     orderBy: $orderBy
+    take: $take
+    skip: $skip
     where: {
       OR: [
         { id: { mode: insensitive, contains: $search } }

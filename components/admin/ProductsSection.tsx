@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import {
+  BasicProductInfoFragment,
   SortOrder,
   useProductCountsQuery,
   useProductsQuery,
@@ -19,15 +20,79 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
   const [orderBy, setOrderBy] = useState('')
   const [search, setSearch] = useState('')
 
+  const [products, setProducts] = useState<BasicProductInfoFragment[]>()
+  const [hasMore, setHasMore] = useState(true)
+
+  const observer = useRef<IntersectionObserver>()
+  const productsStateRef = useRef<BasicProductInfoFragment[]>()
+
+  productsStateRef.current = products
+
   const { data } = useProductCountsQuery({ errorPolicy: 'all' })
 
   const {
     data: productData,
+    loading,
+    fetchMore,
     refetch,
     variables,
   } = useProductsQuery({
     errorPolicy: 'all',
+    variables: {
+      take: 10,
+      skip: 0,
+    },
   })
+
+  const lastProductElementRef = useCallback(
+    (node) => {
+      if (loading) return
+
+      if (observer.current) {
+        observer.current.disconnect()
+      }
+
+      observer.current = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          const response = await fetchMore({
+            variables: {
+              skip: productsStateRef.current!.length,
+              take: 5,
+            },
+          })
+
+          if (response.data === null || response.data.products.length < 5) {
+            setHasMore(false)
+          }
+
+          if (response.errors) {
+            console.log(response.errors[0].message)
+            setHasMore(false)
+          }
+
+          if (response.data.products) {
+            setProducts(
+              productsStateRef.current!.concat(response.data.products)
+            )
+          }
+        }
+      })
+
+      if (node) observer.current.observe(node)
+    },
+    [loading, hasMore]
+  )
+
+  useEffect(() => {
+    setProducts(productData?.products)
+    if (
+      productData &&
+      (productData.products.length % 5 !== 0 || productData.products.length < 5)
+    ) {
+      return setHasMore(false)
+    }
+    setHasMore(true)
+  }, [productData])
 
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
@@ -274,14 +339,27 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({}) => {
             </button>
           </div>
         </div>
-        {productData?.products
-          ? productData.products.map((product, index) => (
-              <AdminProductItem
-                key={product.id}
-                product={product}
-                index={index}
-              />
-            ))
+        {products?.length > 0
+          ? products.map((product, index) => {
+              if (products.length === index + 1) {
+                return (
+                  <AdminProductItem
+                    key={product.id}
+                    lastProductRef={lastProductElementRef}
+                    product={product}
+                    index={index}
+                  />
+                )
+              } else {
+                return (
+                  <AdminProductItem
+                    key={product.id}
+                    product={product}
+                    index={index}
+                  />
+                )
+              }
+            })
           : null}
       </div>
     </section>

@@ -14,11 +14,13 @@ import { DeleteCategoryModal } from './DeleteCategoryModal'
 interface AdminCategoryItemProps {
   category: BasicCategoryInfoFragment
   index: number
+  lastCategoryRef?: any
 }
 
 export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
   category,
   index,
+  lastCategoryRef,
 }) => {
   const [open, setOpen] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
@@ -55,7 +57,7 @@ export const AdminCategoryItem: React.FC<AdminCategoryItemProps> = ({
   })
 
   return (
-    <div className='relative w-full '>
+    <div ref={lastCategoryRef} className='relative w-full '>
       {showCategoryOptionsModal && (
         <CategoryOptionsModal
           category={category}

@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import {
+  BasicCategoryInfoFragment,
   SortOrder,
   useCategoriesQuery,
   useCategoryCountQuery,
@@ -19,13 +20,74 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
   const [orderBy, setOrderBy] = useState('')
   const [search, setSearch] = useState('')
 
+  const [categories, setCategories] = useState<BasicCategoryInfoFragment[]>()
+  const [hasMore, setHasMore] = useState(true)
+
+  const observer = useRef<IntersectionObserver>()
+  const categoriesStateRef = useRef<BasicCategoryInfoFragment[]>()
+
+  categoriesStateRef.current = categories
+
   const { data } = useCategoryCountQuery({ errorPolicy: 'all' })
 
   const {
     data: categoryData,
+    loading,
+    fetchMore,
     variables,
     refetch,
-  } = useCategoriesQuery({ errorPolicy: 'all', variables: { search: '' } })
+  } = useCategoriesQuery({
+    errorPolicy: 'all',
+    variables: { search: '', take: 10, skip: 0 },
+  })
+
+  const lastCategoryElementRef = useCallback(
+    (node) => {
+      if (loading) return
+
+      if (observer.current) {
+        observer.current.disconnect()
+      }
+
+      observer.current = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          const response = await fetchMore({
+            variables: {
+              skip: categoriesStateRef.current.length,
+              take: 5,
+            },
+          })
+
+          if (response.data === null || response.data.categories.length < 5) {
+            setHasMore(false)
+          }
+
+          if (response.data.categories) {
+            setCategories(
+              categoriesStateRef.current.concat(response.data.categories)
+            )
+          }
+        }
+      })
+
+      if (node) observer.current.observe(node)
+    },
+    [loading, hasMore]
+  )
+
+  useEffect(() => {
+    setCategories(categoryData?.categories)
+
+    if (
+      categoryData &&
+      (categoryData.categories.length % 5 !== 0 ||
+        categoryData.categories.length < 5)
+    ) {
+      return setHasMore(false)
+    }
+
+    setHasMore(true)
+  }, [categoryData])
 
   return (
     <section className='flex flex-col w-full min-h-[75vh] p-2 bg-white rounded-md shadow-around'>
@@ -198,14 +260,27 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({}) => {
             </button>
           </div>
         </div>
-        {categoryData?.categories
-          ? categoryData.categories.map((category, index) => (
-              <AdminCategoryItem
-                key={category.id}
-                category={category}
-                index={index}
-              />
-            ))
+        {categories?.length > 0
+          ? categories.map((category, index) => {
+              if (categories.length === index + 1) {
+                return (
+                  <AdminCategoryItem
+                    key={category.id}
+                    lastCategoryRef={lastCategoryElementRef}
+                    category={category}
+                    index={index}
+                  />
+                )
+              } else {
+                return (
+                  <AdminCategoryItem
+                    key={category.id}
+                    category={category}
+                    index={index}
+                  />
+                )
+              }
+            })
           : null}
       </div>
     </section>
