@@ -1728,6 +1728,8 @@ export type ConfirmedOrderQuery = (
 
 export type ExploreProductsQueryVariables = Exact<{
   orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
+  take: Scalars['Int'];
+  skip: Scalars['Int'];
   search?: Maybe<Scalars['String']>;
   searchMain?: Maybe<MainCategory>;
   searchSub?: Maybe<SubCategory>;
@@ -3184,9 +3186,11 @@ export type ConfirmedOrderQueryHookResult = ReturnType<typeof useConfirmedOrderQ
 export type ConfirmedOrderLazyQueryHookResult = ReturnType<typeof useConfirmedOrderLazyQuery>;
 export type ConfirmedOrderQueryResult = Apollo.QueryResult<ConfirmedOrderQuery, ConfirmedOrderQueryVariables>;
 export const ExploreProductsDocument = gql`
-    query ExploreProducts($orderBy: [ProductOrderByInput!], $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none", $searchCatName3: String = "none", $searchCatName4: String = "none", $searchCatName5: String = "none", $searchCatName6: String = "none", $searchCatName7: String = "none", $searchCatName8: String = "none", $searchCatName9: String = "none", $searchCatName10: String = "none") {
+    query ExploreProducts($orderBy: [ProductOrderByInput!], $take: Int!, $skip: Int!, $search: String = "", $searchMain: MainCategory = none, $searchSub: SubCategory = none, $searchCatName1: String = "none", $searchCatName2: String = "none", $searchCatName3: String = "none", $searchCatName4: String = "none", $searchCatName5: String = "none", $searchCatName6: String = "none", $searchCatName7: String = "none", $searchCatName8: String = "none", $searchCatName9: String = "none", $searchCatName10: String = "none") {
   products(
     orderBy: $orderBy
+    take: $take
+    skip: $skip
     where: {OR: [{name: {mode: insensitive, contains: $search}}, {description: {mode: insensitive, contains: $search}}, {categories: {some: {name: {mode: insensitive, contains: $search}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName1}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName2}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName3}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName4}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName5}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName6}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName7}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName8}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName9}}}}, {categories: {some: {name: {mode: insensitive, contains: $searchCatName10}}}}, {categories: {some: {mainCategory: {equals: $searchMain}}}}, {categories: {some: {subCategory: {equals: $searchSub}}}}], AND: [{stock: {gt: 0}}, {active: {equals: true}}]}
   ) {
     ...BasicProductInfo
@@ -3207,6 +3211,8 @@ export const ExploreProductsDocument = gql`
  * const { data, loading, error } = useExploreProductsQuery({
  *   variables: {
  *      orderBy: // value for 'orderBy'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
  *      search: // value for 'search'
  *      searchMain: // value for 'searchMain'
  *      searchSub: // value for 'searchSub'
@@ -3223,7 +3229,7 @@ export const ExploreProductsDocument = gql`
  *   },
  * });
  */
-export function useExploreProductsQuery(baseOptions?: Apollo.QueryHookOptions<ExploreProductsQuery, ExploreProductsQueryVariables>) {
+export function useExploreProductsQuery(baseOptions: Apollo.QueryHookOptions<ExploreProductsQuery, ExploreProductsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ExploreProductsQuery, ExploreProductsQueryVariables>(ExploreProductsDocument, options);
       }

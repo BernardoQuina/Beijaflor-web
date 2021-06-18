@@ -1,5 +1,7 @@
 query ExploreProducts(
   $orderBy: [ProductOrderByInput!]
+  $take: Int!
+  $skip: Int!
   $search: String = ""
   $searchMain: MainCategory = none
   $searchSub: SubCategory = none
@@ -16,6 +18,8 @@ query ExploreProducts(
 ) {
   products(
     orderBy: $orderBy
+    take: $take
+    skip: $skip
     where: {
       OR: [
         { name: { mode: insensitive, contains: $search } }

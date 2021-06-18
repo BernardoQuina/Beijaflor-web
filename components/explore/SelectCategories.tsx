@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import {
   BasicCategoryInfoFragment,
+  BasicProductInfoFragment,
   Exact,
   MainCategory,
   ProductOrderByInput,
@@ -11,6 +12,8 @@ interface SelectCategoriesProps {
   category: BasicCategoryInfoFragment
   selectedCategories: string[]
   setSelectedCategories: Dispatch<SetStateAction<string[]>>
+  setHasMore: Dispatch<SetStateAction<boolean>>
+  setProducts: Dispatch<SetStateAction<BasicProductInfoFragment[]>>
   variables: Exact<{
     orderBy?: ProductOrderByInput | ProductOrderByInput[]
     search?: string
@@ -34,6 +37,8 @@ export const SelectCategories: React.FC<SelectCategoriesProps> = ({
   category,
   selectedCategories,
   setSelectedCategories,
+  setProducts,
+  setHasMore,
   variables,
   refetch,
 }) => {
@@ -85,42 +90,64 @@ export const SelectCategories: React.FC<SelectCategoriesProps> = ({
               variables.search = ''
             }
 
-            refetch()
+            const response = await refetch()
+            setProducts(response.data.products)
+            setHasMore(true)
           } else {
             setSelectedCategories((prev) => [...prev, category.name])
 
             if (variables.searchCatName1 === 'none') {
               variables.search = 'nonsense'
               variables.searchCatName1 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName2 === 'none') {
               variables.search = 'nonsense'
               variables.searchCatName2 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName3 === 'none') {
               variables.searchCatName3 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName4 === 'none') {
               variables.searchCatName4 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName5 === 'none') {
               variables.searchCatName5 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName6 === 'none') {
               variables.searchCatName6 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName7 === 'none') {
               variables.searchCatName7 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName8 === 'none') {
               variables.searchCatName8 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName9 === 'none') {
               variables.searchCatName9 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             } else if (variables.searchCatName10 === 'none') {
               variables.searchCatName10 = category.name
-              refetch()
+              const response = await refetch()
+              setProducts(response.data.products)
+              setHasMore(true)
             }
           }
         }}

@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { isEqual, uniqWith } from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Layout } from '../../components/Layout'
 import { Meta } from '../../components/Meta'
@@ -13,6 +13,7 @@ import { useRouter } from 'next/dist/client/router'
 import { initializeApollo } from '../../lib/apolloClient'
 import {
   BasicCategoryInfoFragment,
+  BasicProductInfoFragment,
   CategoriesDocument,
   CategoriesQuery,
   ExploreProductsDocument,
@@ -49,6 +50,7 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
       : ''
   )
   const [orderByModal, setOrderByModal] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
 
   const mainCategoriesArray = [
     MainCategory.Flores,
@@ -101,6 +103,8 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
 
   const {
     data: productsData,
+    loading,
+    fetchMore,
     variables,
     refetch,
   } = useExploreProductsQuery({
@@ -132,8 +136,61 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
         router.query.categories && router.query.categories[0] === 'populares'
           ? { sales: SortOrder.Desc }
           : undefined,
+      take: 9,
+      skip: 0,
     },
   })
+
+  const [products, setProducts] = useState<BasicProductInfoFragment[]>(
+    productsData.products
+  )
+
+  const observer = useRef<IntersectionObserver>()
+  const productsStateRef = useRef<BasicProductInfoFragment[]>()
+
+  productsStateRef.current = products
+
+  const lastProductElementRef = useCallback(
+    (node) => {
+      console.log('hasMore: ', hasMore)
+
+      if (loading) return
+
+      if (observer.current) {
+        observer.current.disconnect()
+      }
+
+      observer.current = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          console.log('here')
+          const response = await fetchMore({
+            variables: {
+              skip: productsStateRef.current!.length,
+              take: 3,
+            },
+          })
+
+          if (response.data === null || response.data.products.length < 3) {
+            setHasMore(false)
+          }
+
+          if (response.errors) {
+            console.log(response.errors[0].message)
+            setHasMore(false)
+          }
+
+          if (response.data.products) {
+            setProducts(
+              productsStateRef.current!.concat(response.data.products)
+            )
+          }
+        }
+      })
+
+      if (node) observer.current.observe(node)
+    },
+    [hasMore]
+  )
 
   const orderByButtonNode = useRef<HTMLButtonElement | null>(null)
   const orderByModalNode = useRef<HTMLDivElement | null>(null)
@@ -195,6 +252,16 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
     )
   }, [router.query.categories])
 
+  useEffect(() => {
+    if (
+      productsData &&
+      (productsData.products.length % 3 !== 0 ||
+        productsData.products.length < 2)
+    ) {
+      setHasMore(false)
+    }
+  }, [productsData])
+
   return (
     <Layout>
       <Meta
@@ -203,7 +270,6 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
             ? `${variables.search} | Florista Beijaflor`
             : 'Explorar | Florista BeijaFlor'
         }
-
         description='Explore aqui a nossa seleção de plantas e flores e receba-as à sua porta. Mais de 20 anos de momentos especiais!'
       />
       <div className='mt-20 mb-20 max-w-[110rem] lg:w-[97%]  mx-auto grid grid-cols-12 grid-row-6'>
@@ -336,6 +402,8 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
                                           }
                                           variables={variables}
                                           refetch={refetch}
+                                          setProducts={setProducts}
+                                          setHasMore={setHasMore}
                                         />
                                       </div>
                                     )
@@ -386,24 +454,45 @@ const explorarCategories: NextPage<explorarCategoriesProps> = ({
             {orderByModal && (
               <OrderByModal
                 setOrderByModal={setOrderByModal}
+                setHasMore={setHasMore}
+                setProducts={setProducts}
                 refetch={refetch}
                 variables={variables}
                 modalRef={orderByModalNode}
               />
             )}
           </div>
-          {productsData.products.length > 0 ? (
+          {products.length > 0 ? (
             <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4'>
-              {productsData.products.map((product) => (
-                <div className='px-4 mt-4 mb-10 z-0' key={product.id}>
-                  <ProductItem
-                    product={product}
-                    height='h-[24rem]'
-                    width='w-[14rem]'
-                    sm={true}
-                  />
-                </div>
-              ))}
+              {products.map((product, index) => {
+                if (products.length === index + 1) {
+                  return (
+                    <div
+                      className='px-4 mt-4 mb-10 z-0'
+                      ref={lastProductElementRef}
+                      key={product.id}
+                    >
+                      <ProductItem
+                        product={product}
+                        height='h-[24rem]'
+                        width='w-[14rem]'
+                        sm={true}
+                      />
+                    </div>
+                  )
+                } else {
+                  return (
+                    <div className='px-4 mt-4 mb-10 z-0' key={product.id}>
+                      <ProductItem
+                        product={product}
+                        height='h-[24rem]'
+                        width='w-[14rem]'
+                        sm={true}
+                      />
+                    </div>
+                  )
+                }
+              })}
             </div>
           ) : (
             <h4 className='ml-4 mt-10 lg:mt-0 text-center lg:text-left text-xl text-green-dark tracking-wider'>
@@ -479,6 +568,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         context.query.categories && context.query.categories[0] === 'populares'
           ? { sales: SortOrder.Desc }
           : undefined,
+      take: 9,
+      skip: 0,
     },
   })
 

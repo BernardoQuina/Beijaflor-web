@@ -5,11 +5,14 @@ import {
   MainCategory,
   SubCategory,
   SortOrder,
+  BasicProductInfoFragment,
 } from '../../lib/generated/graphql'
 
 interface OrderByModalProps {
   modalRef: MutableRefObject<HTMLDivElement>
   setOrderByModal: Dispatch<SetStateAction<boolean>>
+  setHasMore: Dispatch<SetStateAction<boolean>>
+  setProducts: Dispatch<SetStateAction<BasicProductInfoFragment[]>>
   variables: Exact<{
     orderBy?: ProductOrderByInput | ProductOrderByInput[]
     search?: string
@@ -32,6 +35,8 @@ interface OrderByModalProps {
 export const OrderByModal: React.FC<OrderByModalProps> = ({
   modalRef,
   setOrderByModal,
+  setHasMore,
+  setProducts,
   variables,
   refetch,
 }) => {
@@ -45,7 +50,9 @@ export const OrderByModal: React.FC<OrderByModalProps> = ({
         type='button'
         onClick={async () => {
           variables.orderBy = { price: SortOrder.Desc }
-          refetch()
+          const response = await refetch()
+          setProducts(response.data.products)
+          setHasMore(true)
           setOrderByModal(false)
         }}
       >
@@ -58,7 +65,9 @@ export const OrderByModal: React.FC<OrderByModalProps> = ({
         type='button'
         onClick={async () => {
           variables.orderBy = { price: SortOrder.Asc }
-          refetch()
+          const response = await refetch()
+          setProducts(response.data.products)
+          setHasMore(true)
           setOrderByModal(false)
         }}
       >
@@ -71,7 +80,9 @@ export const OrderByModal: React.FC<OrderByModalProps> = ({
         type='button'
         onClick={async () => {
           variables.orderBy = { createdAt: SortOrder.Desc }
-          refetch()
+          const response = await refetch()
+          setProducts(response.data.products)
+          setHasMore(true)
           setOrderByModal(false)
         }}
       >
@@ -84,7 +95,9 @@ export const OrderByModal: React.FC<OrderByModalProps> = ({
         type='button'
         onClick={async () => {
           variables.orderBy = { sales: SortOrder.Desc }
-          refetch()
+          const response = await refetch()
+          setProducts(response.data.products)
+          setHasMore(true)
           setOrderByModal(false)
         }}
       >
