@@ -201,12 +201,12 @@ export const Footer: React.FC<FooterProps> = ({}) => {
                     <p className='my-4'>Sobre nós</p>
                   </a>
                 </Link>
-                <Link href='/condições'>
+                <Link href='/condicoes'>
                   <a>
                     <p className='my-4'>Condições gerais</p>
                   </a>
                 </Link>
-                <Link href='/cookies'>
+                <Link href='/ajuda'>
                   <a>
                     <p className='my-4'>Perguntas frequentes</p>
                   </a>

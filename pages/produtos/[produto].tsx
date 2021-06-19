@@ -217,7 +217,7 @@ const produto: NextPage<produtoProps> = ({ product, keywords }) => {
             </h5>
           </div>
           <h6 className='mt-1 text-pink-medium tracking-[0.2rem]'>
-            {product.categories[0].name.toUpperCase()}
+            {product.categories[product.categories.length - 1].name}
           </h6>
           <p className='mt-4 lg:mt-6 lg:text-lg lg:leading-8 text-green-dark tracking-wide'>
             {product.description}
