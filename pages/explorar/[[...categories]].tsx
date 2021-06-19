@@ -575,6 +575,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       query: CategoriesDocument,
       variables: {
         search: '',
+        skip: 0,
+        take: 1000,
       },
       errorPolicy: 'all',
     })
