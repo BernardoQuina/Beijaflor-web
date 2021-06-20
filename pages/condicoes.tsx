@@ -10,7 +10,7 @@ interface condiçõesProps {}
 const condições: NextPage<condiçõesProps> = ({}) => {
   return (
     <Layout>
-      <Meta title='Definições de conta | Florista Beijaflor' />
+      <Meta title='Condições gerais | Florista Beijaflor' />
       <div className='flex mx-auto w-full max-w-7xl lg:mb-0 -mt-12 lg:-mt-20'>
         <button className='flex p-1' onClick={() => router.back()}>
           <ArrowDown
