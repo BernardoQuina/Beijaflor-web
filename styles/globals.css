@@ -15,7 +15,8 @@ button::selection,
 a::selection,
 img::selection,
 input::selection,
-strong::selection {
+strong::selection,
+br::selection {
   background: #f5fae8;
   color: #ddbea9;
 }
