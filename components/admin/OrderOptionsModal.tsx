@@ -87,6 +87,27 @@ export const OrderOptionsModal: React.FC<OrderOptionsModalProps> = ({
           Entregue
         </h6>
       </button>
+      <button
+        className='flex w-full'
+        type='button'
+        onClick={async () => {
+          await orderState({
+            variables: { whereId: order.id, state: 'Cancelada' },
+            update: (cache) => {
+              cache.evict({ fieldName: 'orders' })
+              cache.evict({ fieldName: 'orderCount' })
+              cache.evict({ fieldName: 'processingCount' })
+              cache.evict({ fieldName: 'inTransitCount' })
+              cache.evict({ fieldName: 'deliveredCount' })
+            },
+          })
+          setShowOrderOptionsModal(false)
+        }}
+      >
+        <h6 className='w-full py-2 text-red-400 tracking-wide text-center rounded-md hover:bg-red-100'>
+          Cancelada
+        </h6>
+      </button>
     </div>
   )
 }
