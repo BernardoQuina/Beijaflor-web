@@ -27,6 +27,7 @@ export type Address = {
   postal: Scalars['String'];
   contact: Scalars['String'];
   instructions?: Maybe<Scalars['String']>;
+  active: Scalars['Boolean'];
   user: User;
   orders: Array<Order>;
   userId: Scalars['String'];
@@ -58,6 +59,7 @@ export type AddressOrderByInput = {
   postal?: Maybe<SortOrder>;
   contact?: Maybe<SortOrder>;
   instructions?: Maybe<SortOrder>;
+  active?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
@@ -77,6 +79,7 @@ export type AddressWhereInput = {
   postal?: Maybe<StringFilter>;
   contact?: Maybe<StringFilter>;
   instructions?: Maybe<StringNullableFilter>;
+  active?: Maybe<BoolFilter>;
   user?: Maybe<UserWhereInput>;
   orders?: Maybe<OrderListRelationFilter>;
   userId?: Maybe<StringFilter>;
@@ -1109,6 +1112,7 @@ export type UserOrdersArgs = {
 
 
 export type UserAddressesArgs = {
+  where?: Maybe<AddressWhereInput>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
   cursor?: Maybe<AddressWhereUniqueInput>;
@@ -1208,7 +1212,7 @@ export type LastPaymentError = {
 
 export type BasicAddressInfoFragment = (
   { __typename?: 'Address' }
-  & Pick<Address, 'id' | 'completeName' | 'country' | 'street' | 'numberAndBlock' | 'zone' | 'region' | 'postal' | 'contact' | 'instructions'>
+  & Pick<Address, 'id' | 'completeName' | 'country' | 'street' | 'numberAndBlock' | 'zone' | 'region' | 'postal' | 'contact' | 'instructions' | 'active'>
 );
 
 export type BasicCartInfoFragment = (
@@ -2002,6 +2006,7 @@ export const BasicAddressInfoFragmentDoc = gql`
   postal
   contact
   instructions
+  active
 }
     `;
 export const BasicOrderItemInfoFragmentDoc = gql`
@@ -2049,7 +2054,7 @@ export const BasicUserInfoFragmentDoc = gql`
   wishlist {
     ...BasicWishListInfo
   }
-  addresses {
+  addresses(where: {active: {equals: true}}) {
     ...BasicAddressInfo
   }
   orders(orderBy: {createdAt: desc}) {

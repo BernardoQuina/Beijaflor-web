@@ -9,4 +9,5 @@ fragment BasicAddressInfo on Address {
   postal
   contact
   instructions
+  active
 }

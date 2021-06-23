@@ -12,7 +12,7 @@ fragment BasicUserInfo on User {
   wishlist {
     ...BasicWishListInfo
   }
-  addresses {
+  addresses(where: { active: { equals: true } }) {
     ...BasicAddressInfo
   }
   orders(orderBy: { createdAt: desc }) {
