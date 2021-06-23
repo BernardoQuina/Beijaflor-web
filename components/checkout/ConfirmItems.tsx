@@ -54,7 +54,7 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
               </h3>
             </div>
           </div>
-          <div className='flex flex-col w-full pb-4 px-3 lg:px-4 h-[21rem] xs:h-[34rem] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
+          <div className='flex flex-col w-full pb-4 px-3 lg:px-4 h-[19.5rem] xs:h-[32.5rem] overflow-y-scroll scrollbar-thin scrollbar-thumb-green-light scrollbar-thumb-rounded-full'>
             {data?.me?.cart.cartItems.map((cartItem) => (
               <div className='flex w-full' key={cartItem.id}>
                 <div className='flex relative mx-auto w-[99%] lg:w-[80%] p-2 mt-3 h-[5.4rem] rounded-md shadow-around'>
@@ -196,15 +196,30 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
               </div>
             ))}
           </div>
-          <div className='flex w-full h-[4rem] border-t'>
-            <div className='flex flex-col w-[55%] lg:w-[78%] pl-4 p-2'>
+          <div className='flex w-full h-[5.5rem] border-t'>
+            <div className='flex flex-col w-[85%] lg:w-[78%] pl-4 p-2'>
+              <div className='flex'>
+                <h3 className='text-green-dark tracking-wide'>
+                  Taxa de Entrega
+                </h3>
+                {data?.me.cart.price >= 35 ? (
+                  <h3 className='font-bold ml-auto text-green-dark'>GRÁTIS</h3>
+                ) : (
+                  <>
+                    <h3 className='ml-auto mr-1 font-bold text-sm text-green-dark'>
+                      €
+                    </h3>
+                    <h3 className='font-bold text-green-dark'>5.00</h3>
+                  </>
+                )}
+              </div>
               <div className='flex'>
                 <h3 className='text-green-dark tracking-wide'>Total</h3>
                 <h3 className='ml-auto mr-1 font-bold text-sm text-green-dark'>
                   €
                 </h3>
                 <h3 className='font-bold text-green-dark'>
-                  {data?.me.cart.price.toFixed(2)}
+                  {data?.me.cart.price >= 35 ? `${data?.me.cart.price.toFixed(2)}` : `${(data?.me.cart.price + 5).toFixed(2)}`}
                 </h3>
               </div>
               <div className='flex'>
@@ -217,7 +232,7 @@ export const ConfirmItems: React.FC<ConfirmItemsProps> = ({
             <div className='flex w-[45%] lg:w-[22%]  ml-auto p-2'>
               <button
                 type='button'
-                className='h-full w-full max-w-[8rem] ml-auto flex flex-col rounded-md shadow-md bg-green-extraLight hover:opacity-80 opacity-100'
+                className='h-[80%] self-center w-full max-w-[6rem] md:max-w-[8rem] ml-auto flex flex-col rounded-md shadow-md bg-green-extraLight hover:opacity-80 opacity-100'
                 onClick={() => setCheckoutFase('address')}
               >
                 <h5 className='text-center m-auto text-green-dark tracking-wider'>

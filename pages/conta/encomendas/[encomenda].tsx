@@ -8,6 +8,7 @@ import { DateTime } from 'luxon'
 import { Layout } from '../../../components/Layout'
 import { Meta } from '../../../components/Meta'
 import { ArrowDown } from '../../../components/svg/ArrowDown'
+import { Shipping } from '../../../components/svg/Shipping'
 import { useMeQuery, useSingleOrderQuery } from '../../../lib/generated/graphql'
 import { isServer } from '../../../utils/isServer'
 import { useIsAuth } from '../../../utils/useIsAuth'
@@ -104,12 +105,14 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
           </div>
         </div>
         <div className='w-full flex flex-col px-2'>
-          <div className='flex flex-col px-2 py-4 border-t'>
+          <div className='flex flex-col p-2 border-t'>
             {data?.order?.orderItems.map((orderItem, index) => (
               <div
                 key={orderItem.id}
                 className={`w-full py-2 flex ${
-                  data?.order?.orderItems.length !== index + 1 && 'border-b'
+                  (data?.order?.orderItems.length !== index + 1 ||
+                    data?.order?.price < 35) &&
+                  'border-b'
                 }`}
               >
                 <div className='flex'>
@@ -172,6 +175,42 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
                 </div>
               </div>
             ))}
+            {data?.order?.price < 35 && (
+              <div className='w-full py-2 flex'>
+                <div className='flex'>
+                  <Shipping
+                    tailwind='h-14 fill-current text-green-medium m-auto'
+                    strokeWidth={0.1}
+                  />
+                </div>
+                <div className='flex flex-col w-[65%] lg:w-[75%]'>
+                  <div className='flex flex-col ml-2 my-auto'>
+                    <h5 className='mt-auto leading-tight text-green-dark font-serif tracking-wider'>
+                      Taxa de entrega
+                    </h5>
+                    <div className='mb-auto flex mt-1'>
+                      <h5 className='mr-1 text-xs text-green-dark font-bold'>
+                        €
+                      </h5>
+                      <h5 className='text-green-dark'>5.00</h5>
+                    </div>
+                  </div>
+                </div>
+                <div className='flex mx-auto lg:mr-2 min-w-[2.2rem]'>
+                  <div className='flex self-center'>
+                    <h5 className='mr-2 text-green-dark'>x 1</h5>
+                  </div>
+                </div>
+                <div className='flex ml-auto lg:mr-2  min-w-[3.2rem]'>
+                  <div className='flex self-center'>
+                    <h5 className='mr-1 text-xs text-green-dark font-bold'>
+                      €
+                    </h5>
+                    <h5 className='text-green-dark'>5.00</h5>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div className='flex flex-col border-t'>
             <div className='flex px-4 py-2'>

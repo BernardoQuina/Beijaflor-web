@@ -63,9 +63,11 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
 
     let unitsValue = 0
 
-    purchaseUnits.forEach(
-      (unit) => (unitsValue += parseFloat(unit.amount.value))
-    )
+    purchaseUnits.forEach((unit) => {
+      if (unit.description !== 'Taxa de entrega') {
+        return (unitsValue += parseFloat(unit.amount.value))
+      }
+    })
 
     if (data.me.cart.price.toFixed(2) !== unitsValue.toFixed(2)) {
       return setPaymentMethod('')
@@ -189,14 +191,18 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
           <h5 className='text-green-dark'>Subtotal</h5>
           <h5 className='ml-auto mr-1 text-sm self-start text-green-dark'>€</h5>
           <h5 className='text-green-dark'>
-            {(data.me?.cart?.price * 0.77).toFixed(2)}
+            {data.me?.cart?.price >= 35
+              ? (data.me?.cart?.price * 0.77).toFixed(2)
+              : (data.me?.cart?.price * 0.77 + 5).toFixed(2)}
           </h5>
         </div>
         <div className='flex p-4'>
           <h5 className='text-green-dark'>IVA (23%)</h5>
           <h5 className='ml-auto mr-1 text-sm self-start text-green-dark'>€</h5>
           <h5 className='text-green-dark'>
-            {(data.me?.cart?.price * 0.23).toFixed(2)}
+            {data.me?.cart?.price >= 35
+              ? (data.me?.cart?.price * 0.23).toFixed(2)
+              : (data.me?.cart?.price * 0.23 + 5).toFixed(2)}
           </h5>
         </div>
         <div className='flex p-4'>
@@ -205,7 +211,9 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
             €
           </h5>
           <h5 className='text-green-dark font-bold'>
-            {data.me?.cart?.price.toFixed(2)}
+            {data.me?.cart?.price >= 35
+              ? (data.me?.cart?.price).toFixed(2)
+              : (data.me?.cart?.price + 5).toFixed(2)}
           </h5>
         </div>
       </div>

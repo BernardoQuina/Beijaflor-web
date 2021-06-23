@@ -30,7 +30,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   setPaymentMethod,
   setCheckoutFase,
   setConfirmedOrderId,
-  cartItemsIds
+  cartItemsIds,
 }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -66,7 +66,10 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
     const getIntent = async () => {
       const response = await createPaymentIntent({
         variables: {
-          amount: parseInt((data?.me?.cart.price * 100).toFixed(0)),
+          amount:
+            data?.me?.cart.price >= 35
+              ? data?.me?.cart.price * 100
+              : (data?.me?.cart.price + 5) * 100,
         },
       })
 
@@ -254,7 +257,9 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
                 €
               </h5>
               <h5 className='text-green-dark'>
-                {(data.me?.cart?.price * 0.77).toFixed(2)}
+                {data.me?.cart?.price >= 35
+                  ? (data.me?.cart?.price * 0.77).toFixed(2)
+                  : (data.me?.cart?.price * 0.77 + 5).toFixed(2)}
               </h5>
             </div>
             <div className='flex p-4'>
@@ -263,7 +268,9 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
                 €
               </h5>
               <h5 className='text-green-dark'>
-                {(data.me?.cart?.price * 0.23).toFixed(2)}
+                {data.me?.cart?.price >= 35
+                  ? (data.me?.cart?.price * 0.23).toFixed(2)
+                  : (data.me?.cart?.price * 0.23 + 5).toFixed(2)}
               </h5>
             </div>
             <div className='flex p-4'>
@@ -272,7 +279,9 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
                 €
               </h5>
               <h5 className='text-green-dark font-bold'>
-                {data.me?.cart?.price.toFixed(2)}
+                {data.me?.cart?.price >= 35
+                  ? (data.me?.cart?.price).toFixed(2)
+                  : (data.me?.cart?.price + 5).toFixed(2)}
               </h5>
             </div>
           </div>

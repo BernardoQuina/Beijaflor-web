@@ -55,10 +55,24 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
             currency_code: 'EUR',
             value: (cartItem.product.price * cartItem.quantity).toFixed(2),
           },
-          reference_id: cartItem.id
+          reference_id: cartItem.id,
         },
       ])
     })
+
+    if (data?.me?.cart.price < 35) {
+      setPurchaseUnits((prev) => [
+        ...prev,
+        {
+          description: 'Taxa de entrega',
+          amount: {
+            currency_code: 'EUR',
+            value: '5.00',
+          },
+          reference_id: data?.me?.cart?.id,
+        },
+      ])
+    }
   }, [data])
 
   return (
