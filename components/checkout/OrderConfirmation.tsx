@@ -37,24 +37,32 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
           <div className='flex flex-col lg:flex-row p-2'>
             <div className='flex flex-col p-2 mr-auto'>
               <h6 className='text-gray-400 tracking-wide mb-1'>
-                Data de encomenda
+                Data do pedido
               </h6>
-              <p className='tracking-wide'>
+              <p className='tracking-wide text-green-dark'>
                 {DateTime.fromISO(orderData?.order?.createdAt)
                   .setLocale('pt-pt')
                   .toLocaleString(DateTime.DATETIME_MED)}
               </p>
             </div>
             <div className='flex flex-col p-2 lg:mr-auto border-t lg:border-t-0 lg:border-l'>
+              <h6 className='text-gray-400 tracking-wide mb-1'>Agendamento</h6>
+              <p className='tracking-wide text-green-dark'>
+                {DateTime.fromISO(orderData?.order?.deliveryDate)
+                  .setLocale('pt-pt')
+                  .toLocaleString()}
+              </p>
+            </div>
+            <div className='flex flex-col p-2 lg:mr-auto border-t lg:border-t-0 lg:border-l'>
               <h6 className='text-gray-400 tracking-wide mb-1'>Pagamento</h6>
-              <p className='tracking-wide'>{orderData?.order?.cardDetails}</p>
+              <p className='tracking-wide text-green-dark'>{orderData?.order?.cardDetails}</p>
             </div>
             <div className='flex flex-col lg:w-[50%] p-2 border-t lg:border-t-0 lg:border-l'>
               <h6 className='text-gray-400 tracking-wide mb-1'>Morada</h6>
-              <p className='tracking-wide'>
+              <p className='tracking-wide text-green-dark'>
                 {orderData?.order?.address.completeName},
               </p>
-              <p className='tracking-wide'>
+              <p className='tracking-wide text-green-dark'>
                 {`${orderData?.order?.address.street}, ${orderData?.order?.address.numberAndBlock}, ${orderData?.order?.address.postal} ${orderData?.order?.address.zone}`}
               </p>
             </div>

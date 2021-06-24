@@ -19,6 +19,7 @@ interface MakePaymentProps {
   setCheckoutFase: Dispatch<SetStateAction<string>>
   setConfirmedOrderId: Dispatch<SetStateAction<string>>
   addressId: string
+  selectedDate: Date
 }
 
 export const MakePayment: React.FC<MakePaymentProps> = ({
@@ -27,6 +28,7 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
   setConfirmedOrderId,
   confirmedOrderId,
   addressId,
+  selectedDate
 }) => {
   const [paymentMethod, setPaymentMethod] = useState('')
   const [paypal, setPaypal] = useState<PayPalNamespace>(undefined)
@@ -154,6 +156,7 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
                 setConfirmedOrderId={setConfirmedOrderId}
                 cartItemsIds={cartItemsIds}
                 addressId={addressId}
+                selectedDate={selectedDate}
                 data={data}
               />
             </motion.div>
@@ -188,6 +191,7 @@ export const MakePayment: React.FC<MakePaymentProps> = ({
                 confirmedOrderId={confirmedOrderId}
                 cartItemsIds={cartItemsIds}
                 addressId={addressId}
+                selectedDate={selectedDate}
                 data={data}
               />
             </motion.div>

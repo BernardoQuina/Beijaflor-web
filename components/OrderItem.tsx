@@ -104,21 +104,29 @@ export const OrderItem: React.FC<OrderItemProps> = ({
             : null}
         </h5>
         <div className='flex flex-col lg:flex-row mt-2 w-[85%] xs:w-[90%] lg:w-[97%]'>
-          <div className='flex flex-col ml-1 min-w-[9rem]'>
-            <h5 className='text-gray-400'>Data de encomenda</h5>
+          <div className='flex flex-col ml-1 min-w-[7rem]'>
+            <h5 className='text-gray-400'>Data do pedido</h5>
             <p className='ml-1 tracking-wide text-green-dark'>
               {DateTime.fromISO(order.createdAt)
                 .setLocale('pt-pt')
                 .toLocaleString()}
             </p>
           </div>
-          <div className='flex flex-col ml-1 lg:ml-10 mt-2 lg:mt-0 w-full lg:w-[14rem]'>
+          <div className='flex flex-col ml-1 mt-2 lg:mt-0 lg:ml-4 min-w-[7.5rem]'>
+            <h5 className='text-gray-400'>Agendamento</h5>
+            <p className='ml-1 tracking-wide text-green-dark'>
+              {DateTime.fromISO(order.deliveryDate)
+                .setLocale('pt-pt')
+                .toLocaleString()}
+            </p>
+          </div>
+          <div className='flex flex-col ml-1 lg:ml-4 mt-2 lg:mt-0 w-full lg:w-[14rem]'>
             <h5 className='text-gray-400'>Enviar para</h5>
             <p className='ml-1 tracking-wide text-green-dark'>
               {order.address.completeName}
             </p>
           </div>
-          <div className='flex flex-col ml-1 lg:ml-5 mt-2 lg:mt-0'>
+          <div className='flex flex-col ml-1 lg:ml-4 mt-2 lg:mt-0'>
             <h5 className='text-gray-400'>Total</h5>
             <div className='flex ml-1'>
               <h5 className='mr-1 text-green-dark text-sm self-start tracking-wide font-bold'>
@@ -129,12 +137,12 @@ export const OrderItem: React.FC<OrderItemProps> = ({
               </h5>
             </div>
           </div>
-          <div className='flex flex-col ml-1 lg:ml-5 mt-2 lg:mt-0'>
+          <div className='flex flex-col ml-1 lg:ml-4 mt-2 lg:mt-0'>
             <h5 className='text-gray-400'>Estado</h5>
 
             <h5 className='text-green-dark tracking-wide'>{order.state}</h5>
           </div>
-          <div className='flex flex-col ml-1 lg:ml-5 mt-2 lg:mt-0'>
+          <div className='flex flex-col ml-1 lg:ml-4 mt-2 lg:mt-0'>
             <h5 className='text-gray-400'>ID da encomenda</h5>
             <p className='ml-1 tracking-wide text-green-dark text-sm'>
               {order.id}

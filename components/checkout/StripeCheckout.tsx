@@ -18,6 +18,7 @@ import { ArrowDown } from '../svg/ArrowDown'
 interface StripeCheckoutProps {
   data: MeQuery
   addressId: string
+  selectedDate: Date
   setPaymentMethod: Dispatch<SetStateAction<string>>
   setCheckoutFase: Dispatch<SetStateAction<string>>
   setConfirmedOrderId: Dispatch<SetStateAction<string>>
@@ -27,6 +28,7 @@ interface StripeCheckoutProps {
 export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
   data,
   addressId,
+  selectedDate,
   setPaymentMethod,
   setCheckoutFase,
   setConfirmedOrderId,
@@ -68,8 +70,8 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
         variables: {
           amount:
             data?.me?.cart.price >= 35
-              ? data?.me?.cart.price * 100
-              : (data?.me?.cart.price + 5) * 100,
+              ? Math.round(data?.me?.cart.price * 100)
+              : Math.round((data?.me?.cart.price + 5) * 100),
         },
       })
 
@@ -101,6 +103,7 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
         const createOrderResponse = await createOrder({
           variables: {
             addressId,
+            deliveryDate: selectedDate.toString(),
             cartId: data?.me?.cart.id,
             cartItemsIds,
           },

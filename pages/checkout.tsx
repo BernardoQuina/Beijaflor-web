@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { slideFromRightToLeft, slideLeft } from '../utils/animations'
 import { MakePayment } from '../components/checkout/MakePayment'
 import { OrderConfirmation } from '../components/checkout/OrderConfirmation'
+import { ChooseDate } from '../components/checkout/ChooseDate'
 
 interface checkoutProps {}
 
@@ -26,6 +27,11 @@ const checkout: NextPage<checkoutProps> = ({}) => {
   const [checkoutFase, setCheckoutFase] = useState('confirm items')
   const [addressId, setAddressId] = useState<string | null>(null)
   const [confirmedOrderId, setConfirmedOrderId] = useState<string | null>(null)
+
+  let minDate = new Date()
+  minDate.setDate(minDate.getDate() + 1)
+
+  const [selectedDate, setSelectedDate] = useState(minDate)
 
   const { data } = useMeQuery({ errorPolicy: 'all', skip: isServer() })
 
@@ -71,6 +77,22 @@ const checkout: NextPage<checkoutProps> = ({}) => {
                 addressId={addressId}
               />
             </motion.div>
+          ) : checkoutFase === 'date' ? (
+            <motion.div
+              key='date'
+              className='w-full'
+              initial='initial'
+              animate='animate'
+              exit='exit'
+              variants={slideFromRightToLeft}
+            >
+              <ChooseDate
+                setCheckoutFase={setCheckoutFase}
+                setSelectedDate={setSelectedDate}
+                selectedDate={selectedDate}
+                minDate={minDate}
+              />
+            </motion.div>
           ) : checkoutFase === 'payment' ? (
             <motion.div
               key='payment'
@@ -86,6 +108,7 @@ const checkout: NextPage<checkoutProps> = ({}) => {
                 setConfirmedOrderId={setConfirmedOrderId}
                 confirmedOrderId={confirmedOrderId}
                 addressId={addressId}
+                selectedDate={selectedDate}
               />
             </motion.div>
           ) : checkoutFase === 'confirmation' ? (

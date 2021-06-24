@@ -11,6 +11,7 @@ fragment BasicOrderInfo on Order {
   address {
     ...BasicAddressInfo
   }
+  deliveryDate
   createdAt
   updatedAt
 }

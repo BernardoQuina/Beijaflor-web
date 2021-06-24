@@ -16,6 +16,7 @@ interface PaypalCheckoutProps {
   purchaseUnits: PurchaseUnit[]
   data: MeQuery
   addressId: string
+  selectedDate: Date
   setPaymentMethod: Dispatch<SetStateAction<string>>
   setCheckoutFase: Dispatch<SetStateAction<string>>
   setConfirmedOrderId: Dispatch<SetStateAction<string>>
@@ -28,6 +29,7 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
   purchaseUnits,
   data,
   addressId,
+  selectedDate,
   setPaymentMethod,
   setCheckoutFase,
   setConfirmedOrderId,
@@ -88,6 +90,7 @@ export const PaypalCheckout: React.FC<PaypalCheckoutProps> = ({
           const createOrderResponse = await createOrder({
             variables: {
               addressId,
+              deliveryDate: selectedDate.toString(),
               cartId: data?.me?.cart.id,
               cartItemsIds,
             },

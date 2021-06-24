@@ -71,14 +71,24 @@ const encomenda: NextPage<encomendaProps> = ({}) => {
               </h6>
               <p className='text-sm text-green-dark'>{data?.order?.id}</p>
             </div>
-            <div className='flex flex-col p-2 min-w-[17%] lg:mr-auto border-t lg:border-t-0 lg:border-l'>
+            <div className='flex flex-col p-2 min-w-[16%] lg:mr-auto border-t lg:border-t-0 lg:border-l'>
               <h6 className='text-gray-400 tracking-wide mb-1'>
-                Data de encomenda
+                Data do pedido
               </h6>
               <p className='tracking-wide text-green-dark'>
                 {DateTime.fromISO(data?.order?.createdAt)
                   .setLocale('pt-pt')
                   .toLocaleString(DateTime.DATETIME_MED)}
+              </p>
+            </div>
+            <div className='flex flex-col p-2 min-w-[13%] lg:mr-auto border-t lg:border-t-0 lg:border-l'>
+              <h6 className='text-gray-400 tracking-wide mb-1'>
+                Agendamento
+              </h6>
+              <p className='tracking-wide text-green-dark'>
+                {DateTime.fromISO(data?.order?.deliveryDate)
+                  .setLocale('pt-pt')
+                  .toLocaleString()}
               </p>
             </div>
             <div className='flex flex-col p-2 lg:mr-auto border-t lg:border-t-0 lg:border-l'>

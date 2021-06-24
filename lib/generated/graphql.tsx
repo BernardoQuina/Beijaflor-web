@@ -531,6 +531,7 @@ export type MutationCreateOrderArgs = {
   cartId: Scalars['String'];
   cartItemsIds: Array<Scalars['String']>;
   addressId: Scalars['String'];
+  deliveryDate: Scalars['String'];
 };
 
 
@@ -638,6 +639,7 @@ export type Order = {
   state: Scalars['String'];
   userId: Scalars['String'];
   addressId: Scalars['String'];
+  deliveryDate: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -709,6 +711,7 @@ export type OrderOrderByInput = {
   state?: Maybe<SortOrder>;
   userId?: Maybe<SortOrder>;
   addressId?: Maybe<SortOrder>;
+  deliveryDate?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -727,6 +730,7 @@ export type OrderWhereInput = {
   orderItems?: Maybe<OrderItemListRelationFilter>;
   userId?: Maybe<StringFilter>;
   addressId?: Maybe<StringFilter>;
+  deliveryDate?: Maybe<DateTimeFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -1240,7 +1244,7 @@ export type BasicCategoryInfoFragment = (
 
 export type BasicOrderInfoFragment = (
   { __typename?: 'Order' }
-  & Pick<Order, 'id' | 'userId' | 'price' | 'quantity' | 'cardDetails' | 'state' | 'createdAt' | 'updatedAt'>
+  & Pick<Order, 'id' | 'userId' | 'price' | 'quantity' | 'cardDetails' | 'state' | 'deliveryDate' | 'createdAt' | 'updatedAt'>
   & { orderItems: Array<(
     { __typename?: 'OrderItem' }
     & BasicOrderItemInfoFragment
@@ -1375,6 +1379,7 @@ export type CreateOrderMutationVariables = Exact<{
   cartId: Scalars['String'];
   cartItemsIds: Array<Scalars['String']> | Scalars['String'];
   addressId: Scalars['String'];
+  deliveryDate: Scalars['String'];
 }>;
 
 
@@ -2034,6 +2039,7 @@ export const BasicOrderInfoFragmentDoc = gql`
   address {
     ...BasicAddressInfo
   }
+  deliveryDate
   createdAt
   updatedAt
 }
@@ -2234,8 +2240,13 @@ export type CreateCartItemMutationHookResult = ReturnType<typeof useCreateCartIt
 export type CreateCartItemMutationResult = Apollo.MutationResult<CreateCartItemMutation>;
 export type CreateCartItemMutationOptions = Apollo.BaseMutationOptions<CreateCartItemMutation, CreateCartItemMutationVariables>;
 export const CreateOrderDocument = gql`
-    mutation CreateOrder($cartId: String!, $cartItemsIds: [String!]!, $addressId: String!) {
-  createOrder(cartId: $cartId, cartItemsIds: $cartItemsIds, addressId: $addressId) {
+    mutation CreateOrder($cartId: String!, $cartItemsIds: [String!]!, $addressId: String!, $deliveryDate: String!) {
+  createOrder(
+    cartId: $cartId
+    cartItemsIds: $cartItemsIds
+    addressId: $addressId
+    deliveryDate: $deliveryDate
+  ) {
     ...BasicOrderInfo
   }
 }
@@ -2258,6 +2269,7 @@ export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation,
  *      cartId: // value for 'cartId'
  *      cartItemsIds: // value for 'cartItemsIds'
  *      addressId: // value for 'addressId'
+ *      deliveryDate: // value for 'deliveryDate'
  *   },
  * });
  */

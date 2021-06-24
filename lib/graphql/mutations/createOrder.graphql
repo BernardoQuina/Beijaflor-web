@@ -2,11 +2,13 @@ mutation CreateOrder(
   $cartId: String!
   $cartItemsIds: [String!]!
   $addressId: String!
+  $deliveryDate: String!
 ) {
   createOrder(
     cartId: $cartId
     cartItemsIds: $cartItemsIds
     addressId: $addressId
+    deliveryDate: $deliveryDate
   ) {
     ...BasicOrderInfo
   }
